@@ -1,0 +1,3 @@
+[submodule "docs/ArenaFlow-spec"]
+	path = docs/ArenaFlow-spec
+	url = https://github.com/phananh2005/ArenaFlow-spec.git
