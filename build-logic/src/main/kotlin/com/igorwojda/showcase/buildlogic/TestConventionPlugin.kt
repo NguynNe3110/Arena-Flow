@@ -8,7 +8,7 @@ import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.withType
 
-class TestConventionPlugin : Plugin<Project> {
+class TestConventionPlugin : Plugin<Project> { // bật chế độ chạy Junit 5 song song
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply("com.adarshr.test-logger")

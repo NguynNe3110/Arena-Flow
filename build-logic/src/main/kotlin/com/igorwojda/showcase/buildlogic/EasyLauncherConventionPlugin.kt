@@ -7,7 +7,8 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 
 @Suppress("detekt.LongMethod")
-class EasyLauncherConventionPlugin : Plugin<Project> {
+class EasyLauncherConventionPlugin : Plugin<Project> { // plugin này tự đông đóng dấu ruy băng (ribbon) lên icon app
+    // khi buil bản debug
     override fun apply(project: Project) {
         with(project) {
             with(pluginManager) {
