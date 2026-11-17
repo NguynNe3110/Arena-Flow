@@ -41,7 +41,7 @@ dependencies {
     e.g. add("implementation", libs.koin)
     https://github.com/gradle/gradle/issues/15383
      */
-    implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
+    implementation(files((libs as Any).javaClass.superclass.protectionDomain.codeSource.location))
 }
 
 tasks {

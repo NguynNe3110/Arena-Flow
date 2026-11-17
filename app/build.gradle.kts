@@ -20,7 +20,8 @@ android {
     }
 
     buildTypes {
-        getByName("release") {
+        getByName("release") { // cần key để kí TODO sign keystore
+            signingConfig = signingConfigs.getByName("debug") // ký tạm bằng debug
             isMinifyEnabled = false
             proguardFiles("proguard-android.txt", "proguard-rules.pro")
         }
