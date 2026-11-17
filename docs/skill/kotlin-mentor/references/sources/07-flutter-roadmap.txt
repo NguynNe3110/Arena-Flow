@@ -1,0 +1,653 @@
+GIAI ĐOẠN 1: CÁC UI COMPONENT CƠ BẢN
+(Học song song với Bài 1-5, map 1:1 với Jetpack Compose)
+🎯 Nhóm 1: Text & Input (Nhập liệu & Hiển thị văn bản)
+Flutter Widget
+Jetpack Compose
+Ghi chú quan trọng
+Text('Hello')
+Text("Hello")
+Dùng TextStyle để format (giống style trong Compose).
+TextField
+TextField
+Khác biệt: Flutter cần TextEditingController để lấy/gán dữ liệu.
+TextFormField
+OutlinedTextField
+Dùng trong Form để validate.
+RichText
+AnnotatedString
+Text nhiều màu/style trong cùng 1 dòng.
+📐 Nhóm 2: Layout (Bố cục - Quan trọng nhất)
+Flutter Widget
+Jetpack Compose
+Ghi chú quan trọng
+Container
+Box + Modifier.background
+Widget "đa năng": chứa color, padding, margin, decoration, alignment.
+SizedBox
+Box + Modifier.size
+Dùng để tạo khoảng trống hoặc cố định kích thước.
+Padding
+Modifier.padding
+Widget riêng để tạo padding (tư duy composition).
+Row
+Row
+mainAxisAlignment ↔ horizontalArrangement.
+Column
+Column
+mainAxisAlignment ↔ verticalArrangement.
+Stack
+Box (chồng con)
+Xếp chồng các widget lên nhau.
+Positioned
+Không có trực tiếp
+Dùng trong Stack để định vị tuyệt đối (giống Modifier.offset).
+Expanded
+Modifier.weight(1f)
+Chiếm hết không gian còn lại theo tỉ lệ.
+Flexible
+Modifier.weight(1f, fill=false)
+Linh hoạt hơn Expanded.
+Spacer
+Spacer
+Tạo khoảng trống.
+Center
+Box(contentAlignment = Center)
+Căn giữa con.
+Align
+Box(contentAlignment = ...)
+Căn theo hướng cụ thể.
+Wrap
+FlowRow / FlowColumn
+Tự xuống dòng khi hết chỗ (dùng cho tag/chip).
+🎨 Nhóm 3: Decoration & Shape (Trang trí)
+Flutter Widget
+Jetpack Compose
+Ghi chú quan trọng
+Card
+Card
+Có sẵn elevation (shadow).
+DecoratedBox
+Modifier.background + Modifier.clip
+Flutter gộp background, border, shadow vào BoxDecoration.
+ClipRRect
+Modifier.clip(RoundedCornerShape)
+Bo góc cho widget con.
+ClipOval
+Modifier.clip(CircleShape)
+Cắt thành hình tròn.
+🔘 Nhóm 4: Button & Action (Nút bấm)
+Flutter Widget
+Jetpack Compose
+Ghi chú quan trọng
+ElevatedButton
+Button
+Nút có nền nổi.
+TextButton
+TextButton
+Nút chỉ có text, không nền.
+OutlinedButton
+OutlinedButton
+Nút có viền.
+IconButton
+IconButton
+Nút chỉ có icon.
+FloatingActionButton
+FloatingActionButton
+Nút tròn nổi (giống hệt).
+InkWell / GestureDetector
+Modifier.clickable
+Bắt sự kiện chạm. Khác biệt lớn: Flutter tách riêng widget bắt sự kiện.
+🖼️ Nhóm 5: Image & Icon (Hình ảnh)
+Flutter Widget
+Jetpack Compose
+Ghi chú quan trọng
+Image.asset('path')
+painterResource(R.drawable.xxx)
+Cần khai báo trong pubspec.yaml.
+Image.network('url')
+AsyncImage (Coil)
+Load ảnh từ URL.
+Icon(Icons.xxx)
+Icon(Icons.xxx)
+Dùng Material Icons có sẵn.
+CircleAvatar
+Không có trực tiếp
+Dùng cho avatar tròn (thường bọc Image trong ClipOval).
+SvgPicture.asset (package)
+Hỗ trợ native
+Cần cài package flutter_svg.
+📜 Nhóm 6: List & Scroll (Danh sách)
+Flutter Widget
+Jetpack Compose
+Ghi chú quan trọng
+ListView
+LazyColumn
+Dùng .builder cho list dài (giống LazyColumn).
+GridView
+LazyVerticalGrid
+Lưới cuộn.
+SingleChildScrollView
+Column + Modifier.verticalScroll
+Cho phép cuộn 1 nội dung cố định.
+CustomScrollView + SliverList
+LazyColumn với stickyHeader
+Nâng cao, học sau.
+🔔 Nhóm 7: Feedback (Phản hồi)
+Flutter Widget
+Jetpack Compose
+Ghi chú quan trọng
+AlertDialog
+AlertDialog
+Hộp thoại (giống hệt).
+SnackBar
+Snackbar
+Thông báo ngắn ở đáy.
+BottomSheet
+ModalBottomSheet
+Sheet trượt từ dưới lên.
+CircularProgressIndicator
+CircularProgressIndicator
+Loading tròn.
+LinearProgressIndicator
+LinearProgressIndicator
+Loading thanh ngang.
+
+
+// =========================== title_here ==================================================
+    
+// =========================================================================================
+
+📚 CẨM NANG TRA CỨU: LỘ TRÌNH FLUTTER 35 BÀI (BẢN CHUẨN HÓA - DÀNH CHO ANDROID DEV)
+(Tuân thủ tuyệt đối Meta Rule - Tầng 1: Foundation Rules & Tầng 2: Learning Rules)
+
+🏗️ GIAI ĐOẠN 1: Flutter Foundation (Nền tảng UI)
+Mục tiêu: Hiểu cơ chế vẽ UI của Flutter, đặc biệt là những khái niệm Jetpack Compose không có. Chỉ dùng setState ở giai đoạn này.
+Bài 1: Widget Tree & Element Tree
+Là gì: Cấu trúc cây lồng ghép của các Widget. Mọi thứ trong Flutter đều là Widget. Flutter tách biệt rõ ràng giữa Widget (cấu hình bất biến) và Element/RenderObject (đối tượng vẽ thực tế).
+Map Android: Tương tự cây Composable trong Compose, nhưng Flutter có thêm tầng Element Tree để tối ưu việc tái sử dụng.
+Bài 2: StatelessWidget
+Là gì: Widget không thay đổi trạng thái sau khi được build. Nhận dữ liệu từ bên ngoài (constructor) và chỉ vẽ ra UI.
+Map Android: @Composable function chỉ nhận tham số và không chứa remember { mutableStateOf() }.
+Bài 3: StatefulWidget
+Là gì: Widget có thể thay đổi giao diện theo thời gian. Nó đi kèm với một State object riêng biệt để lưu trữ dữ liệu.
+Map Android: @Composable function có sử dụng remember để lưu giữ state.
+Bài 4: setState()
+Là gì: Hàm gọi bên trong State của StatefulWidget để báo cho Flutter biết "dữ liệu đã thay đổi, hãy vẽ lại UI".
+Map Android: Việc gán giá trị mới cho biến state trong Compose (ví dụ: count++), Compose tự động phát hiện và recompose.
+Bài 5: BuildContext ⚠️ (Quan trọng nhất)
+Là gì: Một "handle" (tay cầm) tham chiếu đến vị trí của widget này trong Widget Tree. Dùng để tìm kiếm dữ liệu từ các widget cha (Theme, Navigator, Bloc...).
+Map Android: Compose không có khái niệm này. Nó gần giống với việc bạn cần biết "mình đang ở đâu trong cây UI" để lấy LocalContext.current trong Compose.
+
+📋 GIAI ĐOẠN 1.5: Collection UI (Danh sách & Scroll)
+
+Mục tiêu:
+Làm chủ cách Flutter hiển thị danh sách trước khi học BLoC. Đây là phần tương đương RecyclerView + Adapter trong Android.
+Bài 5.1: ListView cơ bản
+Là gì:
+Widget dùng để hiển thị nhiều phần tử theo chiều dọc hoặc chiều ngang.
+Nội dung:
+
+ListView
+ListView(children: [])
+scrollDirection
+physics
+shrinkWrap (giới thiệu sơ bộ)=
+Map Android:
+LinearLayout
+    +
+ScrollView
+        ↓
+ListView
+
+Thực hành:
+Hiển thị 20 Text.
+Hiển thị danh sách Icon.
+Chuyển List từ dọc sang ngang.
+
+Bài 5.2: ListView.builder ⭐⭐⭐
+Là gì:
+Tạo item theo nhu cầu (Lazy Loading), phù hợp với danh sách lớn.
+Nội dung:
+itemCount
+itemBuilder
+index
+Lazy Build
+Performance
+Map Android:
+RecyclerView
+↓
+ListView.builder
+Thực hành:
+Hiển thị danh sách User.
+Hiển thị danh sách Product.
+Thay đổi màu item theo index.
+
+Bài 5.3: Tách Item Widget
+Là gì:
+Không viết toàn bộ UI trong itemBuilder mà tách thành Widget riêng để dễ bảo trì.
+Nội dung:
+StatelessWidget làm Item
+Constructor
+Truyền Model
+Tái sử dụng Widget
+Map Android:
+RecyclerView
+↓
+Adapter
+↓
+ViewHolder
+↓
+item.xml
+↓
+
+Flutter
+
+ListView.builder
+↓
+UserItem Widget
+Thực hành:
+Tạo
+UserItem(
+    user: user
+)
+thay vì viết ListTile trực tiếp.
+
+Bài 5.4: GridView
+Là gì:
+Hiển thị dữ liệu dạng lưới.
+Nội dung:
+GridView.count
+GridView.builder
+crossAxisCount
+childAspectRatio
+Map Android:
+RecyclerView
++
+GridLayoutManager
+↓
+GridView.builder
+Thực hành:
+Danh sách sản phẩm.
+Danh sách ảnh.
+
+Bài 5.5: Tương tác với Item
+Là gì:
+Xử lý sự kiện khi người dùng thao tác với từng item.
+Nội dung:
+onTap
+onLongPress
+Callback
+Truyền Function
+Map Android:
+adapter.setOnClickListener()
+↓
+Flutter
+UserItem(
+    onTap: () {}
+)
+Thực hành:
+Click item.
+Long press item.
+Hiển thị SnackBar khi click.
+
+Bài 5.6: Danh sách động với setState()
+Là gì:
+Thêm, sửa, xóa dữ liệu và cập nhật UI bằng setState.
+Nội dung:
+add()
+remove()
+removeAt()
+insert()
+update item
+setState()
+Map Android:
+notifyDataSetChanged()
+↓
+setState()
+Thực hành:
+Thêm User.
+Xóa User.
+Đổi tên User.
+Refresh danh sách.
+
+Bài 5.7: ScrollController
+Là gì:
+Điều khiển và lắng nghe trạng thái cuộn của ListView.
+Nội dung:
+ScrollController
+controller
+offset
+animateTo()
+jumpTo()
+Map Android:
+RecyclerView.OnScrollListener
+↓
+ScrollController
+Thực hành:
+Hiện nút "Scroll To Top".
+Cuộn xuống cuối danh sách.
+Hiển thị vị trí Scroll.
+
+Bài 5.8: Refresh & Load More
+Là gì:
+Làm mới và tải thêm dữ liệu khi người dùng thao tác.
+Nội dung:
+RefreshIndicator
+Infinite Scroll
+Load More
+Loading Footer
+Map Android:
+SwipeRefreshLayout
+↓
+RefreshIndicator
+Thực hành:
+Kéo để Refresh.
+Load thêm dữ liệu khi cuộn cuối.
+Hiển thị CircularProgressIndicator khi đang tải.
+
+
+🔄 GIAI ĐOẠN 2: State Management với BLoC (Pattern & Package)
+Bài 6: Cú pháp cốt lõi flutter_bloc (Nhập môn)
+Làm quen với cách Bloc "sống" trong Widget Tree. Map 1:1 với cách Compose dùng ViewModel.
+Nội dung:
+BlocProvider: Cách tạo và "phát sóng" Bloc cho cây Widget con. (Map: viewModel()).
+BlocBuilder: Cách lắng nghe State để vẽ UI. (Map: collectAsState()).
+BlocListener: Cách lắng nghe State để xử lý tác dụng phụ 1 lần (Toast/Nav). (Map: LaunchedEffect + SharedFlow).
+context.read<T>() vs context.watch<T>(): Khi nào cần đọc 1 lần (bắn Event), khi nào cần nghe liên tục (vẽ UI).
+Thực hành: Viết lại màn hình Login thuần túy bằng các widget này để quen tay.
+Bài 7: BlocListener Nâng Cao & BlocConsumer
+Tối ưu hóa việc xử lý Side Effect và gộp Widget để code gọn hơn.
+Nội dung:
+listenWhen & buildWhen: Bộ lọc giúp tránh rebuild UI hoặc hiện Toast lặp lại không cần thiết.
+Bug "Consume Event": Cách reset cờ State sau khi đã xử lý Side Effect.
+BlocConsumer: Widget kết hợp sẵn BlocListener và BlocBuilder.
+Thực hành: Xử lý hoàn hảo 3 trạng thái: Loading (vẽ UI) -> Success (chuyển màn hình) -> Error (hiện SnackBar).
+Bài 8: MultiBlocProvider & Bloc Lifecycle
+Quản lý nhiều Bloc trong 1 màn hình và hiểu vòng đời của chúng.
+Nội dung:
+MultiBlocProvider: Cung cấp nhiều Bloc cùng lúc, tránh lồng BlocProvider quá sâu.
+Vòng đời Bloc: Bloc được tạo khi create chạy, bị đóng (close()) khi Widget bị dispose.
+BlocProvider.value: Truyền Bloc đã có sẵn (dùng khi chuyển màn hình mà muốn giữ nguyên Bloc).
+Thực hành: Màn hình có 2 Bloc (LoginBloc + ThemeBloc). Dùng MultiBlocProvider và debug xem khi nào Bloc bị close().
+Bài 9: Bloc-to-Bloc Communication
+Cách các Bloc giao tiếp mà không vi phạm luồng 1 chiều (Phần khó nhất).
+Nội dung:
+Tại sao cần? AuthBloc logout → CartBloc cần xóa giỏ hàng.
+Cách 1 (Trong UI): Lắng nghe Bloc A, rồi add() event vào Bloc B.
+Cách 2 (Trong Bloc): Inject Bloc A vào Bloc B, nghe stream.
+Cách 3 (Chuẩn Clean Arch): Giao tiếp gián tiếp qua Repository/UseCase chung.
+Thực hành: Viết AuthBloc và CartBloc. Khi logout → CartBloc tự clear.
+Bài 10: Repository Pattern + Bloc
+Ghép nối tầng Presentation (Bloc) với tầng Data (Repository).
+Nội dung:
+Inject Repository (Interface ở Domain) vào constructor Bloc.
+Bloc gọi repository.getData() → nhận kết quả → emit State.
+Error Handling: Repository throw Exception → Bloc try-catch → emit State lỗi.
+Thực hành: Viết AuthRepository (giả lập API) → Inject vào LoginBloc → Gọi login.
+
+
+🧭 GIAI ĐOẠN 3: Navigation (Điều hướng)
+Mục tiêu: Chuyển đổi màn hình và xử lý deep link. Đưa lên sớm để bạn có thể xây dựng app nhiều màn hình.
+Bài 11: Navigator & Route cơ bản
+Là gì: Cơ chế quản lý ngăn xếp (Stack) màn hình cơ bản (push để thêm, pop để quay lại).
+Map Android: Cơ chế FragmentManager hoặc NavController cơ bản.
+Bài 12: Named Routes
+Là gì: Định nghĩa các route bằng chuỗi string (ví dụ: '/home') để dễ quản lý thay vì truyền object widget.
+Map Android: Tương tự việc定义 route trong nav_graph.xml.
+Bài 13: GoRouter 🌟 (Trọng tâm)
+Là gì: Package điều hướng declarative (khai báo) hiện đại nhất. Xử lý tốt URL, nested routes (BottomNav giữ nguyên khi chuyển tab con), và deep link.
+Map Android: Navigation Component (NavHost + NavController) trong Jetpack.
+Bài 14: Deep Link
+Là gì: Cấu hình để ứng dụng có thể mở một màn hình cụ thể khi người dùng click vào một đường link (URL) bên ngoài.
+Map Android: App Links / Deep Links trong AndroidManifest.xml.
+
+
+🌐 GIAI ĐOẠN 4: Data Layer - Network & Clean Arch (Tầng Data Remote)
+Mục tiêu: Giải quyết mâu thuẫn sư phạm. Học công cụ Network (Dio) TRƯỚC, rồi dùng nó để thực hành Clean Architecture tầng Data. Tuân thủ Tầng 2: Tự viết fromJson(), KHÔNG dùng json_serializable.
+Bài 15: JSON Serialization thủ công
+Là gì: Tự viết hàm fromJson(Map<String, dynamic>) và toJson() cho mọi Model class.
+Map Android: Tương tự việc tự viết parser, nhưng ở Kotlin bạn thường dùng Gson/Moshi/Kotlinx.serialization.
+Bài 16: Dio & REST API
+Là gì: HTTP client mạnh mẽ nhất Flutter. Học cách gọi GET, POST, PUT, DELETE.
+Map Android: Sự kết hợp của Retrofit + OkHttp.
+Bài 17: Interceptor
+Là gì: Chặn và sửa đổi request/response trước khi nó được gửi/nhận (ví dụ: tự động gắn Token Bearer vào Header, xử lý refresh token).
+Map Android: OkHttp Interceptor.
+Bài 18: Clean Arch - Tầng Data (RemoteDataSource & Repository Impl)
+Là gì: Tạo class RemoteDataSource (chứa các hàm gọi Dio), bọc nó trong RepositoryImpl. Repository Impl luôn ở tầng Data.
+Map Android: Giống hệt RemoteDataSource + RepositoryImpl trong Android Clean Architecture.
+
+
+💾 GIAI ĐOẠN 5: Data Layer - Local & Clean Arch (Tầng Data Local)
+Mục tiêu: Hoàn thiện tầng Data với Local Storage, áp dụng tư duy Offline-first.
+Bài 19: SharedPreferences
+Là gì: Lưu trữ các cặp Key-Value đơn giản (chuỗi, số, boolean). Dùng để lưu token, flag cài đặt.
+Map Android: DataStore (Preferences) hoặc SharedPreferences cũ.
+Bài 20: Hive / Drift (SQLite)
+Là gì: Hive là NoSQL cực nhanh (lưu object đơn giản). Drift là SQLite type-safe (giống Room). Tùy bài toán mà chọn.
+Map Android: Hive tương tự DataStore (Proto) nhẹ; Drift tương tự Room Database.
+Bài 21: Clean Arch - Tầng Data (LocalDataSource)
+Là gì: Tạo class thao tác DB (Hive/Drift), bọc trong LocalDataSource.
+Map Android: Giống hệt LocalDataSource (DAO wrapper) trong Android.
+Bài 22: Repository Pattern Offline-First
+Là gì: Sửa lại RepositoryImpl ở Bài 18: Check Local trước → Fallback Remote → Save Local → Trả về dữ liệu.
+Map Android: Giống hệt cách làm Offline-first với Room + Retrofit.
+
+
+🏛️ GIAI ĐOẠN 6: Clean Arch (Tầng Domain) & Dependency Injection
+Mục tiêu: Hoàn thiện 3 tầng Clean Architecture và quản lý sự phụ thuộc. Tuân thủ Tầng 2: get_it manual, KHÔNG injectable.
+Bài 23: Clean Arch - Tầng Domain (Entity & Repository Interface)
+Là gì: Định nghĩa Entity (object thuần, không phụ thuộc framework) và Repository Interface. Interface luôn ở tầng Domain, Impl ở tầng Data.
+Map Android: Giống hệt 100% Domain layer trong Android Clean Arch.
+Bài 24: UseCase
+Là gì: Lớp chứa một nghiệp vụ đơn lẻ (Single Responsibility). Bloc gọi UseCase, UseCase gọi Repository Interface.
+Map Android: Giống hệt UseCase / Interactor trong Android.
+Bài 25: GetIt (Manual DI)
+Là gì: Service Locator đơn giản. Tự tay "đăng ký" (registerLazySingleton, registerFactory) và "lấy" (get<T>()) các class Repository, UseCase, Bloc.
+Map Android: Manual DI hoặc Service Locator pattern cơ bản (chưa phải Hilt).
+Bài 26: Tích hợp hoàn chỉnh (Bloc → UseCase → Repository → DataSource)
+Là gì: Lắp ráp toàn bộ luồng: UI → Bloc → UseCase → Repository Interface → Repository Impl → Remote/Local DataSource. Inject tất cả qua GetIt.
+Map Android: Giống hệt luồng MVVM Clean Architecture với Hilt.
+
+☁️ GIAI ĐOẠN 6.5: Firebase (Backend as a Service)
+
+Mục tiêu:
+Học cách sử dụng Firebase như một Data Source trong Clean Architecture.
+Firebase KHÔNG thay đổi kiến trúc của ứng dụng.
+Vẫn tuân thủ:
+UI
+↓
+Bloc
+↓
+Repository
+↓
+FirebaseDataSource
+↓
+Firebase
+Mọi dữ liệu vẫn đi qua Repository, Bloc tuyệt đối không gọi Firebase trực tiếp.
+
+========================================================
+
+Bài F1: Setup Firebase
+Là gì:
+Kết nối ứng dụng Flutter với Firebase Project.
+Nội dung:
+Firebase Console
+FlutterFire CLI
+google-services.json
+firebase_options.dart
+Firebase.initializeApp()
+Thực hành:
+Tạo Firebase Project.
+Kết nối Android.
+Khởi tạo Firebase thành công.
+
+========================================================
+
+Bài F2: Cloud Firestore CRUD
+Là gì:
+Lưu trữ dữ liệu NoSQL trên Cloud Firestore.
+Nội dung:
+Collection
+Document
+Field
+add()
+get()
+update()
+delete()
+Document ID
+Thực hành:
+Thêm User.
+Lấy danh sách User.
+Sửa User.
+Xóa User.
+
+========================================================
+
+Bài F3: Firestore Realtime
+Là gì:
+Lắng nghe dữ liệu thay đổi theo thời gian thực.
+Nội dung:
+snapshots()
+Stream
+StreamBuilder (giới thiệu)
+Bloc nhận Stream
+Auto Update UI
+Map Android:
+addSnapshotListener()
+↓
+snapshots()
+Thực hành:
+Mở 2 thiết bị
+Thêm dữ liệu.
+UI tự cập nhật không cần Refresh.
+========================================================
+
+Bài F4: Firebase Authentication
+Là gì:
+Quản lý người dùng bằng Firebase Authentication.
+Nội dung:
+Register
+Login
+Logout
+currentUser
+Email & Password
+Thực hành:
+Đăng ký tài khoản.
+Đăng nhập.
+Đăng xuất.
+Lấy User hiện tại.
+========================================================
+
+Bài F5: Clean Architecture + Firebase
+Là gì:
+Đưa Firebase vào đúng vị trí trong kiến trúc.
+Nội dung:
+FirebaseDataSource
+Repository Interface
+Repository Impl
+Bloc chỉ gọi Repository
+Không gọi Firebase trực tiếp trong UI
+Flow dữ liệu:
+UI
+↓
+Bloc
+↓
+Repository
+↓
+FirebaseDataSource
+↓
+Firebase
+Thực hành:
+Viết UserRepository.
+Viết FirebaseUserDataSource.
+Bloc lấy dữ liệu thông qua Repository.
+========================================================
+Bài F6: Firebase Storage
+Là gì:
+Lưu trữ file trên Cloud Storage.
+Nội dung:
+Upload Image
+Download URL
+Delete File
+Lưu URL vào Firestore
+Thực hành:
+Chọn ảnh.
+Upload.
+Hiển thị ảnh từ URL.
+========================================================
+
+Bài F7: Firebase Security Rules
+Là gì:
+Quy định ai được phép đọc hoặc ghi dữ liệu.
+Nội dung:
+allow read
+allow write
+request.auth.uid
+Public Rule
+Private Rule
+Thực hành:
+Chỉ User đăng nhập mới được ghi dữ liệu.
+User chỉ được sửa dữ liệu của chính mình.
+========================================================
+
+Bài F8: Mini Project Firebase
+Mục tiêu:
+Áp dụng toàn bộ kiến thức Firebase vào một ứng dụng nhỏ.
+Yêu cầu:
+Bloc
+Repository
+FirebaseDataSource
+Firestore
+Authentication
+Realtime
+Storage (Avatar)
+Security Rules
+Đề xuất Project:
+Todo App
+Note App
+Book Manager
+Expense Tracker
+
+========================================================
+
+Sau khi hoàn thành Stage 6.5, bạn sẽ hiểu:
+✔ Firebase chỉ là một Data Source trong Clean Architecture.
+✔ Có thể thay thế Firebase bằng REST API hoặc Local Database mà không ảnh hưởng đến Bloc.
+✔ Có thể kết hợp Firebase + Dio + Drift trong cùng một ứng dụng.
+✔ Sẵn sàng xây dựng các ứng dụng Flutter sử dụng Backend thực tế.
+
+
+🛡️ GIAI ĐOẠN 7: Error Handling & Production UI/UX
+Mục tiêu: Xử lý lỗi chuẩn Tầng 2 và hoàn thiện vỏ bọc ứng dụng chuyên nghiệp.
+Bài 27: Custom Exception & Try-Catch
+Là gì: Tự viết các class Exception (NetworkException, ServerException, CacheException). Dùng try-catch ở tầng Data/Domain, throw lên Presentation.
+Map Android: Tương tự Result<T> / sealed class error handling.
+Bài 28: Mapping Error to UI State
+Là gì: Bloc nhận Exception, convert thành State Error(message) để UI hiển thị. KHÔNG dùng Either, Result (tuân thủ Tầng 2).
+Map Android: Tương tự UiState.Error(message) trong Compose.
+Bài 29: Theme System & Dark Mode
+Là gì: Định nghĩa màu sắc, typography, shape chung cho toàn bộ ứng dụng.
+Map Android: MaterialTheme trong Compose.
+Bài 30: Responsive Design
+Là gì: Làm UI thích ứng với nhiều kích thước màn hình (Phone, Tablet, Desktop). Dùng LayoutBuilder, MediaQuery.
+Map Android: WindowSizeClass trong Compose.
+Bài 31: Animation (Implicit & Explicit)
+Là gì: Implicit (tự động khi thay đổi giá trị, ví dụ: AnimatedContainer) và Explicit (kiểm soát từng khung hình bằng AnimationController).
+Map Android: animate*AsState và animate* (với Transition) trong Compose.
+Bài 32: Logging
+Là gì: Ghi log để debug (dùng package logger).
+Map Android: Timber.
+
+
+🚀 GIAI ĐOẠN 8: Project Thực Chiến & UPGRADE SIGNAL (Mở khóa Tầng 3)
+Mục tiêu: Làm project thực tế và chỉ khi phát ra "Upgrade Signal", bạn mới được mở khóa các thư viện Production.
+Bài 33: Project Thực Chiến - Phần 1 (Feature List & Detail)
+Là gì: Xây dựng app hoàn chỉnh (ví dụ: App tin tức) với luồng: UI → Bloc → UseCase → Repo → Dio. Áp dụng GoRouter, GetIt, Theme.
+Map Android: Tương tự bài tập tổng hợp Android.
+Bài 34: Project Thực Chiến - Phần 2 (Offline-First & Auth)
+Là gì: Thêm tính năng offline cache (Drift/Hive), login với Interceptor tự gắn token, xử lý refresh token.
+Map Android: Tương tự bài thực chiến Android với Room + Auth.
+Bài 35: 🟢 UPGRADE SIGNAL - Tự động hóa & Production
+Là gì: CHỈ MỞ KHÓA KHI BẠN PHÁT TÍN HIỆU. Giới thiệu freezed + equatable (thay thế copyWith thủ công), json_serializable (thay thế fromJson thủ công), injectable (thay thế GetIt manual). Giải thích chúng đã tự động hóa phần nào của Tầng 2.
+Map Android: Tương tự việc chuyển từ code tay sang dùng KSP / Hilt / Moshi Codegen trong Android.

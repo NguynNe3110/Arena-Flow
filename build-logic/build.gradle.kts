@@ -51,7 +51,7 @@ tasks {
     }
 }
 
-gradlePlugin {
+gradlePlugin { // đăng kí plugin tại đây
     plugins {
         register("applicationConvention") {
             id = "com.igorwojda.showcase.convention.application"

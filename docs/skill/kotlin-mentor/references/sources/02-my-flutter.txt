@@ -1,0 +1,1042 @@
+# FLUTTER / DART — KNOWLEDGE HANDOVER
+## Hồ sơ kiến thức, kinh nghiệm học tập và tư duy kiến trúc của người học
+
+---
+
+# PHẦN 1. THÔNG TIN VÀ MỤC TIÊU HỌC TẬP
+
+Người học đã từng dành nhiều thời gian học Flutter và Dart, chủ yếu theo hướng phát triển ứng dụng có kiến trúc rõ ràng, sử dụng BLoC và Clean Architecture.
+
+Đặc điểm nền tảng:
+- Có kiến thức Android Native, Kotlin, MVVM và Jetpack Compose.
+- Đã tiếp cận Flutter từ góc độ một Android Developer.
+- Có khả năng tiếp thu tốt khi được giải thích bằng cách đối chiếu với những khái niệm đã biết trong Kotlin/Android.
+- Quan tâm đến bản chất hoạt động của framework, không chỉ muốn biết cách sử dụng thư viện.
+
+Mục tiêu của tài liệu:
+Giúp AI tiếp nhận hiểu biết hiện tại của người học, tiếp tục hướng dẫn ở đúng trình độ và không bắt đầu lại từ những kiến thức đã nắm.
+
+# PHẦN 2. KIẾN THỨC DART ĐÃ TỪNG THẢO LUẬN
+
+Đây là nhóm kiến thức ngôn ngữ đã có những cuộc thảo luận cụ thể.
+
+## 2.1. Generic trong Dart
+
+Đây là một trong những chủ đề người học đã hỏi khá sâu.
+
+Các nội dung đã thảo luận:
+
+- Generic type: `<T>`, `<A, B>`.
+- Generic class và generic function.
+- Type parameter.
+- Type argument.
+- Generic constraint với `extends`.
+- Subtype và supertype.
+- Generic kết hợp với Future.
+- Generic trong BaseBloc, UseCase, Repository và Result.
+
+Ví dụ:
+
+```dart
+Future<T?> push<T extends Object?>(...)
+```
+
+Người học đã tìm hiểu:
+- `T` là một type parameter, đại diện cho kiểu dữ liệu sẽ được xác định khi sử dụng.
+- `Object?` là kiểu giới hạn cho `T`.
+- `extends` trong generic là constraint, không phải cứ xuất hiện là đang tạo một class con.
+- Khi gọi với các kiểu khác nhau, kiểu trả về cũng thay đổi tương ứng.
+
+Ví dụ:
+
+```dart
+Future<String?> result1;
+Future<User?> result2;
+Future<int?> result3;
+```
+
+Đã phân biệt:
+- `Future<T>` là Future chứa kết quả kiểu T.
+- `func<T>()` là function có generic type parameter.
+- Dart có thể tự suy luận generic type argument trong nhiều trường hợp.
+
+### Generic trong kiến trúc BLoC
+
+Đã thảo luận:
+
+```dart
+BaseBloc<
+  E extends BaseBlocEvent,
+  S extends BaseBlocState
+>
+```
+
+Người học đã hiểu mục đích của constraint:
+
+- E phải thuộc nhóm event hợp lệ.
+- S phải thuộc nhóm state hợp lệ.
+- Không thể tùy ý truyền String, int vào vị trí yêu cầu Event và State.
+- Constraint giúp kiểm tra tính hợp lệ của kiểu dữ liệu khi sử dụng generic class.
+
+## 2.2. extends và with
+
+Đã tìm hiểu sự khác nhau giữa hai cơ chế.
+
+### extends
+
+Dùng để kế thừa một class.
+
+### with
+
+Dùng để kết hợp mixin nhằm tái sử dụng hành vi.
+
+Đã làm rõ:
+- Mixin không phải một instance độc lập được tạo ra để sử dụng như object thông thường.
+- Mixin cho phép nhiều class tái sử dụng cùng một hành vi.
+- Mixin có thể sử dụng `on` để giới hạn loại class được phép kết hợp.
+
+Ví dụ:
+
+```dart
+class User {}
+
+mixin Logger on User {
+  void log() {
+    print('Logging...');
+  }
+}
+
+class Admin extends User with Logger {}
+```
+
+### Liên hệ Freezed
+
+Người học từng gặp:
+
+```dart
+class AppEvent with _$AppEvent
+```
+
+Đã được giải thích rằng `_$AppEvent` là phần code được Freezed generate, sử dụng cơ chế mixin của Dart. Đây không phải cú pháp riêng của BLoC.
+
+## 2.3. Factory constructor và Freezed
+
+Đã thảo luận thông qua ví dụ khai báo route:
+
+```dart
+@freezed
+class AppRouteInfo with _$AppRouteInfo {
+  const factory AppRouteInfo.login() = _Login;
+
+  const factory AppRouteInfo.main() = _Main;
+
+  const factory AppRouteInfo.itemDetail(User user)
+      = _UserDetail;
+}
+```
+
+Các vấn đề đã được làm rõ:
+
+- `factory` là constructor đặc biệt của Dart.
+- Factory constructor không nhất thiết phải tạo instance trực tiếp bằng constructor thông thường.
+- Freezed sử dụng factory constructor làm điểm khai báo các biến thể của union/sealed model.
+- Freezed generate những implementation như `_Login`, `_Main`, `_UserDetail`.
+- `itemDetail(User user)` thể hiện route cần truyền dữ liệu.
+- `login()` và `main()` không cần tham số.
+
+Người học từng có suy nghĩ rằng factory chính là thao tác tạo subclass. Đã được làm rõ: việc sinh các subclass implementation là công việc của Freezed code generation; factory là cơ chế constructor được sử dụng để tạo/trả về những implementation đó.
+
+## 2.4. Spread operator (...)
+
+Đã hỏi và tìm hiểu toán tử `...` trong Dart.
+
+Cần tiếp tục củng cố:
+- Spread operator dùng để trải các phần tử của một iterable hoặc map vào collection khác.
+- Null-aware spread `...?`.
+- Phân biệt spread với việc thêm nguyên một collection thành một phần tử.
+
+## 2.5. Map<String, dynamic>
+
+Đã thảo luận trong quá trình làm việc với Supabase và DTO.
+
+Đã hiểu:
+- `Map` lưu dữ liệu theo dạng key-value.
+- `String` là kiểu của key.
+- `dynamic` cho phép value có nhiều kiểu dữ liệu.
+- Thường được sử dụng để biểu diễn JSON hoặc payload gửi đến backend.
+
+Ví dụ:
+
+```dart
+final Map<String, dynamic> payload = {
+  'user_id': '123',
+  'quantity': 10,
+  'is_active': true,
+};
+```
+
+Người học hiểu Map là cấu trúc dữ liệu trung gian ở Data Layer, không nên để định dạng dữ liệu của backend ảnh hưởng trực tiếp đến Domain Entity.
+
+# PHẦN 3. FLUTTER BLOC
+
+Đây là một trong những phần kiến trúc người học đã dành nhiều thời gian tìm hiểu.
+
+Người học từng tiếp cận một dự án Flutter sử dụng kiến trúc BLoC có Base/Common/Feature.
+
+## 3.1. Luồng hoạt động cơ bản
+
+Đã tìm hiểu luồng:
+
+UI → BLoC → UseCase/Repository → DataSource → API/Database
+
+Khi dữ liệu trả về:
+
+DataSource → Repository → UseCase → BLoC → State → UI
+
+Các nguyên tắc đã được xác định:
+
+- UI không trực tiếp gọi API.
+- BLoC không trực tiếp gọi DataSource.
+- BLoC chịu trách nhiệm xử lý Event và phát State.
+- Repository che giấu nguồn dữ liệu.
+- Domain không phụ thuộc vào Data implementation.
+
+## 3.2. Event và State
+
+Người học đã tiếp cận mô hình:
+
+Event → Bloc → State
+
+Trong đó:
+
+**Event**
+- Đại diện cho hành động hoặc yêu cầu xử lý.
+- Được gửi từ UI đến BLoC.
+- Ví dụ: LoginRequested, LoadUsers, DeleteUser.
+
+**State**
+- Đại diện cho trạng thái hiện tại của màn hình.
+- Được UI lắng nghe để render.
+- Ví dụ: Initial, Loading, Success, Error.
+
+Đã tìm hiểu cách tổ chức Event và State riêng biệt thay vì nhồi toàn bộ logic vào UI.
+
+## 3.3. BlocBuilder, BlocListener và BlocConsumer
+
+Đây là nội dung đã được giải thích tương đối rõ.
+
+### BlocBuilder
+
+Nhiệm vụ: lắng nghe State và rebuild UI khi State thay đổi.
+
+Tương tự việc UI quan sát StateFlow trong Kotlin.
+
+### BlocListener
+
+Nhiệm vụ: xử lý side effect.
+
+Ví dụ:
+- Navigate.
+- Hiện SnackBar.
+- Hiện Dialog.
+- Hiện Toast.
+
+Người học từng nhầm rằng BlocListener cũng là thành phần cần thiết để render UI.
+
+Đã làm rõ:
+
+BlocListener không có nhiệm vụ render UI. Nó dùng để thực hiện những hành động phát sinh khi State thay đổi.
+
+### BlocConsumer
+
+Kết hợp hai chức năng:
+- BlocBuilder.
+- BlocListener.
+
+Sử dụng khi một khu vực cần vừa render UI vừa xử lý side effect.
+
+## 3.4. listenWhen và buildWhen
+
+Đã tiếp cận cơ chế lọc State:
+
+- `buildWhen`: quyết định khi nào BlocBuilder cần rebuild.
+- `listenWhen`: quyết định khi nào BlocListener thực hiện callback.
+
+Mục đích là tránh rebuild hoặc xử lý side effect không cần thiết.
+
+## 3.5. One-time Event và UiEffect
+
+Đã thảo luận một nguyên tắc quan trọng:
+
+State nên chứa dữ liệu phục vụ render UI.
+
+Không nên đưa những hành động chỉ xảy ra một lần như:
+- Navigate.
+- Hiện thông báo.
+- Mở Dialog.
+
+vào State theo cách khiến chúng có thể bị thực hiện lại khi UI nhận State cũ.
+
+Người học từng lựa chọn hướng Production Concept - Minimal Implementation:
+
+- State chứa dữ liệu hiển thị.
+- UiEffect đại diện cho hành động một lần.
+- Không thêm quá nhiều abstraction khi chưa cần thiết.
+
+Đây là một nguyên tắc cần được duy trì khi hướng dẫn tiếp.
+
+## 3.6. BaseBloc, CommonBloc và AppBloc
+
+Người học đã tìm hiểu kiến trúc BLoC có nhiều cấp độ.
+
+### BaseBloc
+
+- Là nền tảng kỹ thuật dùng chung.
+- Chuẩn hóa những thành phần và hành vi chung.
+- Không phải một State Manager dùng để quản lý tất cả State của ứng dụng.
+
+### CommonBloc
+
+Đã được thảo luận như một BLoC phục vụ hạ tầng UI ở phạm vi màn hình.
+
+Các chức năng được đề cập:
+- Loading.
+- Error.
+- Force logout.
+- Quản lý loadingCount.
+
+### AppBloc
+
+Được thảo luận như một BLoC cấp ứng dụng.
+
+Ví dụ:
+- isInitialized.
+- isLoggedIn.
+- Kiểm tra trạng thái đăng nhập thông qua IsLoggedInUseCase.
+
+Đã làm rõ:
+- AppBloc và CommonBloc có phạm vi trách nhiệm khác nhau.
+- Cả hai có thể kế thừa BaseBloc.
+- Không nên hiểu CommonBloc là class cha quản lý AppBloc.
+
+## 3.7. EventTransformer
+
+Đã từng tìm hiểu cơ chế xử lý EventTransformer.
+
+Các khái niệm được đề cập:
+
+- log()
+- flatMap()
+- debounceTime()
+- throttleTime()
+- distinct()
+
+Đã được giải thích:
+- Transformer can thiệp vào luồng Event.
+- Handler thực hiện nghiệp vụ khi nhận Event.
+- Transformer không phải là nơi thay thế handler.
+
+## 3.8. Bloc-to-Bloc Communication
+
+Đã tiếp cận vấn đề giao tiếp giữa các BLoC.
+
+Ví dụ:
+
+AuthBloc logout → CartBloc cần xóa giỏ hàng.
+
+Các cách đã được thảo luận:
+
+1. UI lắng nghe Bloc A rồi gửi Event sang Bloc B.
+2. Inject Bloc A vào Bloc B và lắng nghe stream.
+3. Giao tiếp gián tiếp qua Repository hoặc UseCase dùng chung.
+
+Đây là phần cần tiếp tục củng cố khi học các ứng dụng nhiều feature.
+
+# PHẦN 4. CLEAN ARCHITECTURE
+
+Người học đã tiếp cận Clean Architecture theo hướng phân chia rõ ba tầng.
+
+## 4.1. Presentation
+
+Bao gồm:
+- Screen.
+- Widget.
+- BLoC.
+- Event.
+- State.
+
+Chịu trách nhiệm hiển thị UI và điều phối tương tác người dùng.
+
+## 4.2. Domain
+
+Bao gồm:
+- Entity.
+- Repository Interface.
+- UseCase.
+
+Đây là tầng chứa nghiệp vụ và hợp đồng mà các tầng khác phải tuân thủ.
+
+## 4.3. Data
+
+Bao gồm:
+- DTO.
+- Mapper.
+- DataSource.
+- Repository Implementation.
+- API hoặc Local Database.
+
+Đây là tầng triển khai việc lấy, lưu trữ và chuyển đổi dữ liệu.
+
+## 4.4. Repository Interface và Repository Implementation
+
+Đã tìm hiểu nguyên tắc:
+
+Repository Interface nằm ở Domain.
+
+Repository Implementation nằm ở Data.
+
+Ví dụ:
+
+```dart
+abstract class UserRepository {
+  Future<UserEntity> getUser();
+}
+```
+
+Implementation:
+
+```dart
+class UserRepositoryImpl implements UserRepository {
+  // Triển khai việc lấy dữ liệu
+}
+```
+
+Đã hiểu Repository Implementation không đơn thuần chỉ là class gọi API.
+
+Nó đóng vai trò trung gian, che giấu cách lấy dữ liệu thực tế với Domain và Presentation.
+
+## 4.5. DTO → Entity và Mapper
+
+Đây là một chủ đề đã được thảo luận thông qua ví dụ Supabase.
+
+Luồng dữ liệu:
+
+Entity → Mapper → Map payload → Supabase
+
+Supabase → Raw Map → DTO → Mapper → Entity
+
+Đã hiểu:
+- DTO đại diện cho cấu trúc dữ liệu giao tiếp với nguồn dữ liệu.
+- Entity đại diện cho dữ liệu nghiệp vụ trong Domain.
+- Mapper chịu trách nhiệm chuyển đổi giữa hai cấu trúc.
+- Không nên để Domain phụ thuộc vào tên trường hoặc định dạng riêng của Supabase.
+
+Ví dụ:
+
+```dart
+// Domain
+class UserEntity {
+  final String userId;
+
+  UserEntity({required this.userId});
+}
+```
+
+Backend có thể sử dụng `user_id`, trong khi Domain sử dụng `userId`.
+
+Mapper chịu trách nhiệm chuyển đổi hai cách đặt tên này.
+
+## 4.6. BaseUseCase và BaseMapper
+
+Đã tìm hiểu lý do một số dự án tạo các class nền tảng.
+
+Đã được giải thích:
+
+- BaseUseCase giúp chuẩn hóa cách gọi UseCase.
+- BaseMapper giúp chuẩn hóa cách chuyển đổi dữ liệu.
+- Có thể chứa logic dùng chung khi thực sự cần thiết.
+- Không phải mọi class đều cần kế thừa Base.
+
+Ví dụ:
+- Entity không nhất thiết cần BaseEntity.
+- DTO không nhất thiết cần BaseDTO.
+- Repository Interface không nhất thiết cần BaseRepository.
+
+Người học từng thắc mắc rằng BaseInput không có logic thì tại sao phải tồn tại.
+
+Nguyên tắc đã được làm rõ: một Base class đôi khi chỉ đóng vai trò contract/type constraint để đảm bảo các class tuân theo cùng một quy ước. Không phải Base class nào cũng bắt buộc chứa logic xử lý.
+
+## 4.7. Input và Output của UseCase
+
+Đã tìm hiểu Input và Output thông qua ví dụ:
+
+```dart
+Future<Output> call(Input input);
+```
+
+Đã hiểu:
+
+- Input là dữ liệu nghiệp vụ mà UseCase cần nhận.
+- Output là kết quả nghiệp vụ mà UseCase trả về.
+- Repository có thể trả về Entity.
+- UseCase sử dụng Entity đó để thực hiện nghiệp vụ hoặc tạo Output phù hợp.
+
+Ví dụ đã thảo luận:
+
+AddressEntity được sử dụng làm dữ liệu đầu vào trong một UseCase.
+
+Cần tiếp tục củng cố sự khác nhau giữa:
+- Input của UseCase.
+- Request DTO.
+- Entity.
+- Output của UseCase.
+- Response DTO.
+
+# PHẦN 5. ASYNC, FUTURE VÀ XỬ LÝ DỮ LIỆU
+
+## 5.1. Future
+
+Đã gặp và thảo luận các kiểu:
+
+```dart
+Future<void>
+Future<T>
+Future<T?>
+```
+
+Đã làm rõ:
+- Future biểu diễn một kết quả có thể nhận được trong tương lai.
+- `void` biểu thị không có giá trị trả về cần sử dụng.
+- `T` là kiểu dữ liệu kết quả.
+- `T?` cho phép kết quả có thể null.
+
+Cần tiếp tục củng cố async/await, Future chaining và cách xử lý lỗi bất đồng bộ.
+
+## 5.2. Type casting với as
+
+Đã thảo luận trực tiếp dòng code:
+
+```dart
+return CartItemResponseDto.fromJson(
+  response as Map<String, dynamic>,
+);
+```
+
+Người học thắc mắc vì sao phải có `as` ở đây nhưng một số đoạn code khác lại không cần.
+
+Đã làm rõ hai công việc khác nhau:
+
+**as**
+- Xác nhận/cast kiểu dữ liệu.
+- Không tự chuyển một Map thành DTO.
+- Có thể phát sinh lỗi nếu kiểu thực tế không phù hợp.
+
+**fromJson**
+- Nhận dữ liệu Map.
+- Tạo object DTO từ dữ liệu đó.
+
+Ví dụ:
+
+```dart
+final map = response as Map<String, dynamic>;
+
+final dto = CartItemResponseDto.fromJson(map);
+```
+
+Đây là một điểm người học đã hiểu về sự khác nhau giữa kiểu dữ liệu runtime và việc khởi tạo model.
+
+# PHẦN 6. DEPENDENCY INJECTION — GET_IT VÀ INJECTABLE
+
+Người học đã tìm hiểu hệ thống DI trong Flutter.
+
+## 6.1. GetIt
+
+Đã tiếp cận GetIt như một Service Locator.
+
+Các khái niệm:
+- registerFactory.
+- registerLazySingleton.
+- registerSingleton.
+- get<T>().
+
+Mục đích:
+- Đăng ký dependency.
+- Quản lý cách tạo object.
+- Lấy dependency đã đăng ký.
+- Kết nối BLoC → UseCase → Repository.
+
+## 6.2. Injectable
+
+Đã tìm hiểu Injectable là công cụ tự động hóa việc đăng ký dependency thông qua annotation và code generation.
+
+Ví dụ:
+
+```dart
+@injectable
+class GetProductsUseCase {
+  // ...
+}
+```
+
+Đã tìm hiểu sự khác nhau giữa:
+- GetIt: cơ chế Service Locator.
+- Injectable: công cụ hỗ trợ sinh code đăng ký dependency cho GetIt.
+
+## 6.3. di.config.dart
+
+Đã hỏi tại sao file `di.config.dart` tự động xuất hiện những đoạn code như:
+
+```dart
+gh.factory<_i756.GetFeaturedProductsUseCase>(
+  () => _i756.GetFeaturedProductsUseCase(
+    gh<_i494.ProductRepository>(),
+  ),
+);
+```
+
+Đã làm rõ:
+
+- Đây là code được generate.
+- `gh.factory` đăng ký một dependency với GetIt.
+- Hàm callback mô tả cách tạo object.
+- `gh<_i494.ProductRepository>()` lấy Repository đã được đăng ký.
+- UseCase được tạo với Repository thông qua constructor injection.
+
+Người học đã hiểu rằng không cần tự viết những dòng đăng ký tương tự nếu đang sử dụng Injectable và chạy code generation đúng cách.
+
+# PHẦN 7. FIREBASE VÀ SUPABASE
+
+## 7.1. Supabase
+
+Đã có những cuộc thảo luận thực tế về việc sử dụng Supabase trong Clean Architecture.
+
+Các nội dung:
+- Gọi Supabase từ Data Layer.
+- Repository Implementation.
+- DTO.
+- Entity.
+- Mapper.
+- Map<String, dynamic>.
+- fromJson().
+- Type casting bằng as.
+- UseCase Input/Output.
+
+Đặc biệt đã phân tích một ví dụ cập nhật số lượng sản phẩm trong giỏ hàng:
+
+```dart
+Future<CartItemResponseDto> updateCartItemQuantity({
+  required String id,
+  required int quantity,
+}) {
+  // ...
+}
+```
+
+Đã đi sâu vào quá trình nhận dữ liệu từ Supabase và chuyển đổi thành DTO.
+
+## 7.2. Firebase
+
+Đã có một lộ trình học Firebase riêng.
+
+Những nội dung đã được đưa vào kế hoạch:
+
+- Firebase Authentication.
+- Login/Register.
+- currentUser.
+- Cloud Firestore CRUD.
+- Collection, Document, Field.
+- Realtime bằng snapshots().
+- Stream và StreamBuilder.
+- Firebase Storage.
+- Upload Image.
+- Download URL.
+- Security Rules.
+- request.auth.uid.
+- Clean Architecture kết hợp Firebase.
+
+Nguyên tắc kiến trúc đã xác định:
+
+UI → BLoC → Repository → FirebaseDataSource → Firebase.
+
+Firebase được xem như một Data Source, không làm thay đổi kiến trúc tổng thể.
+
+Lưu ý: Những nội dung trên được xác nhận là đã nằm trong kế hoạch học tập và tài liệu. Chưa có đủ căn cứ để kết luận người học đã thực hành thành thạo toàn bộ Firebase.
+
+# PHẦN 8. CẤU TRÚC THƯ MỤC FLUTTER ĐÃ ĐỊNH HƯỚNG
+
+Người học đã xây dựng một cấu trúc Flutter theo hướng Clean Architecture, chia theo các tầng:
+
+```text
+lib/
+├── core/
+│   ├── constants/
+│   ├── di/
+│   ├── error/
+│   ├── extensions/
+│   ├── network/
+│   ├── theme/
+│   ├── utils/
+│   └── widgets/
+│
+├── data/
+│   ├── local/
+│   │   ├── database/
+│   │   ├── datasources/
+│   │   └── models/
+│   │
+│   ├── remote/
+│   │   ├── datasources/
+│   │   └── models/
+│   │       ├── requests/
+│   │       └── responses/
+│   │
+│   ├── mappers/
+│   ├── repositories/
+│   └── session/
+│
+├── domain/
+│   ├── entities/
+│   ├── repositories/
+│   └── usecases/
+│
+├── feature/
+│   ├── auth/
+│   │   ├── login/
+│   │   └── register/
+│   │
+│   └── main/
+│       └── home/
+│
+├── app.dart
+└── main.dart
+```
+
+Định hướng trách nhiệm:
+
+- core: thành phần dùng chung toàn ứng dụng.
+- data: xử lý nguồn dữ liệu.
+- domain: nghiệp vụ và abstraction.
+- feature: tổ chức các màn hình và nghiệp vụ theo chức năng.
+- app.dart: khởi tạo ứng dụng, DI, Theme, Router.
+- main.dart: entry point.
+
+Đây là cấu trúc kiến trúc đã được lưu thành tài liệu riêng.
+
+# PHẦN 9. CÁC KIẾN THỨC FLUTTER ĐƯỢC ĐƯA VÀO ROADMAP
+
+Phần này cần được phân biệt với kiến thức đã thực sự thảo luận sâu.
+
+## 9.1. Flutter Foundation
+
+Các nội dung trong lộ trình:
+
+- Widget Tree.
+- Element Tree.
+- RenderObject.
+- StatelessWidget.
+- StatefulWidget.
+- setState().
+- BuildContext.
+
+## 9.2. UI Components
+
+Đã lập bảng đối chiếu với Jetpack Compose.
+
+Các nhóm:
+- Text và Input.
+- Layout.
+- Decoration và Shape.
+- Button và Action.
+- Image và Icon.
+- List và Scroll.
+- Feedback.
+
+Các widget được liệt kê:
+- Text.
+- TextField.
+- TextFormField.
+- Container.
+- SizedBox.
+- Padding.
+- Row.
+- Column.
+- Stack.
+- Positioned.
+- Expanded.
+- Flexible.
+- Spacer.
+- Center.
+- Align.
+- Card.
+- ClipRRect.
+- ElevatedButton.
+- GestureDetector.
+- InkWell.
+- Image.asset.
+- Image.network.
+- ListView.
+- GridView.
+- SingleChildScrollView.
+- AlertDialog.
+- SnackBar.
+- BottomSheet.
+
+## 9.3. List và Scroll
+
+Roadmap có các nội dung:
+
+- ListView.
+- ListView.builder.
+- Tách Item thành Widget.
+- GridView.
+- Callback onTap/onLongPress.
+- Danh sách động với setState.
+- ScrollController.
+- animateTo() và jumpTo().
+- RefreshIndicator.
+- Infinite Scroll và Load More.
+
+## 9.4. Navigation
+
+Các nội dung đã được đưa vào lộ trình:
+
+- Navigator.
+- Named Routes.
+- GoRouter.
+- Nested Routes.
+- Deep Link.
+
+## 9.5. Network và Data Layer
+
+Các nội dung đã được lên kế hoạch:
+
+- JSON Serialization.
+- fromJson()/toJson().
+- Dio.
+- GET/POST/PUT/DELETE.
+- Interceptor.
+- Bearer Token.
+- Refresh Token.
+- RemoteDataSource.
+- Repository Implementation.
+
+## 9.6. Local Storage
+
+Các công nghệ được đưa vào kế hoạch:
+
+- SharedPreferences.
+- Hive.
+- Drift.
+- SQLite.
+- LocalDataSource.
+- Offline-first.
+- Cache API.
+
+## 9.7. Error Handling và Production
+
+Các nội dung:
+- Custom Exception.
+- Try-catch.
+- Mapping Exception sang UI State.
+- Theme System.
+- Dark Mode.
+- Responsive Design.
+- LayoutBuilder.
+- MediaQuery.
+- Animation.
+- Logging.
+
+# PHẦN 10. TIÊU CHUẨN HỌC TẬP ĐÃ THỐNG NHẤT
+
+Đây là phần quan trọng mà AI mới phải đọc kỹ.
+
+Người học từng thiết lập một quy tắc học Flutter BLoC gồm các giai đoạn.
+
+## Giai đoạn 1 — Học bản chất
+
+Ưu tiên tự triển khai:
+
+- Bloc (Event → State).
+- Class Dart thuần.
+- const constructor.
+- copyWith tự viết.
+- fromJson/toJson tự viết.
+- try-catch.
+- Custom Exception.
+- GetIt đăng ký thủ công.
+
+Không sử dụng ngay:
+- Cubit.
+- Equatable.
+- Freezed.
+- json_serializable.
+- Either/Result.
+- Injectable.
+
+Mục đích là hiểu những vấn đề mà các thư viện này giải quyết.
+
+## Giai đoạn 2 — Production và tối ưu hóa
+
+Chỉ nâng cấp khi người học chủ động phát tín hiệu như:
+
+- "Mở khóa nâng cao".
+- "Dùng thư viện".
+- "Production style".
+- "Tôi đã hiểu bản chất rồi".
+
+Khi đó cần:
+1. Xác nhận chuyển giai đoạn.
+2. Giải thích thư viện mới giải quyết vấn đề gì.
+3. Chỉ ra phần code thủ công trước đây được tự động hóa như thế nào.
+4. Áp dụng chuẩn mới trong các bài học tiếp theo.
+
+Nếu người học yêu cầu một thư viện mới nhưng không phát tín hiệu nâng cấp rõ ràng, cần hỏi:
+
+"Bạn muốn nâng cấp khóa học sang Giai đoạn 2, hay chỉ muốn sửa đoạn code này mà vẫn giữ chuẩn Giai đoạn 1?"
+
+Nếu người học yêu cầu quay lại cách học cơ bản, phải lập tức quay về Giai đoạn 1.
+
+**Meta Rule:** Công cụ và thư viện phục vụ mục tiêu học tập. Không được dùng quy tắc cũ để cản trở việc nâng cấp khi người học đã chủ động thay đổi mục tiêu.
+
+# PHẦN 11. CÁCH AI MỚI NÊN GIẢNG DẠY
+
+Đây là những nguyên tắc cần duy trì xuyên suốt.
+
+## 11.1. Giải thích bản chất trước khi đưa ra cách sử dụng
+
+Không nên chỉ nói:
+
+"Đây là class BaseInput dùng để truyền dữ liệu."
+
+Cần giải thích:
+- Vấn đề gì khiến BaseInput xuất hiện?
+- Nếu không có nó thì xảy ra điều gì?
+- Tại sao phải tạo một abstraction riêng?
+- Khi nào thực sự cần dùng?
+- Có trường hợp nào không cần không?
+
+## 11.2. Giải thích từng dòng code
+
+Khi người học đưa ra một đoạn code và hỏi một dòng cụ thể, cần tập trung giải thích dòng đó.
+
+Không tự ý mở rộng thành một bài giảng về toàn bộ framework nếu không cần thiết.
+
+## 11.3. Giữ nguyên một phong cách kiến trúc
+
+Khi đang học BLoC thì phải tiếp tục dùng BLoC.
+
+Không tự ý đổi sang Cubit, Provider hoặc Riverpod trong những ví dụ tiếp theo.
+
+Chỉ so sánh khi người học yêu cầu hoặc khi việc so sánh thực sự cần thiết.
+
+## 11.4. Sử dụng Kotlin làm nền tảng so sánh
+
+Người học đã có nền tảng Android Native/Kotlin.
+
+Có thể đối chiếu:
+
+| Flutter | Kotlin / Android |
+|---|---|
+| Widget | Composable/UI component |
+| StatelessWidget | Composable không giữ local state |
+| StatefulWidget | Stateful UI với state |
+| setState | State update gây rebuild |
+| BLoC | ViewModel + event/state pattern |
+| BlocBuilder | Observe StateFlow và render |
+| BlocListener | Xử lý side effect |
+| Repository | Repository |
+| UseCase | UseCase/Interactor |
+| Entity | Domain Model |
+| DTO | DTO |
+| Mapper | Mapper |
+| Dio | Retrofit/OkHttp |
+| Drift | Room |
+| Hive | Lưu trữ key-value/object |
+| GetIt | Service Locator |
+| Injectable | Code generation cho DI |
+
+Không phải lúc nào cũng cần so sánh với Android. Chỉ sử dụng khi nó giúp làm sáng tỏ vấn đề.
+
+## 11.5. Không đưa abstraction quá sớm
+
+Đặc biệt với Base class, Repository, Mapper và DI.
+
+Luôn giải thích vấn đề thực tế trước, sau đó mới giới thiệu abstraction để giải quyết vấn đề.
+
+Không tạo class chỉ để cấu trúc dự án trông chuyên nghiệp.
+
+# PHẦN 12. ĐÁNH GIÁ TRẠNG THÁI KIẾN THỨC
+
+## Những nội dung đã có thảo luận thực tế
+
+1. Dart Generic.
+2. Generic Constraint và Subtype.
+3. extends và with.
+4. Mixin.
+5. Factory constructor.
+6. Freezed Union và generated subclass.
+7. Future và generic Future.
+8. Map<String, dynamic>.
+9. Type casting bằng as.
+10. fromJson và chuyển đổi dữ liệu.
+11. BLoC Event và State.
+12. BlocBuilder.
+13. BlocListener.
+14. BlocConsumer.
+15. One-time UiEffect.
+16. BaseBloc.
+17. CommonBloc.
+18. AppBloc.
+19. EventTransformer.
+20. Bloc-to-Bloc Communication.
+21. Clean Architecture.
+22. Repository Interface và Implementation.
+23. DTO và Entity.
+24. Mapper.
+25. BaseUseCase và BaseMapper.
+26. UseCase Input và Output.
+27. GetIt.
+28. Injectable.
+29. Generated di.config.dart.
+30. Supabase Data Flow.
+
+Lưu ý: Có thảo luận không đồng nghĩa với việc đã thành thạo toàn bộ. AI mới cần đánh giá lại bằng bài tập thực hành khi cần.
+
+## Những nội dung mới chỉ xác nhận được là có trong roadmap
+
+- Toàn bộ nền tảng Widget/Element/RenderObject.
+- Chi tiết các Flutter UI components.
+- ListView, GridView và ScrollController.
+- GoRouter và Deep Link.
+- Dio và Interceptor.
+- Hive và Drift.
+- Offline-first hoàn chỉnh.
+- Responsive và Animation.
+- Toàn bộ Firebase thực hành.
+- Error Handling production hoàn chỉnh.
+
+Không được mặc định người học đã nắm vững những nội dung này.
+
+# PHẦN 13. HƯỚNG DẪN TIẾP NHẬN DÀNH CHO AI MỚI
+
+Khi đọc tài liệu này, hãy thực hiện các nguyên tắc sau:
+
+1. Không bắt đầu dạy lại Dart Generic, BLoC cơ bản, Repository, Mapper hoặc GetIt từ đầu trừ khi người học yêu cầu ôn tập.
+
+2. Khi người học hỏi về một đoạn code, hãy xác định kiến thức liên quan trong tài liệu này trước khi giải thích.
+
+3. Nếu người học đã từng hiểu một vấn đề nhưng hỏi lại, hãy giải thích sâu hơn hoặc chỉ ra điểm dễ nhầm, không mặc định người học chưa biết gì.
+
+4. Phân biệt rõ kiến thức đã thảo luận với kiến thức mới chỉ nằm trong roadmap.
+
+5. Không tự ý chuyển từ BLoC sang Cubit hoặc các state management khác.
+
+6. Không tự ý đưa Freezed, Injectable, Equatable vào ví dụ cơ bản nếu người học chưa yêu cầu nâng cấp.
+
+7. Ưu tiên ví dụ thực tế, có luồng dữ liệu hoàn chỉnh và giải thích vai trò từng class.
+
+8. Luôn duy trì tính nhất quán về kiến trúc và cách đặt tên trong các ví dụ.
+
+---
+
+**Kết luận:** Người học đã có nền tảng tư duy kiến trúc Flutter/Dart, đặc biệt ở Generic, BLoC, Clean Architecture, Repository, Mapper, UseCase và Dependency Injection. Điểm cần ưu tiên là củng cố khả năng đọc hiểu code Dart và hiểu sâu cách các abstraction phối hợp với nhau, thay vì học lại từ đầu các khái niệm đã từng tiếp cận.

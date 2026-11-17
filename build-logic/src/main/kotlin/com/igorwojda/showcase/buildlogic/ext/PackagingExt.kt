@@ -2,7 +2,7 @@ package com.igorwojda.showcase.buildlogic.ext
 
 import com.android.build.api.dsl.Packaging
 
-fun Packaging.excludeLicenseAndMetaFiles() {
+fun Packaging.excludeLicenseAndMetaFiles() { // phục vụ đóng gói
     resources.excludes +=
         setOf(
             "META-INF/AL2.0",

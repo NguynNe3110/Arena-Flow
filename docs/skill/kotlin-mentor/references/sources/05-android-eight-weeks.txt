@@ -1,0 +1,98 @@
+LỘ TRÌNH ANDROID HIỆN ĐẠI (8 TUẦN)
+
+🔵 TUẦN 0 – Chuẩn bị (2–3 ngày)
+Đừng bỏ bước này
+Chuyển sang Kotlin cơ bản
+val / var
+data class
+when
+null safety
+
+📌 Không cần Kotlin nâng cao.
+
+🔵 TUẦN 1 – MVVM (QUAN TRỌNG NHẤT)
+Bạn cần hiểu:
+View làm gì
+ViewModel làm gì
+Repository làm gì
+Luồng dữ lieu
+
+Thực hành:
+App có 1 màn hình
+ViewModel giữ state
+UI chỉ hiển thị
+
+📌 Chưa cần Compose, dùng XML cũng được.
+
+🔵 TUẦN 2 – Retrofit (App có Internet)
+Học:
+REST API là gì
+GET / POST
+JSON → data class
+
+Thực hành:
+Gọi API public
+Hiển thị danh sách
+📌 App từ đây không còn là app đồ chơi.
+
+🔵 TUẦN 3 – Room (Offline cache)
+Học:
+Entity
+DAO
+Database
+
+Thực hành:
+Lưu dữ liệu từ API
+Mở app không mạng vẫn xem được
+
+📌 Đây là điểm rất được thích trong CV.
+
+🔵 TUẦN 4 – Jetpack Compose (UI hiện đại)
+Chỉ học:
+@Composable
+Column / Row
+LazyColumn
+State
+
+⛔ Không animation, không UI phức tạp.
+📌 Compose chỉ là cách vẽ UI, không thay đổi logic.
+
+🔵 TUẦN 5 – State & Flow
+Học:
+State trong Compose
+LiveData / StateFlow
+Observe dữ liệu
+
+📌 Hiểu luồng dữ liệu là điểm phân biệt biết dùng vs hiểu.
+
+🔵 TUẦN 6 – Hilt (Dependency Injection)
+Học:
+@HiltAndroidApp
+@Inject
+Inject ViewModel
+
+📌 Mục tiêu: bớt new, code sạch.
+
+🔵 TUẦN 7 – Hoàn thiện PROJECT
+Làm app có:
+MVVM
+Compose
+Retrofit
+Room
+Hilt
+
+📌 Không cần đẹp
+📌 Quan trọng là đúng kiến trúc
+
+🔵 TUẦN 8 – Chuẩn bị CV & GitHub
+Clean code
+README rõ ràng
+Chụp màn hình app
+Viết mô tả kỹ thuật
+
+📌 1 PROJECT DUY NHẤT (xuyên suốt)
+
+👉 Gợi ý đề tài phù hợp:
+App quản lý công việc
+App đọc tin tức
+App quản lý chi tiêu

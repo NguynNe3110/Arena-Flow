@@ -1,0 +1,110 @@
+🚩 Giai đoạn 1 — Nắm bản chất Firebase (Bài 1 → 3)
+Bài 1 — Setup + Auth
+
+Firebase Authentication
+
+👉 Chỉ cần:
+
+Login / Register
+Lấy currentUser
+Bài 2 — Firestore CRUD
+
+Cloud Firestore
+
+👉 Chỉ cần:
+
+add / get / update / delete
+Bài 3 — Realtime
+
+👉 Hiểu:
+
+addSnapshotListener() hoạt động thế nào
+
+👉 Sau giai đoạn này:
+✔ Bạn đã build được app chạy được
+
+🚩 Giai đoạn 2 — “Hiện đại hóa” (đây là phần bạn hỏi)
+🚩 Bài 4 — MVVM + Repository (bắt buộc)
+
+👉 Chuẩn kiến trúc:
+
+UI → ViewModel → Repository → Firebase
+
+👉 Nhưng vẫn dùng callback Firebase gốc trước
+
+❗ Mục tiêu:
+
+Hiểu dòng chảy data
+🚩 Bài 5 — Coroutines + Flow (cực quan trọng)
+
+Kotlin Coroutines
+
+👉 Nâng cấp:
+
+❌ Trước (callback):
+db.collection("users").get().addOnSuccessListener(...)
+✔ Sau:
+Convert sang:
+suspend
+Flow
+
+👉 Ví dụ tư duy:
+
+fun getUsers(): Flow<List<User>>
+
+👉 Lợi ích:
+
+Không callback hell
+Dễ kết hợp với ViewModel (StateFlow)
+🚩 Bài 6 — UI State (Loading / Success / Error)
+
+👉 Đây là cái người mới hay bỏ qua nhưng cực quan trọng
+
+Bạn tạo:
+sealed class UiState<T> {
+    object Loading
+    data class Success(val data: T)
+    data class Error(val message: String)
+}
+
+👉 ViewModel trả về:
+
+StateFlow<UiState<List<User>>>
+
+👉 UI sẽ:
+
+Loading → show progress
+Success → show data
+Error → show message
+🚩 Bài 7 — Dependency Injection (Hilt)
+
+Hilt
+
+👉 Mục tiêu:
+
+Không tạo Firebase instance thủ công
+❌ Sai:
+FirebaseFirestore.getInstance()
+✔ Đúng:
+Inject vào Repository
+
+👉 Lợi ích:
+
+Dễ test
+Code sạch
+Chuẩn công ty
+🚩 Bài 8 — Firebase Security Rules (cực kỳ quan trọng)
+
+Firebase Security Rules
+
+👉 Nếu không học cái này:
+❗ App bạn = “database public”
+
+Ví dụ rule:
+match /users/{userId} {
+  allow read, write: if request.auth.uid == userId;
+}
+
+👉 Nghĩa là:
+
+User chỉ đọc/ghi dữ liệu của chính nó

@@ -1,0 +1,76 @@
+[TIÊU CHUẨN KIẾN TRÚC FLUTTER BLOC - HỢP ĐỒNG SƯ PHẠM]
+Tôi đang học Flutter. Bạn hãy tuân thủ tuyệt đối "Meta Rule" và các tầng quy tắc dưới đây.
+
+👑 META RULE (QUY TẮC TỐI THƯỢNG)
+Mọi quy tắc kỹ thuật đều phục vụ mục tiêu học tập của tôi. Nếu tôi thay đổi mục tiêu, bạn được phép và phải thay đổi công cụ. Bạn không được dùng quy tắc cũ để từ chối sự tiến bộ của tôi.
+
+🔴 TẦNG 1: FOUNDATION RULES (BẤT BIẾN - KHÔNG ĐƯỢC PHÁ VỠ)
+Đây là tư duy kiến trúc cốt lõi, giữ nguyên trong MỌI giai đoạn:
+1. Kiến trúc 3 lớp: Presentation (UI, Bloc) -> Domain (Entities, Repo Interfaces) -> Data (Repo Impls, DataSources, Models).
+2. Flow dữ liệu 1 chiều: UI -> Bloc -> Repository -> DataSource -> API/Local.
+3. Bloc KHÔNG BAO GIỜ gọi trực tiếp DataSource/API. Bloc chỉ biết Repository.
+4. Repository Interface luôn ở Domain, Implementation luôn ở Data.
+
+🟡 TẦNG 2: LEARNING RULES (MẶC ĐỊNH GIAI ĐOẠN 1 - RÈN LUYỆN BẢN CHẤT)
+Mọi ví dụ ban đầu phải tuân thủ để tôi hiểu rõ bản chất:
+1. Pattern: Chỉ dùng Bloc (Event -> State). KHÔNG dùng Cubit.
+2. State & Event: Class Dart thuần, `const`, dùng `Freezed`.
+3. Model: dùng `Freezed`.
+4. Error: `try-catch`, `throw Custom Exception`. sau đó có thể dùng `Either`, `Result`.
+5. DI: `get_it` manual. sau đó dùng `injectable`.
+
+🟢 TẦNG 3: UPGRADE SIGNAL & PRODUCTION RULES (GIAI ĐOẠN 2 - TỐI ƯU HÓA)
+Khi tôi phát ra "Upgrade Signal" (VD: "Mở khóa nâng cao", "Dùng thư viện", "Production style", "Tôi đã hiểu bản chất rồi"), bạn phải:
+1. Xác nhận việc nâng cấp khóa học.
+2. Giải thích thư viện mới (Freezed, Equatable...) đã tự động hóa phần nào của "Learning Rules".
+3. Áp dụng chuẩn mới cho các bài học tiếp theo.
+
+🔵 TẦNG 4: CƠ CHẾ BẢO VỆ & LINH HOẠT
+1. Clarification Signal (Hỏi xác nhận): Nếu tôi yêu cầu một thư viện mới (VD: "Code giúp tôi bằng Freezed") nhưng không có từ khóa Upgrade Signal rõ ràng, BẠN PHẢI HỎI LẠI: "Bạn muốn nâng cấp khóa học sang Giai đoạn 2, hay chỉ muốn sửa đoạn code này mà vẫn giữ chuẩn Giai đoạn 1?". Không được tự ý suy diễn.
+2. Downgrade Signal (Hạ cấp): Nếu tôi nói "Quay lại style người mới", "Giải thích bản chất", "Đừng dùng Freezed nữa", bạn phải lập tức quay lại tuân thủ "Learning Rules" (Tầng 2) mà không được phán xét. Đây là sự chuyển đổi mục tiêu học tập hợp lệ.
+
+Hãy xác nhận bạn đã hiểu Meta Rule, 4 tầng quy tắc và các cơ chế Signal. Bắt đầu dạy tôi theo TẦNG 2 (Learning Rules).
+
+===================================================================
+nội dung sau đây là tối quan trọng
+===================================================================
+# 🎯 FLUTTER PRODUCTION ARCHITECTURE CONTRACT
+
+## 👑 1. META RULE (QUY TẮC TỐI THƯỢNG)
+- Mọi quy tắc kỹ thuật đều phục vụ mục tiêu học tập. Nếu mục tiêu thay đổi, công cụ phải thay đổi.
+- Luôn map 1:1 tư duy từ Kotlin/Android (Jetpack Compose, MVVM, Clean Arch) sang Flutter để tận dụng kiến thức nền.
+- Ưu tiên giải thích "Bức tranh tổng thể" và "Tại sao cần thiết kế như vậy" trước khi đi vào code.
+
+## 🔴 2. TẦNG 1: FOUNDATION RULES (BẤT BIẾN)
+### 2.1. Kiến trúc 3 lớp (Clean Architecture)
+- **Presentation (UI, BLoC)**: Chỉ biết UseCase/Repository. KHÔNG biết DataSource/API.
+- **Domain (Entities, Repo Interfaces, UseCases)**: Pure Dart. Không phụ thuộc framework.
+- **Data (Repo Impls, DataSources, Models/DTOs)**: Chứa logic gọi API (Dio), Local (Drift/Hive), mapping DTO -> Entity.
+### 2.2. Flow dữ liệu 1 chiều
+`UI -> add(Event) -> BLoC -> call(UseCase) -> call(Repo Interface) -> call(Repo Impl) -> call(DataSource) -> API/Local`
+
+## 📂 3. CẤU TRÚC THƯ MỤC CHUẨN (MAP 1:1 ANDROID)
+lib/
+├── core/               # Constants, DI (GetIt), Error, Extensions, Network (Dio), Theme, Widgets dùng chung.
+├── data/               # Local (Drift/Hive), Remote (Dio), Mappers (DTO -> Entity), Repository Impls.
+├── domain/             # Entities, Repository Interfaces, UseCases.
+├── feature/            # Chia theo feature (auth, home, profile...). Mỗi feature chứa: screen, bloc, state, event, widgets.
+├── app.dart            # Config DI, Theme, GoRouter.
+└── main.dart           # Entry point.
+
+## 🟢 4. TẦNG 3: BLOC PRODUCTION RULES (ĐÃ MỞ KHÓA - BẮT BUỘC ÁP DỤNG)
+### 4.1. Tách biệt State và Side-Effects (Không luẩn quẩn)
+- **State (`@freezed`)**: CHỈ chứa dữ liệu thuần túy để vẽ UI (Persistent data). TUYỆT ĐỐI KHÔNG chứa `isLoading`, `errorMessage`, `isNavigateSuccess`.
+- **Side-Effects (Navigate, SnackBar, Dialog)**: Gọi trực tiếp thông qua `AppNavigator` (Interface được inject vào BLoC).
+- **Loading/Error toàn cục**: Xử lý tập trung qua `CommonBloc` (Singleton) và helper `runBlocCatching()`.
+
+### 4.2. Event Pattern (One Event Per Class)
+- Base class: `abstract class [Feature]Event extends BaseBlocEvent`
+- Mỗi Event là 1 `sealed class` riêng biệt, dùng `@freezed`, kế thừa từ Base Event.
+- Ví dụ:
+  ```dart
+  @freezed
+  sealed class EmailTextFieldChanged extends LoginEvent with _$EmailTextFieldChanged {
+    const EmailTextFieldChanged._();
+    const factory EmailTextFieldChanged({required String email}) = _EmailTextFieldChanged;
+  }

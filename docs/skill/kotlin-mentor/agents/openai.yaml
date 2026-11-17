@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mentor Kotlin cá nhân"
+  short_description: "Ôn Kotlin, tìm chỗ hổng và học tiếp có hướng dẫn"
+  default_prompt: "Dùng $kotlin-mentor đọc hồ sơ và tiến độ của tôi, chọn bước phù hợp để trở lại Kotlin, rồi bắt đầu dạy bằng một ví dụ và bài tập nhỏ."

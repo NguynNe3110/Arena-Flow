@@ -1,0 +1,4 @@
+interface:
+  display_name: "Giải thích codebase"
+  short_description: "Hiểu code theo nền tảng và kinh nghiệm của bạn"
+  default_prompt: "Dùng $explain-codebase giải thích codebase này theo hồ sơ học tập của tôi, từ tổng thể đến một luồng thật, giải nghĩa cú pháp và API ở đoạn khó."

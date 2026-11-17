@@ -1,0 +1,1177 @@
+# HỒ SƠ KIẾN THỨC KOTLIN & ANDROID NATIVE
+
+## 1. Mục đích tài liệu
+
+Tài liệu này tổng hợp kiến thức lập trình Kotlin và Android Native mà người học đã từng tìm hiểu, thảo luận và xây dựng định hướng học tập cùng ChatGPT trước đây.
+
+Mục tiêu là cung cấp cho AI mới một bức tranh tương đối đầy đủ về nền tảng hiện tại, tránh:
+- Giải thích lại những kiến thức đã hiểu mà không cần thiết.
+- Đánh giá người học là người mới hoàn toàn.
+- Đưa ra những ví dụ quá cơ bản không phù hợp với trình độ.
+- Nhảy sang kiến thức nâng cao khi nền tảng liên quan chưa vững.
+- Thay đổi kiến trúc và phong cách code liên tục giữa các ví dụ.
+
+Lưu ý: Các mục dưới đây được phân loại theo mức độ đã thảo luận, đã thể hiện hiểu biết hoặc mới nằm trong kế hoạch. Không được mặc định rằng người học đã thành thạo tất cả.
+
+---
+
+# PHẦN I. NỀN TẢNG NGÔN NGỮ KOTLIN
+
+## 2. Biến và tính bất biến
+
+Các khái niệm đã được đưa vào quá trình học:
+
+- `val`: Khai báo biến không thể gán lại.
+- `var`: Khai báo biến có thể thay đổi giá trị.
+- `const val`: Hằng số compile-time, dùng trong những trường hợp phù hợp.
+- Phân biệt giữa khả năng gán lại biến và khả năng thay đổi trạng thái của object.
+
+Định hướng tư duy:
+- Ưu tiên `val` khi không cần gán lại.
+- Chỉ dùng `var` khi thực sự cần thay đổi.
+- Không nhầm lẫn `val` với việc object bên trong chắc chắn bất biến.
+
+Mức độ: Đã tiếp xúc với nền tảng này trong quá trình học Kotlin và Android.
+
+## 3. Data Class
+
+Đã tìm hiểu về `data class`, đặc biệt trong việc xây dựng model cho ứng dụng Android.
+
+Ví dụ:
+
+```kotlin
+data class Ticket(
+    val id: Int,
+    val title: String,
+    val description: String? = null
+)
+```
+
+Các nội dung đã tiếp xúc:
+- Khai báo data class.
+- Primary constructor.
+- Khai báo thuộc tính bằng `val` và `var`.
+- Giá trị mặc định trong constructor.
+- Thuộc tính nullable.
+- Cho phép bỏ qua tham số có giá trị mặc định khi khởi tạo object.
+- Vai trò của data class trong việc biểu diễn dữ liệu.
+
+Đã gặp các hàm được compiler tự sinh như:
+- `copy()`
+- `equals()`
+- `hashCode()`
+- `toString()`
+- `componentN()`
+
+Ví dụ sử dụng:
+
+```kotlin
+val updatedTicket = ticket.copy(
+    title = "New title"
+)
+```
+
+Ứng dụng thực tế:
+- Model dữ liệu.
+- UI State.
+- API DTO.
+- Domain Model.
+- Navigation arguments/configuration.
+
+## 4. Null Safety
+
+Đây là một trong những chủ đề đã được tìm hiểu trong quá trình học.
+
+Đã tiếp xúc với:
+
+```kotlin
+String
+String?
+```
+
+Phân biệt:
+- `String`: Không cho phép null.
+- `String?`: Có thể chứa null.
+
+Các toán tử và cách xử lý:
+
+```kotlin
+?.   // Safe call
+!!   // Not-null assertion
+?:   // Elvis operator
+```
+
+Đã tìm hiểu cách sử dụng:
+
+```kotlin
+user?.name
+```
+
+```kotlin
+val name = user?.name ?: "Unknown"
+```
+
+```kotlin
+user?.let {
+    println(it.name)
+}
+```
+
+Các nội dung cần AI tiếp tục kiểm tra mức độ hiểu:
+- Smart cast.
+- Safe cast `as?`.
+- `requireNotNull()`.
+- Phân biệt nullability ở compile-time và lỗi runtime.
+- Khi nào nên dùng `let` để xử lý nullable.
+- Vì sao lạm dụng `!!` là không tốt.
+
+Lưu ý: Người học cũng đã từng học null safety trong Dart. Không được mặc định kiến thức Dart đồng nghĩa với việc đã nắm vững toàn bộ cơ chế null safety của Kotlin.
+
+## 5. Imports và Package
+
+Đã thảo luận về cách tổ chức và sử dụng import trong Kotlin.
+
+Các nội dung:
+- Import class từ package khác.
+- Wildcard import (`*`).
+- Trường hợp các class cùng package không cần import.
+- Import alias để tránh trùng tên.
+- Phân biệt import trong Kotlin với dependency trong Gradle.
+- Kotlin không sử dụng cơ chế export barrel như một số ngôn ngữ khác.
+
+Ví dụ:
+
+```kotlin
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+```
+
+## 6. Annotation và Resource trong Android
+
+Đã tìm hiểu cách Kotlin sử dụng annotation để xác định loại tài nguyên Android.
+
+Đã tiếp xúc với:
+
+```kotlin
+@StringRes
+@DrawableRes
+```
+
+Ví dụ model:
+
+```kotlin
+data class NavigationBarItem(
+    @StringRes val titleRes: Int,
+    @DrawableRes val iconRes: Int,
+    val route: NavigationRoute
+)
+```
+
+Đã hiểu các điểm quan trọng:
+- Resource ID của Android vẫn là kiểu `Int`.
+- `@StringRes` đánh dấu một Int được kỳ vọng là String resource.
+- `@DrawableRes` đánh dấu một Int được kỳ vọng là Drawable resource.
+- Annotation hỗ trợ Lint kiểm tra việc sử dụng sai loại tài nguyên.
+
+Đã tìm hiểu cách sử dụng trong Compose:
+
+```kotlin
+stringResource(item.titleRes)
+```
+
+```kotlin
+painterResource(item.iconRes)
+```
+
+Đã phân biệt các kiểu biểu diễn icon/image:
+- Drawable hoặc mipmap resource: `Int`.
+- Material Compose icon: `ImageVector`.
+- Đường dẫn ảnh hoặc URI: `String` hoặc `Uri`.
+- Đối tượng hiển thị hình ảnh: `Drawable` hoặc `Painter`.
+
+## 7. Parcelable và Parcelize
+
+Đã trực tiếp thảo luận về `@Parcelize` và `Parcelable`.
+
+Mục đích:
+- Cho phép truyền dữ liệu giữa các thành phần Android.
+- Truyền object thông qua Intent hoặc Bundle.
+- Sử dụng model Kotlin làm dữ liệu truyền giữa các màn hình.
+
+Ví dụ:
+
+```kotlin
+@Parcelize
+data class Ticket(
+    val id: Int,
+    val title: String
+) : Parcelable
+```
+
+Đã tiếp xúc với:
+- Interface `Parcelable`.
+- Annotation `@Parcelize`.
+- Plugin Kotlin Parcelize.
+- Mối liên hệ giữa model và Intent/Bundle.
+
+---
+
+# PHẦN II. OOP VÀ CÁC KHÁI NIỆM KOTLIN CẦN NẮM
+
+## 8. Lập trình hướng đối tượng
+
+Người học đã có nền tảng lập trình và đang tiếp cận Kotlin theo hướng phát triển Android.
+
+Các nội dung trong lộ trình Kotlin:
+- Class và Object.
+- Constructor.
+- Properties.
+- Inheritance.
+- Interfaces.
+- Visibility modifiers.
+- Generics.
+
+Các visibility modifier cần nắm:
+
+```kotlin
+public
+private
+protected
+internal
+```
+
+AI cần đánh giá lại mức độ hiểu thực tế trước khi chuyển sang những chủ đề nâng cao.
+
+## 9. Các chủ đề Kotlin Fundamentals
+
+Các nội dung đã được đưa vào lộ trình học:
+
+- Kiểu dữ liệu.
+- Toán tử.
+- `if`, `when`.
+- Vòng lặp.
+- Hàm và tham số.
+- Default arguments.
+- Named arguments.
+- Lambda expressions.
+- Higher-order functions.
+- Extension functions.
+- Collections: List, Map, Set.
+- Các thao tác `map`, `filter`, `reduce`.
+- Scope functions: `let`, `run`, `with`, `apply`, `also`.
+- Sealed classes.
+- Generics.
+
+Đây là danh sách kiến thức trong định hướng học tập, không phải tất cả đều đã được xác nhận là đã học xong.
+
+AI không nên mặc định người học chưa biết những nội dung này, nhưng cũng không được mặc định đã thành thạo.
+
+---
+
+# PHẦN III. KOTLIN TRONG ANDROID ARCHITECTURE
+
+## 10. Tư duy Activity không nên chứa toàn bộ logic
+
+Đây là một trong những chủ đề quan trọng trong quá trình học Android.
+
+Người học đã đi qua tư duy:
+
+- Activity chịu trách nhiệm quản lý giao diện và tương tác với hệ thống Android.
+- Không nên đưa toàn bộ business logic vào Activity.
+- Không nên để Activity trở thành nơi lưu trữ và quản lý toàn bộ dữ liệu của ứng dụng.
+- Cần phân tách UI, state và business logic.
+- ViewModel xuất hiện để quản lý UI-related state và logic phù hợp với vòng đời Android.
+
+Đã xây dựng định hướng học từ:
+
+Activity → State → ViewModel → LiveData → StateFlow → Compose.
+
+## 11. MVVM
+
+Đây là một trong những phần người học đã tìm hiểu tương đối nhiều.
+
+Mô hình tư duy MVVM hiện tại:
+
+```text
+       UI (Activity / Fragment)
+                 |
+                 | User Action
+                 v
+             ViewModel
+                 |
+                 | Business Logic
+                 v
+             Repository
+                 |
+          +------+------+
+          |             |
+       Remote         Local
+        API           Room
+```
+
+Trách nhiệm từng thành phần:
+
+**View**
+- Hiển thị giao diện.
+- Nhận tương tác người dùng.
+- Gửi action/event đến ViewModel.
+- Quan sát state để cập nhật giao diện.
+
+**ViewModel**
+- Quản lý UI State.
+- Xử lý logic phù hợp với presentation layer.
+- Tiếp nhận action từ UI.
+- Gọi Repository hoặc UseCase.
+- Expose StateFlow cho UI quan sát.
+
+**Repository**
+- Là lớp trung gian quản lý nguồn dữ liệu.
+- Không để ViewModel phụ thuộc trực tiếp vào API hoặc Database.
+- Có thể kết hợp Remote và Local Data Source.
+
+Người học đã thể hiện cách hiểu:
+
+- UI gửi sự kiện xuống ViewModel.
+- ViewModel xử lý và cập nhật StateFlow.
+- UI quan sát StateFlow và tự cập nhật khi state thay đổi.
+
+Đây là nền tảng kiến trúc cần được giữ xuyên suốt trong những bài học tiếp theo.
+
+## 12. LiveData và StateFlow
+
+Đã học và thảo luận về sự khác nhau giữa LiveData và StateFlow.
+
+Các chủ đề:
+
+- LiveData là observable holder trong Android.
+- StateFlow thuộc Kotlin Coroutines.
+- `MutableStateFlow` dùng để cập nhật state.
+- `StateFlow` được expose ra ngoài dưới dạng read-only.
+- UI collect state để render.
+- StateFlow phù hợp với tư duy quản lý business/UI state hiện đại.
+
+Ví dụ:
+
+```kotlin
+private val _uiState = MutableStateFlow(
+    HomeUiState()
+)
+
+val uiState: StateFlow<HomeUiState> = _uiState
+```
+
+Cập nhật state:
+
+```kotlin
+_uiState.update { currentState ->
+    currentState.copy(
+        isLoading = true
+    )
+}
+```
+
+Đã tìm hiểu:
+- Vì sao không nên để UI trực tiếp sửa state nội bộ của ViewModel.
+- Vì sao nên expose StateFlow thay vì MutableStateFlow.
+- Vì sao nên gom state vào một UiState.
+- Khái niệm Single Source of Truth.
+
+## 13. UiState
+
+Đã học về việc gom trạng thái của một màn hình vào một đối tượng UiState.
+
+Ví dụ:
+
+```kotlin
+data class HomeUiState(
+    val isLoading: Boolean = false,
+    val users: List<User> = emptyList(),
+    val error: String? = null
+)
+```
+
+Thay vì tạo nhiều state riêng lẻ, ViewModel có thể expose một state thống nhất.
+
+Mục tiêu:
+- Dễ quản lý.
+- Dễ theo dõi.
+- Giảm sự phân tán state.
+- UI có một nguồn dữ liệu thống nhất.
+- Dễ kiểm soát các trạng thái loading, success và error.
+
+## 14. Event và State
+
+Đây là chủ đề người học đã dành thời gian tìm hiểu.
+
+Phân biệt:
+
+**State**
+- Đại diện cho trạng thái hiện tại của màn hình.
+- Có thể được quan sát và render nhiều lần.
+- Ví dụ: danh sách người dùng, loading, nội dung màn hình.
+
+**Event**
+- Đại diện cho một hành động hoặc sự kiện.
+- Ví dụ: click button, submit form.
+
+**One-time UI Event**
+- Ví dụ: Snackbar, Toast, Navigate.
+- Không nên xử lý như một state thông thường nếu việc phát lại sự kiện gây ra hành vi không mong muốn.
+
+Đã tiếp cận các công cụ:
+- StateFlow cho state.
+- SharedFlow cho event.
+- Event handling trong ViewModel.
+
+Tư duy cần giữ:
+State và Event có mục đích khác nhau, không nên gộp tất cả vào một luồng dữ liệu mà không phân biệt ngữ nghĩa.
+
+## 15. MVVM và MVI
+
+Người học đã tìm hiểu MVVM và bắt đầu tìm hiểu MVI.
+
+Cách hiểu MVVM hiện tại:
+- Event đi vào ViewModel.
+- ViewModel xử lý.
+- State được expose qua StateFlow.
+- UI quan sát state.
+
+Định hướng học MVI:
+- Action/Intent đại diện cho hành động.
+- Reducer hoặc logic xử lý chuyển state.
+- State là trạng thái hiện tại của màn hình.
+- Luồng dữ liệu có tính một chiều.
+
+Người học muốn hiểu rõ sự khác biệt giữa MVVM và MVI, không muốn chỉ đổi tên các thành phần mà không hiểu bản chất.
+
+Chưa nên mặc định đã thành thạo MVI hoặc reducer pattern.
+
+---
+
+# PHẦN IV. COROUTINES VÀ FLOW
+
+## 16. Kotlin Coroutines
+
+Coroutines đã được đưa vào chương trình học Android, đặc biệt khi làm việc với API, Room và Firebase.
+
+Các khái niệm đã được xác định là cần học:
+
+- `suspend` function.
+- `launch`.
+- `async`.
+- `withContext`.
+- Dispatchers.
+- Structured concurrency.
+- Exception handling.
+
+Mục tiêu:
+- Xử lý tác vụ bất đồng bộ.
+- Không thực hiện I/O hoặc network operation trên Main Thread.
+- Quản lý vòng đời tác vụ.
+- Kết hợp API và Database với ViewModel.
+
+## 17. Dispatchers và Thread
+
+Đã xác định đây là phần cần hiểu khi học Coroutine.
+
+Các Dispatcher:
+
+```kotlin
+Dispatchers.Main
+Dispatchers.IO
+Dispatchers.Default
+```
+
+Định hướng:
+- Main: Công việc liên quan đến UI.
+- IO: I/O, đọc ghi dữ liệu, network.
+- Default: Công việc tính toán CPU-intensive.
+
+Cần phân biệt:
+- Thread.
+- Coroutine.
+- Dispatcher.
+- Suspend function.
+
+Không được đồng nhất Coroutine với Thread.
+
+## 18. Flow, StateFlow và SharedFlow
+
+Các nội dung đã được đưa vào quá trình học:
+
+- Flow là asynchronous data stream.
+- StateFlow là state holder có giá trị hiện tại.
+- SharedFlow là hot flow có khả năng phát dữ liệu cho nhiều collector.
+- Collect Flow trong ViewModel.
+- Kết hợp Flow từ Room.
+- Chuyển đổi callback sang suspend hoặc Flow khi tích hợp Firebase.
+
+Mục tiêu ứng dụng:
+
+```kotlin
+fun getUsers(): Flow<List<User>>
+```
+
+Kết hợp với ViewModel để UI nhận được dữ liệu mới khi Database thay đổi.
+
+---
+
+# PHẦN V. DATA LAYER VÀ CLEAN ARCHITECTURE
+
+## 19. Repository Pattern
+
+Đã học về lý do không nên gọi API trực tiếp từ ViewModel.
+
+Luồng:
+
+```text
+UI
+ |
+ v
+ViewModel
+ |
+ v
+Repository
+ |
+ +------ Remote API
+ |
+ +------ Local Database
+```
+
+Các khái niệm:
+- Repository interface.
+- Repository implementation.
+- Remote Data Source.
+- Local Data Source.
+- Data mapping.
+- Quản lý nguồn dữ liệu.
+
+## 20. DTO và Domain Model
+
+Đã tiếp xúc với tư duy mapping dữ liệu từ API sang domain model.
+
+Luồng:
+
+```text
+Backend JSON
+     |
+     v
+    DTO
+     |
+     v
+   Mapper
+     |
+     v
+ Domain Model
+     |
+     v
+  UseCase
+     |
+     v
+ ViewModel
+     |
+     v
+    UI
+```
+
+Phân biệt:
+- DTO: Đại diện cấu trúc dữ liệu từ API.
+- Domain Model: Đại diện dữ liệu nghiệp vụ của ứng dụng.
+- Mapper: Chuyển đổi giữa các mô hình.
+- RepositoryImpl: Triển khai repository interface.
+
+Đây là kiến trúc mà người học muốn duy trì trong những project Android sau này.
+
+## 21. Retrofit
+
+Các nội dung đã đưa vào lộ trình:
+
+- REST API.
+- GET / POST.
+- JSON parsing.
+- DTO.
+- Retrofit.
+- Error handling.
+- Auth Interceptor.
+- OkHttp.
+- Mapping DTO sang Domain.
+
+Chưa có đủ căn cứ để xác nhận toàn bộ những phần này đã được thực hành thành thạo.
+
+## 22. Room Database
+
+Đã xây dựng định hướng học Room với các thành phần:
+
+**Entity**
+- Đại diện cấu trúc bảng dữ liệu.
+
+**DAO**
+- Khai báo các thao tác truy vấn và thay đổi dữ liệu.
+
+**Database**
+- Quản lý database và cung cấp DAO.
+
+Ví dụ cấu trúc:
+
+```text
+data/
+  local/
+    dao/
+    entity/
+    datasource/
+    AppDatabase.kt
+```
+
+Đã xác định cần học:
+- CRUD.
+- Foreign Key.
+- Quan hệ giữa các bảng.
+- Database version.
+- Migration.
+- Flow từ Room.
+- Offline-first.
+- Kết hợp Room với Retrofit.
+
+Một nội dung đã được ghi riêng trong lộ trình: khi thay đổi cấu trúc bảng, cần xử lý version và migration thay vì tùy tiện xóa Database để cập nhật.
+
+## 23. Data Synchronization và Cache
+
+Đã thảo luận ba cách quản lý dữ liệu giữa API và Database:
+
+**Kiểu A – Manual Refresh**
+- Khi mở app chỉ observe Database.
+- Khi người dùng bấm Refresh mới gọi API.
+
+**Kiểu B – Auto Refresh**
+- Khi mở màn hình, nếu Database trống thì gọi API.
+- Nếu đã có dữ liệu thì hiển thị trước, có thể refresh ngầm.
+
+**Kiểu C – Cache TTL**
+- Lưu thời điểm fetch dữ liệu.
+- Nếu dữ liệu quá thời hạn thì gọi API.
+- Nếu chưa quá thời hạn thì sử dụng cache.
+
+Định hướng học:
+A → B → C.
+
+---
+
+# PHẦN VI. DEPENDENCY INJECTION
+
+## 24. Dependency Injection và Hilt
+
+Đã xác định DI là thành phần quan trọng trong kiến trúc Android.
+
+Các annotation đã được đưa vào lộ trình:
+
+```kotlin
+@HiltAndroidApp
+@Inject
+@HiltViewModel
+```
+
+Các nội dung cần hiểu:
+- Dependency Injection là gì.
+- Vì sao không nên tự tạo mọi dependency bằng `new`.
+- Constructor Injection.
+- Module và Provider.
+- Scope.
+- Inject Repository vào ViewModel.
+- Inject dependency vào các thành phần cần sử dụng.
+
+Mục tiêu:
+- Giảm sự phụ thuộc giữa các class.
+- Dễ thay thế implementation.
+- Dễ test.
+- Quản lý dependency tập trung.
+
+Người học đã có định hướng sử dụng DI thay vì khởi tạo dependency thủ công trong từng Activity hoặc ViewModel.
+
+---
+
+# PHẦN VII. JETPACK COMPOSE
+
+## 25. Tư duy Compose
+
+Đã học và xây dựng lộ trình chuyển từ XML sang Compose.
+
+Các khái niệm:
+- `@Composable`.
+- Composable function.
+- State-driven UI.
+- Recomposition.
+- `remember`.
+- `mutableStateOf`.
+- `Column`.
+- `Row`.
+- `Box`.
+- `LazyColumn`.
+- `Modifier`.
+- MaterialTheme.
+
+Tư duy quan trọng:
+
+```text
+State thay đổi
+      |
+      v
+Compose nhận state mới
+      |
+      v
+Recomposition
+      |
+      v
+UI hiển thị theo state mới
+```
+
+Đã xác định Compose không thay đổi bản chất kiến trúc MVVM hay Repository. Nó thay đổi cách xây dựng và cập nhật UI.
+
+## 26. State trong Compose
+
+Các nội dung cần nắm:
+
+- `remember`.
+- `mutableStateOf`.
+- State hoisting.
+- Recomposition.
+- `rememberSaveable`.
+- Collect StateFlow trong Compose.
+
+Định hướng kiến trúc:
+
+```text
+ViewModel
+    |
+    v
+StateFlow<UiState>
+    |
+    v
+Composable
+    |
+    v
+Render UI
+```
+
+Người học muốn giữ business logic trong ViewModel, không đưa toàn bộ logic vào Composable.
+
+---
+
+# PHẦN VIII. ANDROID FRAMEWORK
+
+## 27. Activity và Fragment
+
+Đã học theo hướng hiểu vai trò của Activity, Fragment và cách phân chia trách nhiệm.
+
+Các nội dung trong lộ trình:
+- Activity lifecycle.
+- Fragment lifecycle.
+- Activity không nên chứa business logic.
+- ViewBinding.
+- Intent.
+- Bundle.
+- SavedInstanceState.
+- Navigation.
+
+## 28. RecyclerView và Adapter
+
+Đã tiếp xúc với mô hình quản lý danh sách bằng Adapter.
+
+Các khái niệm:
+- RecyclerView.
+- Adapter.
+- ViewHolder.
+- Item layout.
+- notifyDataSetChanged().
+- ListAdapter.
+- DiffUtil.
+
+Định hướng:
+- Với bài học cơ bản, notifyDataSetChanged() có thể được sử dụng.
+- Khi tối ưu danh sách, tìm hiểu ListAdapter và DiffUtil.
+
+## 29. Navigation Component
+
+Đã đưa vào lộ trình các nội dung:
+
+- NavHostFragment.
+- NavController.
+- nav_graph.xml.
+- Truyền dữ liệu giữa Fragment.
+- Shared ViewModel.
+- Back Stack.
+- popBackStack().
+- popUpTo.
+- BottomNavigation.
+- navGraphViewModels().
+
+Đây là nhóm kiến thức cần được kiểm tra mức độ thực hành.
+
+---
+
+# PHẦN IX. FIREBASE
+
+## 30. Firebase và Android
+
+Đã xây dựng một lộ trình học Firebase theo từng giai đoạn.
+
+Các nội dung:
+
+**Firebase Authentication**
+- Login.
+- Register.
+- currentUser.
+
+**Cloud Firestore**
+- Add.
+- Get.
+- Update.
+- Delete.
+
+**Realtime**
+- addSnapshotListener().
+- Realtime data updates.
+
+**Kiến trúc**
+- UI → ViewModel → Repository → Firebase.
+
+**Coroutines và Flow**
+- Chuyển callback thành suspend.
+- Chuyển dữ liệu realtime thành Flow.
+- Kết hợp với StateFlow trong ViewModel.
+
+**UI State**
+- Loading.
+- Success.
+- Error.
+
+**Security Rules**
+- Kiểm soát quyền đọc/ghi.
+- Ràng buộc dữ liệu theo Firebase Authentication UID.
+
+Đây là lộ trình đã được thảo luận, chưa đồng nghĩa với việc tất cả chức năng đã được người học triển khai.
+
+---
+
+# PHẦN X. CẤU TRÚC PROJECT VÀ TƯ DUY TỔ CHỨC CODE
+
+## 31. Kiến trúc project mà người học hướng đến
+
+Người học đã xây dựng một cấu trúc Android Native Kotlin theo hướng phân chia data, domain, feature và UI.
+
+Cấu trúc tham chiếu:
+
+```text
+com.example.app
+│
+├── core
+│   ├── di
+│   ├── dispatcher
+│   ├── extension
+│   ├── result
+│   └── ui
+│
+├── data
+│   ├── local
+│   │   ├── dao
+│   │   ├── datasource
+│   │   ├── entity
+│   │   └── AppDatabase.kt
+│   │
+│   ├── remote
+│   │   ├── api
+│   │   ├── datasource
+│   │   ├── dto
+│   │   │   ├── request
+│   │   │   ├── response
+│   │   │   └── BaseResponseDto.kt
+│   │   ├── AuthInterceptor.kt
+│   │   └── RetrofitProvider.kt
+│   │
+│   ├── mapper
+│   ├── repository
+│   └── session
+│
+├── domain
+│   ├── model
+│   ├── repository
+│   └── usecase
+│
+├── feature
+│   ├── auth
+│   │   ├── login
+│   │   │   ├── LoginViewModel.kt
+│   │   │   ├── LoginFragment.kt
+│   │   │   ├── LoginUiState.kt
+│   │   │   └── LoginUiEvent.kt
+│   │   │
+│   │   └── register
+│   │       ├── RegisterViewModel.kt
+│   │       ├── RegisterFragment.kt
+│   │       ├── RegisterUiState.kt
+│   │       └── RegisterUiEvent.kt
+│   │
+│   ├── home
+│   │   ├── HomeViewModel.kt
+│   │   ├── HomeFragment.kt
+│   │   ├── HomeUiState.kt
+│   │   └── HomeUiEvent.kt
+│   │
+│   └── MainActivity.kt
+│
+├── ui
+│   ├── component
+│   │   ├── button
+│   │   ├── input
+│   │   ├── surface
+│   │   └── navigation
+│   │
+│   ├── dialog
+│   ├── icon
+│   ├── navigation
+│   └── theme
+│
+└── MyApp.kt
+```
+
+Đây là cấu trúc tham chiếu được người học xây dựng, không phải yêu cầu bắt buộc mọi project phải có đầy đủ tất cả thư mục.
+
+## 32. Vai trò các layer
+
+**Core**
+- Các thành phần dùng chung toàn ứng dụng.
+- DI.
+- Dispatcher.
+- Extension.
+- Result wrapper.
+
+**Data**
+- Quản lý nguồn dữ liệu.
+- API.
+- Database.
+- DTO.
+- Mapper.
+- Repository implementation.
+
+**Domain**
+- Business model.
+- Repository interface.
+- UseCase.
+
+**Feature**
+- Chứa các màn hình và logic theo từng tính năng.
+- ViewModel.
+- UiState.
+- UiEvent.
+- Fragment hoặc Screen.
+
+**UI**
+- Các component có thể tái sử dụng.
+- Button.
+- Input.
+- Card.
+- Navigation.
+- Theme.
+- Icon.
+
+---
+
+# PHẦN XI. NHỮNG KIẾN THỨC CHƯA ĐƯỢC XÁC NHẬN THÀNH THẠO
+
+AI mới cần chú ý những chủ đề sau. Đây là danh sách cần đánh giá, không phải kết luận rằng người học chưa biết.
+
+## Kotlin Language
+- Higher-order functions.
+- Lambda và function references.
+- Extension functions.
+- Scope functions.
+- Generics.
+- Sealed class và sealed interface.
+- Object declaration và companion object.
+- Delegation.
+- Inline, noinline, crossinline.
+- Reified type parameters.
+- Variance: in, out.
+- Destructuring declarations.
+- Collections operations.
+
+## Coroutines
+- CoroutineScope.
+- Job và SupervisorJob.
+- Cancellation.
+- CoroutineExceptionHandler.
+- Structured concurrency.
+- Flow operators.
+- StateFlow và SharedFlow chuyên sâu.
+- StateIn và ShareIn.
+- Cold Flow và Hot Flow.
+- FlowOn.
+- Combine, flatMapLatest, debounce.
+
+## Android
+- Lifecycle.
+- SavedStateHandle.
+- ViewModel lifecycle.
+- Navigation.
+- Room Migration.
+- Paging.
+- WorkManager.
+- Testing.
+- Hilt scopes.
+- Performance và memory management.
+
+## Compose
+- Recomposition chuyên sâu.
+- State hoisting.
+- Side effects.
+- LaunchedEffect.
+- DisposableEffect.
+- rememberUpdatedState.
+- CompositionLocal.
+- Navigation Compose.
+- Compose testing.
+
+---
+
+# PHẦN XII. PHƯƠNG PHÁP HƯỚNG DẪN PHÙ HỢP
+
+Đây là phần rất quan trọng. AI mới cần tuân thủ khi tiếp tục dạy Kotlin và Android.
+
+## 33. Không dạy lan man
+
+Người học muốn được hướng dẫn theo hướng có hệ thống, giống một người thầy thực sự.
+
+Không nên:
+- Liệt kê hàng chục khái niệm nhưng không giải thích quan hệ giữa chúng.
+- Đưa ra code dài mà không giải thích cấu trúc.
+- Nhảy giữa nhiều kiến trúc khác nhau.
+- Đưa ví dụ không liên quan đến Android.
+- So sánh Kotlin với các ngôn ngữ khác trong mọi câu trả lời khi không cần thiết.
+
+## 34. Luôn giải thích cấu trúc trước khi viết code
+
+Khi giới thiệu một chủ đề mới, nên đi theo thứ tự:
+
+1. Vấn đề thực tế đang gặp phải là gì?
+2. Vì sao cần khái niệm này?
+3. Nó giải quyết vấn đề nào?
+4. Nó nằm ở đâu trong kiến trúc?
+5. Các thành phần liên quan với nhau thế nào?
+6. Sau đó mới đi vào code.
+7. Giải thích từng phần quan trọng trong code.
+8. Kết thúc bằng luồng hoạt động tổng thể.
+
+Ví dụ khi dạy Repository:
+
+Không nên bắt đầu ngay bằng một đoạn code Repository dài.
+
+Nên giải thích trước:
+- Nếu ViewModel gọi API trực tiếp thì có vấn đề gì?
+- Repository xuất hiện để giải quyết điều gì?
+- Repository interface nằm ở đâu?
+- Repository implementation nằm ở đâu?
+- API và Database được kết nối thế nào?
+
+Sau đó mới xây dựng code.
+
+## 35. Giữ kiến trúc xuyên suốt
+
+Kiến trúc ưu tiên:
+
+```text
+Presentation
+     |
+     v
+ ViewModel
+     |
+     v
+  UseCase
+     |
+     v
+Repository Interface
+     ^
+     |
+RepositoryImpl
+     |
+     +------ Remote
+     |
+     +------ Local
+```
+
+Không tự ý chuyển sang BLoC, Redux hoặc một kiến trúc hoàn toàn khác nếu người học không yêu cầu.
+
+Nếu cần giới thiệu MVI, phải giải thích rõ sự khác biệt với MVVM thay vì thay đổi toàn bộ ví dụ mà không có lý do.
+
+## 36. Phong cách giải thích
+
+- Sử dụng tiếng Việt làm ngôn ngữ chính.
+- Giữ nguyên tên thuật ngữ tiếng Anh.
+- Giải thích rõ các từ chuyên ngành.
+- Chia kiến thức thành những phần nhỏ.
+- Đi từ bản chất đến cách triển khai.
+- Không giả định người học đã hiểu một khái niệm chỉ vì từng nhắc đến nó.
+- Không giải thích lại quá nhiều những thứ người học đã nắm.
+- Khi có thể, sử dụng một project xuyên suốt để minh họa.
+
+---
+
+# PHẦN XIII. ĐỊNH HƯỚNG TIẾP TỤC HỌC
+
+## 37. Stack công nghệ ưu tiên
+
+Người học đã quyết định sử dụng Kotlin làm ngôn ngữ phát triển Android chính.
+
+Ưu tiên:
+- Kotlin.
+- Android Native.
+- Android Studio.
+- MVVM.
+- StateFlow / SharedFlow.
+- Coroutines.
+- Room.
+- Retrofit.
+- Hilt.
+- Jetpack Compose.
+- Navigation.
+- Clean Architecture ở mức phù hợp.
+
+Không tự động đề xuất Flutter. Người học đã quyết định dừng Flutter và quay lại tập trung Kotlin.
+
+## 38. Mục tiêu
+
+Không chỉ biết cú pháp Kotlin mà cần hiểu cách xây dựng một ứng dụng Android hoàn chỉnh.
+
+Một ứng dụng quản lý cơ bản cần hiểu được vai trò của:
+- Model.
+- Adapter (khi sử dụng RecyclerView).
+- Database.
+- DAO.
+- Repository.
+- ViewModel.
+- Activity / Fragment.
+- UI State.
+- Navigation.
+
+Sau đó mở rộng sang kiến trúc hiện đại với:
+- Domain.
+- UseCase.
+- Data Source.
+- Dependency Injection.
+- Coroutines và Flow.
+- Compose.
+
+## 39. Hướng dẫn AI mới
+
+Hãy xem tài liệu này là hồ sơ kiến thức nền của người học.
+
+Khi bắt đầu một cuộc trò chuyện mới:
+1. Không bắt đầu lại từ Kotlin cơ bản như người chưa từng học lập trình.
+2. Ưu tiên đánh giá kiến thức bằng những câu hỏi nhỏ nếu cần.
+3. Phân biệt rõ đã biết, đã tiếp xúc và chưa được xác nhận.
+4. Tiếp tục từ nền tảng hiện có.
+5. Giữ một kiến trúc và phong cách code xuyên suốt.
+6. Giải thích bản chất trước khi đưa ra giải pháp.
+7. Ưu tiên Kotlin và Android Native.
+
+Mục tiêu cuối cùng là giúp người học có khả năng tự thiết kế, tổ chức, giải thích và triển khai một ứng dụng Android thực tế bằng Kotlin, thay vì chỉ biết sử dụng các thư viện hoặc sao chép code từ ví dụ.
+
+**Kết thúc hồ sơ kiến thức.**

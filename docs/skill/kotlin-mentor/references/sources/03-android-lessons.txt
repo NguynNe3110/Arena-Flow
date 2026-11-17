@@ -1,0 +1,311 @@
+BÀI 1 (ngày 1): Tạo app XML + ViewBinding + 1 nút đổi chữ (siêu nền tảng)
+BÀI 2 – Vì sao Activity KHÔNG nên giữ logic
+BÀI 3 – Tư duy STATE (vì sao Activity không nên “giữ dữ liệu”)
+BÀI 4 – ViewModel xuất hiện vì lý do gì?
+BÀI 5 – LiveData (UI tự cập nhật, không setText thủ công)
+Bài 6: LiveData + rotation (xoay màn hình không mất data)
+Bài 7: Event vs State (LiveData không dùng cho event)
+Bài 8: LiveData vs StateFlow (định hướng Android hiện đại)
+Bài 9: Gom toàn bộ state vào UiState
+Bài 10: Jetpack Compose (state-driven UI thật sự)
+
+TẦNG 1 – STATE & DATA FLOW (Bài 8 → 10)
+
+Mỗi bài từ 8 → 15, bạn bắt buộc phải:
+Code ít
+Nhưng tự viết lại từ đầu (không copy)
+
+Bài 8 – LiveData vs StateFlow
+Vì sao Google không khuyến khích LiveData cho logic mới
+StateFlow giải quyết vấn đề gì
+LiveData = UI layer
+StateFlow = business state
+
+Bài 9 – Gom toàn bộ state vào UiState
+Vấn đề khi có nhiều LiveData / StateFlow rời rạc
+UiState là gì
+Single source of truth
+ViewModel chỉ expose 1 state
+
+Bài 10 – ViewModel + StateFlow chuẩn
+MutableStateFlow vs StateFlow
+Expose immutable state
+Update state đúng cách (copy)
+Sau Bài 10
+👉 làm 1 mini-app chỉ dùng StateFlow + UiState, KHÔNG API
+
+TẦNG 2 – DATA LAYER (Bài 11 → 15)
+
+Bài 11 – Repository xuất hiện vì lý do gì
+Vì sao ViewModel không gọi API trực tiếp
+Repository pattern
+Nguồn dữ liệu (remote / local)
+
+Bài 12 – Retrofit + API
+Gọi API
+Mapping DTO → domain
+Error handling chuẩn
+
+Bài 13 – Coroutine + Flow cơ bản
+suspend function
+launch vs async
+collect Flow trong ViewModel
+
+==========
+Bài 13 – Coroutine + Flow cơ bản
+đang đặt hơi sớm
+👉 Thực tế tốt hơn:
+Coroutine / Flow nên học trong bối cảnh Retrofit + Room, không học độc lập.
+📌 Chỉnh lại đúng nhịp của bạn:
+Gộp Coroutine + Flow vào Bài 12 & 14
+Không cần một bài riêng quá sớm
+==========
+
+Bài 14 – Room Database
+Entity / DAO / Database
+Flow từ Room
+Offline-first tư duy
+
+Bài 15 – Kết hợp Room + Retrofit
+Cache dữ liệu
+Khi nào gọi API
+Khi nào dùng DB
+Sau Bài 15
+👉 làm 1 app list có cache, kể cả API fake
+
+bài 15.1 về các vấn de ve tang version, them sửa bảng phải yêu cầu cập nhật db các thứ.foreignkey, phải tăng version + migration (bài sau).
+TẦNG 3 – DEPENDENCY & UI HIỆN ĐẠI (Bài 16 → 18)
+
+Bài 16 – Dependency Injection (Hilt) (DI)
+Vì sao không new ViewModel / Repository
+@Inject, @HiltViewModel
+Scope cơ bản
+
+Bài 17 – Jetpack Compose (cốt lõi)
+UI là hàm
+State → UI
+remember / mutableStateOf
+
+========
+Compose không cần gấp
+Nhưng bắt buộc phải học
+📌 Điều chỉnh:
+Đẩy Compose từ Bài 17 → Bài 18
+Đảm bảo:
+StateFlow
+Repository
+Data layer
+đã vững trước khi sang UI mới
+========
+
+Bài 18 – Compose + ViewModel + StateFlow
+Collect state trong Compose
+UI tự render theo state
+Không setText, không observe thủ công
+
+Bài 19 – Navigation (XML hoặc Compose)
+Screen → Screen
+Truyền state
+Back stack
+
+Bài 20 Recycler + adapter
+
+TẦNG 4 – HOÀN THIỆN & TỔNG HỢP (Bài 19 → 22)
+
+Bài 21 – Event vs State (nâng cao)
+One-time event
+Snackbar / Toast / Navigate
+Vì sao StateFlow không dùng cho event
+
+Bài 22 – Gom toàn bộ kiến trúc
+data / domain / ui
+Luồng dữ liệu 1 chiều
+Code gọn – dễ đọc
+
+Bài 23 – Làm 1 app hoàn chỉnh
+MVVM
+StateFlow
+Retrofit
+Room
+Hilt
+(XML hoặc Compose)
+
+more
+Repository + Dispatcher + thread
+
+===================================================================
+
+) Khi nào gọi API? Khi nào dùng DB?
+Khi nào dùng DB?
+
+Luôn luôn để hiển thị (list trên màn hình)
+
+Khi offline / mạng yếu
+
+Khi bạn muốn mở app lên có data ngay (không chờ mạng)
+
+Khi nào gọi API?
+
+Có 3 kiểu phổ biến (bài 15 bạn chọn 1 kiểu đơn giản trước):
+
+Kiểu A — “Manual refresh” (dễ nhất, recommended cho bạn)
+
+App mở lên: chỉ observe DB
+
+Người dùng bấm “Tải/Refresh” thì mới gọi API
+
+Kiểu B — “Auto refresh on start”
+
+Mở màn hình: nếu DB trống → gọi API 1 lần
+
+Nếu DB có data → show luôn, rồi có thể refresh ngầm (tuỳ)
+
+Kiểu C — “Stale time / Cache TTL” (xịn hơn)
+
+Lưu lastFetchTime
+
+Nếu quá X phút → gọi API, còn chưa quá thì dùng DB
+
+👉 Bài 15 nên làm Kiểu A, sau đó nâng lên Kiểu B, cuối cùng chốt Kiểu C.
+
+==========================================================
+Với app học cơ bản: notifyDataSetChanged() ok.
+Sau này tối ưu: dùng ListAdapter + DiffUtil (đỡ lag), nhưng chưa cần.
+============================================================
+19.3 – Navigation Component hoạt động thế nào?
+
+Navigation gồm 3 phần:
+
+NavHostFragment
+
+NavController
+
+nav_graph.xml
+19.4 – Truyền dữ liệu giữa 2 Fragment
+19.5 – Shared ViewModel giữa 2 Fragment
+19.6 Back Stack 
+ popBackStack()
+– popUpTo (Login → Home)
+
+Đây là cái mà 90% người mới không hiểu và làm sai.
+
+19.7 – BottomNavigation + nhiều tab
+
+Đây là cái giống ảnh bạn gửi.
+
+state theo Navigation graph (nâng cao hơn): navGraphViewModels() (để scope theo graph thay vì cả activity).
+====================================================================
+			FIREBASE
+====================================================================
+🚩 Giai đoạn 1 — Nắm bản chất Firebase (Bài 1 → 3)
+Bài 1 — Setup + Auth
+
+Firebase Authentication
+
+👉 Chỉ cần:
+
+Login / Register
+Lấy currentUser
+Bài 2 — Firestore CRUD
+
+Cloud Firestore
+
+👉 Chỉ cần:
+
+add / get / update / delete
+Bài 3 — Realtime
+
+👉 Hiểu:
+
+addSnapshotListener() hoạt động thế nào
+
+👉 Sau giai đoạn này:
+✔ Bạn đã build được app chạy được
+
+🚩 Giai đoạn 2 — “Hiện đại hóa” (đây là phần bạn hỏi)
+🚩 Bài 4 — MVVM + Repository (bắt buộc)
+
+👉 Chuẩn kiến trúc:
+
+UI → ViewModel → Repository → Firebase
+
+👉 Nhưng vẫn dùng callback Firebase gốc trước
+
+❗ Mục tiêu:
+
+Hiểu dòng chảy data
+🚩 Bài 5 — Coroutines + Flow (cực quan trọng)
+
+Kotlin Coroutines
+
+👉 Nâng cấp:
+
+❌ Trước (callback):
+db.collection("users").get().addOnSuccessListener(...)
+✔ Sau:
+Convert sang:
+suspend
+Flow
+
+👉 Ví dụ tư duy:
+
+fun getUsers(): Flow<List<User>>
+
+👉 Lợi ích:
+
+Không callback hell
+Dễ kết hợp với ViewModel (StateFlow)
+🚩 Bài 6 — UI State (Loading / Success / Error)
+
+👉 Đây là cái người mới hay bỏ qua nhưng cực quan trọng
+
+Bạn tạo:
+sealed class UiState<T> {
+    object Loading
+    data class Success(val data: T)
+    data class Error(val message: String)
+}
+
+👉 ViewModel trả về:
+
+StateFlow<UiState<List<User>>>
+
+👉 UI sẽ:
+
+Loading → show progress
+Success → show data
+Error → show message
+🚩 Bài 7 — Dependency Injection (Hilt)
+
+Hilt
+
+👉 Mục tiêu:
+
+Không tạo Firebase instance thủ công
+❌ Sai:
+FirebaseFirestore.getInstance()
+✔ Đúng:
+Inject vào Repository
+
+👉 Lợi ích:
+
+Dễ test
+Code sạch
+Chuẩn công ty
+🚩 Bài 8 — Firebase Security Rules (cực kỳ quan trọng)
+
+Firebase Security Rules
+
+👉 Nếu không học cái này:
+❗ App bạn = “database public”
+
+Ví dụ rule:
+match /users/{userId} {
+  allow read, write: if request.auth.uid == userId;
+}
+
+👉 Nghĩa là:
+
+User chỉ đọc/ghi dữ liệu của chính nó
+====================================================================
+====================================================================

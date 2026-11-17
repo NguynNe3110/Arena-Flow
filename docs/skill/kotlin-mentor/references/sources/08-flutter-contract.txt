@@ -1,0 +1,40 @@
+# 🎯 FLUTTER PRODUCTION ARCHITECTURE CONTRACT
+
+## 👑 1. META RULE (QUY TẮC TỐI THƯỢNG)
+- Mọi quy tắc kỹ thuật đều phục vụ mục tiêu học tập. Nếu mục tiêu thay đổi, công cụ phải thay đổi.
+- Luôn map 1:1 tư duy từ Kotlin/Android (Jetpack Compose, MVVM, Clean Arch) sang Flutter để tận dụng kiến thức nền.
+- Ưu tiên giải thích "Bức tranh tổng thể" và "Tại sao cần thiết kế như vậy" trước khi đi vào code.
+
+## 🔴 2. TẦNG 1: FOUNDATION RULES (BẤT BIẾN)
+### 2.1. Kiến trúc 3 lớp (Clean Architecture)
+- **Presentation (UI, BLoC)**: Chỉ biết UseCase/Repository. KHÔNG biết DataSource/API.
+- **Domain (Entities, Repo Interfaces, UseCases)**: Pure Dart. Không phụ thuộc framework.
+- **Data (Repo Impls, DataSources, Models/DTOs)**: Chứa logic gọi API (Dio), Local (Drift/Hive), mapping DTO -> Entity.
+### 2.2. Flow dữ liệu 1 chiều
+`UI -> add(Event) -> BLoC -> call(UseCase) -> call(Repo Interface) -> call(Repo Impl) -> call(DataSource) -> API/Local`
+
+## 📂 3. CẤU TRÚC THƯ MỤC CHUẨN (MAP 1:1 ANDROID)
+lib/
+├── core/               # Constants, DI (GetIt), Error, Extensions, Network (Dio), Theme, Widgets dùng chung.
+├── data/               # Local (Drift/Hive), Remote (Dio), Mappers (DTO -> Entity), Repository Impls.
+├── domain/             # Entities, Repository Interfaces, UseCases.
+├── feature/            # Chia theo feature (auth, home, profile...). Mỗi feature chứa: screen, bloc, state, event, widgets.
+├── app.dart            # Config DI, Theme, GoRouter.
+└── main.dart           # Entry point.
+
+## 🟢 4. TẦNG 3: BLOC PRODUCTION RULES (ĐÃ MỞ KHÓA - BẮT BUỘC ÁP DỤNG)
+### 4.1. Tách biệt State và Side-Effects (Không luẩn quẩn)
+- **State (`@freezed`)**: CHỈ chứa dữ liệu thuần túy để vẽ UI (Persistent data). TUYỆT ĐỐI KHÔNG chứa `isLoading`, `errorMessage`, `isNavigateSuccess`.
+- **Side-Effects (Navigate, SnackBar, Dialog)**: Gọi trực tiếp thông qua `AppNavigator` (Interface được inject vào BLoC).
+- **Loading/Error toàn cục**: Xử lý tập trung qua `CommonBloc` (Singleton) và helper `runBlocCatching()`.
+
+### 4.2. Event Pattern (One Event Per Class)
+- Base class: `abstract class [Feature]Event extends BaseBlocEvent`
+- Mỗi Event là 1 `sealed class` riêng biệt, dùng `@freezed`, kế thừa từ Base Event.
+- Ví dụ:
+  ```dart
+  @freezed
+  sealed class EmailTextFieldChanged extends LoginEvent with _$EmailTextFieldChanged {
+    const EmailTextFieldChanged._();
+    const factory EmailTextFieldChanged({required String email}) = _EmailTextFieldChanged;
+  }

@@ -23,14 +23,16 @@ class FeatureConventionPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("com.android.library")
-                apply<KotlinConventionPlugin>()
-                apply<TestConventionPlugin>()
+                apply<KotlinConventionPlugin>() // để lấy java version / jvm toolchain
+                apply<TestConventionPlugin>() // Junit 5 + paralled test exection
                 apply<AboutLibrariesPlugin>()
                 apply("com.google.devtools.ksp")
                 apply("org.jetbrains.kotlin.plugin.compose")
             }
 
+            // Cấu hình Android Library Extension:
             extensions.configure<LibraryExtension> {
+                // Thiết lập compileSdk, minSdk lấy từ Version Catalog.
                 compileSdk =
                     versions
                         .compile
@@ -50,9 +52,9 @@ class FeatureConventionPlugin : Plugin<Project> {
                 }
 
                 buildFeatures {
-                    viewBinding = true
-                    buildConfig = true
-                    compose = true
+                    viewBinding = true //
+                    buildConfig = true // để gen file config (env)
+                    compose = true // UI
                 }
 
                 compileOptions {
@@ -64,20 +66,21 @@ class FeatureConventionPlugin : Plugin<Project> {
                     unitTests.isReturnDefaultValues = true
                 }
 
-                packaging {
+                packaging { // cấu hình đóng gói
                     excludeLicenseAndMetaFiles()
                 }
             }
 
+            // cấu hình thư viện
             dependencies {
                 // Add feature:base dependency only for non-base feature modules
-                if (project.path != ":feature:base") {
+                if (project.path != ":feature:base") { // các module con tự động thêm implementation(project(":feature:base")) k cần khai báo tay
                     add("implementation", dependencies.project(mapOf("path" to ":feature:base")))
                 }
 
                 implementation(libs.kotlin.reflect)
                 implementation(libs.core.ktx)
-                implementation(libs.timber)
+                implementation(libs.timber) //
                 implementation(libs.coroutines)
                 implementation(libs.material.material)
                 implementation(libs.compose.material)

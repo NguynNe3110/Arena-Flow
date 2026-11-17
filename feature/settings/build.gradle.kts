@@ -1,5 +1,5 @@
 plugins {
-    id("com.igorwojda.showcase.convention.feature")
+    id("com.igorwojda.showcase.convention.feature") // khai báo kế thừa (build-logic)
 }
 
 android {

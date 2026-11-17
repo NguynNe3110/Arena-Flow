@@ -1,0 +1,237 @@
+Định hướng học Flutter BLoC của tôi (Quan trọng)
+Bối cảnh
+
+Tôi đang học Flutter BLoC theo hướng Clean Architecture.
+
+Trong quá trình học, tôi phát hiện một vấn đề:
+
+Rất nhiều tutorial dạy cách xử lý One-time UI Event như sau:
+
+Bloc
+    ↓
+emit(state.copyWith(message))
+    ↓
+BlocListener
+    ↓
+Show SnackBar
+    ↓
+add(ClearMessage)
+    ↓
+emit(state.copyWith(message = null))
+
+Tôi và AI đã thống nhất rằng:
+
+Đây chỉ là cách dạy nhập môn, không phải kiến trúc mà tôi muốn theo lâu dài.
+
+Lý do:
+
+State bị lẫn UI Effect.
+Phải tạo ClearMessage chỉ để reset.
+State không còn "sạch".
+Không giống nhiều codebase production.
+Repo tham khảo
+
+Tôi đang nghiên cứu repo:
+
+flutter_bloc_clean
+
+Repo này sử dụng:
+
+BaseBloc
+CommonBloc
+AppNavigator
+runBlocCatching
+ExceptionHandler
+
+Điểm nổi bật:
+
+Feature State chỉ chứa dữ liệu để render UI.
+
+Ví dụ:
+
+HomeState(
+    users,
+    isLoading?,
+    error?
+)
+
+không chứa:
+
+message
+navigate
+dialog
+showSnackBar
+
+Loading, Navigation, Snackbar, Dialog được chuyển sang tầng trung gian như:
+
+CommonBloc
+AppNavigator
+Điều tôi KHÔNG muốn
+
+Tôi không muốn tiếp tục học theo pattern:
+
+String? message;
+bool navigate;
+
+rồi
+
+BlocListener
+
+↓
+
+ClearMessage
+
+Tôi cũng không muốn copy nguyên BaseBloc của repo production ngay lập tức.
+
+Vì BaseBloc đó phụ thuộc rất nhiều thứ:
+
+DI
+Navigator
+CommonBloc
+ExceptionHandler
+Retry
+runBlocCatching
+
+Trong khi tôi chưa học hết các chủ đề đó.
+
+Định hướng cuối cùng
+
+Chúng tôi thống nhất đi theo hướng:
+
+Production Concept - Minimal Implementation
+
+Tức là:
+
+Học tư duy production, nhưng tự xây phiên bản tối giản, không copy framework.
+
+Nguyên tắc cốt lõi
+State
+
+State chỉ chứa dữ liệu để render UI.
+
+Ví dụ:
+
+LoginState(
+    isLoading,
+    user,
+    error
+)
+
+Không chứa:
+
+message
+navigate
+dialog
+toast
+UiEffect
+
+One-time Event phải tách khỏi State.
+
+Ví dụ:
+
+ShowSnackBar
+
+NavigateHome
+
+ShowDialog
+Kiến trúc sẽ học
+
+Không dùng:
+
+State Flag
+
+Không dùng:
+
+message + clearMessage
+
+Không copy ngay:
+
+BaseBloc production
+
+Mà sẽ tự xây:
+
+Bloc
+        │
+        ├──── emit(State)
+        │
+        └──── emit(UiEffect)
+BaseBloc Mini
+
+Chúng tôi sẽ tự xây một BaseBloc rất nhỏ.
+
+Nó chỉ có đúng một nhiệm vụ:
+
+Tách State và UiEffect
+
+Không thêm:
+
+Loading
+Navigator
+Retry
+Exception
+GetIt
+Injectable
+
+Những thứ đó sẽ học sau.
+
+Lộ trình mới
+
+Sau BlocBuilder / BlocListener:
+
+Thêm một chương mới:
+
+UiEffect
+
+Nội dung:
+
+Vì sao không nên nhét Event vào State.
+Tách State và UiEffect.
+Tự xây BaseBloc Mini.
+Thực hành:
+Snackbar
+Navigation
+Dialog
+
+Sau đó mới tiếp tục:
+
+List
+Route
+Dio
+Repository
+GetIt
+Firebase
+Sau này
+
+Khi học xong:
+
+Navigation
+Dependency Injection
+Exception Handling
+
+thì mới mở rộng BaseBloc Mini thành:
+
+AppNavigator
+CommonBloc
+runBlocCatching
+
+giống các project production.
+
+Mục tiêu cuối cùng
+
+Mục tiêu không phải copy repo flutter_bloc_clean.
+
+Mục tiêu là:
+
+Hiểu được triết lý của production và tự xây được từng lớp của kiến trúc đó.
+
+Đến cuối khóa, khi đọc lại repo flutter_bloc_clean, tôi phải có cảm giác:
+
+"Mình hiểu vì sao họ thiết kế như vậy và hoàn toàn có thể tự xây được kiến trúc tương tự."
+
+Quy tắc mà AI cần tuân thủ khi dạy tôi
+Không dạy pattern message trong State + ClearMessage như kiến trúc chính.
+Luôn giữ nguyên tắc: State chỉ dùng để render UI.
+One-time UI Effect phải được tách riêng khỏi State.
+Không nhảy ngay vào framework production (BaseBloc, CommonBloc...) nếu chưa cần.
+Khi giới thiệu một abstraction mới, luôn giải thích nó giải quyết vấn đề gì, rồi mới đến cách cài đặt.
+Mọi bài học sau này nên bám theo triết lý Production Concept - Minimal Implementation: học đúng tư duy production nhưng cài đặt bằng phiên bản tối giản, sau đó mới mở rộng dần.

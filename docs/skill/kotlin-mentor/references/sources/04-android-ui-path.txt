@@ -1,0 +1,175 @@
+UI/UX ROADMAP (Phiên bản dành riêng cho bạn)
+
+Chia thành 4 TẦNG LỚN.
+
+🧱 TẦNG 1 – UI ENGINE FOUNDATION (Hiểu nền tảng, không sa đà)
+
+⏳ 2–3 buổi
+
+Mục tiêu:
+Hiểu cách Android vẽ UI.
+
+Bài UI-1
+
+View – ViewGroup – View hierarchy
+
+Bài UI-2
+
+Measure → Layout → Draw (hiểu vừa đủ)
+
+Bài UI-3
+
+wrap_content / match_parent / dp / sp / px
+
+Bài UI-4
+
+Margin vs Padding (rất nhiều người sai)
+
+📌 Kết quả:
+Bạn hiểu vì sao layout hoạt động.
+
+🧱 TẦNG 2 – LAYOUT THINKING (Quan trọng nhất)
+
+⏳ 4–6 buổi
+
+Mục tiêu:
+Nhìn UI → nghĩ được layout structure ngay.
+
+Bài UI-5
+
+LinearLayout vs ConstraintLayout mindset
+
+Bài UI-6
+
+Vertical rhythm & spacing system (8dp rule)
+
+Bài UI-7
+
+Alignment – Gravity – Bias – Weight
+
+Bài UI-8
+
+ScrollView & Nested layout
+
+Bài UI-9
+
+Card layout & elevation
+
+📌 Kết quả:
+Bạn không còn “vẽ mò”.
+
+🧱 TẦNG 3 – PRODUCT UI MINDSET (70% trọng tâm)
+
+⏳ 6–8 buổi
+
+Mục tiêu:
+Thiết kế UI nhìn như app thật.
+
+Bài UI-10
+
+Typography scale (Title – Body – Caption)
+
+Bài UI-11
+
+Color system – contrast – hierarchy
+
+Bài UI-12
+
+Button system (Primary – Secondary – Text)
+
+Bài UI-13
+
+Input field đẹp (Material)
+
+Bài UI-14
+
+List item design (card, avatar, meta info)
+
+Bài UI-15
+
+Empty state / Error state UI
+
+📌 Kết quả:
+UI nhìn không còn “đồ án sinh viên”.
+
+🧱 TẦNG 4 – FLOW & UX MOVEMENT
+
+⏳ 3–4 buổi
+
+Mục tiêu:
+App có cảm giác “mượt”.
+
+Bài UI-16
+
+Fragment transition cơ bản
+
+Bài UI-17
+
+Ripple & touch feedback
+
+Bài UI-18
+
+Micro animation nhẹ
+
+Bài UI-19
+
+Dark Mode
+
+📌 Kết quả:
+App nhìn “thật”.
+
+🧱 TẦNG 5 – COMPOSE MAPPING (Chuẩn bị sang Compose)
+
+⏳ 3–5 buổi
+
+Mỗi bài trước đó ta sẽ map sang Compose.
+
+UI-20
+
+LinearLayout → Column / Row
+
+UI-21
+
+ConstraintLayout → Box / Modifier.align
+
+UI-22
+
+Theme XML → MaterialTheme
+
+UI-23
+
+Spacing XML → Modifier.padding
+
+UI-24
+
+State render XML → State-driven UI Compose
+
+📌 Kết quả:
+Bạn chuyển sang Compose cực mượt.
+
+🧠 Vì sao roadmap này tối ưu cho bạn?
+
+Vì bạn:
+
+Đã học MVVM + StateFlow
+
+Đã hiểu State-driven thinking
+
+Không muốn học lan man attribute
+
+Muốn UI nhìn đẹp
+
+Muốn chuẩn bị Compose
+
+Roadmap này:
+
+Không biến bạn thành XML expert cổ điển
+
+Nhưng khiến bạn hiểu UI system
+
+Và khi sang Compose bạn chỉ đổi syntax
+
+⚖️ Tỷ lệ phân bổ
+Phần	Tỷ lệ
+Product mindset	60–70%
+Engineer foundation	30–40%
