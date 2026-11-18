@@ -1,0 +1,4190 @@
+{
+  "projectId": "2789586751825382546",
+  "source": "../stitch/2789586751825382546/manifest.json",
+  "sourceScreens": [
+    {
+      "id": "683c52cd94134dfda021f0840e031e43",
+      "title": "ArenaFlow — Chuyển quyền đội trưởng",
+      "html": "../stitch/2789586751825382546/screens/683c52cd94134dfda021f0840e031e43.html"
+    },
+    {
+      "id": "6d838a2f71e34a08bf06401abd05af4d",
+      "title": "ArenaFlow — S9 Dialog mời thành viên (desktop)",
+      "html": "../stitch/2789586751825382546/screens/6d838a2f71e34a08bf06401abd05af4d.html"
+    },
+    {
+      "id": "6dade853749f4fe49462d12f1f1e507c",
+      "title": "ArenaFlow — S12 Dialog giải tán đội",
+      "html": "../stitch/2789586751825382546/screens/6dade853749f4fe49462d12f1f1e507c.html"
+    },
+    {
+      "id": "963bf74eaaa64e138e86fb2bb2ae5cdb",
+      "title": "ArenaFlow — S2b Đăng nhập bằng số điện thoại, bước 2 (mobile web 390px)",
+      "html": "../stitch/2789586751825382546/screens/963bf74eaaa64e138e86fb2bb2ae5cdb.html"
+    },
+    {
+      "id": "871dff6c37624934ab96ce5a7e578d08",
+      "title": "ArenaFlow — S14 Admin lịch sử thành viên đội",
+      "html": "../stitch/2789586751825382546/screens/871dff6c37624934ab96ce5a7e578d08.html"
+    },
+    {
+      "id": "e1cae38741d74162b2e11d075c1a67fb",
+      "title": "ArenaFlow — S8a Chi tiết đội (mobile web 390px)",
+      "html": "../stitch/2789586751825382546/screens/e1cae38741d74162b2e11d075c1a67fb.html"
+    },
+    {
+      "id": "e7aa41ac58a44f45aa76b0a326d67a77",
+      "title": "ArenaFlow - Chuyển quyền đội trưởng",
+      "html": "../stitch/2789586751825382546/screens/e7aa41ac58a44f45aa76b0a326d67a77.html"
+    },
+    {
+      "id": "d76d264a5da444e4b322c534b1e1b2c0",
+      "title": "Nhập mã xác thực - ArenaFlow",
+      "html": "../stitch/2789586751825382546/screens/d76d264a5da444e4b322c534b1e1b2c0.html"
+    },
+    {
+      "id": "ee3e63d41c8048528f60bbdd4e4307e6",
+      "title": "ArenaFlow — S7 Tạo đội (desktop)",
+      "html": "../stitch/2789586751825382546/screens/ee3e63d41c8048528f60bbdd4e4307e6.html"
+    },
+    {
+      "id": "094195b048aa439c812f174bfb314d9c",
+      "title": "ArenaFlow — S7 Tạo đội (mobile web 390px)",
+      "html": "../stitch/2789586751825382546/screens/094195b048aa439c812f174bfb314d9c.html"
+    },
+    {
+      "id": "468c09ac4d194737a66e3b74a6287dfe",
+      "title": "ArenaFlow — S11 Rời đội (mobile web 390px)",
+      "html": "../stitch/2789586751825382546/screens/468c09ac4d194737a66e3b74a6287dfe.html"
+    },
+    {
+      "id": "f58f397abd4c4f4fa1ca2d628927a26f",
+      "title": "ArenaFlow — Quản lý đội — Lịch sử thành viên FC Sấm Sét",
+      "html": "../stitch/2789586751825382546/screens/f58f397abd4c4f4fa1ca2d628927a26f.html"
+    },
+    {
+      "id": "58ae9deab555441691f1068cbc3ee61a",
+      "title": "ArenaFlow — S5 Xoá tài khoản (mobile web 390px)",
+      "html": "../stitch/2789586751825382546/screens/58ae9deab555441691f1068cbc3ee61a.html"
+    },
+    {
+      "id": "8f0dbb7dfab54c8b99d19baa9681924f",
+      "title": "ArenaFlow — S6 Danh sách đội (mobile web 390px)",
+      "html": "../stitch/2789586751825382546/screens/8f0dbb7dfab54c8b99d19baa9681924f.html"
+    },
+    {
+      "id": "d4388387a3364bacb820eb34dfaa3267",
+      "title": "Đăng nhập - ArenaFlow",
+      "html": "../stitch/2789586751825382546/screens/d4388387a3364bacb820eb34dfaa3267.html"
+    },
+    {
+      "id": "5d2ed727c9194eefa4bea2bae0d2b840",
+      "title": "ArenaFlow — Chi tiết đội FC Sao Mai",
+      "html": "../stitch/2789586751825382546/screens/5d2ed727c9194eefa4bea2bae0d2b840.html"
+    },
+    {
+      "id": "0c1cc1d9467e432ab13ee27217b31b5c",
+      "title": "ArenaFlow — Sửa hồ sơ cá nhân",
+      "html": "../stitch/2789586751825382546/screens/0c1cc1d9467e432ab13ee27217b31b5c.html"
+    },
+    {
+      "id": "516d10df1e5e47539a3c4e65162db9e4",
+      "title": "ArenaFlow — S13 Admin quản lý đội",
+      "html": "../stitch/2789586751825382546/screens/516d10df1e5e47539a3c4e65162db9e4.html"
+    },
+    {
+      "id": "e3bbfd5a56df4254a8de29e793d2fc9e",
+      "title": "ArenaFlow — S1 Đăng nhập v2",
+      "html": "../stitch/2789586751825382546/screens/e3bbfd5a56df4254a8de29e793d2fc9e.html"
+    },
+    {
+      "id": "4bea086d7a9d427caf5dc897dcf81785",
+      "title": "ArenaFlow — S2a Đăng nhập bằng số điện thoại, bước 1",
+      "html": "../stitch/2789586751825382546/screens/4bea086d7a9d427caf5dc897dcf81785.html"
+    },
+    {
+      "id": "fb2674badcc94dbd886e1c615841d656",
+      "title": "ArenaFlow — S3 Hồ sơ cá nhân (mobile web 390px)",
+      "html": "../stitch/2789586751825382546/screens/fb2674badcc94dbd886e1c615841d656.html"
+    },
+    {
+      "id": "79ec8662ae55449ba86cd2dd9547bdfc",
+      "title": "ArenaFlow — S2a Đăng nhập bằng số điện thoại (Mobile 390px)",
+      "html": "../stitch/2789586751825382546/screens/79ec8662ae55449ba86cd2dd9547bdfc.html"
+    },
+    {
+      "id": "6088c2d9006a4e918871cfeecca47483",
+      "title": "ArenaFlow — S13 Admin quản lý đội (mobile web 390px)",
+      "html": "../stitch/2789586751825382546/screens/6088c2d9006a4e918871cfeecca47483.html"
+    },
+    {
+      "id": "83b7955619d8436a83091f42b579c983",
+      "title": "ArenaFlow — S4 Sửa hồ sơ",
+      "html": "../stitch/2789586751825382546/screens/83b7955619d8436a83091f42b579c983.html"
+    },
+    {
+      "id": "7e889b625e174eafb8a20e185c079b84",
+      "title": "ArenaFlow — S8b Chi tiết đội ĐÃ GIẢI TÁN (mobile web 390px)",
+      "html": "../stitch/2789586751825382546/screens/7e889b625e174eafb8a20e185c079b84.html"
+    },
+    {
+      "id": "f029f78489e04ba0b6cc5a4fe8ac99c7",
+      "title": "ArenaFlow — S11 Dialog rời đội (desktop)",
+      "html": "../stitch/2789586751825382546/screens/f029f78489e04ba0b6cc5a4fe8ac99c7.html"
+    },
+    {
+      "id": "63fda96f71424b3faf51fd6b88396370",
+      "title": "ArenaFlow — S8b Chi tiết đội ĐÃ GIẢI TÁN",
+      "html": "../stitch/2789586751825382546/screens/63fda96f71424b3faf51fd6b88396370.html"
+    },
+    {
+      "id": "caebd72ca38e4bf1be2c93f13d0cf92e",
+      "title": "ArenaFlow — S3 Hồ sơ cá nhân (desktop)",
+      "html": "../stitch/2789586751825382546/screens/caebd72ca38e4bf1be2c93f13d0cf92e.html"
+    },
+    {
+      "id": "6205afa12ff042879f5a8b903f22cec9",
+      "title": "ArenaFlow — Xoá tài khoản",
+      "html": "../stitch/2789586751825382546/screens/6205afa12ff042879f5a8b903f22cec9.html"
+    },
+    {
+      "id": "b45bb4bf0d27473f97056bab2381f480",
+      "title": "ArenaFlow — S9 Mời thành viên dạng bottom sheet (mobile web 390px)",
+      "html": "../stitch/2789586751825382546/screens/b45bb4bf0d27473f97056bab2381f480.html"
+    },
+    {
+      "id": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+      "title": "ArenaFlow — S6 Danh sách đội (Desktop)",
+      "html": "../stitch/2789586751825382546/screens/fe3b7da1cbde4e07ba2f3dfbb1ac2614.html"
+    },
+    {
+      "id": "12f000184c4846279148726d28054991",
+      "title": "ArenaFlow — S12 Giải tán đội dạng bottom sheet (mobile web 390px)",
+      "html": "../stitch/2789586751825382546/screens/12f000184c4846279148726d28054991.html"
+    }
+  ],
+  "counts": {
+    "screens": 32,
+    "svgFiles": 44,
+    "icons": 43,
+    "decorations": 1,
+    "removedDuplicates": 64,
+    "originalSvgFiles": 108
+  },
+  "assets": [
+    {
+      "file": "svg/material/add_outlined.svg",
+      "kind": "material",
+      "name": "add",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/add/materialsymbolsoutlined/add_24px.svg",
+      "sources": [
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"add\"",
+          "originalAsset": "svg/material/add_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/add_outlined.svg",
+          "kind": "material",
+          "name": "add",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/add/materialsymbolsoutlined/add_24px.svg",
+          "sources": [
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"add\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/arrow_back.svg",
+      "kind": "inline",
+      "name": "arrow_back",
+      "sources": [
+        {
+          "screen": "e7aa41ac58a44f45aa76b0a326d67a77",
+          "attributes": " class=\"material-symbols-outlined text-on-surface text-xl\"",
+          "originalAsset": "svg/material/arrow_back_outlined.svg"
+        },
+        {
+          "screen": "d76d264a5da444e4b322c534b1e1b2c0",
+          "attributes": " class=\"material-symbols-outlined text-[18px]\"",
+          "originalAsset": "svg/material/arrow_back_outlined.svg"
+        },
+        {
+          "screen": "4bea086d7a9d427caf5dc897dcf81785",
+          "attributes": " class=\"material-symbols-outlined text-lg leading-none\"",
+          "originalAsset": "svg/material/arrow_back_outlined.svg"
+        },
+        {
+          "screen": "871dff6c37624934ab96ce5a7e578d08",
+          "svgIndex": 1,
+          "context": "ype=\"button\" aria-label=\"Quay lại\" class=\"w-9 h-9 flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100 transition-colors -ml-1\">\n        ",
+          "originalAsset": "svg/inline/arrow_back.svg"
+        },
+        {
+          "screen": "094195b048aa439c812f174bfb314d9c",
+          "svgIndex": 8,
+          "context": "utton type=\"button\" aria-label=\"Quay lại\" class=\"w-10 h-10 -ml-2 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors\">\n        ",
+          "originalAsset": "svg/inline/arrow_back_v2.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/arrow_back_outlined.svg",
+        "svg/inline/arrow_back_v2.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/arrow_back_outlined.svg",
+          "kind": "material",
+          "name": "arrow_back",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/arrow_back/materialsymbolsoutlined/arrow_back_24px.svg",
+          "sources": [
+            {
+              "screen": "e7aa41ac58a44f45aa76b0a326d67a77",
+              "attributes": " class=\"material-symbols-outlined text-on-surface text-xl\""
+            },
+            {
+              "screen": "d76d264a5da444e4b322c534b1e1b2c0",
+              "attributes": " class=\"material-symbols-outlined text-[18px]\""
+            },
+            {
+              "screen": "4bea086d7a9d427caf5dc897dcf81785",
+              "attributes": " class=\"material-symbols-outlined text-lg leading-none\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/arrow_back.svg",
+          "kind": "inline",
+          "name": "arrow_back",
+          "sources": [
+            {
+              "screen": "871dff6c37624934ab96ce5a7e578d08",
+              "svgIndex": 1,
+              "context": "ype=\"button\" aria-label=\"Quay lại\" class=\"w-9 h-9 flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100 transition-colors -ml-1\">\n        "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/arrow_back_v2.svg",
+          "kind": "inline",
+          "name": "arrow_back",
+          "sources": [
+            {
+              "screen": "094195b048aa439c812f174bfb314d9c",
+              "svgIndex": 8,
+              "context": "utton type=\"button\" aria-label=\"Quay lại\" class=\"w-10 h-10 -ml-2 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors\">\n        "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/arrow_forward_outlined.svg",
+      "kind": "material",
+      "name": "arrow_forward",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/arrow_forward/materialsymbolsoutlined/arrow_forward_24px.svg",
+      "sources": [
+        {
+          "screen": "63fda96f71424b3faf51fd6b88396370",
+          "attributes": " class=\"material-symbols-outlined text-sm text-primary\"",
+          "originalAsset": "svg/material/arrow_forward_outlined.svg"
+        },
+        {
+          "screen": "63fda96f71424b3faf51fd6b88396370",
+          "attributes": " class=\"material-symbols-outlined text-sm text-on-surface-variant\"",
+          "originalAsset": "svg/material/arrow_forward_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/arrow_forward_outlined.svg",
+          "kind": "material",
+          "name": "arrow_forward",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/arrow_forward/materialsymbolsoutlined/arrow_forward_24px.svg",
+          "sources": [
+            {
+              "screen": "63fda96f71424b3faf51fd6b88396370",
+              "attributes": " class=\"material-symbols-outlined text-sm text-primary\""
+            },
+            {
+              "screen": "63fda96f71424b3faf51fd6b88396370",
+              "attributes": " class=\"material-symbols-outlined text-sm text-on-surface-variant\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/award.svg",
+      "kind": "inline",
+      "name": "award",
+      "sources": [
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"emoji_events\"",
+          "originalAsset": "svg/material/emoji_events_outlined.svg"
+        },
+        {
+          "screen": "e1cae38741d74162b2e11d075c1a67fb",
+          "attributes": " class=\"material-symbols-outlined text-[13px] fill\"",
+          "originalAsset": "svg/material/military_tech_filled.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-sm text-tertiary fill\" data-icon=\"military_tech\" style=\"font-variation-settings: 'FILL' 1;\"",
+          "originalAsset": "svg/material/military_tech_filled.svg"
+        },
+        {
+          "screen": "e1cae38741d74162b2e11d075c1a67fb",
+          "attributes": " class=\"material-symbols-outlined text-[15px] text-gray-400\"",
+          "originalAsset": "svg/material/military_tech_outlined.svg"
+        },
+        {
+          "screen": "f58f397abd4c4f4fa1ca2d628927a26f",
+          "attributes": " class=\"material-symbols-outlined text-sm\" data-icon=\"military_tech\"",
+          "originalAsset": "svg/material/military_tech_outlined.svg"
+        },
+        {
+          "screen": "f58f397abd4c4f4fa1ca2d628927a26f",
+          "attributes": " class=\"material-symbols-outlined text-sm\" data-icon=\"military_tech\"",
+          "originalAsset": "svg/material/military_tech_outlined.svg"
+        },
+        {
+          "screen": "f58f397abd4c4f4fa1ca2d628927a26f",
+          "attributes": " class=\"material-symbols-outlined text-sm\" data-icon=\"military_tech\"",
+          "originalAsset": "svg/material/military_tech_outlined.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-sm text-primary\" data-icon=\"military_tech\"",
+          "originalAsset": "svg/material/military_tech_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"military_tech\"",
+          "originalAsset": "svg/material/military_tech_outlined.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-xs text-primary\" data-icon=\"workspace_premium\"",
+          "originalAsset": "svg/material/workspace_premium_outlined.svg"
+        },
+        {
+          "screen": "871dff6c37624934ab96ce5a7e578d08",
+          "svgIndex": 4,
+          "context": "-shrink-0\">\n              <span class=\"inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-[#fcf5dd] text-[#855700]\">\n                ",
+          "originalAsset": "svg/inline/award.svg"
+        },
+        {
+          "screen": "871dff6c37624934ab96ce5a7e578d08",
+          "svgIndex": 5,
+          "context": "-shrink-0\">\n              <span class=\"inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-[#fcf5dd] text-[#855700]\">\n                ",
+          "originalAsset": "svg/inline/award.svg"
+        },
+        {
+          "screen": "871dff6c37624934ab96ce5a7e578d08",
+          "svgIndex": 6,
+          "context": "-shrink-0\">\n              <span class=\"inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-[#fcf5dd] text-[#855700]\">\n                ",
+          "originalAsset": "svg/inline/award.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/emoji_events_outlined.svg",
+        "svg/material/military_tech_filled.svg",
+        "svg/material/military_tech_outlined.svg",
+        "svg/material/workspace_premium_outlined.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/emoji_events_outlined.svg",
+          "kind": "material",
+          "name": "emoji_events",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/emoji_events/materialsymbolsoutlined/emoji_events_24px.svg",
+          "sources": [
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"emoji_events\""
+            }
+          ]
+        },
+        {
+          "file": "svg/material/military_tech_filled.svg",
+          "kind": "material",
+          "name": "military_tech",
+          "family": "Material Symbols Outlined",
+          "fill": 1,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/military_tech/materialsymbolsoutlined/military_tech_fill1_24px.svg",
+          "sources": [
+            {
+              "screen": "e1cae38741d74162b2e11d075c1a67fb",
+              "attributes": " class=\"material-symbols-outlined text-[13px] fill\""
+            },
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-sm text-tertiary fill\" data-icon=\"military_tech\" style=\"font-variation-settings: 'FILL' 1;\""
+            }
+          ]
+        },
+        {
+          "file": "svg/material/military_tech_outlined.svg",
+          "kind": "material",
+          "name": "military_tech",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/military_tech/materialsymbolsoutlined/military_tech_24px.svg",
+          "sources": [
+            {
+              "screen": "e1cae38741d74162b2e11d075c1a67fb",
+              "attributes": " class=\"material-symbols-outlined text-[15px] text-gray-400\""
+            },
+            {
+              "screen": "f58f397abd4c4f4fa1ca2d628927a26f",
+              "attributes": " class=\"material-symbols-outlined text-sm\" data-icon=\"military_tech\""
+            },
+            {
+              "screen": "f58f397abd4c4f4fa1ca2d628927a26f",
+              "attributes": " class=\"material-symbols-outlined text-sm\" data-icon=\"military_tech\""
+            },
+            {
+              "screen": "f58f397abd4c4f4fa1ca2d628927a26f",
+              "attributes": " class=\"material-symbols-outlined text-sm\" data-icon=\"military_tech\""
+            },
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-sm text-primary\" data-icon=\"military_tech\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"military_tech\""
+            }
+          ]
+        },
+        {
+          "file": "svg/material/workspace_premium_outlined.svg",
+          "kind": "material",
+          "name": "workspace_premium",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/workspace_premium/materialsymbolsoutlined/workspace_premium_24px.svg",
+          "sources": [
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-xs text-primary\" data-icon=\"workspace_premium\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/award.svg",
+          "kind": "inline",
+          "name": "award",
+          "sources": [
+            {
+              "screen": "871dff6c37624934ab96ce5a7e578d08",
+              "svgIndex": 4,
+              "context": "-shrink-0\">\n              <span class=\"inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-[#fcf5dd] text-[#855700]\">\n                "
+            },
+            {
+              "screen": "871dff6c37624934ab96ce5a7e578d08",
+              "svgIndex": 5,
+              "context": "-shrink-0\">\n              <span class=\"inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-[#fcf5dd] text-[#855700]\">\n                "
+            },
+            {
+              "screen": "871dff6c37624934ab96ce5a7e578d08",
+              "svgIndex": 6,
+              "context": "-shrink-0\">\n              <span class=\"inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-[#fcf5dd] text-[#855700]\">\n                "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/badge_dot.svg",
+      "kind": "inline",
+      "name": "badge_dot",
+      "sources": [
+        {
+          "screen": "b45bb4bf0d27473f97056bab2381f480",
+          "svgIndex": 52,
+          "context": " </svg>\n            <div class=\"absolute bottom-0 right-0 w-4 h-4 bg-white rounded-full border border-gray-200 flex items-center justify-center\">\n              ",
+          "originalAsset": "svg/inline/badge_dot.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/inline/badge_dot.svg",
+          "kind": "inline",
+          "name": "badge_dot",
+          "sources": [
+            {
+              "screen": "b45bb4bf0d27473f97056bab2381f480",
+              "svgIndex": 52,
+              "context": " </svg>\n            <div class=\"absolute bottom-0 right-0 w-4 h-4 bg-white rounded-full border border-gray-200 flex items-center justify-center\">\n              "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/block_outlined.svg",
+      "kind": "material",
+      "name": "block",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/block/materialsymbolsoutlined/block_24px.svg",
+      "sources": [
+        {
+          "screen": "516d10df1e5e47539a3c4e65162db9e4",
+          "attributes": " class=\"material-symbols-outlined text-[18px]\"",
+          "originalAsset": "svg/material/block_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/block_outlined.svg",
+          "kind": "material",
+          "name": "block",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/block/materialsymbolsoutlined/block_24px.svg",
+          "sources": [
+            {
+              "screen": "516d10df1e5e47539a3c4e65162db9e4",
+              "attributes": " class=\"material-symbols-outlined text-[18px]\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/bolt.svg",
+      "kind": "inline",
+      "name": "bolt",
+      "sources": [
+        {
+          "screen": "f58f397abd4c4f4fa1ca2d628927a26f",
+          "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"bolt\"",
+          "originalAsset": "svg/material/bolt_outlined.svg"
+        },
+        {
+          "screen": "516d10df1e5e47539a3c4e65162db9e4",
+          "attributes": " class=\"material-symbols-outlined text-[18px]\"",
+          "originalAsset": "svg/material/bolt_outlined.svg"
+        },
+        {
+          "screen": "63fda96f71424b3faf51fd6b88396370",
+          "attributes": " class=\"material-symbols-outlined text-4xl text-outline\"",
+          "originalAsset": "svg/material/bolt_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"bolt\"",
+          "originalAsset": "svg/material/bolt_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"flash_on\"",
+          "originalAsset": "svg/material/flash_on_outlined.svg"
+        },
+        {
+          "screen": "871dff6c37624934ab96ce5a7e578d08",
+          "svgIndex": 2,
+          "context": "-->\n          <div class=\"w-8 h-8 rounded-full bg-[#f0f4ec] border border-[#e2ebd7] flex items-center justify-center flex-shrink-0 text-[#3d6943]\">\n            ",
+          "originalAsset": "svg/inline/bolt.svg"
+        },
+        {
+          "screen": "8f0dbb7dfab54c8b99d19baa9681924f",
+          "svgIndex": 20,
+          "context": "e-x-3\">\n              <div class=\"w-10 h-10 rounded-full bg-[#f3f4f6] border border-[#e5e7eb] flex items-center justify-center text-[#6b7280]\">\n                ",
+          "originalAsset": "svg/inline/bolt_v2.svg"
+        },
+        {
+          "screen": "8f0dbb7dfab54c8b99d19baa9681924f",
+          "svgIndex": 21,
+          "context": "    <div class=\"w-10 h-10 rounded-full bg-[#eaf2eb] border border-[#c1d9c5] flex items-center justify-center text-[#3d6943] font-bold text-sm\">\n                ",
+          "originalAsset": "svg/inline/bolt_v3.svg"
+        },
+        {
+          "screen": "7e889b625e174eafb8a20e185c079b84",
+          "svgIndex": 43,
+          "context": "ét) -->\n        <div class=\"w-16 h-16 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center mx-auto mb-2.5 text-gray-400\">\n          ",
+          "originalAsset": "svg/inline/bolt_v4.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/bolt_outlined.svg",
+        "svg/material/flash_on_outlined.svg",
+        "svg/inline/bolt_v2.svg",
+        "svg/inline/bolt_v3.svg",
+        "svg/inline/bolt_v4.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/bolt_outlined.svg",
+          "kind": "material",
+          "name": "bolt",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/bolt/materialsymbolsoutlined/bolt_24px.svg",
+          "sources": [
+            {
+              "screen": "f58f397abd4c4f4fa1ca2d628927a26f",
+              "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"bolt\""
+            },
+            {
+              "screen": "516d10df1e5e47539a3c4e65162db9e4",
+              "attributes": " class=\"material-symbols-outlined text-[18px]\""
+            },
+            {
+              "screen": "63fda96f71424b3faf51fd6b88396370",
+              "attributes": " class=\"material-symbols-outlined text-4xl text-outline\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"bolt\""
+            }
+          ]
+        },
+        {
+          "file": "svg/material/flash_on_outlined.svg",
+          "kind": "material",
+          "name": "flash_on",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/flash_on/materialsymbolsoutlined/flash_on_24px.svg",
+          "sources": [
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"flash_on\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/bolt.svg",
+          "kind": "inline",
+          "name": "bolt",
+          "sources": [
+            {
+              "screen": "871dff6c37624934ab96ce5a7e578d08",
+              "svgIndex": 2,
+              "context": "-->\n          <div class=\"w-8 h-8 rounded-full bg-[#f0f4ec] border border-[#e2ebd7] flex items-center justify-center flex-shrink-0 text-[#3d6943]\">\n            "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/bolt_v2.svg",
+          "kind": "inline",
+          "name": "bolt",
+          "sources": [
+            {
+              "screen": "8f0dbb7dfab54c8b99d19baa9681924f",
+              "svgIndex": 20,
+              "context": "e-x-3\">\n              <div class=\"w-10 h-10 rounded-full bg-[#f3f4f6] border border-[#e5e7eb] flex items-center justify-center text-[#6b7280]\">\n                "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/bolt_v3.svg",
+          "kind": "inline",
+          "name": "bolt",
+          "sources": [
+            {
+              "screen": "8f0dbb7dfab54c8b99d19baa9681924f",
+              "svgIndex": 21,
+              "context": "    <div class=\"w-10 h-10 rounded-full bg-[#eaf2eb] border border-[#c1d9c5] flex items-center justify-center text-[#3d6943] font-bold text-sm\">\n                "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/bolt_v4.svg",
+          "kind": "inline",
+          "name": "bolt",
+          "sources": [
+            {
+              "screen": "7e889b625e174eafb8a20e185c079b84",
+              "svgIndex": 43,
+              "context": "ét) -->\n        <div class=\"w-16 h-16 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center mx-auto mb-2.5 text-gray-400\">\n          "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/calendar_month_outlined.svg",
+      "kind": "material",
+      "name": "calendar",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/calendar_month/materialsymbolsoutlined/calendar_month_24px.svg",
+      "sources": [
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-sm text-primary\" data-icon=\"calendar_month\"",
+          "originalAsset": "svg/material/calendar_month_outlined.svg"
+        },
+        {
+          "screen": "e1cae38741d74162b2e11d075c1a67fb",
+          "attributes": " class=\"material-symbols-outlined text-[15px] text-gray-400\"",
+          "originalAsset": "svg/material/calendar_today_outlined.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/calendar_today_outlined.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/calendar_month_outlined.svg",
+          "kind": "material",
+          "name": "calendar_month",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/calendar_month/materialsymbolsoutlined/calendar_month_24px.svg",
+          "sources": [
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-sm text-primary\" data-icon=\"calendar_month\""
+            }
+          ]
+        },
+        {
+          "file": "svg/material/calendar_today_outlined.svg",
+          "kind": "material",
+          "name": "calendar_today",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/calendar_today/materialsymbolsoutlined/calendar_today_24px.svg",
+          "sources": [
+            {
+              "screen": "e1cae38741d74162b2e11d075c1a67fb",
+              "attributes": " class=\"material-symbols-outlined text-[15px] text-gray-400\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/check.svg",
+      "kind": "inline",
+      "name": "check",
+      "sources": [
+        {
+          "screen": "ee3e63d41c8048528f60bbdd4e4307e6",
+          "attributes": " class=\"material-symbols-outlined text-[16px]\"",
+          "originalAsset": "svg/material/check_outlined.svg"
+        },
+        {
+          "screen": "ee3e63d41c8048528f60bbdd4e4307e6",
+          "attributes": " class=\"material-symbols-outlined text-[16px]\"",
+          "originalAsset": "svg/material/check_outlined.svg"
+        },
+        {
+          "screen": "ee3e63d41c8048528f60bbdd4e4307e6",
+          "attributes": " class=\"material-symbols-outlined text-[16px]\"",
+          "originalAsset": "svg/material/check_outlined.svg"
+        },
+        {
+          "screen": "094195b048aa439c812f174bfb314d9c",
+          "svgIndex": 10,
+          "context": "    <button type=\"button\" class=\"inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-xs font-medium bg-[#3d6943] text-white shadow-sm\">\n            ",
+          "originalAsset": "svg/inline/check.svg"
+        },
+        {
+          "screen": "094195b048aa439c812f174bfb314d9c",
+          "svgIndex": 11,
+          "context": "    <button type=\"button\" class=\"inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-xs font-medium bg-[#3d6943] text-white shadow-sm\">\n            ",
+          "originalAsset": "svg/inline/check.svg"
+        },
+        {
+          "screen": "094195b048aa439c812f174bfb314d9c",
+          "svgIndex": 12,
+          "context": "    <button type=\"button\" class=\"inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-xs font-medium bg-[#3d6943] text-white shadow-sm\">\n            ",
+          "originalAsset": "svg/inline/check.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/check_outlined.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/check_outlined.svg",
+          "kind": "material",
+          "name": "check",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/check/materialsymbolsoutlined/check_24px.svg",
+          "sources": [
+            {
+              "screen": "ee3e63d41c8048528f60bbdd4e4307e6",
+              "attributes": " class=\"material-symbols-outlined text-[16px]\""
+            },
+            {
+              "screen": "ee3e63d41c8048528f60bbdd4e4307e6",
+              "attributes": " class=\"material-symbols-outlined text-[16px]\""
+            },
+            {
+              "screen": "ee3e63d41c8048528f60bbdd4e4307e6",
+              "attributes": " class=\"material-symbols-outlined text-[16px]\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/check.svg",
+          "kind": "inline",
+          "name": "check",
+          "sources": [
+            {
+              "screen": "094195b048aa439c812f174bfb314d9c",
+              "svgIndex": 10,
+              "context": "    <button type=\"button\" class=\"inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-xs font-medium bg-[#3d6943] text-white shadow-sm\">\n            "
+            },
+            {
+              "screen": "094195b048aa439c812f174bfb314d9c",
+              "svgIndex": 11,
+              "context": "    <button type=\"button\" class=\"inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-xs font-medium bg-[#3d6943] text-white shadow-sm\">\n            "
+            },
+            {
+              "screen": "094195b048aa439c812f174bfb314d9c",
+              "svgIndex": 12,
+              "context": "    <button type=\"button\" class=\"inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-xs font-medium bg-[#3d6943] text-white shadow-sm\">\n            "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/chevron_down.svg",
+      "kind": "inline",
+      "name": "chevron_down",
+      "sources": [
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-on-surface-variant text-base\" data-icon=\"expand_more\"",
+          "originalAsset": "svg/material/expand_more_outlined.svg"
+        },
+        {
+          "screen": "0c1cc1d9467e432ab13ee27217b31b5c",
+          "attributes": " class=\"material-symbols-outlined text-[20px]\" data-icon=\"expand_more\"",
+          "originalAsset": "svg/material/expand_more_outlined.svg"
+        },
+        {
+          "screen": "63fda96f71424b3faf51fd6b88396370",
+          "attributes": " class=\"material-symbols-outlined text-on-surface-variant text-base\"",
+          "originalAsset": "svg/material/expand_more_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-on-surface-variant text-lg\" data-icon=\"expand_more\"",
+          "originalAsset": "svg/material/expand_more_outlined.svg"
+        },
+        {
+          "screen": "ee3e63d41c8048528f60bbdd4e4307e6",
+          "attributes": " class=\"material-symbols-outlined text-[#72796f] text-[18px]\"",
+          "originalAsset": "svg/material/keyboard_arrow_down_outlined.svg"
+        },
+        {
+          "screen": "0c1cc1d9467e432ab13ee27217b31b5c",
+          "attributes": " class=\"material-symbols-outlined text-outline text-[20px]\" data-icon=\"keyboard_arrow_down\"",
+          "originalAsset": "svg/material/keyboard_arrow_down_outlined.svg"
+        },
+        {
+          "screen": "caebd72ca38e4bf1be2c93f13d0cf92e",
+          "svgIndex": 47,
+          "context": "33E72eZ3U7omDl7gJfmsF0PmmvpTZw5a1m5rZ9UHZLwx4Cf8_rOU-YS4\"/>\n<span class=\"text-sm font-medium text-neutral-800 group-hover:text-neutral-900\">Nguyễn Văn A</span>\n",
+          "originalAsset": "svg/inline/chevron_down.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/expand_more_outlined.svg",
+        "svg/material/keyboard_arrow_down_outlined.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/expand_more_outlined.svg",
+          "kind": "material",
+          "name": "expand_more",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/expand_more/materialsymbolsoutlined/expand_more_24px.svg",
+          "sources": [
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-on-surface-variant text-base\" data-icon=\"expand_more\""
+            },
+            {
+              "screen": "0c1cc1d9467e432ab13ee27217b31b5c",
+              "attributes": " class=\"material-symbols-outlined text-[20px]\" data-icon=\"expand_more\""
+            },
+            {
+              "screen": "63fda96f71424b3faf51fd6b88396370",
+              "attributes": " class=\"material-symbols-outlined text-on-surface-variant text-base\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-on-surface-variant text-lg\" data-icon=\"expand_more\""
+            }
+          ]
+        },
+        {
+          "file": "svg/material/keyboard_arrow_down_outlined.svg",
+          "kind": "material",
+          "name": "keyboard_arrow_down",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/keyboard_arrow_down/materialsymbolsoutlined/keyboard_arrow_down_24px.svg",
+          "sources": [
+            {
+              "screen": "ee3e63d41c8048528f60bbdd4e4307e6",
+              "attributes": " class=\"material-symbols-outlined text-[#72796f] text-[18px]\""
+            },
+            {
+              "screen": "0c1cc1d9467e432ab13ee27217b31b5c",
+              "attributes": " class=\"material-symbols-outlined text-outline text-[20px]\" data-icon=\"keyboard_arrow_down\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/chevron_down.svg",
+          "kind": "inline",
+          "name": "chevron_down",
+          "sources": [
+            {
+              "screen": "caebd72ca38e4bf1be2c93f13d0cf92e",
+              "svgIndex": 47,
+              "context": "33E72eZ3U7omDl7gJfmsF0PmmvpTZw5a1m5rZ9UHZLwx4Cf8_rOU-YS4\"/>\n<span class=\"text-sm font-medium text-neutral-800 group-hover:text-neutral-900\">Nguyễn Văn A</span>\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/chevron_right_outlined.svg",
+      "kind": "material",
+      "name": "chevron_right",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/chevron_right/materialsymbolsoutlined/chevron_right_24px.svg",
+      "sources": [
+        {
+          "screen": "683c52cd94134dfda021f0840e031e43",
+          "attributes": " class=\"material-symbols-outlined text-xs\" data-icon=\"chevron_right\"",
+          "originalAsset": "svg/material/chevron_right_outlined.svg"
+        },
+        {
+          "screen": "6d838a2f71e34a08bf06401abd05af4d",
+          "attributes": " class=\"material-symbols-outlined text-xs\"",
+          "originalAsset": "svg/material/chevron_right_outlined.svg"
+        },
+        {
+          "screen": "6dade853749f4fe49462d12f1f1e507c",
+          "attributes": " class=\"material-symbols-outlined text-xs\"",
+          "originalAsset": "svg/material/chevron_right_outlined.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-xs text-outline-variant\" data-icon=\"chevron_right\"",
+          "originalAsset": "svg/material/chevron_right_outlined.svg"
+        },
+        {
+          "screen": "63fda96f71424b3faf51fd6b88396370",
+          "attributes": " class=\"material-symbols-outlined text-xs text-outline\"",
+          "originalAsset": "svg/material/chevron_right_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/chevron_right_outlined.svg",
+          "kind": "material",
+          "name": "chevron_right",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/chevron_right/materialsymbolsoutlined/chevron_right_24px.svg",
+          "sources": [
+            {
+              "screen": "683c52cd94134dfda021f0840e031e43",
+              "attributes": " class=\"material-symbols-outlined text-xs\" data-icon=\"chevron_right\""
+            },
+            {
+              "screen": "6d838a2f71e34a08bf06401abd05af4d",
+              "attributes": " class=\"material-symbols-outlined text-xs\""
+            },
+            {
+              "screen": "6dade853749f4fe49462d12f1f1e507c",
+              "attributes": " class=\"material-symbols-outlined text-xs\""
+            },
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-xs text-outline-variant\" data-icon=\"chevron_right\""
+            },
+            {
+              "screen": "63fda96f71424b3faf51fd6b88396370",
+              "attributes": " class=\"material-symbols-outlined text-xs text-outline\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/close_outlined.svg",
+      "kind": "material",
+      "name": "close",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/close/materialsymbolsoutlined/close_24px.svg",
+      "sources": [
+        {
+          "screen": "683c52cd94134dfda021f0840e031e43",
+          "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"close\"",
+          "originalAsset": "svg/material/close_outlined.svg"
+        },
+        {
+          "screen": "6d838a2f71e34a08bf06401abd05af4d",
+          "attributes": " class=\"material-symbols-outlined text-xl\"",
+          "originalAsset": "svg/material/close_outlined.svg"
+        },
+        {
+          "screen": "516d10df1e5e47539a3c4e65162db9e4",
+          "attributes": " class=\"material-symbols-outlined text-xl\"",
+          "originalAsset": "svg/material/close_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/close_outlined.svg",
+          "kind": "material",
+          "name": "close",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/close/materialsymbolsoutlined/close_24px.svg",
+          "sources": [
+            {
+              "screen": "683c52cd94134dfda021f0840e031e43",
+              "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"close\""
+            },
+            {
+              "screen": "6d838a2f71e34a08bf06401abd05af4d",
+              "attributes": " class=\"material-symbols-outlined text-xl\""
+            },
+            {
+              "screen": "516d10df1e5e47539a3c4e65162db9e4",
+              "attributes": " class=\"material-symbols-outlined text-xl\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/delete_forever_outlined.svg",
+      "kind": "material",
+      "name": "delete_forever",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/delete_forever/materialsymbolsoutlined/delete_forever_24px.svg",
+      "sources": [
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-base text-error\" data-icon=\"delete_forever\"",
+          "originalAsset": "svg/material/delete_forever_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/delete_forever_outlined.svg",
+          "kind": "material",
+          "name": "delete_forever",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/delete_forever/materialsymbolsoutlined/delete_forever_24px.svg",
+          "sources": [
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-base text-error\" data-icon=\"delete_forever\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/edit.svg",
+      "kind": "inline",
+      "name": "edit",
+      "sources": [
+        {
+          "screen": "6d838a2f71e34a08bf06401abd05af4d",
+          "attributes": " class=\"material-symbols-outlined text-sm\"",
+          "originalAsset": "svg/material/edit_outlined.svg"
+        },
+        {
+          "screen": "e1cae38741d74162b2e11d075c1a67fb",
+          "attributes": " class=\"material-symbols-outlined text-[16px] text-gray-600\"",
+          "originalAsset": "svg/material/edit_outlined.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-lg text-on-surface-variant\" data-icon=\"edit\"",
+          "originalAsset": "svg/material/edit_outlined.svg"
+        },
+        {
+          "screen": "fb2674badcc94dbd886e1c615841d656",
+          "svgIndex": 33,
+          "context": "ral-300 text-neutral-700 font-semibold text-sm hover:bg-neutral-50 active:bg-neutral-100 transition-colors flex items-center justify-center gap-1.5\">\n          ",
+          "originalAsset": "svg/inline/edit.svg"
+        },
+        {
+          "screen": "caebd72ca38e4bf1be2c93f13d0cf92e",
+          "svgIndex": 48,
+          "context": "unded-lg text-sm font-medium text-neutral-700 bg-white hover:bg-neutral-50 hover:text-neutral-900 transition-colors shadow-sm whitespace-nowrap\" type=\"button\">\n",
+          "originalAsset": "svg/inline/edit_v2.svg"
+        },
+        {
+          "screen": "b45bb4bf0d27473f97056bab2381f480",
+          "svgIndex": 54,
+          "context": "button class=\"flex-1 border border-gray-200 bg-white text-gray-700 text-xs font-semibold py-2 rounded-lg flex items-center justify-center gap-1\">\n              ",
+          "originalAsset": "svg/inline/edit_v3.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/edit_outlined.svg",
+        "svg/inline/edit_v2.svg",
+        "svg/inline/edit_v3.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/edit_outlined.svg",
+          "kind": "material",
+          "name": "edit",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/edit/materialsymbolsoutlined/edit_24px.svg",
+          "sources": [
+            {
+              "screen": "6d838a2f71e34a08bf06401abd05af4d",
+              "attributes": " class=\"material-symbols-outlined text-sm\""
+            },
+            {
+              "screen": "e1cae38741d74162b2e11d075c1a67fb",
+              "attributes": " class=\"material-symbols-outlined text-[16px] text-gray-600\""
+            },
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-lg text-on-surface-variant\" data-icon=\"edit\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/edit.svg",
+          "kind": "inline",
+          "name": "edit",
+          "sources": [
+            {
+              "screen": "fb2674badcc94dbd886e1c615841d656",
+              "svgIndex": 33,
+              "context": "ral-300 text-neutral-700 font-semibold text-sm hover:bg-neutral-50 active:bg-neutral-100 transition-colors flex items-center justify-center gap-1.5\">\n          "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/edit_v2.svg",
+          "kind": "inline",
+          "name": "edit",
+          "sources": [
+            {
+              "screen": "caebd72ca38e4bf1be2c93f13d0cf92e",
+              "svgIndex": 48,
+              "context": "unded-lg text-sm font-medium text-neutral-700 bg-white hover:bg-neutral-50 hover:text-neutral-900 transition-colors shadow-sm whitespace-nowrap\" type=\"button\">\n"
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/edit_v3.svg",
+          "kind": "inline",
+          "name": "edit",
+          "sources": [
+            {
+              "screen": "b45bb4bf0d27473f97056bab2381f480",
+              "svgIndex": 54,
+              "context": "button class=\"flex-1 border border-gray-200 bg-white text-gray-700 text-xs font-semibold py-2 rounded-lg flex items-center justify-center gap-1\">\n              "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/error.svg",
+      "kind": "inline",
+      "name": "error",
+      "sources": [
+        {
+          "screen": "6d838a2f71e34a08bf06401abd05af4d",
+          "attributes": " class=\"material-symbols-outlined text-lg\" style=\"font-variation-settings: 'FILL' 1;\"",
+          "originalAsset": "svg/material/error_filled.svg"
+        },
+        {
+          "screen": "6dade853749f4fe49462d12f1f1e507c",
+          "attributes": " class=\"material-symbols-outlined text-error text-xl shrink-0 mt-0.5\" style=\"font-variation-settings: 'FILL' 1;\"",
+          "originalAsset": "svg/material/error_filled.svg"
+        },
+        {
+          "screen": "d4388387a3364bacb820eb34dfaa3267",
+          "attributes": " class=\"material-symbols-outlined text-red-600 text-xl flex-shrink-0 mt-0.5\"",
+          "originalAsset": "svg/material/error_outlined.svg"
+        },
+        {
+          "screen": "0c1cc1d9467e432ab13ee27217b31b5c",
+          "attributes": " class=\"material-symbols-outlined text-[20px]\" data-icon=\"error\"",
+          "originalAsset": "svg/material/error_outlined.svg"
+        },
+        {
+          "screen": "516d10df1e5e47539a3c4e65162db9e4",
+          "attributes": " class=\"material-symbols-outlined text-[15px]\"",
+          "originalAsset": "svg/material/error_outlined.svg"
+        },
+        {
+          "screen": "4bea086d7a9d427caf5dc897dcf81785",
+          "attributes": " class=\"material-symbols-outlined text-sm shrink-0\"",
+          "originalAsset": "svg/material/error_outlined.svg"
+        },
+        {
+          "screen": "58ae9deab555441691f1068cbc3ee61a",
+          "svgIndex": 14,
+          "context": "    <div class=\"bg-[#fdf2f0] border border-[#f8d7da] rounded-xl p-3.5 mb-5 flex items-start gap-2.5 text-left\">\n        <div class=\"shrink-0 mt-0.5\">\n          ",
+          "originalAsset": "svg/inline/error.svg"
+        },
+        {
+          "screen": "79ec8662ae55449ba86cd2dd9547bdfc",
+          "svgIndex": 36,
+          "context": "    </div>\n\n        <!-- Chữ lỗi bên dưới kèm icon cảnh báo -->\n        <div class=\"flex items-center gap-1.5 mt-2 text-xs font-medium text-red-600\">\n          ",
+          "originalAsset": "svg/inline/error_v2.svg"
+        },
+        {
+          "screen": "6088c2d9006a4e918871cfeecca47483",
+          "svgIndex": 40,
+          "context": "-gray-400\"\n            ></textarea>\n          </div>\n\n          <div class=\"flex items-center gap-1 text-[#a73b21] text-[11px] font-medium pt-0.5\">\n            ",
+          "originalAsset": "svg/inline/error_v3.svg"
+        },
+        {
+          "screen": "b45bb4bf0d27473f97056bab2381f480",
+          "svgIndex": 56,
+          "context": "  <!-- Error icon inside input right -->\n          <div class=\"absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-error\">\n            ",
+          "originalAsset": "svg/inline/error_v4.svg"
+        },
+        {
+          "screen": "12f000184c4846279148726d28054991",
+          "svgIndex": 62,
+          "context": "div class=\"rounded-xl bg-[#fff5f3] border border-[#fecaca] p-3 flex items-start gap-2.5 mb-3.5\">\n        <div class=\"text-[#a73b21] shrink-0 mt-0.5\">\n          ",
+          "originalAsset": "svg/inline/error_v5.svg"
+        },
+        {
+          "screen": "12f000184c4846279148726d28054991",
+          "svgIndex": 63,
+          "context": "       <div class=\"flex items-center justify-between mt-1 text-[11px]\">\n          <span class=\"flex items-center gap-1 text-[#a73b21] font-medium\">\n            ",
+          "originalAsset": "svg/inline/error_v6.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/error_filled.svg",
+        "svg/material/error_outlined.svg",
+        "svg/inline/error_v2.svg",
+        "svg/inline/error_v3.svg",
+        "svg/inline/error_v4.svg",
+        "svg/inline/error_v5.svg",
+        "svg/inline/error_v6.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/error_filled.svg",
+          "kind": "material",
+          "name": "error",
+          "family": "Material Symbols Outlined",
+          "fill": 1,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/error/materialsymbolsoutlined/error_fill1_24px.svg",
+          "sources": [
+            {
+              "screen": "6d838a2f71e34a08bf06401abd05af4d",
+              "attributes": " class=\"material-symbols-outlined text-lg\" style=\"font-variation-settings: 'FILL' 1;\""
+            },
+            {
+              "screen": "6dade853749f4fe49462d12f1f1e507c",
+              "attributes": " class=\"material-symbols-outlined text-error text-xl shrink-0 mt-0.5\" style=\"font-variation-settings: 'FILL' 1;\""
+            }
+          ]
+        },
+        {
+          "file": "svg/material/error_outlined.svg",
+          "kind": "material",
+          "name": "error",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/error/materialsymbolsoutlined/error_24px.svg",
+          "sources": [
+            {
+              "screen": "d4388387a3364bacb820eb34dfaa3267",
+              "attributes": " class=\"material-symbols-outlined text-red-600 text-xl flex-shrink-0 mt-0.5\""
+            },
+            {
+              "screen": "0c1cc1d9467e432ab13ee27217b31b5c",
+              "attributes": " class=\"material-symbols-outlined text-[20px]\" data-icon=\"error\""
+            },
+            {
+              "screen": "516d10df1e5e47539a3c4e65162db9e4",
+              "attributes": " class=\"material-symbols-outlined text-[15px]\""
+            },
+            {
+              "screen": "4bea086d7a9d427caf5dc897dcf81785",
+              "attributes": " class=\"material-symbols-outlined text-sm shrink-0\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/error.svg",
+          "kind": "inline",
+          "name": "error",
+          "sources": [
+            {
+              "screen": "58ae9deab555441691f1068cbc3ee61a",
+              "svgIndex": 14,
+              "context": "    <div class=\"bg-[#fdf2f0] border border-[#f8d7da] rounded-xl p-3.5 mb-5 flex items-start gap-2.5 text-left\">\n        <div class=\"shrink-0 mt-0.5\">\n          "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/error_v2.svg",
+          "kind": "inline",
+          "name": "error",
+          "sources": [
+            {
+              "screen": "79ec8662ae55449ba86cd2dd9547bdfc",
+              "svgIndex": 36,
+              "context": "    </div>\n\n        <!-- Chữ lỗi bên dưới kèm icon cảnh báo -->\n        <div class=\"flex items-center gap-1.5 mt-2 text-xs font-medium text-red-600\">\n          "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/error_v3.svg",
+          "kind": "inline",
+          "name": "error",
+          "sources": [
+            {
+              "screen": "6088c2d9006a4e918871cfeecca47483",
+              "svgIndex": 40,
+              "context": "-gray-400\"\n            ></textarea>\n          </div>\n\n          <div class=\"flex items-center gap-1 text-[#a73b21] text-[11px] font-medium pt-0.5\">\n            "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/error_v4.svg",
+          "kind": "inline",
+          "name": "error",
+          "sources": [
+            {
+              "screen": "b45bb4bf0d27473f97056bab2381f480",
+              "svgIndex": 56,
+              "context": "  <!-- Error icon inside input right -->\n          <div class=\"absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-error\">\n            "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/error_v5.svg",
+          "kind": "inline",
+          "name": "error",
+          "sources": [
+            {
+              "screen": "12f000184c4846279148726d28054991",
+              "svgIndex": 62,
+              "context": "div class=\"rounded-xl bg-[#fff5f3] border border-[#fecaca] p-3 flex items-start gap-2.5 mb-3.5\">\n        <div class=\"text-[#a73b21] shrink-0 mt-0.5\">\n          "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/error_v6.svg",
+          "kind": "inline",
+          "name": "error",
+          "sources": [
+            {
+              "screen": "12f000184c4846279148726d28054991",
+              "svgIndex": 63,
+              "context": "       <div class=\"flex items-center justify-between mt-1 text-[11px]\">\n          <span class=\"flex items-center gap-1 text-[#a73b21] font-medium\">\n            "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/facebook.svg",
+      "kind": "inline",
+      "name": "facebook",
+      "sources": [
+        {
+          "screen": "d4388387a3364bacb820eb34dfaa3267",
+          "svgIndex": 25,
+          "context": "rsor-not-allowed flex items-center justify-start gap-3 font-label text-sm font-medium transition-all\" disabled=\"\" type=\"button\">\n<!-- Facebook 'f' Logo SVG -->\n",
+          "originalAsset": "svg/inline/facebook.svg"
+        },
+        {
+          "screen": "e3bbfd5a56df4254a8de29e793d2fc9e",
+          "svgIndex": 29,
+          "context": "ce-container-low text-outline border border-outline-variant/40 cursor-not-allowed select-none opacity-80\" disabled=\"\" type=\"button\">\n<!-- Facebook \"f\" Icon -->\n",
+          "originalAsset": "svg/inline/facebook_v2.svg"
+        }
+      ],
+      "aliases": [
+        "svg/inline/facebook_v2.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/inline/facebook.svg",
+          "kind": "inline",
+          "name": "facebook",
+          "sources": [
+            {
+              "screen": "d4388387a3364bacb820eb34dfaa3267",
+              "svgIndex": 25,
+              "context": "rsor-not-allowed flex items-center justify-start gap-3 font-label text-sm font-medium transition-all\" disabled=\"\" type=\"button\">\n<!-- Facebook 'f' Logo SVG -->\n"
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/facebook_v2.svg",
+          "kind": "inline",
+          "name": "facebook",
+          "sources": [
+            {
+              "screen": "e3bbfd5a56df4254a8de29e793d2fc9e",
+              "svgIndex": 29,
+              "context": "ce-container-low text-outline border border-outline-variant/40 cursor-not-allowed select-none opacity-80\" disabled=\"\" type=\"button\">\n<!-- Facebook \"f\" Icon -->\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/fitness_center_outlined.svg",
+      "kind": "material",
+      "name": "fitness_center",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/fitness_center/materialsymbolsoutlined/fitness_center_24px.svg",
+      "sources": [
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-xs text-primary\" data-icon=\"fitness_center\"",
+          "originalAsset": "svg/material/fitness_center_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/fitness_center_outlined.svg",
+          "kind": "material",
+          "name": "fitness_center",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/fitness_center/materialsymbolsoutlined/fitness_center_24px.svg",
+          "sources": [
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-xs text-primary\" data-icon=\"fitness_center\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/globe.svg",
+      "kind": "inline",
+      "name": "globe",
+      "sources": [
+        {
+          "screen": "12f000184c4846279148726d28054991",
+          "svgIndex": 59,
+          "context": "    <div class=\"flex items-center gap-1.5\">\n          <div class=\"w-6 h-6 rounded-full bg-emerald-600 flex items-center justify-center text-white\">\n            ",
+          "originalAsset": "svg/inline/globe.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/inline/globe.svg",
+          "kind": "inline",
+          "name": "globe",
+          "sources": [
+            {
+              "screen": "12f000184c4846279148726d28054991",
+              "svgIndex": 59,
+              "context": "    <div class=\"flex items-center gap-1.5\">\n          <div class=\"w-6 h-6 rounded-full bg-emerald-600 flex items-center justify-center text-white\">\n            "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/google.svg",
+      "kind": "inline",
+      "name": "google",
+      "sources": [
+        {
+          "screen": "d4388387a3364bacb820eb34dfaa3267",
+          "svgIndex": 23,
+          "context": "nter justify-between font-label text-sm font-medium transition-all\" disabled=\"\" type=\"button\">\n<div class=\"flex items-center gap-3\">\n<!-- Google G Logo SVG -->\n",
+          "originalAsset": "svg/inline/google.svg"
+        },
+        {
+          "screen": "e3bbfd5a56df4254a8de29e793d2fc9e",
+          "svgIndex": 27,
+          "context": "face-container-low text-outline border border-outline-variant/40 cursor-not-allowed select-none opacity-80\" disabled=\"\" type=\"button\">\n<!-- Google \"G\" Icon -->\n",
+          "originalAsset": "svg/inline/google.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/inline/google.svg",
+          "kind": "inline",
+          "name": "google",
+          "sources": [
+            {
+              "screen": "d4388387a3364bacb820eb34dfaa3267",
+              "svgIndex": 23,
+              "context": "nter justify-between font-label text-sm font-medium transition-all\" disabled=\"\" type=\"button\">\n<div class=\"flex items-center gap-3\">\n<!-- Google G Logo SVG -->\n"
+            },
+            {
+              "screen": "e3bbfd5a56df4254a8de29e793d2fc9e",
+              "svgIndex": 27,
+              "context": "face-container-low text-outline border border-outline-variant/40 cursor-not-allowed select-none opacity-80\" disabled=\"\" type=\"button\">\n<!-- Google \"G\" Icon -->\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/group_outlined.svg",
+      "kind": "material",
+      "name": "group",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/group/materialsymbolsoutlined/group_24px.svg",
+      "sources": [
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"group\"",
+          "originalAsset": "svg/material/group_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"group\"",
+          "originalAsset": "svg/material/group_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"group\"",
+          "originalAsset": "svg/material/group_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"group\"",
+          "originalAsset": "svg/material/group_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"group\"",
+          "originalAsset": "svg/material/group_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"group\"",
+          "originalAsset": "svg/material/group_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"group\"",
+          "originalAsset": "svg/material/group_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/group_outlined.svg",
+          "kind": "material",
+          "name": "group",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/group/materialsymbolsoutlined/group_24px.svg",
+          "sources": [
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"group\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"group\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"group\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"group\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"group\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"group\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"group\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/history_edu_outlined.svg",
+      "kind": "material",
+      "name": "history_edu",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/history_edu/materialsymbolsoutlined/history_edu_24px.svg",
+      "sources": [
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-lg text-outline\" data-icon=\"history_edu\"",
+          "originalAsset": "svg/material/history_edu_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/history_edu_outlined.svg",
+          "kind": "material",
+          "name": "history_edu",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/history_edu/materialsymbolsoutlined/history_edu_24px.svg",
+          "sources": [
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-lg text-outline\" data-icon=\"history_edu\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/info.svg",
+      "kind": "inline",
+      "name": "info",
+      "sources": [
+        {
+          "screen": "6dade853749f4fe49462d12f1f1e507c",
+          "attributes": " class=\"material-symbols-outlined text-xs\"",
+          "originalAsset": "svg/material/info_outlined.svg"
+        },
+        {
+          "screen": "63fda96f71424b3faf51fd6b88396370",
+          "attributes": " class=\"material-symbols-outlined text-on-surface-variant text-xl flex-shrink-0\"",
+          "originalAsset": "svg/material/info_outlined.svg"
+        },
+        {
+          "screen": "7e889b625e174eafb8a20e185c079b84",
+          "svgIndex": 44,
+          "context": " info) -->\n      <aside class=\"bg-[#edf2ea] border border-[#dce5d7] rounded-[8px] p-3 text-[12.5px] text-[#3d5a42] flex items-start gap-2.5 shadow-sm\">\n        ",
+          "originalAsset": "svg/inline/info.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/info_outlined.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/info_outlined.svg",
+          "kind": "material",
+          "name": "info",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/info/materialsymbolsoutlined/info_24px.svg",
+          "sources": [
+            {
+              "screen": "6dade853749f4fe49462d12f1f1e507c",
+              "attributes": " class=\"material-symbols-outlined text-xs\""
+            },
+            {
+              "screen": "63fda96f71424b3faf51fd6b88396370",
+              "attributes": " class=\"material-symbols-outlined text-on-surface-variant text-xl flex-shrink-0\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/info.svg",
+          "kind": "inline",
+          "name": "info",
+          "sources": [
+            {
+              "screen": "7e889b625e174eafb8a20e185c079b84",
+              "svgIndex": 44,
+              "context": " info) -->\n      <aside class=\"bg-[#edf2ea] border border-[#dce5d7] rounded-[8px] p-3 text-[12.5px] text-[#3d5a42] flex items-start gap-2.5 shadow-sm\">\n        "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/loading_spinner.svg",
+      "kind": "inline",
+      "name": "loading_spinner",
+      "sources": [
+        {
+          "screen": "d4388387a3364bacb820eb34dfaa3267",
+          "svgIndex": 24,
+          "context": ".7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z\" fill=\"#EA4335\"></path>\n</svg>\n<span>Tiếp tục với Google</span>\n</div>\n<!-- Spinning Spinner -->\n",
+          "originalAsset": "svg/inline/loading_spinner.svg"
+        },
+        {
+          "screen": "e3bbfd5a56df4254a8de29e793d2fc9e",
+          "svgIndex": 28,
+          "context": "06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z\" fill=\"#EA4335\"></path>\n</svg>\n<!-- Loading Spinner & Label -->\n<div class=\"flex items-center justify-center gap-2.5\">\n",
+          "originalAsset": "svg/inline/loading_spinner.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/inline/loading_spinner.svg",
+          "kind": "inline",
+          "name": "loading_spinner",
+          "sources": [
+            {
+              "screen": "d4388387a3364bacb820eb34dfaa3267",
+              "svgIndex": 24,
+              "context": ".7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z\" fill=\"#EA4335\"></path>\n</svg>\n<span>Tiếp tục với Google</span>\n</div>\n<!-- Spinning Spinner -->\n"
+            },
+            {
+              "screen": "e3bbfd5a56df4254a8de29e793d2fc9e",
+              "svgIndex": 28,
+              "context": "06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z\" fill=\"#EA4335\"></path>\n</svg>\n<!-- Loading Spinner & Label -->\n<div class=\"flex items-center justify-center gap-2.5\">\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/local_fire_department_outlined.svg",
+      "kind": "material",
+      "name": "local_fire_department",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/local_fire_department/materialsymbolsoutlined/local_fire_department_24px.svg",
+      "sources": [
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-xs text-primary\" data-icon=\"local_fire_department\"",
+          "originalAsset": "svg/material/local_fire_department_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/local_fire_department_outlined.svg",
+          "kind": "material",
+          "name": "local_fire_department",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/local_fire_department/materialsymbolsoutlined/local_fire_department_24px.svg",
+          "sources": [
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-xs text-primary\" data-icon=\"local_fire_department\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/logout_outlined.svg",
+      "kind": "material",
+      "name": "logout",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/logout/materialsymbolsoutlined/logout_24px.svg",
+      "sources": [
+        {
+          "screen": "468c09ac4d194737a66e3b74a6287dfe",
+          "attributes": " class=\"material-symbols-outlined text-[18px]\"",
+          "originalAsset": "svg/material/logout_outlined.svg"
+        },
+        {
+          "screen": "468c09ac4d194737a66e3b74a6287dfe",
+          "attributes": " class=\"material-symbols-outlined text-[28px] text-[#a73b21]\"",
+          "originalAsset": "svg/material/logout_outlined.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"logout\"",
+          "originalAsset": "svg/material/logout_outlined.svg"
+        },
+        {
+          "screen": "f029f78489e04ba0b6cc5a4fe8ac99c7",
+          "attributes": " class=\"material-symbols-outlined text-base\"",
+          "originalAsset": "svg/material/logout_outlined.svg"
+        },
+        {
+          "screen": "f029f78489e04ba0b6cc5a4fe8ac99c7",
+          "attributes": " class=\"material-symbols-outlined text-2xl\"",
+          "originalAsset": "svg/material/logout_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/logout_outlined.svg",
+          "kind": "material",
+          "name": "logout",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/logout/materialsymbolsoutlined/logout_24px.svg",
+          "sources": [
+            {
+              "screen": "468c09ac4d194737a66e3b74a6287dfe",
+              "attributes": " class=\"material-symbols-outlined text-[18px]\""
+            },
+            {
+              "screen": "468c09ac4d194737a66e3b74a6287dfe",
+              "attributes": " class=\"material-symbols-outlined text-[28px] text-[#a73b21]\""
+            },
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"logout\""
+            },
+            {
+              "screen": "f029f78489e04ba0b6cc5a4fe8ac99c7",
+              "attributes": " class=\"material-symbols-outlined text-base\""
+            },
+            {
+              "screen": "f029f78489e04ba0b6cc5a4fe8ac99c7",
+              "attributes": " class=\"material-symbols-outlined text-2xl\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/menu_v2.svg",
+      "kind": "inline",
+      "name": "menu",
+      "sources": [
+        {
+          "screen": "e1cae38741d74162b2e11d075c1a67fb",
+          "attributes": " class=\"material-symbols-outlined text-[26px]\"",
+          "originalAsset": "svg/material/menu_outlined.svg"
+        },
+        {
+          "screen": "468c09ac4d194737a66e3b74a6287dfe",
+          "attributes": " class=\"material-symbols-outlined text-[24px]\"",
+          "originalAsset": "svg/material/menu_outlined.svg"
+        },
+        {
+          "screen": "8f0dbb7dfab54c8b99d19baa9681924f",
+          "svgIndex": 15,
+          "context": "<button type=\"button\" aria-label=\"Menu\" class=\"w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 text-[#1a1f1b] transition-colors\">\n        ",
+          "originalAsset": "svg/inline/menu.svg"
+        },
+        {
+          "screen": "b45bb4bf0d27473f97056bab2381f480",
+          "svgIndex": 49,
+          "context": "   <header class=\"h-14 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0\">\n        <button class=\"text-gray-700 p-1\">\n          ",
+          "originalAsset": "svg/inline/menu.svg"
+        },
+        {
+          "screen": "fb2674badcc94dbd886e1c615841d656",
+          "svgIndex": 31,
+          "context": "on type=\"button\" aria-label=\"Menu\" class=\"w-9 h-9 flex items-center justify-center text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors\">\n        ",
+          "originalAsset": "svg/inline/menu_v2.svg"
+        },
+        {
+          "screen": "12f000184c4846279148726d28054991",
+          "svgIndex": 58,
+          "context": "   <!-- App Header -->\n      <div class=\"h-14 bg-white/95 px-4 flex items-center justify-between border-b border-gray-100\">\n        <div class=\"p-1\">\n          ",
+          "originalAsset": "svg/inline/menu_v2.svg"
+        },
+        {
+          "screen": "6088c2d9006a4e918871cfeecca47483",
+          "svgIndex": 37,
+          "context": "iv class=\"flex items-center gap-3\">\n          <button type=\"button\" class=\"text-gray-700 hover:text-gray-900 focus:outline-none\" aria-label=\"Menu\">\n            ",
+          "originalAsset": "svg/inline/menu_v3.svg"
+        },
+        {
+          "screen": "7e889b625e174eafb8a20e185c079b84",
+          "svgIndex": 41,
+          "context": " type=\"button\" aria-label=\"Menu\" class=\"w-9 h-9 flex items-center justify-center text-gray-700 hover:bg-gray-50 rounded-lg active:scale-95 transition\">\n        ",
+          "originalAsset": "svg/inline/menu_v4.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/menu_outlined.svg",
+        "svg/inline/menu.svg",
+        "svg/inline/menu_v3.svg",
+        "svg/inline/menu_v4.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/menu_outlined.svg",
+          "kind": "material",
+          "name": "menu",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/menu/materialsymbolsoutlined/menu_24px.svg",
+          "sources": [
+            {
+              "screen": "e1cae38741d74162b2e11d075c1a67fb",
+              "attributes": " class=\"material-symbols-outlined text-[26px]\""
+            },
+            {
+              "screen": "468c09ac4d194737a66e3b74a6287dfe",
+              "attributes": " class=\"material-symbols-outlined text-[24px]\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/menu.svg",
+          "kind": "inline",
+          "name": "menu",
+          "sources": [
+            {
+              "screen": "8f0dbb7dfab54c8b99d19baa9681924f",
+              "svgIndex": 15,
+              "context": "<button type=\"button\" aria-label=\"Menu\" class=\"w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 text-[#1a1f1b] transition-colors\">\n        "
+            },
+            {
+              "screen": "b45bb4bf0d27473f97056bab2381f480",
+              "svgIndex": 49,
+              "context": "   <header class=\"h-14 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0\">\n        <button class=\"text-gray-700 p-1\">\n          "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/menu_v2.svg",
+          "kind": "inline",
+          "name": "menu",
+          "sources": [
+            {
+              "screen": "fb2674badcc94dbd886e1c615841d656",
+              "svgIndex": 31,
+              "context": "on type=\"button\" aria-label=\"Menu\" class=\"w-9 h-9 flex items-center justify-center text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors\">\n        "
+            },
+            {
+              "screen": "12f000184c4846279148726d28054991",
+              "svgIndex": 58,
+              "context": "   <!-- App Header -->\n      <div class=\"h-14 bg-white/95 px-4 flex items-center justify-between border-b border-gray-100\">\n        <div class=\"p-1\">\n          "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/menu_v3.svg",
+          "kind": "inline",
+          "name": "menu",
+          "sources": [
+            {
+              "screen": "6088c2d9006a4e918871cfeecca47483",
+              "svgIndex": 37,
+              "context": "iv class=\"flex items-center gap-3\">\n          <button type=\"button\" class=\"text-gray-700 hover:text-gray-900 focus:outline-none\" aria-label=\"Menu\">\n            "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/menu_v4.svg",
+          "kind": "inline",
+          "name": "menu",
+          "sources": [
+            {
+              "screen": "7e889b625e174eafb8a20e185c079b84",
+              "svgIndex": 41,
+              "context": " type=\"button\" aria-label=\"Menu\" class=\"w-9 h-9 flex items-center justify-center text-gray-700 hover:bg-gray-50 rounded-lg active:scale-95 transition\">\n        "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/more_vert.svg",
+      "kind": "inline",
+      "name": "more_vert",
+      "sources": [
+        {
+          "screen": "e1cae38741d74162b2e11d075c1a67fb",
+          "attributes": " class=\"material-symbols-outlined text-[20px]\"",
+          "originalAsset": "svg/material/more_vert_outlined.svg"
+        },
+        {
+          "screen": "e7aa41ac58a44f45aa76b0a326d67a77",
+          "attributes": " class=\"material-symbols-outlined text-lg\"",
+          "originalAsset": "svg/material/more_vert_outlined.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"more_vert\"",
+          "originalAsset": "svg/material/more_vert_outlined.svg"
+        },
+        {
+          "screen": "b45bb4bf0d27473f97056bab2381f480",
+          "svgIndex": 55,
+          "context": "\n            </button>\n            <button class=\"w-8 border border-gray-200 bg-white text-gray-500 rounded-lg flex items-center justify-center\">\n              ",
+          "originalAsset": "svg/inline/more_vert.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/more_vert_outlined.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/more_vert_outlined.svg",
+          "kind": "material",
+          "name": "more_vert",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/more_vert/materialsymbolsoutlined/more_vert_24px.svg",
+          "sources": [
+            {
+              "screen": "e1cae38741d74162b2e11d075c1a67fb",
+              "attributes": " class=\"material-symbols-outlined text-[20px]\""
+            },
+            {
+              "screen": "e7aa41ac58a44f45aa76b0a326d67a77",
+              "attributes": " class=\"material-symbols-outlined text-lg\""
+            },
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"more_vert\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/more_vert.svg",
+          "kind": "inline",
+          "name": "more_vert",
+          "sources": [
+            {
+              "screen": "b45bb4bf0d27473f97056bab2381f480",
+              "svgIndex": 55,
+              "context": "\n            </button>\n            <button class=\"w-8 border border-gray-200 bg-white text-gray-500 rounded-lg flex items-center justify-center\">\n              "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/person.svg",
+      "kind": "inline",
+      "name": "person",
+      "sources": [
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"account_circle\"",
+          "originalAsset": "svg/material/account_circle_outlined.svg"
+        },
+        {
+          "screen": "e1cae38741d74162b2e11d075c1a67fb",
+          "attributes": " class=\"material-symbols-outlined text-[13px]\"",
+          "originalAsset": "svg/material/person_outlined.svg"
+        },
+        {
+          "screen": "e1cae38741d74162b2e11d075c1a67fb",
+          "attributes": " class=\"material-symbols-outlined text-[13px]\"",
+          "originalAsset": "svg/material/person_outlined.svg"
+        },
+        {
+          "screen": "e1cae38741d74162b2e11d075c1a67fb",
+          "attributes": " class=\"material-symbols-outlined text-[13px]\"",
+          "originalAsset": "svg/material/person_outlined.svg"
+        },
+        {
+          "screen": "e1cae38741d74162b2e11d075c1a67fb",
+          "attributes": " class=\"material-symbols-outlined text-[13px]\"",
+          "originalAsset": "svg/material/person_outlined.svg"
+        },
+        {
+          "screen": "f58f397abd4c4f4fa1ca2d628927a26f",
+          "attributes": " class=\"material-symbols-outlined text-lg opacity-60\" data-icon=\"person\"",
+          "originalAsset": "svg/material/person_outlined.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-sm text-outline\" data-icon=\"person\"",
+          "originalAsset": "svg/material/person_outlined.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-sm text-outline\" data-icon=\"person\"",
+          "originalAsset": "svg/material/person_outlined.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-sm text-outline\" data-icon=\"person\"",
+          "originalAsset": "svg/material/person_outlined.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-sm text-outline\" data-icon=\"person\"",
+          "originalAsset": "svg/material/person_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"person\"",
+          "originalAsset": "svg/material/person_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"person\"",
+          "originalAsset": "svg/material/person_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"person\"",
+          "originalAsset": "svg/material/person_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"person\"",
+          "originalAsset": "svg/material/person_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"person\"",
+          "originalAsset": "svg/material/person_outlined.svg"
+        },
+        {
+          "screen": "871dff6c37624934ab96ce5a7e578d08",
+          "svgIndex": 3,
+          "context": "             <div class=\"w-9 h-9 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center flex-shrink-0 text-gray-400\">\n                ",
+          "originalAsset": "svg/inline/person.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/account_circle_outlined.svg",
+        "svg/material/person_outlined.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/account_circle_outlined.svg",
+          "kind": "material",
+          "name": "account_circle",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/account_circle/materialsymbolsoutlined/account_circle_24px.svg",
+          "sources": [
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"account_circle\""
+            }
+          ]
+        },
+        {
+          "file": "svg/material/person_outlined.svg",
+          "kind": "material",
+          "name": "person",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/person/materialsymbolsoutlined/person_24px.svg",
+          "sources": [
+            {
+              "screen": "e1cae38741d74162b2e11d075c1a67fb",
+              "attributes": " class=\"material-symbols-outlined text-[13px]\""
+            },
+            {
+              "screen": "e1cae38741d74162b2e11d075c1a67fb",
+              "attributes": " class=\"material-symbols-outlined text-[13px]\""
+            },
+            {
+              "screen": "e1cae38741d74162b2e11d075c1a67fb",
+              "attributes": " class=\"material-symbols-outlined text-[13px]\""
+            },
+            {
+              "screen": "e1cae38741d74162b2e11d075c1a67fb",
+              "attributes": " class=\"material-symbols-outlined text-[13px]\""
+            },
+            {
+              "screen": "f58f397abd4c4f4fa1ca2d628927a26f",
+              "attributes": " class=\"material-symbols-outlined text-lg opacity-60\" data-icon=\"person\""
+            },
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-sm text-outline\" data-icon=\"person\""
+            },
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-sm text-outline\" data-icon=\"person\""
+            },
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-sm text-outline\" data-icon=\"person\""
+            },
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-sm text-outline\" data-icon=\"person\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"person\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"person\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"person\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"person\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"person\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/person.svg",
+          "kind": "inline",
+          "name": "person",
+          "sources": [
+            {
+              "screen": "871dff6c37624934ab96ce5a7e578d08",
+              "svgIndex": 3,
+              "context": "             <div class=\"w-9 h-9 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center flex-shrink-0 text-gray-400\">\n                "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/person_add.svg",
+      "kind": "inline",
+      "name": "person_add",
+      "sources": [
+        {
+          "screen": "6d838a2f71e34a08bf06401abd05af4d",
+          "attributes": " class=\"material-symbols-outlined text-sm\"",
+          "originalAsset": "svg/material/person_add_outlined.svg"
+        },
+        {
+          "screen": "e1cae38741d74162b2e11d075c1a67fb",
+          "attributes": " class=\"material-symbols-outlined text-[18px]\"",
+          "originalAsset": "svg/material/person_add_outlined.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"person_add\"",
+          "originalAsset": "svg/material/person_add_outlined.svg"
+        },
+        {
+          "screen": "b45bb4bf0d27473f97056bab2381f480",
+          "svgIndex": 53,
+          "context": "-3.5\">\n            <button class=\"flex-1 bg-[#3d6943] text-white text-xs font-semibold py-2 rounded-lg flex items-center justify-center gap-1.5\">\n              ",
+          "originalAsset": "svg/inline/person_add.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/person_add_outlined.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/person_add_outlined.svg",
+          "kind": "material",
+          "name": "person_add",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/person_add/materialsymbolsoutlined/person_add_24px.svg",
+          "sources": [
+            {
+              "screen": "6d838a2f71e34a08bf06401abd05af4d",
+              "attributes": " class=\"material-symbols-outlined text-sm\""
+            },
+            {
+              "screen": "e1cae38741d74162b2e11d075c1a67fb",
+              "attributes": " class=\"material-symbols-outlined text-[18px]\""
+            },
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"person_add\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/person_add.svg",
+          "kind": "inline",
+          "name": "person_add",
+          "sources": [
+            {
+              "screen": "b45bb4bf0d27473f97056bab2381f480",
+              "svgIndex": 53,
+              "context": "-3.5\">\n            <button class=\"flex-1 bg-[#3d6943] text-white text-xs font-semibold py-2 rounded-lg flex items-center justify-center gap-1.5\">\n              "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/person_off_outlined.svg",
+      "kind": "material",
+      "name": "person_off",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/person_off/materialsymbolsoutlined/person_off_24px.svg",
+      "sources": [
+        {
+          "screen": "e1cae38741d74162b2e11d075c1a67fb",
+          "attributes": " class=\"material-symbols-outlined text-[20px]\"",
+          "originalAsset": "svg/material/person_off_outlined.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"person_off\"",
+          "originalAsset": "svg/material/person_off_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"person_off\"",
+          "originalAsset": "svg/material/person_off_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/person_off_outlined.svg",
+          "kind": "material",
+          "name": "person_off",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/person_off/materialsymbolsoutlined/person_off_24px.svg",
+          "sources": [
+            {
+              "screen": "e1cae38741d74162b2e11d075c1a67fb",
+              "attributes": " class=\"material-symbols-outlined text-[20px]\""
+            },
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"person_off\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"person_off\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/call_outlined.svg",
+      "kind": "material",
+      "name": "phone",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/call/materialsymbolsoutlined/call_24px.svg",
+      "sources": [
+        {
+          "screen": "d4388387a3364bacb820eb34dfaa3267",
+          "attributes": " class=\"material-symbols-outlined text-[20px] text-slate-400 flex-shrink-0\"",
+          "originalAsset": "svg/material/call_outlined.svg"
+        },
+        {
+          "screen": "e3bbfd5a56df4254a8de29e793d2fc9e",
+          "attributes": " class=\"material-symbols-outlined text-xl absolute left-4 opacity-50\" data-icon=\"phone_iphone\"",
+          "originalAsset": "svg/material/phone_iphone_outlined.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/phone_iphone_outlined.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/call_outlined.svg",
+          "kind": "material",
+          "name": "call",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/call/materialsymbolsoutlined/call_24px.svg",
+          "sources": [
+            {
+              "screen": "d4388387a3364bacb820eb34dfaa3267",
+              "attributes": " class=\"material-symbols-outlined text-[20px] text-slate-400 flex-shrink-0\""
+            }
+          ]
+        },
+        {
+          "file": "svg/material/phone_iphone_outlined.svg",
+          "kind": "material",
+          "name": "phone_iphone",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/phone_iphone/materialsymbolsoutlined/phone_iphone_24px.svg",
+          "sources": [
+            {
+              "screen": "e3bbfd5a56df4254a8de29e793d2fc9e",
+              "attributes": " class=\"material-symbols-outlined text-xl absolute left-4 opacity-50\" data-icon=\"phone_iphone\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/photo_camera_outlined.svg",
+      "kind": "material",
+      "name": "photo_camera",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/photo_camera/materialsymbolsoutlined/photo_camera_24px.svg",
+      "sources": [
+        {
+          "screen": "0c1cc1d9467e432ab13ee27217b31b5c",
+          "attributes": " class=\"material-symbols-outlined text-[18px] text-outline\" data-icon=\"photo_camera\"",
+          "originalAsset": "svg/material/photo_camera_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/photo_camera_outlined.svg",
+          "kind": "material",
+          "name": "photo_camera",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/photo_camera/materialsymbolsoutlined/photo_camera_24px.svg",
+          "sources": [
+            {
+              "screen": "0c1cc1d9467e432ab13ee27217b31b5c",
+              "attributes": " class=\"material-symbols-outlined text-[18px] text-outline\" data-icon=\"photo_camera\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/decorations/pitch_desktop_login.svg",
+      "kind": "decoration",
+      "name": "pitch",
+      "sources": [
+        {
+          "screen": "d76d264a5da444e4b322c534b1e1b2c0",
+          "svgIndex": 7,
+          "context": "1/2 bg-[#14532D] text-white p-8 md:p-14 lg:p-16 flex flex-col justify-between overflow-hidden min-h-[420px] md:min-h-screen\">\n<!-- Soccer Pitch SVG Overlay -->\n",
+          "originalAsset": "svg/decorations/pitch_desktop_otp.svg"
+        },
+        {
+          "screen": "d4388387a3364bacb820eb34dfaa3267",
+          "svgIndex": 22,
+          "context": "D) -->\n<header class=\"relative bg-[#14532D] text-white pt-10 pb-8 px-6 overflow-hidden flex-shrink-0\">\n<!-- Subtle Soccer Pitch Grid Markings / Pattern SVG -->\n",
+          "originalAsset": "svg/decorations/pitch_mobile_login.svg"
+        },
+        {
+          "screen": "e3bbfd5a56df4254a8de29e793d2fc9e",
+          "svgIndex": 26,
+          "context": "ect-none\">\n<!-- Subtle Tactical Pitch Graphic Background -->\n<div class=\"absolute inset-0 pointer-events-none opacity-[0.07] flex items-center justify-center\">\n",
+          "originalAsset": "svg/decorations/pitch_desktop_login.svg"
+        },
+        {
+          "screen": "4bea086d7a9d427caf5dc897dcf81785",
+          "svgIndex": 30,
+          "context": "-hidden select-none\">\n<!-- Subtle Tactical Pitch Graphic Background -->\n<div class=\"absolute inset-0 pointer-events-none flex items-center justify-center p-8\">\n",
+          "originalAsset": "svg/decorations/pitch_desktop_phone.svg"
+        },
+        {
+          "screen": "79ec8662ae55449ba86cd2dd9547bdfc",
+          "svgIndex": 34,
+          "context": "  <header class=\"relative bg-[#14532D] h-28 px-6 flex items-center justify-start overflow-hidden select-none\">\n      <!-- Pitch line markings overlay -->\n      ",
+          "originalAsset": "svg/decorations/pitch_mobile_phone.svg"
+        }
+      ],
+      "aliases": [
+        "svg/decorations/pitch_desktop_otp.svg",
+        "svg/decorations/pitch_mobile_login.svg",
+        "svg/decorations/pitch_desktop_phone.svg",
+        "svg/decorations/pitch_mobile_phone.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/decorations/pitch_desktop_otp.svg",
+          "kind": "decoration",
+          "name": "pitch_desktop_otp",
+          "sources": [
+            {
+              "screen": "d76d264a5da444e4b322c534b1e1b2c0",
+              "svgIndex": 7,
+              "context": "1/2 bg-[#14532D] text-white p-8 md:p-14 lg:p-16 flex flex-col justify-between overflow-hidden min-h-[420px] md:min-h-screen\">\n<!-- Soccer Pitch SVG Overlay -->\n"
+            }
+          ]
+        },
+        {
+          "file": "svg/decorations/pitch_mobile_login.svg",
+          "kind": "decoration",
+          "name": "pitch_mobile_login",
+          "sources": [
+            {
+              "screen": "d4388387a3364bacb820eb34dfaa3267",
+              "svgIndex": 22,
+              "context": "D) -->\n<header class=\"relative bg-[#14532D] text-white pt-10 pb-8 px-6 overflow-hidden flex-shrink-0\">\n<!-- Subtle Soccer Pitch Grid Markings / Pattern SVG -->\n"
+            }
+          ]
+        },
+        {
+          "file": "svg/decorations/pitch_desktop_login.svg",
+          "kind": "decoration",
+          "name": "pitch_desktop_login",
+          "sources": [
+            {
+              "screen": "e3bbfd5a56df4254a8de29e793d2fc9e",
+              "svgIndex": 26,
+              "context": "ect-none\">\n<!-- Subtle Tactical Pitch Graphic Background -->\n<div class=\"absolute inset-0 pointer-events-none opacity-[0.07] flex items-center justify-center\">\n"
+            }
+          ]
+        },
+        {
+          "file": "svg/decorations/pitch_desktop_phone.svg",
+          "kind": "decoration",
+          "name": "pitch_desktop_phone",
+          "sources": [
+            {
+              "screen": "4bea086d7a9d427caf5dc897dcf81785",
+              "svgIndex": 30,
+              "context": "-hidden select-none\">\n<!-- Subtle Tactical Pitch Graphic Background -->\n<div class=\"absolute inset-0 pointer-events-none flex items-center justify-center p-8\">\n"
+            }
+          ]
+        },
+        {
+          "file": "svg/decorations/pitch_mobile_phone.svg",
+          "kind": "decoration",
+          "name": "pitch_mobile_phone",
+          "sources": [
+            {
+              "screen": "79ec8662ae55449ba86cd2dd9547bdfc",
+              "svgIndex": 34,
+              "context": "  <header class=\"relative bg-[#14532D] h-28 px-6 flex items-center justify-start overflow-hidden select-none\">\n      <!-- Pitch line markings overlay -->\n      "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/published_with_changes_outlined.svg",
+      "kind": "material",
+      "name": "published_with_changes",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/published_with_changes/materialsymbolsoutlined/published_with_changes_24px.svg",
+      "sources": [
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-base text-primary\" data-icon=\"published_with_changes\"",
+          "originalAsset": "svg/material/published_with_changes_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/published_with_changes_outlined.svg",
+          "kind": "material",
+          "name": "published_with_changes",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/published_with_changes/materialsymbolsoutlined/published_with_changes_24px.svg",
+          "sources": [
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-base text-primary\" data-icon=\"published_with_changes\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/schedule.svg",
+      "kind": "inline",
+      "name": "schedule",
+      "sources": [
+        {
+          "screen": "63fda96f71424b3faf51fd6b88396370",
+          "attributes": " class=\"material-symbols-outlined text-xs\"",
+          "originalAsset": "svg/material/schedule_outlined.svg"
+        },
+        {
+          "screen": "63fda96f71424b3faf51fd6b88396370",
+          "attributes": " class=\"material-symbols-outlined text-xs\"",
+          "originalAsset": "svg/material/schedule_outlined.svg"
+        },
+        {
+          "screen": "63fda96f71424b3faf51fd6b88396370",
+          "attributes": " class=\"material-symbols-outlined text-xs\"",
+          "originalAsset": "svg/material/schedule_outlined.svg"
+        },
+        {
+          "screen": "8f0dbb7dfab54c8b99d19baa9681924f",
+          "svgIndex": 19,
+          "context": "    <div class=\"w-10 h-10 rounded-full bg-[#fef3c7] border border-[#fde68a] flex items-center justify-center text-[#b45309] font-bold text-sm\">\n                ",
+          "originalAsset": "svg/inline/schedule.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/schedule_outlined.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/schedule_outlined.svg",
+          "kind": "material",
+          "name": "schedule",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/schedule/materialsymbolsoutlined/schedule_24px.svg",
+          "sources": [
+            {
+              "screen": "63fda96f71424b3faf51fd6b88396370",
+              "attributes": " class=\"material-symbols-outlined text-xs\""
+            },
+            {
+              "screen": "63fda96f71424b3faf51fd6b88396370",
+              "attributes": " class=\"material-symbols-outlined text-xs\""
+            },
+            {
+              "screen": "63fda96f71424b3faf51fd6b88396370",
+              "attributes": " class=\"material-symbols-outlined text-xs\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/schedule.svg",
+          "kind": "inline",
+          "name": "schedule",
+          "sources": [
+            {
+              "screen": "8f0dbb7dfab54c8b99d19baa9681924f",
+              "svgIndex": 19,
+              "context": "    <div class=\"w-10 h-10 rounded-full bg-[#fef3c7] border border-[#fde68a] flex items-center justify-center text-[#b45309] font-bold text-sm\">\n                "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/search_outlined.svg",
+      "kind": "material",
+      "name": "search",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/search/materialsymbolsoutlined/search_24px.svg",
+      "sources": [
+        {
+          "screen": "0c1cc1d9467e432ab13ee27217b31b5c",
+          "attributes": " class=\"material-symbols-outlined text-[20px]\" data-icon=\"search\"",
+          "originalAsset": "svg/material/search_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/search_outlined.svg",
+          "kind": "material",
+          "name": "search",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/search/materialsymbolsoutlined/search_24px.svg",
+          "sources": [
+            {
+              "screen": "0c1cc1d9467e432ab13ee27217b31b5c",
+              "attributes": " class=\"material-symbols-outlined text-[20px]\" data-icon=\"search\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/settings_outlined.svg",
+      "kind": "material",
+      "name": "settings",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/settings/materialsymbolsoutlined/settings_24px.svg",
+      "sources": [
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"settings\"",
+          "originalAsset": "svg/material/settings_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/settings_outlined.svg",
+          "kind": "material",
+          "name": "settings",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/settings/materialsymbolsoutlined/settings_24px.svg",
+          "sources": [
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"settings\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/share_outlined.svg",
+      "kind": "material",
+      "name": "share",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/share/materialsymbolsoutlined/share_24px.svg",
+      "sources": [
+        {
+          "screen": "e7aa41ac58a44f45aa76b0a326d67a77",
+          "attributes": " class=\"material-symbols-outlined text-lg\"",
+          "originalAsset": "svg/material/share_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/share_outlined.svg",
+          "kind": "material",
+          "name": "share",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/share/materialsymbolsoutlined/share_24px.svg",
+          "sources": [
+            {
+              "screen": "e7aa41ac58a44f45aa76b0a326d67a77",
+              "attributes": " class=\"material-symbols-outlined text-lg\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/shield.svg",
+      "kind": "inline",
+      "name": "shield",
+      "sources": [
+        {
+          "screen": "683c52cd94134dfda021f0840e031e43",
+          "attributes": " class=\"material-symbols-outlined text-4xl\" data-icon=\"shield\"",
+          "originalAsset": "svg/material/shield_outlined.svg"
+        },
+        {
+          "screen": "ee3e63d41c8048528f60bbdd4e4307e6",
+          "attributes": " class=\"material-symbols-outlined text-[18px]\"",
+          "originalAsset": "svg/material/shield_outlined.svg"
+        },
+        {
+          "screen": "ee3e63d41c8048528f60bbdd4e4307e6",
+          "attributes": " class=\"material-symbols-outlined text-[36px] text-[#556052]\"",
+          "originalAsset": "svg/material/shield_outlined.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"shield\"",
+          "originalAsset": "svg/material/shield_outlined.svg"
+        },
+        {
+          "screen": "516d10df1e5e47539a3c4e65162db9e4",
+          "attributes": " class=\"material-symbols-outlined text-[18px]\"",
+          "originalAsset": "svg/material/shield_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-2xl\" data-icon=\"shield\"",
+          "originalAsset": "svg/material/shield_outlined.svg"
+        },
+        {
+          "screen": "8f0dbb7dfab54c8b99d19baa9681924f",
+          "svgIndex": 17,
+          "context": ">\n          <div class=\"w-11 h-11 rounded-full bg-[#eaf2eb] border border-[#d1e3d4] flex items-center justify-center flex-shrink-0 text-[#3d6943]\">\n            ",
+          "originalAsset": "svg/inline/shield.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/shield_outlined.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/shield_outlined.svg",
+          "kind": "material",
+          "name": "shield",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/shield/materialsymbolsoutlined/shield_24px.svg",
+          "sources": [
+            {
+              "screen": "683c52cd94134dfda021f0840e031e43",
+              "attributes": " class=\"material-symbols-outlined text-4xl\" data-icon=\"shield\""
+            },
+            {
+              "screen": "ee3e63d41c8048528f60bbdd4e4307e6",
+              "attributes": " class=\"material-symbols-outlined text-[18px]\""
+            },
+            {
+              "screen": "ee3e63d41c8048528f60bbdd4e4307e6",
+              "attributes": " class=\"material-symbols-outlined text-[36px] text-[#556052]\""
+            },
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"shield\""
+            },
+            {
+              "screen": "516d10df1e5e47539a3c4e65162db9e4",
+              "attributes": " class=\"material-symbols-outlined text-[18px]\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-2xl\" data-icon=\"shield\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/shield.svg",
+          "kind": "inline",
+          "name": "shield",
+          "sources": [
+            {
+              "screen": "8f0dbb7dfab54c8b99d19baa9681924f",
+              "svgIndex": 17,
+              "context": ">\n          <div class=\"w-11 h-11 rounded-full bg-[#eaf2eb] border border-[#d1e3d4] flex items-center justify-center flex-shrink-0 text-[#3d6943]\">\n            "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/shield_check.svg",
+      "kind": "inline",
+      "name": "shield_check",
+      "sources": [
+        {
+          "screen": "094195b048aa439c812f174bfb314d9c",
+          "svgIndex": 9,
+          "context": "20 rounded-full bg-gray-50 border-2 border-dashed border-gray-200 flex items-center justify-center text-gray-400 mb-3\">\n          <!-- Icon khiên -->\n          ",
+          "originalAsset": "svg/inline/shield_check.svg"
+        },
+        {
+          "screen": "caebd72ca38e4bf1be2c93f13d0cf92e",
+          "svgIndex": 46,
+          "context": " class=\"flex items-center\">\n<a class=\"flex items-center space-x-1.5 text-sm font-medium text-neutral-600 hover:text-[#3d6943] transition-colors py-1\" href=\"#\">\n",
+          "originalAsset": "svg/inline/shield_check_v2.svg"
+        }
+      ],
+      "aliases": [
+        "svg/inline/shield_check_v2.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/inline/shield_check.svg",
+          "kind": "inline",
+          "name": "shield_check",
+          "sources": [
+            {
+              "screen": "094195b048aa439c812f174bfb314d9c",
+              "svgIndex": 9,
+              "context": "20 rounded-full bg-gray-50 border-2 border-dashed border-gray-200 flex items-center justify-center text-gray-400 mb-3\">\n          <!-- Icon khiên -->\n          "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/shield_check_v2.svg",
+          "kind": "inline",
+          "name": "shield_check",
+          "sources": [
+            {
+              "screen": "caebd72ca38e4bf1be2c93f13d0cf92e",
+              "svgIndex": 46,
+              "context": " class=\"flex items-center\">\n<a class=\"flex items-center space-x-1.5 text-sm font-medium text-neutral-600 hover:text-[#3d6943] transition-colors py-1\" href=\"#\">\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/material/shield_person_outlined.svg",
+      "kind": "material",
+      "name": "shield_person",
+      "family": "Material Symbols Outlined",
+      "fill": 0,
+      "weight": 400,
+      "opticalSize": 24,
+      "grade": 0,
+      "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/shield_person/materialsymbolsoutlined/shield_person_24px.svg",
+      "sources": [
+        {
+          "screen": "f58f397abd4c4f4fa1ca2d628927a26f",
+          "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"shield_person\"",
+          "originalAsset": "svg/material/shield_person_outlined.svg"
+        }
+      ],
+      "aliases": [],
+      "originalVariants": [
+        {
+          "file": "svg/material/shield_person_outlined.svg",
+          "kind": "material",
+          "name": "shield_person",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/shield_person/materialsymbolsoutlined/shield_person_24px.svg",
+          "sources": [
+            {
+              "screen": "f58f397abd4c4f4fa1ca2d628927a26f",
+              "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"shield_person\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/sports_soccer_pentagon.svg",
+      "kind": "inline",
+      "name": "sports_soccer",
+      "sources": [
+        {
+          "screen": "6dade853749f4fe49462d12f1f1e507c",
+          "attributes": " class=\"material-symbols-outlined text-primary text-2xl\" style=\"font-variation-settings: 'FILL' 1;\"",
+          "originalAsset": "svg/material/sports_soccer_filled.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined fill text-2xl\" data-icon=\"sports_soccer\"",
+          "originalAsset": "svg/material/sports_soccer_filled.svg"
+        },
+        {
+          "screen": "6205afa12ff042879f5a8b903f22cec9",
+          "attributes": " class=\"material-symbols-outlined fill text-primary text-2xl\" data-icon=\"sports_soccer\"",
+          "originalAsset": "svg/material/sports_soccer_filled.svg"
+        },
+        {
+          "screen": "683c52cd94134dfda021f0840e031e43",
+          "attributes": " class=\"material-symbols-outlined text-primary text-2xl\" data-icon=\"sports_soccer\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "e1cae38741d74162b2e11d075c1a67fb",
+          "attributes": " class=\"material-symbols-outlined text-[#3d6943] text-[22px]\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "e1cae38741d74162b2e11d075c1a67fb",
+          "attributes": " class=\"material-symbols-outlined text-[14px] text-[#3d6943]\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "d76d264a5da444e4b322c534b1e1b2c0",
+          "attributes": " class=\"material-symbols-outlined text-[22px]\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "ee3e63d41c8048528f60bbdd4e4307e6",
+          "attributes": " class=\"material-symbols-outlined text-[22px]\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "468c09ac4d194737a66e3b74a6287dfe",
+          "attributes": " class=\"material-symbols-outlined text-[15px]\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "f58f397abd4c4f4fa1ca2d628927a26f",
+          "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"sports_soccer\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "d4388387a3364bacb820eb34dfaa3267",
+          "attributes": " class=\"material-symbols-outlined text-[22px]\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"sports_soccer\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "0c1cc1d9467e432ab13ee27217b31b5c",
+          "attributes": " class=\"material-symbols-outlined text-[20px]\" data-icon=\"sports_soccer\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "516d10df1e5e47539a3c4e65162db9e4",
+          "attributes": " class=\"material-symbols-outlined text-[22px]\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "e3bbfd5a56df4254a8de29e793d2fc9e",
+          "attributes": " class=\"material-symbols-outlined text-2xl\" data-icon=\"sports_soccer\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "4bea086d7a9d427caf5dc897dcf81785",
+          "attributes": " class=\"material-symbols-outlined text-2xl\" data-icon=\"sports_soccer\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "f029f78489e04ba0b6cc5a4fe8ac99c7",
+          "attributes": " class=\"material-symbols-outlined text-2xl\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "63fda96f71424b3faf51fd6b88396370",
+          "attributes": " class=\"material-symbols-outlined text-[22px]\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-[22px]\" data-icon=\"sports_soccer\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"sports_soccer\"",
+          "originalAsset": "svg/material/sports_soccer_outlined.svg"
+        },
+        {
+          "screen": "963bf74eaaa64e138e86fb2bb2ae5cdb",
+          "svgIndex": 0,
+          "context": " items-center gap-2.5\">\n        <div class=\"w-8 h-8 rounded-custom bg-white/10 border border-white/25 flex items-center justify-center shadow-inner\">\n          ",
+          "originalAsset": "svg/inline/sports_soccer_ring.svg"
+        },
+        {
+          "screen": "8f0dbb7dfab54c8b99d19baa9681924f",
+          "svgIndex": 16,
+          "context": ">\n      <div class=\"flex items-center space-x-2\">\n        <div class=\"w-7 h-7 rounded-full bg-[#3d6943] flex items-center justify-center text-white\">\n          ",
+          "originalAsset": "svg/inline/sports_soccer_ring_v2.svg"
+        },
+        {
+          "screen": "fb2674badcc94dbd886e1c615841d656",
+          "svgIndex": 32,
+          "context": "s-center gap-2\">\n        <div class=\"w-7 h-7 rounded-full bg-[#3d6943] text-white flex items-center justify-center\">\n          <!-- Icon quả bóng -->\n          ",
+          "originalAsset": "svg/inline/sports_soccer_pentagon.svg"
+        },
+        {
+          "screen": "79ec8662ae55449ba86cd2dd9547bdfc",
+          "svgIndex": 35,
+          "context": "[8px] border border-white/30 bg-white/10 flex items-center justify-center text-white backdrop-blur-sm shadow-sm\">\n          <!-- Soccer ball icon -->\n          ",
+          "originalAsset": "svg/inline/sports_soccer_solid.svg"
+        },
+        {
+          "screen": "6088c2d9006a4e918871cfeecca47483",
+          "svgIndex": 38,
+          "context": "  <div class=\"flex items-center gap-1.5\">\n            <div class=\"w-6 h-6 rounded-full bg-[#3d6943] flex items-center justify-center text-white\">\n              ",
+          "originalAsset": "svg/inline/sports_badge_star.svg"
+        },
+        {
+          "screen": "7e889b625e174eafb8a20e185c079b84",
+          "svgIndex": 42,
+          "context": "ound\" d=\"M4 6h16M4 12h16M4 18h16\" />\n        </svg>\n      </button>\n\n      <!-- Logo ArenaFlow ở giữa -->\n      <div class=\"flex items-center gap-1.5\">\n        ",
+          "originalAsset": "svg/inline/sports_soccer_cross.svg"
+        },
+        {
+          "screen": "caebd72ca38e4bf1be2c93f13d0cf92e",
+          "svgIndex": 45,
+          "context": "ems-center space-x-2.5\" href=\"#\">\n<div class=\"w-9 h-9 bg-[#3d6943] rounded-lg flex items-center justify-center text-white shadow-sm\">\n<!-- Soccer ball icon -->\n",
+          "originalAsset": "svg/inline/sports_soccer_pentagon_v2.svg"
+        },
+        {
+          "screen": "b45bb4bf0d27473f97056bab2381f480",
+          "svgIndex": 50,
+          "context": "        <div class=\"flex items-center gap-2\">\n          <div class=\"w-6 h-6 rounded-full bg-[#3d6943] text-white flex items-center justify-center\">\n            ",
+          "originalAsset": "svg/inline/sports_badge_triangle.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/sports_soccer_filled.svg",
+        "svg/material/sports_soccer_outlined.svg",
+        "svg/inline/sports_soccer_ring.svg",
+        "svg/inline/sports_soccer_ring_v2.svg",
+        "svg/inline/sports_soccer_solid.svg",
+        "svg/inline/sports_badge_star.svg",
+        "svg/inline/sports_soccer_cross.svg",
+        "svg/inline/sports_soccer_pentagon_v2.svg",
+        "svg/inline/sports_badge_triangle.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/sports_soccer_filled.svg",
+          "kind": "material",
+          "name": "sports_soccer",
+          "family": "Material Symbols Outlined",
+          "fill": 1,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/sports_soccer/materialsymbolsoutlined/sports_soccer_fill1_24px.svg",
+          "sources": [
+            {
+              "screen": "6dade853749f4fe49462d12f1f1e507c",
+              "attributes": " class=\"material-symbols-outlined text-primary text-2xl\" style=\"font-variation-settings: 'FILL' 1;\""
+            },
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined fill text-2xl\" data-icon=\"sports_soccer\""
+            },
+            {
+              "screen": "6205afa12ff042879f5a8b903f22cec9",
+              "attributes": " class=\"material-symbols-outlined fill text-primary text-2xl\" data-icon=\"sports_soccer\""
+            }
+          ]
+        },
+        {
+          "file": "svg/material/sports_soccer_outlined.svg",
+          "kind": "material",
+          "name": "sports_soccer",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/sports_soccer/materialsymbolsoutlined/sports_soccer_24px.svg",
+          "sources": [
+            {
+              "screen": "683c52cd94134dfda021f0840e031e43",
+              "attributes": " class=\"material-symbols-outlined text-primary text-2xl\" data-icon=\"sports_soccer\""
+            },
+            {
+              "screen": "e1cae38741d74162b2e11d075c1a67fb",
+              "attributes": " class=\"material-symbols-outlined text-[#3d6943] text-[22px]\""
+            },
+            {
+              "screen": "e1cae38741d74162b2e11d075c1a67fb",
+              "attributes": " class=\"material-symbols-outlined text-[14px] text-[#3d6943]\""
+            },
+            {
+              "screen": "d76d264a5da444e4b322c534b1e1b2c0",
+              "attributes": " class=\"material-symbols-outlined text-[22px]\""
+            },
+            {
+              "screen": "ee3e63d41c8048528f60bbdd4e4307e6",
+              "attributes": " class=\"material-symbols-outlined text-[22px]\""
+            },
+            {
+              "screen": "468c09ac4d194737a66e3b74a6287dfe",
+              "attributes": " class=\"material-symbols-outlined text-[15px]\""
+            },
+            {
+              "screen": "f58f397abd4c4f4fa1ca2d628927a26f",
+              "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"sports_soccer\""
+            },
+            {
+              "screen": "d4388387a3364bacb820eb34dfaa3267",
+              "attributes": " class=\"material-symbols-outlined text-[22px]\""
+            },
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-lg\" data-icon=\"sports_soccer\""
+            },
+            {
+              "screen": "0c1cc1d9467e432ab13ee27217b31b5c",
+              "attributes": " class=\"material-symbols-outlined text-[20px]\" data-icon=\"sports_soccer\""
+            },
+            {
+              "screen": "516d10df1e5e47539a3c4e65162db9e4",
+              "attributes": " class=\"material-symbols-outlined text-[22px]\""
+            },
+            {
+              "screen": "e3bbfd5a56df4254a8de29e793d2fc9e",
+              "attributes": " class=\"material-symbols-outlined text-2xl\" data-icon=\"sports_soccer\""
+            },
+            {
+              "screen": "4bea086d7a9d427caf5dc897dcf81785",
+              "attributes": " class=\"material-symbols-outlined text-2xl\" data-icon=\"sports_soccer\""
+            },
+            {
+              "screen": "f029f78489e04ba0b6cc5a4fe8ac99c7",
+              "attributes": " class=\"material-symbols-outlined text-2xl\""
+            },
+            {
+              "screen": "63fda96f71424b3faf51fd6b88396370",
+              "attributes": " class=\"material-symbols-outlined text-[22px]\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-[22px]\" data-icon=\"sports_soccer\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"sports_soccer\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/sports_soccer_ring.svg",
+          "kind": "inline",
+          "name": "sports_soccer_ring",
+          "sources": [
+            {
+              "screen": "963bf74eaaa64e138e86fb2bb2ae5cdb",
+              "svgIndex": 0,
+              "context": " items-center gap-2.5\">\n        <div class=\"w-8 h-8 rounded-custom bg-white/10 border border-white/25 flex items-center justify-center shadow-inner\">\n          "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/sports_soccer_ring_v2.svg",
+          "kind": "inline",
+          "name": "sports_soccer_ring",
+          "sources": [
+            {
+              "screen": "8f0dbb7dfab54c8b99d19baa9681924f",
+              "svgIndex": 16,
+              "context": ">\n      <div class=\"flex items-center space-x-2\">\n        <div class=\"w-7 h-7 rounded-full bg-[#3d6943] flex items-center justify-center text-white\">\n          "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/sports_soccer_pentagon.svg",
+          "kind": "inline",
+          "name": "sports_soccer_pentagon",
+          "sources": [
+            {
+              "screen": "fb2674badcc94dbd886e1c615841d656",
+              "svgIndex": 32,
+              "context": "s-center gap-2\">\n        <div class=\"w-7 h-7 rounded-full bg-[#3d6943] text-white flex items-center justify-center\">\n          <!-- Icon quả bóng -->\n          "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/sports_soccer_solid.svg",
+          "kind": "inline",
+          "name": "sports_soccer_solid",
+          "sources": [
+            {
+              "screen": "79ec8662ae55449ba86cd2dd9547bdfc",
+              "svgIndex": 35,
+              "context": "[8px] border border-white/30 bg-white/10 flex items-center justify-center text-white backdrop-blur-sm shadow-sm\">\n          <!-- Soccer ball icon -->\n          "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/sports_badge_star.svg",
+          "kind": "inline",
+          "name": "sports_badge_star",
+          "sources": [
+            {
+              "screen": "6088c2d9006a4e918871cfeecca47483",
+              "svgIndex": 38,
+              "context": "  <div class=\"flex items-center gap-1.5\">\n            <div class=\"w-6 h-6 rounded-full bg-[#3d6943] flex items-center justify-center text-white\">\n              "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/sports_soccer_cross.svg",
+          "kind": "inline",
+          "name": "sports_soccer_cross",
+          "sources": [
+            {
+              "screen": "7e889b625e174eafb8a20e185c079b84",
+              "svgIndex": 42,
+              "context": "ound\" d=\"M4 6h16M4 12h16M4 18h16\" />\n        </svg>\n      </button>\n\n      <!-- Logo ArenaFlow ở giữa -->\n      <div class=\"flex items-center gap-1.5\">\n        "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/sports_soccer_pentagon_v2.svg",
+          "kind": "inline",
+          "name": "sports_soccer_pentagon",
+          "sources": [
+            {
+              "screen": "caebd72ca38e4bf1be2c93f13d0cf92e",
+              "svgIndex": 45,
+              "context": "ems-center space-x-2.5\" href=\"#\">\n<div class=\"w-9 h-9 bg-[#3d6943] rounded-lg flex items-center justify-center text-white shadow-sm\">\n<!-- Soccer ball icon -->\n"
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/sports_badge_triangle.svg",
+          "kind": "inline",
+          "name": "sports_badge_triangle",
+          "sources": [
+            {
+              "screen": "b45bb4bf0d27473f97056bab2381f480",
+              "svgIndex": 50,
+              "context": "        <div class=\"flex items-center gap-2\">\n          <div class=\"w-6 h-6 rounded-full bg-[#3d6943] text-white flex items-center justify-center\">\n            "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/star_v2.svg",
+      "kind": "inline",
+      "name": "star",
+      "sources": [
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-[11px] fill\" data-icon=\"star\" style=\"font-variation-settings: 'FILL' 1;\"",
+          "originalAsset": "svg/material/star_filled.svg"
+        },
+        {
+          "screen": "516d10df1e5e47539a3c4e65162db9e4",
+          "attributes": " class=\"material-symbols-outlined text-[18px]\"",
+          "originalAsset": "svg/material/star_outlined.svg"
+        },
+        {
+          "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+          "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"star\"",
+          "originalAsset": "svg/material/star_outlined.svg"
+        },
+        {
+          "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+          "attributes": " class=\"material-symbols-outlined text-5xl text-primary font-bold\" data-icon=\"stars\" data-weight=\"fill\" style=\"font-variation-settings: 'FILL' 1;\"",
+          "originalAsset": "svg/material/stars_filled.svg"
+        },
+        {
+          "screen": "e1cae38741d74162b2e11d075c1a67fb",
+          "attributes": " class=\"material-symbols-outlined text-[36px] text-[#3d6943]\"",
+          "originalAsset": "svg/material/stars_outlined.svg"
+        },
+        {
+          "screen": "468c09ac4d194737a66e3b74a6287dfe",
+          "attributes": " class=\"material-symbols-outlined text-[32px]\"",
+          "originalAsset": "svg/material/stars_outlined.svg"
+        },
+        {
+          "screen": "f029f78489e04ba0b6cc5a4fe8ac99c7",
+          "attributes": " class=\"material-symbols-outlined text-4xl\"",
+          "originalAsset": "svg/material/stars_outlined.svg"
+        },
+        {
+          "screen": "8f0dbb7dfab54c8b99d19baa9681924f",
+          "svgIndex": 18,
+          "context": "    <div class=\"w-10 h-10 rounded-full bg-[#eaf2eb] border border-[#c1d9c5] flex items-center justify-center text-[#3d6943] font-bold text-sm\">\n                ",
+          "originalAsset": "svg/inline/star.svg"
+        },
+        {
+          "screen": "b45bb4bf0d27473f97056bab2381f480",
+          "svgIndex": 51,
+          "context": "ms-center\">\n          <div class=\"relative w-16 h-16 rounded-full bg-emerald-50 border-2 border-emerald-400 flex items-center justify-center mb-2\">\n            ",
+          "originalAsset": "svg/inline/star_v2.svg"
+        },
+        {
+          "screen": "12f000184c4846279148726d28054991",
+          "svgIndex": 60,
+          "context": "center text-center\">\n          <div class=\"w-16 h-16 rounded-full bg-emerald-50 border-2 border-emerald-500 flex items-center justify-center mb-2\">\n            ",
+          "originalAsset": "svg/inline/star_filled.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/star_filled.svg",
+        "svg/material/star_outlined.svg",
+        "svg/material/stars_filled.svg",
+        "svg/material/stars_outlined.svg",
+        "svg/inline/star.svg",
+        "svg/inline/star_filled.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/star_filled.svg",
+          "kind": "material",
+          "name": "star",
+          "family": "Material Symbols Outlined",
+          "fill": 1,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/star/materialsymbolsoutlined/star_fill1_24px.svg",
+          "sources": [
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-[11px] fill\" data-icon=\"star\" style=\"font-variation-settings: 'FILL' 1;\""
+            }
+          ]
+        },
+        {
+          "file": "svg/material/star_outlined.svg",
+          "kind": "material",
+          "name": "star",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/star/materialsymbolsoutlined/star_24px.svg",
+          "sources": [
+            {
+              "screen": "516d10df1e5e47539a3c4e65162db9e4",
+              "attributes": " class=\"material-symbols-outlined text-[18px]\""
+            },
+            {
+              "screen": "fe3b7da1cbde4e07ba2f3dfbb1ac2614",
+              "attributes": " class=\"material-symbols-outlined text-xl\" data-icon=\"star\""
+            }
+          ]
+        },
+        {
+          "file": "svg/material/stars_filled.svg",
+          "kind": "material",
+          "name": "stars",
+          "family": "Material Symbols Outlined",
+          "fill": 1,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/stars/materialsymbolsoutlined/stars_fill1_24px.svg",
+          "sources": [
+            {
+              "screen": "5d2ed727c9194eefa4bea2bae0d2b840",
+              "attributes": " class=\"material-symbols-outlined text-5xl text-primary font-bold\" data-icon=\"stars\" data-weight=\"fill\" style=\"font-variation-settings: 'FILL' 1;\""
+            }
+          ]
+        },
+        {
+          "file": "svg/material/stars_outlined.svg",
+          "kind": "material",
+          "name": "stars",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/stars/materialsymbolsoutlined/stars_24px.svg",
+          "sources": [
+            {
+              "screen": "e1cae38741d74162b2e11d075c1a67fb",
+              "attributes": " class=\"material-symbols-outlined text-[36px] text-[#3d6943]\""
+            },
+            {
+              "screen": "468c09ac4d194737a66e3b74a6287dfe",
+              "attributes": " class=\"material-symbols-outlined text-[32px]\""
+            },
+            {
+              "screen": "f029f78489e04ba0b6cc5a4fe8ac99c7",
+              "attributes": " class=\"material-symbols-outlined text-4xl\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/star.svg",
+          "kind": "inline",
+          "name": "star",
+          "sources": [
+            {
+              "screen": "8f0dbb7dfab54c8b99d19baa9681924f",
+              "svgIndex": 18,
+              "context": "    <div class=\"w-10 h-10 rounded-full bg-[#eaf2eb] border border-[#c1d9c5] flex items-center justify-center text-[#3d6943] font-bold text-sm\">\n                "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/star_v2.svg",
+          "kind": "inline",
+          "name": "star",
+          "sources": [
+            {
+              "screen": "b45bb4bf0d27473f97056bab2381f480",
+              "svgIndex": 51,
+              "context": "ms-center\">\n          <div class=\"relative w-16 h-16 rounded-full bg-emerald-50 border-2 border-emerald-400 flex items-center justify-center mb-2\">\n            "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/star_filled.svg",
+          "kind": "inline",
+          "name": "star_filled",
+          "sources": [
+            {
+              "screen": "12f000184c4846279148726d28054991",
+              "svgIndex": 60,
+              "context": "center text-center\">\n          <div class=\"w-16 h-16 rounded-full bg-emerald-50 border-2 border-emerald-500 flex items-center justify-center mb-2\">\n            "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "svg/inline/warning.svg",
+      "kind": "inline",
+      "name": "warning",
+      "sources": [
+        {
+          "screen": "6205afa12ff042879f5a8b903f22cec9",
+          "attributes": " class=\"material-symbols-outlined text-2xl fill\" data-icon=\"report_problem\"",
+          "originalAsset": "svg/material/report_problem_filled.svg"
+        },
+        {
+          "screen": "6dade853749f4fe49462d12f1f1e507c",
+          "attributes": " class=\"material-symbols-outlined text-2xl font-bold\" style=\"font-variation-settings: 'FILL' 1;\"",
+          "originalAsset": "svg/material/warning_filled.svg"
+        },
+        {
+          "screen": "6205afa12ff042879f5a8b903f22cec9",
+          "attributes": " class=\"material-symbols-outlined text-lg flex-shrink-0 mt-0.5 text-error fill\" data-icon=\"warning\"",
+          "originalAsset": "svg/material/warning_filled.svg"
+        },
+        {
+          "screen": "683c52cd94134dfda021f0840e031e43",
+          "attributes": " class=\"material-symbols-outlined text-amber-600 text-xl flex-shrink-0 mt-0.5\" data-icon=\"warning\"",
+          "originalAsset": "svg/material/warning_outlined.svg"
+        },
+        {
+          "screen": "6d838a2f71e34a08bf06401abd05af4d",
+          "attributes": " class=\"material-symbols-outlined text-xs\"",
+          "originalAsset": "svg/material/warning_outlined.svg"
+        },
+        {
+          "screen": "e7aa41ac58a44f45aa76b0a326d67a77",
+          "attributes": " class=\"material-symbols-outlined text-amber-600 text-base shrink-0 mt-0.5\"",
+          "originalAsset": "svg/material/warning_outlined.svg"
+        },
+        {
+          "screen": "0c1cc1d9467e432ab13ee27217b31b5c",
+          "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"warning\"",
+          "originalAsset": "svg/material/warning_outlined.svg"
+        },
+        {
+          "screen": "e3bbfd5a56df4254a8de29e793d2fc9e",
+          "attributes": " class=\"material-symbols-outlined text-error text-xl shrink-0 mt-0.5\" data-icon=\"warning\"",
+          "originalAsset": "svg/material/warning_outlined.svg"
+        },
+        {
+          "screen": "58ae9deab555441691f1068cbc3ee61a",
+          "svgIndex": 13,
+          "context": "class=\"flex flex-col items-center text-center\">\n        <div class=\"w-13 h-13 rounded-full bg-[#fae8e5] flex items-center justify-center p-3 mb-3.5\">\n          ",
+          "originalAsset": "svg/inline/warning.svg"
+        },
+        {
+          "screen": "6088c2d9006a4e918871cfeecca47483",
+          "svgIndex": 39,
+          "context": "    <div class=\"space-y-1.5\">\n          <div class=\"w-10 h-10 rounded-full bg-red-50 text-[#a73b21] flex items-center justify-center mx-auto mb-1\">\n            ",
+          "originalAsset": "svg/inline/warning_v2.svg"
+        },
+        {
+          "screen": "b45bb4bf0d27473f97056bab2381f480",
+          "svgIndex": 57,
+          "context": "/svg>\n          </div>\n        </div>\n\n        <!-- Chữ lỗi -->\n        <div class=\"flex items-center gap-1.5 mt-1.5 text-error text-xs font-medium\">\n          ",
+          "originalAsset": "svg/inline/warning_v3.svg"
+        },
+        {
+          "screen": "12f000184c4846279148726d28054991",
+          "svgIndex": 61,
+          "context": "  <div class=\"flex justify-center mb-3\">\n        <div class=\"w-12 h-12 rounded-full bg-[#a73b21]/10 flex items-center justify-center text-[#a73b21]\">\n          ",
+          "originalAsset": "svg/inline/warning_v4.svg"
+        }
+      ],
+      "aliases": [
+        "svg/material/report_problem_filled.svg",
+        "svg/material/warning_filled.svg",
+        "svg/material/warning_outlined.svg",
+        "svg/inline/warning_v2.svg",
+        "svg/inline/warning_v3.svg",
+        "svg/inline/warning_v4.svg"
+      ],
+      "originalVariants": [
+        {
+          "file": "svg/material/report_problem_filled.svg",
+          "kind": "material",
+          "name": "report_problem",
+          "family": "Material Symbols Outlined",
+          "fill": 1,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/warning/materialsymbolsoutlined/warning_fill1_24px.svg",
+          "aliasOf": "warning_filled",
+          "aliasEvidence": "Google MaterialSymbolsOutlined codepoints: report_problem f083; warning f083",
+          "sources": [
+            {
+              "screen": "6205afa12ff042879f5a8b903f22cec9",
+              "attributes": " class=\"material-symbols-outlined text-2xl fill\" data-icon=\"report_problem\""
+            }
+          ]
+        },
+        {
+          "file": "svg/material/warning_filled.svg",
+          "kind": "material",
+          "name": "warning",
+          "family": "Material Symbols Outlined",
+          "fill": 1,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/warning/materialsymbolsoutlined/warning_fill1_24px.svg",
+          "sources": [
+            {
+              "screen": "6dade853749f4fe49462d12f1f1e507c",
+              "attributes": " class=\"material-symbols-outlined text-2xl font-bold\" style=\"font-variation-settings: 'FILL' 1;\""
+            },
+            {
+              "screen": "6205afa12ff042879f5a8b903f22cec9",
+              "attributes": " class=\"material-symbols-outlined text-lg flex-shrink-0 mt-0.5 text-error fill\" data-icon=\"warning\""
+            }
+          ]
+        },
+        {
+          "file": "svg/material/warning_outlined.svg",
+          "kind": "material",
+          "name": "warning",
+          "family": "Material Symbols Outlined",
+          "fill": 0,
+          "weight": 400,
+          "opticalSize": 24,
+          "grade": 0,
+          "upstream": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/warning/materialsymbolsoutlined/warning_24px.svg",
+          "sources": [
+            {
+              "screen": "683c52cd94134dfda021f0840e031e43",
+              "attributes": " class=\"material-symbols-outlined text-amber-600 text-xl flex-shrink-0 mt-0.5\" data-icon=\"warning\""
+            },
+            {
+              "screen": "6d838a2f71e34a08bf06401abd05af4d",
+              "attributes": " class=\"material-symbols-outlined text-xs\""
+            },
+            {
+              "screen": "e7aa41ac58a44f45aa76b0a326d67a77",
+              "attributes": " class=\"material-symbols-outlined text-amber-600 text-base shrink-0 mt-0.5\""
+            },
+            {
+              "screen": "0c1cc1d9467e432ab13ee27217b31b5c",
+              "attributes": " class=\"material-symbols-outlined text-[15px]\" data-icon=\"warning\""
+            },
+            {
+              "screen": "e3bbfd5a56df4254a8de29e793d2fc9e",
+              "attributes": " class=\"material-symbols-outlined text-error text-xl shrink-0 mt-0.5\" data-icon=\"warning\""
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/warning.svg",
+          "kind": "inline",
+          "name": "warning",
+          "sources": [
+            {
+              "screen": "58ae9deab555441691f1068cbc3ee61a",
+              "svgIndex": 13,
+              "context": "class=\"flex flex-col items-center text-center\">\n        <div class=\"w-13 h-13 rounded-full bg-[#fae8e5] flex items-center justify-center p-3 mb-3.5\">\n          "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/warning_v2.svg",
+          "kind": "inline",
+          "name": "warning",
+          "sources": [
+            {
+              "screen": "6088c2d9006a4e918871cfeecca47483",
+              "svgIndex": 39,
+              "context": "    <div class=\"space-y-1.5\">\n          <div class=\"w-10 h-10 rounded-full bg-red-50 text-[#a73b21] flex items-center justify-center mx-auto mb-1\">\n            "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/warning_v3.svg",
+          "kind": "inline",
+          "name": "warning",
+          "sources": [
+            {
+              "screen": "b45bb4bf0d27473f97056bab2381f480",
+              "svgIndex": 57,
+              "context": "/svg>\n          </div>\n        </div>\n\n        <!-- Chữ lỗi -->\n        <div class=\"flex items-center gap-1.5 mt-1.5 text-error text-xs font-medium\">\n          "
+            }
+          ]
+        },
+        {
+          "file": "svg/inline/warning_v4.svg",
+          "kind": "inline",
+          "name": "warning",
+          "sources": [
+            {
+              "screen": "12f000184c4846279148726d28054991",
+              "svgIndex": 61,
+              "context": "  <div class=\"flex justify-center mb-3\">\n        <div class=\"w-12 h-12 rounded-full bg-[#a73b21]/10 flex items-center justify-center text-[#a73b21]\">\n          "
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "normalization": [
+    "Icons have standalone xmlns/viewBox and default 24x24 size; original geometry is retained.",
+    "Material font ligatures use official Google SVG paths (wght 400, opsz 24, GRAD 0; fill matches the source).",
+    "Tailwind layout classes, disabled-state grayscale/opacity and CSS animation are removed; spinner geometry remains static.",
+    "Monochrome artwork uses currentColor; multicolor Google artwork is retained. Facebook desktop blue is retained.",
+    "Decorations retain their own viewBox. OTP desktop pitch percentage arc coordinates are converted for its explicit 800x800 viewport.",
+    "Source HTML files are unchanged. Original SVG snippets and presentation context remain available there.",
+    "Semantic deduplication combines mobile/desktop, outlined/filled and near-equivalent designs; the chosen geometry is unchanged. originalVariants is provenance metadata, not a list of retained files."
+  ],
+  "deduplication": {
+    "policy": "One representative per semantic meaning; prefer existing rounded stroke caps, joins and geometry over sharp or filled variants. Distinct actions remain separate.",
+    "removedFiles": [
+      {
+        "file": "svg/material/account_circle_outlined.svg",
+        "replacedBy": "svg/inline/person.svg"
+      },
+      {
+        "file": "svg/material/arrow_back_outlined.svg",
+        "replacedBy": "svg/inline/arrow_back.svg"
+      },
+      {
+        "file": "svg/material/bolt_outlined.svg",
+        "replacedBy": "svg/inline/bolt.svg"
+      },
+      {
+        "file": "svg/material/calendar_today_outlined.svg",
+        "replacedBy": "svg/material/calendar_month_outlined.svg"
+      },
+      {
+        "file": "svg/material/check_outlined.svg",
+        "replacedBy": "svg/inline/check.svg"
+      },
+      {
+        "file": "svg/material/edit_outlined.svg",
+        "replacedBy": "svg/inline/edit.svg"
+      },
+      {
+        "file": "svg/material/emoji_events_outlined.svg",
+        "replacedBy": "svg/inline/award.svg"
+      },
+      {
+        "file": "svg/material/error_filled.svg",
+        "replacedBy": "svg/inline/error.svg"
+      },
+      {
+        "file": "svg/material/error_outlined.svg",
+        "replacedBy": "svg/inline/error.svg"
+      },
+      {
+        "file": "svg/material/expand_more_outlined.svg",
+        "replacedBy": "svg/inline/chevron_down.svg"
+      },
+      {
+        "file": "svg/material/flash_on_outlined.svg",
+        "replacedBy": "svg/inline/bolt.svg"
+      },
+      {
+        "file": "svg/material/info_outlined.svg",
+        "replacedBy": "svg/inline/info.svg"
+      },
+      {
+        "file": "svg/material/keyboard_arrow_down_outlined.svg",
+        "replacedBy": "svg/inline/chevron_down.svg"
+      },
+      {
+        "file": "svg/material/menu_outlined.svg",
+        "replacedBy": "svg/inline/menu_v2.svg"
+      },
+      {
+        "file": "svg/material/military_tech_filled.svg",
+        "replacedBy": "svg/inline/award.svg"
+      },
+      {
+        "file": "svg/material/military_tech_outlined.svg",
+        "replacedBy": "svg/inline/award.svg"
+      },
+      {
+        "file": "svg/material/more_vert_outlined.svg",
+        "replacedBy": "svg/inline/more_vert.svg"
+      },
+      {
+        "file": "svg/material/person_add_outlined.svg",
+        "replacedBy": "svg/inline/person_add.svg"
+      },
+      {
+        "file": "svg/material/person_outlined.svg",
+        "replacedBy": "svg/inline/person.svg"
+      },
+      {
+        "file": "svg/material/phone_iphone_outlined.svg",
+        "replacedBy": "svg/material/call_outlined.svg"
+      },
+      {
+        "file": "svg/material/report_problem_filled.svg",
+        "replacedBy": "svg/inline/warning.svg"
+      },
+      {
+        "file": "svg/material/schedule_outlined.svg",
+        "replacedBy": "svg/inline/schedule.svg"
+      },
+      {
+        "file": "svg/material/shield_outlined.svg",
+        "replacedBy": "svg/inline/shield.svg"
+      },
+      {
+        "file": "svg/material/sports_soccer_filled.svg",
+        "replacedBy": "svg/inline/sports_soccer_pentagon.svg"
+      },
+      {
+        "file": "svg/material/sports_soccer_outlined.svg",
+        "replacedBy": "svg/inline/sports_soccer_pentagon.svg"
+      },
+      {
+        "file": "svg/material/star_filled.svg",
+        "replacedBy": "svg/inline/star_v2.svg"
+      },
+      {
+        "file": "svg/material/star_outlined.svg",
+        "replacedBy": "svg/inline/star_v2.svg"
+      },
+      {
+        "file": "svg/material/stars_filled.svg",
+        "replacedBy": "svg/inline/star_v2.svg"
+      },
+      {
+        "file": "svg/material/stars_outlined.svg",
+        "replacedBy": "svg/inline/star_v2.svg"
+      },
+      {
+        "file": "svg/material/warning_filled.svg",
+        "replacedBy": "svg/inline/warning.svg"
+      },
+      {
+        "file": "svg/material/warning_outlined.svg",
+        "replacedBy": "svg/inline/warning.svg"
+      },
+      {
+        "file": "svg/material/workspace_premium_outlined.svg",
+        "replacedBy": "svg/inline/award.svg"
+      },
+      {
+        "file": "svg/inline/sports_soccer_ring.svg",
+        "replacedBy": "svg/inline/sports_soccer_pentagon.svg"
+      },
+      {
+        "file": "svg/decorations/pitch_desktop_otp.svg",
+        "replacedBy": "svg/decorations/pitch_desktop_login.svg"
+      },
+      {
+        "file": "svg/inline/arrow_back_v2.svg",
+        "replacedBy": "svg/inline/arrow_back.svg"
+      },
+      {
+        "file": "svg/inline/menu.svg",
+        "replacedBy": "svg/inline/menu_v2.svg"
+      },
+      {
+        "file": "svg/inline/sports_soccer_ring_v2.svg",
+        "replacedBy": "svg/inline/sports_soccer_pentagon.svg"
+      },
+      {
+        "file": "svg/inline/star.svg",
+        "replacedBy": "svg/inline/star_v2.svg"
+      },
+      {
+        "file": "svg/inline/bolt_v2.svg",
+        "replacedBy": "svg/inline/bolt.svg"
+      },
+      {
+        "file": "svg/inline/bolt_v3.svg",
+        "replacedBy": "svg/inline/bolt.svg"
+      },
+      {
+        "file": "svg/decorations/pitch_mobile_login.svg",
+        "replacedBy": "svg/decorations/pitch_desktop_login.svg"
+      },
+      {
+        "file": "svg/inline/facebook_v2.svg",
+        "replacedBy": "svg/inline/facebook.svg"
+      },
+      {
+        "file": "svg/decorations/pitch_desktop_phone.svg",
+        "replacedBy": "svg/decorations/pitch_desktop_login.svg"
+      },
+      {
+        "file": "svg/decorations/pitch_mobile_phone.svg",
+        "replacedBy": "svg/decorations/pitch_desktop_login.svg"
+      },
+      {
+        "file": "svg/inline/sports_soccer_solid.svg",
+        "replacedBy": "svg/inline/sports_soccer_pentagon.svg"
+      },
+      {
+        "file": "svg/inline/error_v2.svg",
+        "replacedBy": "svg/inline/error.svg"
+      },
+      {
+        "file": "svg/inline/menu_v3.svg",
+        "replacedBy": "svg/inline/menu_v2.svg"
+      },
+      {
+        "file": "svg/inline/sports_badge_star.svg",
+        "replacedBy": "svg/inline/sports_soccer_pentagon.svg"
+      },
+      {
+        "file": "svg/inline/warning_v2.svg",
+        "replacedBy": "svg/inline/warning.svg"
+      },
+      {
+        "file": "svg/inline/error_v3.svg",
+        "replacedBy": "svg/inline/error.svg"
+      },
+      {
+        "file": "svg/inline/menu_v4.svg",
+        "replacedBy": "svg/inline/menu_v2.svg"
+      },
+      {
+        "file": "svg/inline/sports_soccer_cross.svg",
+        "replacedBy": "svg/inline/sports_soccer_pentagon.svg"
+      },
+      {
+        "file": "svg/inline/bolt_v4.svg",
+        "replacedBy": "svg/inline/bolt.svg"
+      },
+      {
+        "file": "svg/inline/sports_soccer_pentagon_v2.svg",
+        "replacedBy": "svg/inline/sports_soccer_pentagon.svg"
+      },
+      {
+        "file": "svg/inline/shield_check_v2.svg",
+        "replacedBy": "svg/inline/shield_check.svg"
+      },
+      {
+        "file": "svg/inline/edit_v2.svg",
+        "replacedBy": "svg/inline/edit.svg"
+      },
+      {
+        "file": "svg/inline/sports_badge_triangle.svg",
+        "replacedBy": "svg/inline/sports_soccer_pentagon.svg"
+      },
+      {
+        "file": "svg/inline/edit_v3.svg",
+        "replacedBy": "svg/inline/edit.svg"
+      },
+      {
+        "file": "svg/inline/error_v4.svg",
+        "replacedBy": "svg/inline/error.svg"
+      },
+      {
+        "file": "svg/inline/warning_v3.svg",
+        "replacedBy": "svg/inline/warning.svg"
+      },
+      {
+        "file": "svg/inline/star_filled.svg",
+        "replacedBy": "svg/inline/star_v2.svg"
+      },
+      {
+        "file": "svg/inline/warning_v4.svg",
+        "replacedBy": "svg/inline/warning.svg"
+      },
+      {
+        "file": "svg/inline/error_v5.svg",
+        "replacedBy": "svg/inline/error.svg"
+      },
+      {
+        "file": "svg/inline/error_v6.svg",
+        "replacedBy": "svg/inline/error.svg"
+      }
+    ],
+    "originalCounts": {
+      "screens": 32,
+      "materialOccurrences": 146,
+      "inlineOccurrences": 64,
+      "materialIconNames": 46,
+      "materialVariants": 52,
+      "inlineIcons": 51,
+      "decorations": 5,
+      "svgFiles": 108
+    }
+  }
+}
