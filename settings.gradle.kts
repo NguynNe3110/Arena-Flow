@@ -12,7 +12,7 @@ include(":konsist-test") // có thể chỉ viết thành 1line
 
 pluginManagement {
     includeBuild("build-logic") // cơ chế composite build
-    //vì thế có thể đặt tên folder là gì cũng được (tìm hiểu về buildSrc root project)
+    // vì thế có thể đặt tên folder là gì cũng được (tìm hiểu về buildSrc root project)
     repositories {
         gradlePluginPortal()
         google()

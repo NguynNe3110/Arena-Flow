@@ -15,7 +15,8 @@ class MainShowcaseActivity : ComponentActivity() { // quản llys màn hình
         super.onCreate(savedInstanceState)
 
         setContent {
-            ShowcaseTheme { //Set theme
+            ShowcaseTheme {
+                // Set theme
                 MainShowcaseScreen()
             }
         }
