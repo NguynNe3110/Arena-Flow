@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.ShowcaseTheme
 
-class MainShowcaseActivity : ComponentActivity() {
+class MainShowcaseActivity : ComponentActivity() { // quản llys màn hình
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
 
@@ -15,7 +15,7 @@ class MainShowcaseActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            ShowcaseTheme {
+            ShowcaseTheme { //Set theme
                 MainShowcaseScreen()
             }
         }

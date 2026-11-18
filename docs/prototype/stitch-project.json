@@ -1,0 +1,29 @@
+{
+  "projectId": "16710701957767846160",
+  "url": "https://stitch.withgoogle.com/projects/16710701957767846160",
+  "title": "ArenaFlow — Prototype bóng đá phong trào",
+  "checkedDate": "2026-11-17",
+  "source": "STITCH_PROMPT.md",
+  "existingProjectsCheck": {
+    "owned": 0,
+    "shared": 0
+  },
+  "generation": {
+    "submittedOnce": true,
+    "result": "Request timed out",
+    "screenListChecks": 10,
+    "screenListResult": "{}",
+    "status": "partial_preview_only"
+  },
+  "preview": {
+    "resource": "projects/16710701957767846160/files/bafb7e6d0bb043c7bc7ca77600ca3787",
+    "localFile": "stitch-preview.html",
+    "observedScreen": "Đá lẻ"
+  },
+  "limitations": [
+    "Không lấy được ID màn hình để gọi get_screen hoặc xuất HTML từng màn.",
+    "Chưa xác minh đủ 6 màn.",
+    "Ảnh xem trước: bán kính 2,5 km thay vì mặc định 3 km; chưa thấy nhãn dữ liệu mẫu."
+  ],
+  "resume": "Reuse this project. Call list_screens/get_project before any generation. Do not recreate project or blindly retry the timed-out generation."
+}

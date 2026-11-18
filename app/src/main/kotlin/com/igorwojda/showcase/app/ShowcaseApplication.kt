@@ -10,7 +10,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext
 import timber.log.Timber
 
-class ShowcaseApplication : Application() {
+class ShowcaseApplication : Application() { // cấp app
     override fun onCreate() {
         super.onCreate()
 
