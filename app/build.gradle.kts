@@ -50,4 +50,6 @@ dependencies {
     implementation(projects.feature.album)
     implementation(projects.feature.settings)
     implementation(projects.feature.favourite)
+
+    implementation(projects.feature.match)
 }

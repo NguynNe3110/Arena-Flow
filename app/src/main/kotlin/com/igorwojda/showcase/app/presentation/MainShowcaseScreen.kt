@@ -21,6 +21,8 @@ import com.igorwojda.showcase.feature.album.presentation.screen.albumlist.AlbumL
 import com.igorwojda.showcase.feature.favourite.presentation.screen.favourite.FavouriteScreen
 import com.igorwojda.showcase.feature.settings.presentation.screen.aboutlibraries.AboutLibrariesScreen
 import com.igorwojda.showcase.feature.settings.presentation.screen.settings.SettingsScreen
+import com.uzuu.match.presentation.screen.matchdetail.MatchDetailScreen
+import com.uzuu.match.presentation.screen.matchlist.MatchListScreen
 
 @Composable
 fun MainShowcaseScreen(modifier: Modifier = Modifier) {
@@ -97,12 +99,38 @@ private fun NavGraphBuilder.settingsGraph(navController: NavController) {
                 },
             )
         }
+
         composable<NavigationRoute.AboutLibraries> {
             AboutLibrariesScreen(
                 onBackClick = {
                     navController.popBackStack()
                 },
             )
+        }
+    }
+}
+
+private fun NavGraphBuilder.matchers(navController: NavController) {
+    navigation<NavigationRoute.MatchesGraph>(
+        startDestination = NavigationRoute.MatchList,
+    ) {
+        composable<NavigationRoute.MatchList> {
+            MatchListScreen(
+//                onMatchItemClick = { matchId ->
+//                    navController.navigate(
+//                        NavigationRoute.MatchDetail(matchId)
+//                    )
+//                },
+            )
+        }
+
+        composable<NavigationRoute.MatchDetail> { entry ->
+            val args = entry.toRoute<NavigationRoute.MatchDetail>()
+//
+//            MatchDetailScreen(
+//                matchId = args.matchId,
+//                onBackClick = { navController.popBackStack() },
+//            )
         }
     }
 }

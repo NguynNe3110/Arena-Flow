@@ -6,6 +6,10 @@ Dùng dự án được chia sẻ [ArenaFlow — 2789586751825382546](https://st
 
 Đã tải 32 màn (16 mobile, 16 desktop) ngày 17/11/2026. Mở [danh mục thiết kế](stitch/2789586751825382546/index.html), [hướng dẫn](stitch/2789586751825382546/README.md) hoặc [manifest](stitch/2789586751825382546/manifest.json). Bản xuất gồm HTML gốc và ảnh xem trước offline. Chưa triển khai vào app.
 
+## Hướng dẫn hoàn thiện prototype để bàn giao UI
+
+Dùng [PROTOTYPE_HANDOFF.md](PROTOTYPE_HANDOFF.md) để giao AI khác xây dựng prototype đầy đủ trước khi triển khai UI Android. Tài liệu có prompt sao chép ở mục 2, danh mục màn/sheet/trạng thái, hành trình hai phía, phụ thuộc API, gói thực hiện và tiêu chí nghiệm thu. Bản làm việc mới được đề xuất đặt tại `docs/prototype/complete/`; tài liệu hướng dẫn đã tạo, prototype đầy đủ chưa được triển khai.
+
 ## Tài liệu thử nghiệm cũ — không dùng làm nguồn thiết kế
 
 Các phần bên dưới, `index.html`, `STITCH_PROMPT.md`, `stitch-project.json`, `stitch-preview.html` và `stitch/original/` thuộc lần thử trước khi làm rõ yêu cầu. Dự án `16710701957767846160` được tạo riêng do hiểu nhầm; không phải dự án được bạn chia sẻ. Trạng thái timeout bên dưới là ghi nhận lịch sử, không phản ánh bản xuất nguồn hiện tại.

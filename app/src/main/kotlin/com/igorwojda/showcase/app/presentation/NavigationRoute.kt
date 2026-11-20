@@ -31,4 +31,14 @@ sealed interface NavigationRoute {
 
     @Serializable
     data object AboutLibraries : NavigationRoute
+
+    @Serializable
+    data object MatchList : NavigationRoute
+
+    // phải khai báo graph ở đây sau đó viết bên
+    @Serializable
+    data object MatchesGraph : NavigationRoute
+
+    @Serializable
+    data class  MatchDetail(val matchId: String) : NavigationRoute
 }
