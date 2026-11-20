@@ -16,27 +16,24 @@ internal class MatchRemoteDataSource(
 ) {
     suspend fun getMatch(matchId: String): ApiResult<MatchDetailResponse> = api.getMatch(matchId)
 
-    suspend fun createMatch(draftDto: MatchSummaryDto): ApiResult<MatchSummaryDto> =
-        api.createMatch(draftDto)
+    suspend fun createMatch(draftDto: MatchSummaryDto): ApiResult<MatchSummaryDto> = api.createMatch(draftDto)
 
-    suspend fun getPairingRoom(pairingId: String): ApiResult<PairingRoom> =
-        api.getPairingRoom(pairingId)
+    suspend fun getPairingRoom(pairingId: String): ApiResult<PairingRoom> = api.getPairingRoom(pairingId)
 
-    suspend fun confirmPackage(pairingId: String): ApiResult<PairingRoom> =
-        api.confirmPackage(pairingId)
+    suspend fun confirmPackage(pairingId: String): ApiResult<PairingRoom> = api.confirmPackage(pairingId)
 
     suspend fun updatePackageOption(
         pairingId: String,
         venueId: String?,
         timeSlot: String?,
-    ): ApiResult<PairingRoom> =
-        api.updatePackageOption(pairingId, venueId, timeSlot)
+    ): ApiResult<PairingRoom> = api.updatePackageOption(pairingId, venueId, timeSlot)
 
-    suspend fun getMercenaryPosts(): ApiResult<List<MercenaryPost>> =
-        api.getMercenaryPosts()
+    suspend fun getMercenaryPosts(): ApiResult<List<MercenaryPost>> = api.getMercenaryPosts()
 
-    suspend fun applyMercenary(postId: String, message: String): ApiResult<MercenaryPost> =
-        api.applyMercenary(postId, message)
+    suspend fun applyMercenary(
+        postId: String,
+        message: String,
+    ): ApiResult<MercenaryPost> = api.applyMercenary(postId, message)
 
     suspend fun getMatches(): ApiResult<MatchListResponse> = api.getMatches()
 
@@ -44,6 +41,9 @@ internal class MatchRemoteDataSource(
 
     suspend fun createTeam(draft: TeamDraft): ApiResult<TeamDetail> = api.createTeam(draft)
 
-    suspend fun inviteTeamMember(teamId: String, name: String, position: String): ApiResult<TeamMember> =
-        api.inviteTeamMember(teamId, name, position)
+    suspend fun inviteTeamMember(
+        teamId: String,
+        name: String,
+        position: String,
+    ): ApiResult<TeamMember> = api.inviteTeamMember(teamId, name, position)
 }

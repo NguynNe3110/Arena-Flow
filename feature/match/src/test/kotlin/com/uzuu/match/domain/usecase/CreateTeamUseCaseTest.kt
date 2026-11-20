@@ -15,14 +15,15 @@ class CreateTeamUseCaseTest {
     private val sut = CreateTeamUseCase(matchRepository)
 
     @Test
-    fun `invoke calls repository createTeam`() = runTest {
-        val draft = TeamDraft(name = "Bình Minh FC", ward = "Hải Châu")
-        val team = mockk<TeamDetail>()
-        val expected = Result.Success(team)
-        coEvery { matchRepository.createTeam(draft) } returns expected
+    fun `invoke calls repository createTeam`() =
+        runTest {
+            val draft = TeamDraft(name = "Bình Minh FC", ward = "Hải Châu")
+            val team = mockk<TeamDetail>()
+            val expected = Result.Success(team)
+            coEvery { matchRepository.createTeam(draft) } returns expected
 
-        val actual = sut(draft)
+            val actual = sut(draft)
 
-        assertEquals(expected, actual)
-    }
+            assertEquals(expected, actual)
+        }
 }

@@ -7,6 +7,5 @@ import com.uzuu.match.domain.repository.MatchRepository
 internal class GetMyTeamUseCase(
     private val matchRepository: MatchRepository,
 ) {
-    suspend operator fun invoke(): Result<TeamDetail> =
-        matchRepository.getMyTeam()
+    suspend operator fun invoke(): Result<TeamDetail> = matchRepository.getMyTeam()
 }

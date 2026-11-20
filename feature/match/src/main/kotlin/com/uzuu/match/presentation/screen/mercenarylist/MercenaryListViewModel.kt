@@ -37,16 +37,19 @@ internal class MercenaryListViewModel(
             mutableState.value = mutableState.value.copy(isLoading = true, error = null)
             when (val result = getMercenaryPostsUseCase()) {
                 is Result.Success -> {
-                    mutableState.value = mutableState.value.copy(
-                        isLoading = false,
-                        posts = result.value,
-                    )
+                    mutableState.value =
+                        mutableState.value.copy(
+                            isLoading = false,
+                            posts = result.value,
+                        )
                 }
+
                 is Result.Failure -> {
-                    mutableState.value = mutableState.value.copy(
-                        isLoading = false,
-                        error = result.error,
-                    )
+                    mutableState.value =
+                        mutableState.value.copy(
+                            isLoading = false,
+                            error = result.error,
+                        )
                 }
             }
         }
@@ -64,27 +67,34 @@ internal class MercenaryListViewModel(
         mutableState.value = mutableState.value.copy(selectedPostForApply = post)
     }
 
-    fun applyToPost(postId: String, message: String) {
+    fun applyToPost(
+        postId: String,
+        message: String,
+    ) {
         if (mutableState.value.isApplying) return
         mutableState.value = mutableState.value.copy(isApplying = true)
 
         viewModelScope.launch {
             when (val result = applyMercenaryUseCase(postId, message)) {
                 is Result.Success -> {
-                    val updatedPosts = mutableState.value.posts.map {
-                        if (it.id == postId) result.value else it
-                    }
-                    mutableState.value = mutableState.value.copy(
-                        isApplying = false,
-                        posts = updatedPosts,
-                        selectedPostForApply = null,
-                    )
+                    val updatedPosts =
+                        mutableState.value.posts.map {
+                            if (it.id == postId) result.value else it
+                        }
+                    mutableState.value =
+                        mutableState.value.copy(
+                            isApplying = false,
+                            posts = updatedPosts,
+                            selectedPostForApply = null,
+                        )
                 }
+
                 is Result.Failure -> {
-                    mutableState.value = mutableState.value.copy(
-                        isApplying = false,
-                        error = result.error,
-                    )
+                    mutableState.value =
+                        mutableState.value.copy(
+                            isApplying = false,
+                            error = result.error,
+                        )
                 }
             }
         }

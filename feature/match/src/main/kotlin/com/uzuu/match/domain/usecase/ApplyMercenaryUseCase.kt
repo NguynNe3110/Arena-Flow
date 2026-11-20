@@ -7,6 +7,8 @@ import com.uzuu.match.domain.repository.MatchRepository
 internal class ApplyMercenaryUseCase(
     private val matchRepository: MatchRepository,
 ) {
-    suspend operator fun invoke(postId: String, message: String): Result<MercenaryPost> =
-        matchRepository.applyMercenary(postId, message)
+    suspend operator fun invoke(
+        postId: String,
+        message: String,
+    ): Result<MercenaryPost> = matchRepository.applyMercenary(postId, message)
 }

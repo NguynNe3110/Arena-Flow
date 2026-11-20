@@ -39,16 +39,19 @@ internal class TeamDetailViewModel(
             mutableState.value = mutableState.value.copy(isLoading = true, error = null)
             when (val result = getMyTeamUseCase()) {
                 is Result.Success -> {
-                    mutableState.value = mutableState.value.copy(
-                        isLoading = false,
-                        team = result.value,
-                    )
+                    mutableState.value =
+                        mutableState.value.copy(
+                            isLoading = false,
+                            team = result.value,
+                        )
                 }
+
                 is Result.Failure -> {
-                    mutableState.value = mutableState.value.copy(
-                        isLoading = false,
-                        error = result.error,
-                    )
+                    mutableState.value =
+                        mutableState.value.copy(
+                            isLoading = false,
+                            error = result.error,
+                        )
                 }
             }
         }
@@ -59,12 +62,13 @@ internal class TeamDetailViewModel(
     }
 
     fun showInviteSheet() {
-        mutableState.value = mutableState.value.copy(
-            isInviteSheetVisible = true,
-            inviteName = "",
-            invitePosition = "Tiền vệ",
-            inviteSuccessMessage = null,
-        )
+        mutableState.value =
+            mutableState.value.copy(
+                isInviteSheetVisible = true,
+                inviteName = "",
+                invitePosition = "Tiền vệ",
+                inviteSuccessMessage = null,
+            )
     }
 
     fun dismissInviteSheet() {
@@ -90,18 +94,21 @@ internal class TeamDetailViewModel(
             when (val result = inviteTeamMemberUseCase(currentTeam.id, name, position)) {
                 is Result.Success -> {
                     val updatedMembers = currentTeam.members + result.value
-                    mutableState.value = mutableState.value.copy(
-                        isInviting = false,
-                        isInviteSheetVisible = false,
-                        team = currentTeam.copy(members = updatedMembers),
-                        inviteSuccessMessage = "Đã gửi lời mời tới ${result.value.name} thành công!",
-                    )
+                    mutableState.value =
+                        mutableState.value.copy(
+                            isInviting = false,
+                            isInviteSheetVisible = false,
+                            team = currentTeam.copy(members = updatedMembers),
+                            inviteSuccessMessage = "Đã gửi lời mời tới ${result.value.name} thành công!",
+                        )
                 }
+
                 is Result.Failure -> {
-                    mutableState.value = mutableState.value.copy(
-                        isInviting = false,
-                        error = result.error,
-                    )
+                    mutableState.value =
+                        mutableState.value.copy(
+                            isInviting = false,
+                            error = result.error,
+                        )
                 }
             }
         }

@@ -54,6 +54,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -113,11 +114,12 @@ internal fun TeamDetailContent(
     modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
+    val currentOnClearToast by rememberUpdatedState(onClearToast)
 
     LaunchedEffect(uiState.inviteSuccessMessage) {
         uiState.inviteSuccessMessage?.let {
             snackbarHostState.showSnackbar(it)
-            onClearToast()
+            currentOnClearToast()
         }
     }
 
@@ -166,13 +168,20 @@ internal fun TeamDetailContent(
         },
     ) { padding ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(padding),
         ) {
             when {
-                uiState.isLoading -> LoadingIndicator()
-                uiState.error != null -> AppErrorContent(error = uiState.error, onRetry = onRetry)
+                uiState.isLoading -> {
+                    LoadingIndicator()
+                }
+
+                uiState.error != null -> {
+                    AppErrorContent(error = uiState.error, onRetry = onRetry)
+                }
+
                 uiState.team != null -> {
                     TeamDetailBody(
                         team = uiState.team,
@@ -209,7 +218,9 @@ private fun TeamDetailBody(
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = androidx.compose.foundation.layout.PaddingValues(16.dp),
+        contentPadding =
+            androidx.compose.foundation.layout
+                .PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         // Team Identity Card
@@ -231,9 +242,10 @@ private fun TeamDetailBody(
         item {
             TabRow(
                 selectedTabIndex = selectedTab,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(ControlShape),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .clip(ControlShape),
             ) {
                 Tab(
                     selected = selectedTab == 0,
@@ -263,6 +275,7 @@ private fun TeamDetailBody(
                     TeamScheduleCard(schedule = schedule)
                 }
             }
+
             1 -> {
                 items(team.members) { member ->
                     TeamMemberCard(member = member)
@@ -272,9 +285,10 @@ private fun TeamDetailBody(
                         onClick = onShowInviteSheet,
                         shape = ControlShape,
                         border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = 48.dp),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .heightIn(min = 48.dp),
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.GroupAdd,
@@ -290,6 +304,7 @@ private fun TeamDetailBody(
                     }
                 }
             }
+
             2 -> {
                 item {
                     TeamHistorySection(team = team)
@@ -321,10 +336,11 @@ private fun TeamIdentityCard(team: TeamDetail) {
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Box(
-                        modifier = Modifier
-                            .size(56.dp)
-                            .clip(MatchShape)
-                            .background(MaterialTheme.colorScheme.primaryContainer),
+                        modifier =
+                            Modifier
+                                .size(56.dp)
+                                .clip(MatchShape)
+                                .background(MaterialTheme.colorScheme.primaryContainer),
                         contentAlignment = Alignment.Center,
                     ) {
                         Text(
@@ -498,7 +514,9 @@ private fun ReputationAnalyticsCard(team: TeamDetail) {
                         modifier = Modifier.size(16.dp),
                     )
                     Text(
-                        text = "Quy tắc: Với các đội dưới 5 trận, hệ thống hiển thị 'Mới tham gia X/5 trận' thay vì tỉ lệ hoàn thành %.",
+                        text =
+                            "Quy tắc: Với các đội dưới 5 trận, hệ thống hiển thị " +
+                                "'Mới tham gia X/5 trận' thay vì tỉ lệ hoàn thành %.",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
@@ -539,7 +557,12 @@ private fun MetricItem(
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = subtext,
-                style = MaterialTheme.typography.bodySmall.copy(fontSize = androidx.compose.ui.unit.TextUnit(10f, androidx.compose.ui.unit.TextUnitType.Sp)),
+                style =
+                    MaterialTheme.typography.bodySmall.copy(
+                        fontSize =
+                            androidx.compose.ui.unit
+                                .TextUnit(10f, androidx.compose.ui.unit.TextUnitType.Sp),
+                    ),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
             )
@@ -565,10 +588,11 @@ private fun PersonalReputationCard(personalScore: Int) {
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
             ) {
                 Box(
-                    modifier = Modifier
-                        .size(36.dp)
-                        .clip(ControlShape)
-                        .background(MaterialTheme.colorScheme.primaryContainer),
+                    modifier =
+                        Modifier
+                            .size(36.dp)
+                            .clip(ControlShape)
+                            .background(MaterialTheme.colorScheme.primaryContainer),
                     contentAlignment = Alignment.Center,
                 ) {
                     Icon(
@@ -647,11 +671,12 @@ private fun TeamScheduleCard(schedule: TeamMatchSchedule) {
             }
 
             Text(
-                text = if (schedule.isRecruitingMercenary) {
-                    schedule.mercenaryRole ?: "Tuyển người đá lẻ"
-                } else {
-                    "VS ${schedule.opponentName} (${schedule.opponentShortName})"
-                },
+                text =
+                    if (schedule.isRecruitingMercenary) {
+                        schedule.mercenaryRole ?: "Tuyển người đá lẻ"
+                    } else {
+                        "VS ${schedule.opponentName} (${schedule.opponentShortName})"
+                    },
                 style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colorScheme.onSurface,
             )
@@ -716,20 +741,28 @@ private fun TeamMemberCard(member: TeamMember) {
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
             ) {
                 Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .background(
-                            if (member.isCurrentUser) MaterialTheme.colorScheme.primary
-                            else MaterialTheme.colorScheme.surfaceContainerHigh
-                        ),
+                    modifier =
+                        Modifier
+                            .size(40.dp)
+                            .clip(CircleShape)
+                            .background(
+                                if (member.isCurrentUser) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    MaterialTheme.colorScheme.surfaceContainerHigh
+                                },
+                            ),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
                         text = member.displayName.take(2).uppercase(),
                         style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
-                        color = if (member.isCurrentUser) MaterialTheme.colorScheme.onPrimary
-                        else MaterialTheme.colorScheme.onSurface,
+                        color =
+                            if (member.isCurrentUser) {
+                                MaterialTheme.colorScheme.onPrimary
+                            } else {
+                                MaterialTheme.colorScheme.onSurface
+                            },
                     )
                 }
                 Column {
@@ -829,9 +862,10 @@ private fun InviteMemberBottomSheet(
         onDismissRequest = onDismiss,
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 16.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp, vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
@@ -839,7 +873,9 @@ private fun InviteMemberBottomSheet(
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
             )
             Text(
-                text = "Nhập tên hoặc số điện thoại cầu thủ muốn mời. Cầu thủ sẽ nhận được thông báo phản hồi.",
+                text =
+                    "Nhập tên hoặc số điện thoại cầu thủ muốn mời. " +
+                        "Cầu thủ sẽ nhận được thông báo phản hồi.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -877,9 +913,10 @@ private fun InviteMemberBottomSheet(
                 onClick = onSubmit,
                 enabled = name.isNotBlank() && !isInviting,
                 shape = ControlShape,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 48.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 48.dp),
             ) {
                 if (isInviting) {
                     CircularProgressIndicator(

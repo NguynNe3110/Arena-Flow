@@ -14,13 +14,14 @@ class ApplyMercenaryUseCaseTest {
     private val sut = ApplyMercenaryUseCase(matchRepository)
 
     @Test
-    fun `invoke calls repository applyMercenary`() = runTest {
-        val post = mockk<MercenaryPost>()
-        val expected = Result.Success(post)
-        coEvery { matchRepository.applyMercenary("p1", "msg") } returns expected
+    fun `invoke calls repository applyMercenary`() =
+        runTest {
+            val post = mockk<MercenaryPost>()
+            val expected = Result.Success(post)
+            coEvery { matchRepository.applyMercenary("p1", "msg") } returns expected
 
-        val actual = sut("p1", "msg")
+            val actual = sut("p1", "msg")
 
-        assertEquals(expected, actual)
-    }
+            assertEquals(expected, actual)
+        }
 }

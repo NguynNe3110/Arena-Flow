@@ -121,16 +121,23 @@ internal fun PairingRoomContent(
         },
     ) { padding ->
         when {
-            uiState.isLoading -> Box(Modifier.fillMaxSize().padding(padding), Alignment.Center) { LoadingIndicator() }
-            uiState.error != null -> Box(Modifier.fillMaxSize().padding(padding)) { AppErrorContent(uiState.error, onRetry) }
+            uiState.isLoading -> {
+                Box(Modifier.fillMaxSize().padding(padding), Alignment.Center) { LoadingIndicator() }
+            }
+
+            uiState.error != null -> {
+                Box(Modifier.fillMaxSize().padding(padding)) { AppErrorContent(uiState.error, onRetry) }
+            }
+
             uiState.pairingRoom != null -> {
                 val room = uiState.pairingRoom
                 Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(padding)
-                        .verticalScroll(rememberScrollState())
-                        .padding(16.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .padding(padding)
+                            .verticalScroll(rememberScrollState())
+                            .padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     // 1. BANNER ĐỐI ĐẦU
@@ -150,34 +157,77 @@ internal fun PairingRoomContent(
                                 Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
                                     Surface(Modifier.size(44.dp), CircleShape, color = MaterialTheme.colorScheme.primaryContainer) {
                                         Box(contentAlignment = Alignment.Center) {
-                                            Text(room.hostTeam.shortName, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                                            Text(
+                                                room.hostTeam.shortName,
+                                                style = MaterialTheme.typography.titleMedium,
+                                                fontWeight = FontWeight.Bold,
+                                            )
                                         }
                                     }
-                                    Text(room.hostTeam.teamName, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 4.dp))
+                                    Text(
+                                        room.hostTeam.teamName,
+                                        style = MaterialTheme.typography.titleSmall,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.padding(top = 4.dp),
+                                    )
                                     Surface(shape = ControlShape, color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                                        Text(room.hostTeam.statusLabel, Modifier.padding(horizontal = 6.dp, vertical = 2.dp), style = MaterialTheme.typography.labelSmall)
+                                        Text(
+                                            room.hostTeam.statusLabel,
+                                            Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                            style = MaterialTheme.typography.labelSmall,
+                                        )
                                     }
                                 }
 
-                                Text("⚔️ VS", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+                                Text(
+                                    "⚔️ VS",
+                                    style = MaterialTheme.typography.titleLarge,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.primary,
+                                )
 
                                 // Guest Team
                                 Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
                                     Surface(Modifier.size(44.dp), CircleShape, color = MaterialTheme.colorScheme.secondaryContainer) {
                                         Box(contentAlignment = Alignment.Center) {
-                                            Text(room.guestTeam.shortName, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                                            Text(
+                                                room.guestTeam.shortName,
+                                                style = MaterialTheme.typography.titleMedium,
+                                                fontWeight = FontWeight.Bold,
+                                            )
                                         }
                                     }
-                                    Text(room.guestTeam.teamName, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 4.dp))
+                                    Text(
+                                        room.guestTeam.teamName,
+                                        style = MaterialTheme.typography.titleSmall,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.padding(top = 4.dp),
+                                    )
                                     Surface(shape = ControlShape, color = MaterialTheme.colorScheme.secondaryContainer) {
-                                        Text(room.guestTeam.statusLabel, Modifier.padding(horizontal = 6.dp, vertical = 2.dp), style = MaterialTheme.typography.labelSmall)
+                                        Text(
+                                            room.guestTeam.statusLabel,
+                                            Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                            style = MaterialTheme.typography.labelSmall,
+                                        )
                                     }
                                 }
                             }
 
-                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                Icon(Icons.Outlined.SwapHoriz, null, tint = MaterialTheme.colorScheme.outline, modifier = Modifier.size(16.dp))
-                                Text("Chat trao đổi và cùng thống nhất gói sân + giờ + chi phí bên dưới.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            ) {
+                                Icon(
+                                    Icons.Outlined.SwapHoriz,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.outline,
+                                    modifier = Modifier.size(16.dp),
+                                )
+                                Text(
+                                    "Chat trao đổi và cùng thống nhất gói sân + giờ + chi phí bên dưới.",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                )
                             }
                         }
                     }
@@ -190,34 +240,80 @@ internal fun PairingRoomContent(
                         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),
                     ) {
                         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                                Text("GÓI THỎA THUẬN KÈO ĐẤU", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                            Row(
+                                Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Text(
+                                    "GÓI THỎA THUẬN KÈO ĐẤU",
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = FontWeight.Bold,
+                                )
                                 Surface(shape = ControlShape, color = MaterialTheme.colorScheme.primaryContainer) {
-                                    Text(room.version, Modifier.padding(horizontal = 8.dp, vertical = 2.dp), style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.Bold)
+                                    Text(
+                                        room.version,
+                                        Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+                                        style = MaterialTheme.typography.labelSmall,
+                                        fontWeight = FontWeight.Bold,
+                                    )
                                 }
                             }
 
                             // Tùy chọn Sân
-                            Text("Địa điểm thi đấu đề xuất", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
+                            Text(
+                                "Địa điểm thi đấu đề xuất",
+                                style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.SemiBold,
+                            )
                             room.venueOptions.forEach { venue ->
                                 val isSelected = room.selectedVenueId == venue.venueId
+                                val bgColor =
+                                    if (isSelected) {
+                                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                                    } else {
+                                        MaterialTheme.colorScheme.surfaceContainerLow
+                                    }
+                                val borderStroke =
+                                    BorderStroke(
+                                        if (isSelected) 2.dp else 1.dp,
+                                        if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+                                    )
                                 Surface(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .clickable { onSelectVenue(venue.venueId) },
+                                    modifier =
+                                        Modifier
+                                            .fillMaxWidth()
+                                            .clickable { onSelectVenue(venue.venueId) },
                                     shape = ControlShape,
-                                    color = if (isSelected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f) else MaterialTheme.colorScheme.surfaceContainerLow,
-                                    border = BorderStroke(if (isSelected) 2.dp else 1.dp, if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant),
+                                    color = bgColor,
+                                    border = borderStroke,
                                 ) {
-                                    Row(Modifier.padding(10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    Row(
+                                        Modifier.padding(10.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                    ) {
                                         RadioButton(selected = isSelected, onClick = null)
                                         Column(Modifier.weight(1f)) {
-                                            Text(venue.venueName, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-                                            Text(venue.address, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                            Text(
+                                                venue.venueName,
+                                                style = MaterialTheme.typography.titleSmall,
+                                                fontWeight = FontWeight.SemiBold,
+                                            )
+                                            Text(
+                                                venue.address,
+                                                style = MaterialTheme.typography.bodySmall,
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            )
                                         }
                                         if (isSelected) {
                                             Surface(shape = ControlShape, color = MaterialTheme.colorScheme.primary) {
-                                                Text("Đã chọn", Modifier.padding(horizontal = 6.dp, vertical = 2.dp), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onPrimary)
+                                                Text(
+                                                    "Đã chọn",
+                                                    Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                                    style = MaterialTheme.typography.labelSmall,
+                                                    color = MaterialTheme.colorScheme.onPrimary,
+                                                )
                                             }
                                         }
                                     }
@@ -228,19 +324,39 @@ internal fun PairingRoomContent(
                             Text("Khung giờ thi đấu", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
                             room.timeOptions.forEach { slot ->
                                 val isSelected = room.selectedTimeSlot == slot
+                                val slotBgColor =
+                                    if (isSelected) {
+                                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                                    } else {
+                                        MaterialTheme.colorScheme.surfaceContainerLow
+                                    }
+                                val slotBorder =
+                                    BorderStroke(
+                                        if (isSelected) 2.dp else 1.dp,
+                                        if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+                                    )
                                 Surface(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .clickable { onSelectTimeSlot(slot) },
+                                    modifier =
+                                        Modifier
+                                            .fillMaxWidth()
+                                            .clickable { onSelectTimeSlot(slot) },
                                     shape = ControlShape,
-                                    color = if (isSelected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f) else MaterialTheme.colorScheme.surfaceContainerLow,
-                                    border = BorderStroke(if (isSelected) 2.dp else 1.dp, if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant),
+                                    color = slotBgColor,
+                                    border = slotBorder,
                                 ) {
-                                    Row(Modifier.padding(10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    Row(
+                                        Modifier.padding(10.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                    ) {
                                         RadioButton(selected = isSelected, onClick = null)
                                         Column(Modifier.weight(1f)) {
                                             Text(slot, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-                                            Text("Thứ Bảy, 21/11/2026 • 90 Phút", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                            Text(
+                                                "Thứ Bảy, 21/11/2026 • 90 Phút",
+                                                style = MaterialTheme.typography.bodySmall,
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            )
                                         }
                                         if (isSelected) {
                                             Icon(Icons.Outlined.CheckCircle, null, tint = MaterialTheme.colorScheme.primary)
@@ -253,62 +369,176 @@ internal fun PairingRoomContent(
                             Surface(shape = ControlShape, color = MaterialTheme.colorScheme.surfaceContainerLow) {
                                 Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                                        Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+                                        Row(
+                                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                            verticalAlignment = Alignment.CenterVertically,
+                                        ) {
                                             Icon(Icons.Outlined.Payments, null, modifier = Modifier.size(16.dp))
                                             Text("Tổng tiền sân:", style = MaterialTheme.typography.bodyMedium)
                                         }
                                         Column(horizontalAlignment = Alignment.End) {
-                                            Text("${NumberFormat.getIntegerInstance(Locale.forLanguageTag("vi-VN")).format(room.totalCost)} đ", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
-                                            Text("Chia 50-50 (300.000đ/đội)", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                            val currencyFmt = NumberFormat.getIntegerInstance(Locale.forLanguageTag("vi-VN"))
+                                            val costFormatted = "${currencyFmt.format(room.totalCost)} đ"
+                                            Text(costFormatted, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+                                            Text(
+                                                "Chia 50-50 (300.000đ/đội)",
+                                                style = MaterialTheme.typography.bodySmall,
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            )
                                         }
                                     }
                                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                                        Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
-                                            Icon(Icons.Outlined.LockClock, null, modifier = Modifier.size(16.dp), tint = MaterialTheme.colorScheme.primary)
+                                        Row(
+                                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                            verticalAlignment = Alignment.CenterVertically,
+                                        ) {
+                                            Icon(
+                                                Icons.Outlined.LockClock,
+                                                null,
+                                                modifier = Modifier.size(16.dp),
+                                                tint = MaterialTheme.colorScheme.primary,
+                                            )
                                             Text("Tiền cọc giữ kèo:", style = MaterialTheme.typography.bodyMedium)
                                         }
                                         Column(horizontalAlignment = Alignment.End) {
-                                            Text("${NumberFormat.getIntegerInstance(Locale.forLanguageTag("vi-VN")).format(room.depositAmount)} đ", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
-                                            Text(room.depositHolder, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                            val currencyFmt = NumberFormat.getIntegerInstance(Locale.forLanguageTag("vi-VN"))
+                                            val depFormatted = "${currencyFmt.format(room.depositAmount)} đ"
+                                            Text(
+                                                depFormatted,
+                                                style = MaterialTheme.typography.titleSmall,
+                                                fontWeight = FontWeight.Bold,
+                                                color = MaterialTheme.colorScheme.primary,
+                                            )
+                                            Text(
+                                                room.depositHolder,
+                                                style = MaterialTheme.typography.bodySmall,
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            )
                                         }
                                     }
-                                    Text("ArenaFlow không can thiệp, không thu phí hay giữ tiền cọc của người chơi.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                    Text(
+                                        "ArenaFlow không can thiệp, không thu phí hay giữ tiền cọc của người chơi.",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    )
                                 }
                             }
 
                             // Trạng thái xác nhận đôi bên
                             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                Text("TRẠNG THÁI XÁC NHẬN ĐÔI BÊN", style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.outline)
+                                Text(
+                                    "TRẠNG THÁI XÁC NHẬN ĐÔI BÊN",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.outline,
+                                )
 
                                 // Host confirmation
+                                val hostBg =
+                                    if (room.hostConfirmed) {
+                                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)
+                                    } else {
+                                        MaterialTheme.colorScheme.surfaceContainerLow
+                                    }
+                                val hostBorder =
+                                    BorderStroke(
+                                        1.dp,
+                                        if (room.hostConfirmed) {
+                                            MaterialTheme.colorScheme.primary
+                                        } else {
+                                            MaterialTheme.colorScheme.outlineVariant
+                                        },
+                                    )
                                 Surface(
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = ControlShape,
-                                    color = if (room.hostConfirmed) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f) else MaterialTheme.colorScheme.surfaceContainerLow,
-                                    border = BorderStroke(1.dp, if (room.hostConfirmed) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant),
+                                    color = hostBg,
+                                    border = hostBorder,
                                 ) {
-                                    Row(Modifier.padding(10.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                                        Text(room.hostTeam.teamName, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
-                                        Text(if (room.hostConfirmed) "✓ Đã bấm xác nhận" else "⏳ Chưa xác nhận", style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold, color = if (room.hostConfirmed) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
+                                    Row(
+                                        Modifier.padding(10.dp),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically,
+                                    ) {
+                                        Text(
+                                            room.hostTeam.teamName,
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            fontWeight = FontWeight.Medium,
+                                        )
+                                        Text(
+                                            if (room.hostConfirmed) "✓ Đã bấm xác nhận" else "⏳ Chưa xác nhận",
+                                            style = MaterialTheme.typography.labelMedium,
+                                            fontWeight = FontWeight.Bold,
+                                            color =
+                                                if (room.hostConfirmed) {
+                                                    MaterialTheme.colorScheme.primary
+                                                } else {
+                                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                                },
+                                        )
                                     }
                                 }
 
                                 // Guest confirmation
+                                val guestBg =
+                                    if (room.guestConfirmed) {
+                                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)
+                                    } else {
+                                        MaterialTheme.colorScheme.surfaceContainerLow
+                                    }
+                                val guestBorder =
+                                    BorderStroke(
+                                        1.dp,
+                                        if (room.guestConfirmed) {
+                                            MaterialTheme.colorScheme.primary
+                                        } else {
+                                            MaterialTheme.colorScheme.outlineVariant
+                                        },
+                                    )
                                 Surface(
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = ControlShape,
-                                    color = if (room.guestConfirmed) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f) else MaterialTheme.colorScheme.surfaceContainerLow,
-                                    border = BorderStroke(1.dp, if (room.guestConfirmed) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant),
+                                    color = guestBg,
+                                    border = guestBorder,
                                 ) {
-                                    Row(Modifier.padding(10.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                                        Text("${room.guestTeam.teamName} (Bạn)", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
-                                        Text(if (room.guestConfirmed) "✓ Đã bấm xác nhận" else "⏳ Chưa xác nhận", style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold, color = if (room.guestConfirmed) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
+                                    Row(
+                                        Modifier.padding(10.dp),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically,
+                                    ) {
+                                        Text(
+                                            "${room.guestTeam.teamName} (Bạn)",
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            fontWeight = FontWeight.Medium,
+                                        )
+                                        Text(
+                                            if (room.guestConfirmed) "✓ Đã bấm xác nhận" else "⏳ Chưa xác nhận",
+                                            style = MaterialTheme.typography.labelMedium,
+                                            fontWeight = FontWeight.Bold,
+                                            color =
+                                                if (room.guestConfirmed) {
+                                                    MaterialTheme.colorScheme.primary
+                                                } else {
+                                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                                },
+                                        )
                                     }
                                 }
 
                                 Row(Modifier.padding(top = 4.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                                    Icon(Icons.Outlined.ErrorOutline, null, modifier = Modifier.size(16.dp), tint = MaterialTheme.colorScheme.primary)
-                                    Text("Lưu ý: Khi một bên thay đổi phương án sân/giờ hoặc chi phí, xác nhận của 2 bên sẽ tự động hủy bỏ để bảo đảm đồng thuận (AC-P04).", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                    Icon(
+                                        Icons.Outlined.ErrorOutline,
+                                        null,
+                                        modifier = Modifier.size(16.dp),
+                                        tint = MaterialTheme.colorScheme.primary,
+                                    )
+                                    Text(
+                                        "Lưu ý: Khi một bên thay đổi phương án sân/giờ hoặc chi phí, " +
+                                            "xác nhận của 2 bên sẽ tự động hủy bỏ để bảo đảm " +
+                                            "đồng thuận (AC-P04).",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    )
                                 }
                             }
                         }
@@ -330,7 +560,11 @@ internal fun PairingRoomContent(
                                 }
                             }
 
-                            Row(Modifier.fillMaxWidth().padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Row(
+                                Modifier.fillMaxWidth().padding(top = 4.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            ) {
                                 OutlinedTextField(
                                     value = messageText,
                                     onValueChange = { messageText = it },
@@ -347,7 +581,11 @@ internal fun PairingRoomContent(
                                     },
                                     enabled = messageText.isNotBlank(),
                                 ) {
-                                    Icon(Icons.AutoMirrored.Filled.Send, contentDescription = "Gửi tin nhắn", tint = MaterialTheme.colorScheme.primary)
+                                    Icon(
+                                        Icons.AutoMirrored.Filled.Send,
+                                        contentDescription = "Gửi tin nhắn",
+                                        tint = MaterialTheme.colorScheme.primary,
+                                    )
                                 }
                             }
                         }
@@ -363,7 +601,13 @@ internal fun PairingRoomContent(
                         if (uiState.isConfirming) {
                             CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp, color = Color.White)
                         } else {
-                            Text(if (room.guestConfirmed) "✓ Bạn đã xác nhận gói thương lượng" else "Xác nhận gói thương lượng", style = MaterialTheme.typography.labelLarge)
+                            val buttonText =
+                                if (room.guestConfirmed) {
+                                    "✓ Bạn đã xác nhận gói thương lượng"
+                                } else {
+                                    "Xác nhận gói thương lượng"
+                                }
+                            Text(buttonText, style = MaterialTheme.typography.labelLarge)
                         }
                     }
                 }
@@ -387,7 +631,12 @@ private fun ChatMessageBubble(msg: PairingChatMessage) {
         ) {
             Column(Modifier.padding(horizontal = 10.dp, vertical = 6.dp)) {
                 Text(msg.message, style = MaterialTheme.typography.bodyMedium, color = textColor)
-                Text(msg.time, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline, modifier = Modifier.align(Alignment.End))
+                Text(
+                    msg.time,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.outline,
+                    modifier = Modifier.align(Alignment.End),
+                )
             }
         }
     }

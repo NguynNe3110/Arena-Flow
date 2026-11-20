@@ -14,13 +14,14 @@ class GetPairingRoomUseCaseTest {
     private val sut = GetPairingRoomUseCase(matchRepository)
 
     @Test
-    fun `invoke calls repository getPairingRoom`() = runTest {
-        val room = mockk<PairingRoom>()
-        val expected = Result.Success(room)
-        coEvery { matchRepository.getPairingRoom("pr1") } returns expected
+    fun `invoke calls repository getPairingRoom`() =
+        runTest {
+            val room = mockk<PairingRoom>()
+            val expected = Result.Success(room)
+            coEvery { matchRepository.getPairingRoom("pr1") } returns expected
 
-        val actual = sut("pr1")
+            val actual = sut("pr1")
 
-        assertEquals(expected, actual)
-    }
+            assertEquals(expected, actual)
+        }
 }

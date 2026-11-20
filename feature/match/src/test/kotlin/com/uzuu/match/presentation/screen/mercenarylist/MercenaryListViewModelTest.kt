@@ -24,50 +24,65 @@ class MercenaryListViewModelTest {
     private val applyMercenaryUseCase: ApplyMercenaryUseCase = mockk()
 
     @Test
-    fun `init loads mercenary posts`() = runTest {
-        val posts = listOf(samplePost("rec-1"))
-        coEvery { getMercenaryPostsUseCase() } returns Result.Success(posts)
+    fun `init loads mercenary posts`() =
+        runTest {
+            val posts = listOf(samplePost("rec-1"))
+            coEvery { getMercenaryPostsUseCase() } returns Result.Success(posts)
 
-        val viewModel = MercenaryListViewModel(getMercenaryPostsUseCase, applyMercenaryUseCase)
-        advanceUntilIdle()
+            val viewModel = MercenaryListViewModel(getMercenaryPostsUseCase, applyMercenaryUseCase)
+            advanceUntilIdle()
 
-        assertEquals(posts, viewModel.uiState.value.posts)
-        assertFalse(viewModel.uiState.value.isLoading)
-    }
-
-    @Test
-    fun `filter position and radius update state`() = runTest {
-        coEvery { getMercenaryPostsUseCase() } returns Result.Success(emptyList())
-
-        val viewModel = MercenaryListViewModel(getMercenaryPostsUseCase, applyMercenaryUseCase)
-        advanceUntilIdle()
-
-        viewModel.setFilterPosition("GK")
-        assertEquals("GK", viewModel.uiState.value.filterPosition)
-
-        viewModel.setRadius(5.5f)
-        assertEquals(5.5f, viewModel.uiState.value.radiusKm)
-    }
+            assertEquals(posts, viewModel.uiState.value.posts)
+            assertFalse(viewModel.uiState.value.isLoading)
+        }
 
     @Test
-    fun `applyToPost marks post as applied`() = runTest {
-        val post = samplePost("rec-1", isApplied = false)
-        val applied = post.copy(isApplied = true, pendingApplicants = 3)
-        coEvery { getMercenaryPostsUseCase() } returns Result.Success(listOf(post))
-        coEvery { applyMercenaryUseCase("rec-1", "msg") } returns Result.Success(applied)
+    fun `filter position and radius update state`() =
+        runTest {
+            coEvery { getMercenaryPostsUseCase() } returns Result.Success(emptyList())
 
-        val viewModel = MercenaryListViewModel(getMercenaryPostsUseCase, applyMercenaryUseCase)
-        advanceUntilIdle()
+            val viewModel = MercenaryListViewModel(getMercenaryPostsUseCase, applyMercenaryUseCase)
+            advanceUntilIdle()
 
-        viewModel.applyToPost("rec-1", "msg")
-        advanceUntilIdle()
+            viewModel.setFilterPosition("GK")
+            assertEquals("GK", viewModel.uiState.value.filterPosition)
 
-        assertTrue(viewModel.uiState.value.posts.first().isApplied)
-        assertEquals(3, viewModel.uiState.value.posts.first().pendingApplicants)
-        assertFalse(viewModel.uiState.value.isApplying)
-    }
+            viewModel.setRadius(5.5f)
+            assertEquals(5.5f, viewModel.uiState.value.radiusKm)
+        }
 
-    private fun samplePost(id: String, isApplied: Boolean = false) = MercenaryPost(
+    @Test
+    fun `applyToPost marks post as applied`() =
+        runTest {
+            val post = samplePost("rec-1", isApplied = false)
+            val applied = post.copy(isApplied = true, pendingApplicants = 3)
+            coEvery { getMercenaryPostsUseCase() } returns Result.Success(listOf(post))
+            coEvery { applyMercenaryUseCase("rec-1", "msg") } returns Result.Success(applied)
+
+            val viewModel = MercenaryListViewModel(getMercenaryPostsUseCase, applyMercenaryUseCase)
+            advanceUntilIdle()
+
+            viewModel.applyToPost("rec-1", "msg")
+            advanceUntilIdle()
+
+            assertTrue(
+                viewModel.uiState.value.posts
+                    .first()
+                    .isApplied,
+            )
+            assertEquals(
+                3,
+                viewModel.uiState.value.posts
+                    .first()
+                    .pendingApplicants,
+            )
+            assertFalse(viewModel.uiState.value.isApplying)
+        }
+
+    private fun samplePost(
+        id: String,
+        isApplied: Boolean = false,
+    ) = MercenaryPost(
         id = id,
         teamName = "Bình Minh FC",
         captainName = "Lê Hoàng",

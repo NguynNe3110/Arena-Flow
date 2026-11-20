@@ -74,126 +74,141 @@ class MatchRepositoryImplTest {
     }
 
     @Test
-    fun `detail fixtures contain venue options and the cost agreement without changing summaries`() = runBlocking {
-        val list = File(checkNotNull(System.getProperty("matchMockFixturePath"))).readText()
-        val details = File(checkNotNull(System.getProperty("matchDetailMockFixturePath"))).readText()
-        val context = mockk<Context>()
-        val assets = mockk<AssetManager>()
-        every { context.assets } returns assets
-        every { assets.open("mock/matches.json") } answers { list.byteInputStream() }
-        every { assets.open("mock/match-details.json") } answers { details.byteInputStream() }
-        val repository = MatchRepositoryImpl(MatchRemoteDataSource(MockMatchDataSource(context, Json { ignoreUnknownKeys = true })))
-        val page = repository.getMatches() as Result.Success
-        page.value.matches.forEach { summary ->
-            val result = repository.getMatch(summary.matchId) as Result.Success
-            assertEquals(summary.authorTeamName, result.value.summary.authorTeamName)
-            assertEquals(summary.startsAt, result.value.summary.startsAt)
-            assertEquals(summary.endsAt, result.value.summary.endsAt)
-            if (summary.type == MatchType.HAS_VENUE) {
-                assertEquals(600000, result.value.costAgreement.venueAmount)
-                assertEquals("Tiền trọng tài", result.value.costAgreement.customItems.single().itemName)
-            } else {
-                assertEquals(2, result.value.venueOptions.size)
-                assertEquals(2, result.value.timeOptions.size)
-                assertNull(result.value.costAgreement.depositAmount)
+    fun `detail fixtures contain venue options and the cost agreement without changing summaries`() =
+        runBlocking {
+            val list = File(checkNotNull(System.getProperty("matchMockFixturePath"))).readText()
+            val details = File(checkNotNull(System.getProperty("matchDetailMockFixturePath"))).readText()
+            val context = mockk<Context>()
+            val assets = mockk<AssetManager>()
+            every { context.assets } returns assets
+            every { assets.open("mock/matches.json") } answers { list.byteInputStream() }
+            every { assets.open("mock/match-details.json") } answers { details.byteInputStream() }
+            val repository = MatchRepositoryImpl(MatchRemoteDataSource(MockMatchDataSource(context, Json { ignoreUnknownKeys = true })))
+            val page = repository.getMatches() as Result.Success
+            page.value.matches.forEach { summary ->
+                val result = repository.getMatch(summary.matchId) as Result.Success
+                assertEquals(summary.authorTeamName, result.value.summary.authorTeamName)
+                assertEquals(summary.startsAt, result.value.summary.startsAt)
+                assertEquals(summary.endsAt, result.value.summary.endsAt)
+                if (summary.type == MatchType.HAS_VENUE) {
+                    assertEquals(600000, result.value.costAgreement.venueAmount)
+                    assertEquals(
+                        "Tiền trọng tài",
+                        result.value.costAgreement.customItems
+                            .single()
+                            .itemName,
+                    )
+                } else {
+                    assertEquals(2, result.value.venueOptions.size)
+                    assertEquals(2, result.value.timeOptions.size)
+                    assertNull(result.value.costAgreement.depositAmount)
+                }
             }
+            assertEquals(Result.Failure(AppError.NotFound), repository.getMatch("missing"))
         }
-        assertEquals(Result.Failure(AppError.NotFound), repository.getMatch("missing"))
-    }
 
     @Test
-    fun `createMatch creates a new match and adds it to repository`() = runBlocking {
-        val list = File(checkNotNull(System.getProperty("matchMockFixturePath"))).readText()
-        val details = File(checkNotNull(System.getProperty("matchDetailMockFixturePath"))).readText()
-        val context = mockk<Context>()
-        val assets = mockk<AssetManager>()
-        every { context.assets } returns assets
-        every { assets.open("mock/matches.json") } answers { list.byteInputStream() }
-        every { assets.open("mock/match-details.json") } answers { details.byteInputStream() }
-        val repository = MatchRepositoryImpl(MatchRemoteDataSource(MockMatchDataSource(context, Json { ignoreUnknownKeys = true })))
+    fun `createMatch creates a new match and adds it to repository`() =
+        runBlocking {
+            val list = File(checkNotNull(System.getProperty("matchMockFixturePath"))).readText()
+            val details = File(checkNotNull(System.getProperty("matchDetailMockFixturePath"))).readText()
+            val context = mockk<Context>()
+            val assets = mockk<AssetManager>()
+            every { context.assets } returns assets
+            every { assets.open("mock/matches.json") } answers { list.byteInputStream() }
+            every { assets.open("mock/match-details.json") } answers { details.byteInputStream() }
+            val repository = MatchRepositoryImpl(MatchRemoteDataSource(MockMatchDataSource(context, Json { ignoreUnknownKeys = true })))
 
-        val draft = com.uzuu.match.domain.model.MatchDraft(
-            hostTeamName = "Test FC",
-            venueName = "Test Stadium",
-        )
-        val created = repository.createMatch(draft)
-        check(created is Result.Success)
-        assertEquals("Test FC", created.value.authorTeamName)
-        assertEquals(MatchType.HAS_VENUE, created.value.type)
+            val draft =
+                com.uzuu.match.domain.model.MatchDraft(
+                    hostTeamName = "Test FC",
+                    venueName = "Test Stadium",
+                )
+            val created = repository.createMatch(draft)
+            check(created is Result.Success)
+            assertEquals("Test FC", created.value.authorTeamName)
+            assertEquals(MatchType.HAS_VENUE, created.value.type)
 
-        val page = repository.getMatches() as Result.Success
-        assertEquals(3, page.value.matches.size)
-        assertEquals("Test FC", page.value.matches[0].authorTeamName)
-    }
-
-    @Test
-    fun `getPairingRoom and confirmPackage update confirmation state`() = runBlocking {
-        val list = File(checkNotNull(System.getProperty("matchMockFixturePath"))).readText()
-        val details = File(checkNotNull(System.getProperty("matchDetailMockFixturePath"))).readText()
-        val context = mockk<Context>()
-        val assets = mockk<AssetManager>()
-        every { context.assets } returns assets
-        every { assets.open("mock/matches.json") } answers { list.byteInputStream() }
-        every { assets.open("mock/match-details.json") } answers { details.byteInputStream() }
-        val repository = MatchRepositoryImpl(MatchRemoteDataSource(MockMatchDataSource(context, Json { ignoreUnknownKeys = true })))
-
-        val room = repository.getPairingRoom("pairing-beta-alpha") as Result.Success
-        assertEquals("#SG-BM-2111", room.value.code)
-        assertEquals("Sài Gòn Utd", room.value.hostTeam.teamName)
-        assertEquals("Bình Minh FC", room.value.guestTeam.teamName)
-
-        val confirmed = repository.confirmPackage("pairing-beta-alpha") as Result.Success
-        org.junit.jupiter.api.Assertions.assertTrue(confirmed.value.guestConfirmed)
-    }
+            val page = repository.getMatches() as Result.Success
+            assertEquals(3, page.value.matches.size)
+            assertEquals("Test FC", page.value.matches[0].authorTeamName)
+        }
 
     @Test
-    fun `getMercenaryPosts and applyMercenary update applicant count`() = runBlocking {
-        val list = File(checkNotNull(System.getProperty("matchMockFixturePath"))).readText()
-        val details = File(checkNotNull(System.getProperty("matchDetailMockFixturePath"))).readText()
-        val context = mockk<Context>()
-        val assets = mockk<AssetManager>()
-        every { context.assets } returns assets
-        every { assets.open("mock/matches.json") } answers { list.byteInputStream() }
-        every { assets.open("mock/match-details.json") } answers { details.byteInputStream() }
-        val repository = MatchRepositoryImpl(MatchRemoteDataSource(MockMatchDataSource(context, Json { ignoreUnknownKeys = true })))
+    fun `getPairingRoom and confirmPackage update confirmation state`() =
+        runBlocking {
+            val list = File(checkNotNull(System.getProperty("matchMockFixturePath"))).readText()
+            val details = File(checkNotNull(System.getProperty("matchDetailMockFixturePath"))).readText()
+            val context = mockk<Context>()
+            val assets = mockk<AssetManager>()
+            every { context.assets } returns assets
+            every { assets.open("mock/matches.json") } answers { list.byteInputStream() }
+            every { assets.open("mock/match-details.json") } answers { details.byteInputStream() }
+            val repository = MatchRepositoryImpl(MatchRemoteDataSource(MockMatchDataSource(context, Json { ignoreUnknownKeys = true })))
 
-        val posts = repository.getMercenaryPosts() as Result.Success
-        org.junit.jupiter.api.Assertions.assertTrue(posts.value.isNotEmpty())
+            val room = repository.getPairingRoom("pairing-beta-alpha") as Result.Success
+            assertEquals("#SG-BM-2111", room.value.code)
+            assertEquals("Sài Gòn Utd", room.value.hostTeam.teamName)
+            assertEquals("Bình Minh FC", room.value.guestTeam.teamName)
 
-        val applied = repository.applyMercenary("rec-1", "Tôi đá GK tốt") as Result.Success
-        org.junit.jupiter.api.Assertions.assertTrue(applied.value.isApplied)
-        assertEquals(3, applied.value.pendingApplicants)
-    }
+            val confirmed = repository.confirmPackage("pairing-beta-alpha") as Result.Success
+            org.junit.jupiter.api.Assertions
+                .assertTrue(confirmed.value.guestConfirmed)
+        }
 
     @Test
-    fun `getMyTeam, createTeam and inviteTeamMember work as expected`() = runBlocking {
-        val list = File(checkNotNull(System.getProperty("matchMockFixturePath"))).readText()
-        val details = File(checkNotNull(System.getProperty("matchDetailMockFixturePath"))).readText()
-        val context = mockk<Context>()
-        val assets = mockk<AssetManager>()
-        every { context.assets } returns assets
-        every { assets.open("mock/matches.json") } answers { list.byteInputStream() }
-        every { assets.open("mock/match-details.json") } answers { details.byteInputStream() }
-        val repository = MatchRepositoryImpl(MatchRemoteDataSource(MockMatchDataSource(context, Json { ignoreUnknownKeys = true })))
+    fun `getMercenaryPosts and applyMercenary update applicant count`() =
+        runBlocking {
+            val list = File(checkNotNull(System.getProperty("matchMockFixturePath"))).readText()
+            val details = File(checkNotNull(System.getProperty("matchDetailMockFixturePath"))).readText()
+            val context = mockk<Context>()
+            val assets = mockk<AssetManager>()
+            every { context.assets } returns assets
+            every { assets.open("mock/matches.json") } answers { list.byteInputStream() }
+            every { assets.open("mock/match-details.json") } answers { details.byteInputStream() }
+            val repository = MatchRepositoryImpl(MatchRemoteDataSource(MockMatchDataSource(context, Json { ignoreUnknownKeys = true })))
 
-        val teamResult = repository.getMyTeam() as Result.Success
-        assertEquals("Bình Minh FC", teamResult.value.name)
-        assertEquals(100, teamResult.value.reputationScore)
+            val posts = repository.getMercenaryPosts() as Result.Success
+            org.junit.jupiter.api.Assertions
+                .assertTrue(posts.value.isNotEmpty())
 
-        val createdResult = repository.createTeam(
-            com.uzuu.match.domain.model.TeamDraft(
-                name = "Gia Định FC",
-                shortName = "GĐFC",
-                ward = "TP. Thủ Đức",
-            )
-        ) as Result.Success
-        assertEquals("Gia Định FC", createdResult.value.name)
-        assertEquals("GĐFC", createdResult.value.shortName)
+            val applied = repository.applyMercenary("rec-1", "Tôi đá GK tốt") as Result.Success
+            org.junit.jupiter.api.Assertions
+                .assertTrue(applied.value.isApplied)
+            assertEquals(3, applied.value.pendingApplicants)
+        }
 
-        val inviteResult = repository.inviteTeamMember(createdResult.value.id, "Phạm Tuấn", "Tiền đạo") as Result.Success
-        assertEquals("Phạm Tuấn", inviteResult.value.name)
-        assertEquals("Tiền đạo", inviteResult.value.position)
-    }
+    @Test
+    fun `getMyTeam, createTeam and inviteTeamMember work as expected`() =
+        runBlocking {
+            val list = File(checkNotNull(System.getProperty("matchMockFixturePath"))).readText()
+            val details = File(checkNotNull(System.getProperty("matchDetailMockFixturePath"))).readText()
+            val context = mockk<Context>()
+            val assets = mockk<AssetManager>()
+            every { context.assets } returns assets
+            every { assets.open("mock/matches.json") } answers { list.byteInputStream() }
+            every { assets.open("mock/match-details.json") } answers { details.byteInputStream() }
+            val repository = MatchRepositoryImpl(MatchRemoteDataSource(MockMatchDataSource(context, Json { ignoreUnknownKeys = true })))
+
+            val teamResult = repository.getMyTeam() as Result.Success
+            assertEquals("Bình Minh FC", teamResult.value.name)
+            assertEquals(100, teamResult.value.reputationScore)
+
+            val createdResult =
+                repository.createTeam(
+                    com.uzuu.match.domain.model.TeamDraft(
+                        name = "Gia Định FC",
+                        shortName = "GĐFC",
+                        ward = "TP. Thủ Đức",
+                    ),
+                ) as Result.Success
+            assertEquals("Gia Định FC", createdResult.value.name)
+            assertEquals("GĐFC", createdResult.value.shortName)
+
+            val inviteResult = repository.inviteTeamMember(createdResult.value.id, "Phạm Tuấn", "Tiền đạo") as Result.Success
+            assertEquals("Phạm Tuấn", inviteResult.value.name)
+            assertEquals("Tiền đạo", inviteResult.value.position)
+        }
 
     private fun mockApi(content: String): MatchApi {
         val context = mockk<Context>()
@@ -203,6 +218,5 @@ class MatchRepositoryImplTest {
         return MockMatchDataSource(context, Json { ignoreUnknownKeys = true })
     }
 
-    private fun useCaseFor(api: MatchApi): GetMatchUseCase =
-        GetMatchUseCase(MatchRepositoryImpl(MatchRemoteDataSource(api)))
+    private fun useCaseFor(api: MatchApi): GetMatchUseCase = GetMatchUseCase(MatchRepositoryImpl(MatchRemoteDataSource(api)))
 }

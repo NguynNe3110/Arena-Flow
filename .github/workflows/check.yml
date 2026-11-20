@@ -27,6 +27,9 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Build App
         run: ./gradlew :app:assembleDebug --no-build-cache
 
@@ -49,6 +52,9 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
 
       - name: lintDebug
         run: ./gradlew lint
@@ -76,6 +82,9 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
 
       - name: detekt
         run: ./gradlew detektCheck
@@ -106,6 +115,9 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: konsist
         run: ./gradlew konsist-test:test --rerun-tasks
 
@@ -129,6 +141,9 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
 
       - name: spotlessCheck
         run: ./gradlew spotlessCheck
@@ -188,6 +203,9 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
 
       - name: unitTest
         run: ./gradlew test -x konsist-test:test

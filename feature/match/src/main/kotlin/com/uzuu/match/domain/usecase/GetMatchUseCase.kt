@@ -7,7 +7,5 @@ import com.uzuu.match.domain.repository.MatchRepository
 internal class GetMatchUseCase(
     private val matchRepository: MatchRepository,
 ) {
-    suspend operator fun invoke(): Result<MatchPage> {
-        return matchRepository.getMatches()
-    }
+    suspend operator fun invoke(): Result<MatchPage> = matchRepository.getMatches()
 }

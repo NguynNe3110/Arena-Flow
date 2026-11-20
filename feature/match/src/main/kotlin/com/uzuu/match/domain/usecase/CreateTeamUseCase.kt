@@ -8,6 +8,5 @@ import com.uzuu.match.domain.repository.MatchRepository
 internal class CreateTeamUseCase(
     private val matchRepository: MatchRepository,
 ) {
-    suspend operator fun invoke(draft: TeamDraft): Result<TeamDetail> =
-        matchRepository.createTeam(draft)
+    suspend operator fun invoke(draft: TeamDraft): Result<TeamDetail> = matchRepository.createTeam(draft)
 }

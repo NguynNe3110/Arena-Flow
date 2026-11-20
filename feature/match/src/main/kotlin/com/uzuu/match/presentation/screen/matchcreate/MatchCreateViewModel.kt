@@ -9,22 +9,25 @@ import kotlinx.coroutines.flow.asStateFlow
 
 internal data class MatchCreateUiState(
     val draft: MatchDraft = MatchDraft(),
-    val availableTeams: List<Pair<String, String>> = listOf(
-        "team-alpha" to "Bình Minh FC",
-        "team-phoenix" to "Phượng Hoàng FC",
-        "team-saigon" to "Sài Gòn United",
-    ),
-    val availableVenues: List<MatchVenue> = listOf(
-        MatchVenue("ven-anphu", "Sân bóng An Phú", "Số 8 Đường số 2, Phường An Khánh, TP. Thủ Đức", "ACTIVE"),
-        MatchVenue("ven-binhtrung", "Sân bóng Bình Trưng", "12 Đỗ Xuân Hợp, Phường Bình Trưng Tây, TP. Thủ Đức", "ACTIVE"),
-        MatchVenue("ven-thaodien", "Sân bóng Thảo Điền", "28 Thảo Điền, P. Thảo Điền, TP. Thủ Đức", "ACTIVE"),
-        MatchVenue("ven-chienthang", "Sân bóng Chiến Thắng", "102 Ung Văn Khiêm, P. 25, Q. Bình Thạnh", "ACTIVE"),
-    ),
-    val availableTimeSlots: List<String> = listOf(
-        "17:30 - 19:00",
-        "19:00 - 20:30",
-        "20:30 - 22:00",
-    ),
+    val availableTeams: List<Pair<String, String>> =
+        listOf(
+            "team-alpha" to "Bình Minh FC",
+            "team-phoenix" to "Phượng Hoàng FC",
+            "team-saigon" to "Sài Gòn United",
+        ),
+    val availableVenues: List<MatchVenue> =
+        listOf(
+            MatchVenue("ven-anphu", "Sân bóng An Phú", "8 Đường số 2, An Khánh, TP. Thủ Đức", "ACTIVE"),
+            MatchVenue("ven-binhtrung", "Sân bóng Bình Trưng", "12 Đỗ Xuân Hợp, Bình Trưng Tây, Thủ Đức", "ACTIVE"),
+            MatchVenue("ven-thaodien", "Sân bóng Thảo Điền", "28 Thảo Điền, P. Thảo Điền, TP. Thủ Đức", "ACTIVE"),
+            MatchVenue("ven-chienthang", "Sân bóng Chiến Thắng", "102 Ung Văn Khiêm, P. 25, Q. Bình Thạnh", "ACTIVE"),
+        ),
+    val availableTimeSlots: List<String> =
+        listOf(
+            "17:30 - 19:00",
+            "19:00 - 20:30",
+            "20:30 - 22:00",
+        ),
     val errors: Map<String, String> = emptyMap(),
 )
 

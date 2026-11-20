@@ -23,46 +23,49 @@ class TeamCreateViewModelTest {
     private val createTeamUseCase: CreateTeamUseCase = mockk()
 
     @Test
-    fun `blank team name produces validation error`() = runTest {
-        val sut = TeamCreateViewModel(createTeamUseCase)
-        var created = false
+    fun `blank team name produces validation error`() =
+        runTest {
+            val sut = TeamCreateViewModel(createTeamUseCase)
+            var created = false
 
-        sut.updateTeamName("   ")
-        sut.createTeam { created = true }
+            sut.updateTeamName("   ")
+            sut.createTeam { created = true }
 
-        assertFalse(created)
-        assertNotNull(sut.uiState.value.nameError)
-    }
-
-    @Test
-    fun `toggleSkill restricts to maximum 3 skill levels`() = runTest {
-        val sut = TeamCreateViewModel(createTeamUseCase)
-
-        sut.toggleSkill("Vui vẻ")
-        sut.toggleSkill("Bán chuyên")
-        // Now has 3: "Trung bình", "Vui vẻ", "Bán chuyên"
-        assertEquals(3, sut.uiState.value.selectedSkills.size)
-
-        // Adding 4th should be ignored per max 3 rule
-        sut.toggleSkill("Chuyên nghiệp")
-        assertEquals(3, sut.uiState.value.selectedSkills.size)
-    }
+            assertFalse(created)
+            assertNotNull(sut.uiState.value.nameError)
+        }
 
     @Test
-    fun `valid draft creates team successfully`() = runTest {
-        val team = TeamDetail(id = "team-new", name = "Sài Gòn Utd", shortName = "SGU")
-        coEvery { createTeamUseCase(any()) } returns Result.Success(team)
+    fun `toggleSkill restricts to maximum 3 skill levels`() =
+        runTest {
+            val sut = TeamCreateViewModel(createTeamUseCase)
 
-        val sut = TeamCreateViewModel(createTeamUseCase)
-        var createdId: String? = null
+            sut.toggleSkill("Vui vẻ")
+            sut.toggleSkill("Bán chuyên")
+            // Now has 3: "Trung bình", "Vui vẻ", "Bán chuyên"
+            assertEquals(3, sut.uiState.value.selectedSkills.size)
 
-        sut.updateTeamName("Sài Gòn Utd")
-        sut.updateShortName("SGU")
-        sut.createTeam { createdId = it }
-        advanceUntilIdle()
+            // Adding 4th should be ignored per max 3 rule
+            sut.toggleSkill("Chuyên nghiệp")
+            assertEquals(3, sut.uiState.value.selectedSkills.size)
+        }
 
-        assertEquals("team-new", createdId)
-        assertTrue(sut.uiState.value.isCreatedSuccessfully)
-        assertFalse(sut.uiState.value.isSubmitting)
-    }
+    @Test
+    fun `valid draft creates team successfully`() =
+        runTest {
+            val team = TeamDetail(id = "team-new", name = "Sài Gòn Utd", shortName = "SGU")
+            coEvery { createTeamUseCase(any()) } returns Result.Success(team)
+
+            val sut = TeamCreateViewModel(createTeamUseCase)
+            var createdId: String? = null
+
+            sut.updateTeamName("Sài Gòn Utd")
+            sut.updateShortName("SGU")
+            sut.createTeam { createdId = it }
+            advanceUntilIdle()
+
+            assertEquals("team-new", createdId)
+            assertTrue(sut.uiState.value.isCreatedSuccessfully)
+            assertFalse(sut.uiState.value.isSubmitting)
+        }
 }

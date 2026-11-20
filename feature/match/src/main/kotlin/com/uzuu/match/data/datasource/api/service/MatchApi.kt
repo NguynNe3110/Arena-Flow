@@ -16,21 +16,28 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 internal interface MatchApi {
-
     @GET("matches")
     suspend fun getMatches(): ApiResult<MatchListResponse>
 
     @GET("matches/{matchId}")
-    suspend fun getMatch(@Path("matchId") matchId: String): ApiResult<MatchDetailResponse>
+    suspend fun getMatch(
+        @Path("matchId") matchId: String,
+    ): ApiResult<MatchDetailResponse>
 
     @POST("matches")
-    suspend fun createMatch(@Body draftDto: MatchSummaryDto): ApiResult<MatchSummaryDto>
+    suspend fun createMatch(
+        @Body draftDto: MatchSummaryDto,
+    ): ApiResult<MatchSummaryDto>
 
     @GET("pairings/{pairingId}")
-    suspend fun getPairingRoom(@Path("pairingId") pairingId: String): ApiResult<PairingRoom>
+    suspend fun getPairingRoom(
+        @Path("pairingId") pairingId: String,
+    ): ApiResult<PairingRoom>
 
     @POST("pairings/{pairingId}/confirm")
-    suspend fun confirmPackage(@Path("pairingId") pairingId: String): ApiResult<PairingRoom>
+    suspend fun confirmPackage(
+        @Path("pairingId") pairingId: String,
+    ): ApiResult<PairingRoom>
 
     @POST("pairings/{pairingId}/options")
     suspend fun updatePackageOption(
@@ -52,7 +59,9 @@ internal interface MatchApi {
     suspend fun getMyTeam(): ApiResult<TeamDetail>
 
     @POST("teams")
-    suspend fun createTeam(@Body draft: TeamDraft): ApiResult<TeamDetail>
+    suspend fun createTeam(
+        @Body draft: TeamDraft,
+    ): ApiResult<TeamDetail>
 
     @POST("teams/{teamId}/invite")
     suspend fun inviteTeamMember(

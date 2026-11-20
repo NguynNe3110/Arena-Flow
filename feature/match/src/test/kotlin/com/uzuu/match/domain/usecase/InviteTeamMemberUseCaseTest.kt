@@ -14,13 +14,14 @@ class InviteTeamMemberUseCaseTest {
     private val sut = InviteTeamMemberUseCase(matchRepository)
 
     @Test
-    fun `invoke calls repository inviteTeamMember`() = runTest {
-        val member = mockk<TeamMember>()
-        val expected = Result.Success(member)
-        coEvery { matchRepository.inviteTeamMember("t1", "Lê Hoàng", "Tiền vệ") } returns expected
+    fun `invoke calls repository inviteTeamMember`() =
+        runTest {
+            val member = mockk<TeamMember>()
+            val expected = Result.Success(member)
+            coEvery { matchRepository.inviteTeamMember("t1", "Lê Hoàng", "Tiền vệ") } returns expected
 
-        val actual = sut("t1", "Lê Hoàng", "Tiền vệ")
+            val actual = sut("t1", "Lê Hoàng", "Tiền vệ")
 
-        assertEquals(expected, actual)
-    }
+            assertEquals(expected, actual)
+        }
 }

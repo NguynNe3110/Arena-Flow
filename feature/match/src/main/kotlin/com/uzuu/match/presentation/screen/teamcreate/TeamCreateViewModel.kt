@@ -31,10 +31,11 @@ internal class TeamCreateViewModel(
     val uiState = mutableState.asStateFlow()
 
     fun updateTeamName(name: String) {
-        mutableState.value = mutableState.value.copy(
-            teamName = name,
-            nameError = if (name.isNotBlank()) null else mutableState.value.nameError,
-        )
+        mutableState.value =
+            mutableState.value.copy(
+                teamName = name,
+                nameError = if (name.isNotBlank()) null else mutableState.value.nameError,
+            )
     }
 
     fun updateShortName(shortName: String) {
@@ -82,28 +83,32 @@ internal class TeamCreateViewModel(
 
         viewModelScope.launch {
             mutableState.value = mutableState.value.copy(isSubmitting = true, error = null)
-            val draft = TeamDraft(
-                name = name,
-                shortName = mutableState.value.shortName.ifBlank { name.take(3).uppercase() },
-                description = mutableState.value.description,
-                ward = ward,
-                skillLevels = mutableState.value.selectedSkills.toList(),
-            )
+            val draft =
+                TeamDraft(
+                    name = name,
+                    shortName = mutableState.value.shortName.ifBlank { name.take(3).uppercase() },
+                    description = mutableState.value.description,
+                    ward = ward,
+                    skillLevels = mutableState.value.selectedSkills.toList(),
+                )
 
             when (val result = createTeamUseCase(draft)) {
                 is Result.Success -> {
-                    mutableState.value = mutableState.value.copy(
-                        isSubmitting = false,
-                        isCreatedSuccessfully = true,
-                        createdTeamId = result.value.id,
-                    )
+                    mutableState.value =
+                        mutableState.value.copy(
+                            isSubmitting = false,
+                            isCreatedSuccessfully = true,
+                            createdTeamId = result.value.id,
+                        )
                     onSuccess(result.value.id)
                 }
+
                 is Result.Failure -> {
-                    mutableState.value = mutableState.value.copy(
-                        isSubmitting = false,
-                        error = result.error,
-                    )
+                    mutableState.value =
+                        mutableState.value.copy(
+                            isSubmitting = false,
+                            error = result.error,
+                        )
                 }
             }
         }

@@ -7,6 +7,9 @@ import com.uzuu.match.domain.repository.MatchRepository
 internal class InviteTeamMemberUseCase(
     private val matchRepository: MatchRepository,
 ) {
-    suspend operator fun invoke(teamId: String, name: String, position: String): Result<TeamMember> =
-        matchRepository.inviteTeamMember(teamId, name, position)
+    suspend operator fun invoke(
+        teamId: String,
+        name: String,
+        position: String,
+    ): Result<TeamMember> = matchRepository.inviteTeamMember(teamId, name, position)
 }

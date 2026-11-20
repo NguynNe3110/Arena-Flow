@@ -27,53 +27,66 @@ class PairingRoomViewModelTest {
     private val selectPairingOptionUseCase: SelectPairingOptionUseCase = mockk()
 
     @Test
-    fun `load loads pairing room successfully`() = runTest {
-        val room = sampleRoom()
-        coEvery { getPairingRoomUseCase("p1") } returns Result.Success(room)
+    fun `load loads pairing room successfully`() =
+        runTest {
+            val room = sampleRoom()
+            coEvery { getPairingRoomUseCase("p1") } returns Result.Success(room)
 
-        val viewModel = PairingRoomViewModel(getPairingRoomUseCase, confirmPackageUseCase, selectPairingOptionUseCase)
-        viewModel.load("p1")
-        advanceUntilIdle()
+            val viewModel = PairingRoomViewModel(getPairingRoomUseCase, confirmPackageUseCase, selectPairingOptionUseCase)
+            viewModel.load("p1")
+            advanceUntilIdle()
 
-        assertEquals(room, viewModel.uiState.value.pairingRoom)
-        assertFalse(viewModel.uiState.value.isLoading)
-    }
-
-    @Test
-    fun `confirmPackage confirms package successfully`() = runTest {
-        val room = sampleRoom(guestConfirmed = false)
-        val confirmed = room.copy(guestConfirmed = true)
-        coEvery { getPairingRoomUseCase("p1") } returns Result.Success(room)
-        coEvery { confirmPackageUseCase("p1") } returns Result.Success(confirmed)
-
-        val viewModel = PairingRoomViewModel(getPairingRoomUseCase, confirmPackageUseCase, selectPairingOptionUseCase)
-        viewModel.load("p1")
-        advanceUntilIdle()
-
-        viewModel.confirmPackage()
-        advanceUntilIdle()
-
-        assertTrue(viewModel.uiState.value.pairingRoom?.guestConfirmed == true)
-        assertFalse(viewModel.uiState.value.isConfirming)
-    }
+            assertEquals(room, viewModel.uiState.value.pairingRoom)
+            assertFalse(viewModel.uiState.value.isLoading)
+        }
 
     @Test
-    fun `selectVenue updates room and resets confirmations`() = runTest {
-        val room = sampleRoom(selectedVenueId = "v1")
-        val updated = room.copy(selectedVenueId = "v2", hostConfirmed = false, guestConfirmed = false)
-        coEvery { getPairingRoomUseCase("p1") } returns Result.Success(room)
-        coEvery { selectPairingOptionUseCase("p1", "v2", null) } returns Result.Success(updated)
+    fun `confirmPackage confirms package successfully`() =
+        runTest {
+            val room = sampleRoom(guestConfirmed = false)
+            val confirmed = room.copy(guestConfirmed = true)
+            coEvery { getPairingRoomUseCase("p1") } returns Result.Success(room)
+            coEvery { confirmPackageUseCase("p1") } returns Result.Success(confirmed)
 
-        val viewModel = PairingRoomViewModel(getPairingRoomUseCase, confirmPackageUseCase, selectPairingOptionUseCase)
-        viewModel.load("p1")
-        advanceUntilIdle()
+            val viewModel = PairingRoomViewModel(getPairingRoomUseCase, confirmPackageUseCase, selectPairingOptionUseCase)
+            viewModel.load("p1")
+            advanceUntilIdle()
 
-        viewModel.selectVenue("v2")
-        advanceUntilIdle()
+            viewModel.confirmPackage()
+            advanceUntilIdle()
 
-        assertEquals("v2", viewModel.uiState.value.pairingRoom?.selectedVenueId)
-        assertFalse(viewModel.uiState.value.pairingRoom?.guestConfirmed == true)
-    }
+            assertTrue(
+                viewModel.uiState.value.pairingRoom
+                    ?.guestConfirmed == true,
+            )
+            assertFalse(viewModel.uiState.value.isConfirming)
+        }
+
+    @Test
+    fun `selectVenue updates room and resets confirmations`() =
+        runTest {
+            val room = sampleRoom(selectedVenueId = "v1")
+            val updated = room.copy(selectedVenueId = "v2", hostConfirmed = false, guestConfirmed = false)
+            coEvery { getPairingRoomUseCase("p1") } returns Result.Success(room)
+            coEvery { selectPairingOptionUseCase("p1", "v2", null) } returns Result.Success(updated)
+
+            val viewModel = PairingRoomViewModel(getPairingRoomUseCase, confirmPackageUseCase, selectPairingOptionUseCase)
+            viewModel.load("p1")
+            advanceUntilIdle()
+
+            viewModel.selectVenue("v2")
+            advanceUntilIdle()
+
+            assertEquals(
+                "v2",
+                viewModel.uiState.value.pairingRoom
+                    ?.selectedVenueId,
+            )
+            assertFalse(
+                viewModel.uiState.value.pairingRoom
+                    ?.guestConfirmed == true,
+            )
+        }
 
     private fun sampleRoom(
         selectedVenueId: String = "v1",

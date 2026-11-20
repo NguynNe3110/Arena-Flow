@@ -164,7 +164,7 @@ private fun NavGraphBuilder.myTeamsGraph(navController: NavController) {
                 onBackClick = {
                     navController.popBackStack()
                 },
-                onTeamCreated = { _ ->
+                onTeamCreate = { _ ->
                     navController.popBackStack()
                 },
             )

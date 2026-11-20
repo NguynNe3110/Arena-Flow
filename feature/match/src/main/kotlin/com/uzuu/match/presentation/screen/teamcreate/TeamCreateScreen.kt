@@ -47,7 +47,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun TeamCreateScreen(
     onBackClick: () -> Unit = {},
-    onTeamCreated: (String) -> Unit = {},
+    onTeamCreate: (String) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val viewModel: TeamCreateViewModel = koinViewModel()
@@ -61,7 +61,7 @@ fun TeamCreateScreen(
         onWardSelect = viewModel::updateWard,
         onSkillToggle = viewModel::toggleSkill,
         onSubmit = {
-            viewModel.createTeam(onSuccess = onTeamCreated)
+            viewModel.createTeam(onSuccess = onTeamCreate)
         },
         onBackClick = onBackClick,
         modifier = modifier,
@@ -106,11 +106,12 @@ internal fun TeamCreateContent(
         },
     ) { padding ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .verticalScroll(rememberScrollState())
+                    .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             // Notice Info Banner
@@ -139,7 +140,9 @@ internal fun TeamCreateContent(
                         )
                         Spacer(modifier = Modifier.height(2.dp))
                         Text(
-                            text = "Bạn sẽ tự động là Đội trưởng và có toàn quyền quản lý thành viên, tạo kèo và tuyển quân.",
+                            text =
+                                "Bạn sẽ tự động là Đội trưởng và có toàn quyền " +
+                                    "quản lý thành viên, tạo kèo và tuyển quân.",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -187,28 +190,37 @@ internal fun TeamCreateContent(
                     text = "Khu vực hoạt động chính *",
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                 )
-                val wards = listOf(
-                    "P. An Khánh (TP. Thủ Đức, TP.HCM)",
-                    "P. Hải Châu 1 (Q. Hải Châu, Đà Nẵng)",
-                    "P. Bến Nghé (Quận 1, TP.HCM)",
-                )
+                val wards =
+                    listOf(
+                        "P. An Khánh (TP. Thủ Đức, TP.HCM)",
+                        "P. Hải Châu 1 (Q. Hải Châu, Đà Nẵng)",
+                        "P. Bến Nghé (Quận 1, TP.HCM)",
+                    )
                 wards.forEach { ward ->
                     val isSelected = uiState.selectedWard == ward
                     Surface(
                         shape = ControlShape,
-                        color = if (isSelected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainerLow,
-                        border = BorderStroke(
-                            1.dp,
-                            if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
-                        ),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { onWardSelect(ward) },
+                        color =
+                            if (isSelected) {
+                                MaterialTheme.colorScheme.primaryContainer
+                            } else {
+                                MaterialTheme.colorScheme.surfaceContainerLow
+                            },
+                        border =
+                            BorderStroke(
+                                1.dp,
+                                if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+                            ),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .clickable { onWardSelect(ward) },
                     ) {
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 12.dp, vertical = 10.dp),
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 12.dp, vertical = 10.dp),
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                         ) {
@@ -220,7 +232,12 @@ internal fun TeamCreateContent(
                             Text(
                                 text = ward,
                                 style = MaterialTheme.typography.bodyMedium,
-                                color = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface,
+                                color =
+                                    if (isSelected) {
+                                        MaterialTheme.colorScheme.onPrimaryContainer
+                                    } else {
+                                        MaterialTheme.colorScheme.onSurface
+                                    },
                             )
                         }
                     }
@@ -255,15 +272,18 @@ internal fun TeamCreateContent(
                             selected = isSelected,
                             onClick = { onSkillToggle(skill) },
                             label = { Text(skill, style = MaterialTheme.typography.labelSmall) },
-                            leadingIcon = if (isSelected) {
-                                {
-                                    Icon(
-                                        imageVector = Icons.Outlined.Check,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(16.dp),
-                                    )
-                                }
-                            } else null,
+                            leadingIcon =
+                                if (isSelected) {
+                                    {
+                                        Icon(
+                                            imageVector = Icons.Outlined.Check,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(16.dp),
+                                        )
+                                    }
+                                } else {
+                                    null
+                                },
                             modifier = Modifier.heightIn(min = 48.dp),
                         )
                     }
@@ -277,9 +297,10 @@ internal fun TeamCreateContent(
                 onClick = onSubmit,
                 enabled = !uiState.isSubmitting && uiState.teamName.isNotBlank(),
                 shape = ControlShape,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 48.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 48.dp),
             ) {
                 if (uiState.isSubmitting) {
                     CircularProgressIndicator(

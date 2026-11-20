@@ -16,7 +16,10 @@ class MatchCreateViewModelTest {
         viewModel.validateAndProceed { proceeded = true }
 
         assertTrue(proceeded)
-        assertTrue(viewModel.uiState.value.errors.isEmpty())
+        assertTrue(
+            viewModel.uiState.value.errors
+                .isEmpty(),
+        )
     }
 
     @Test
@@ -29,7 +32,10 @@ class MatchCreateViewModelTest {
         viewModel.validateAndProceed { proceeded = true }
 
         assertFalse(proceeded)
-        assertTrue(viewModel.uiState.value.errors.containsKey("time"))
+        assertTrue(
+            viewModel.uiState.value.errors
+                .containsKey("time"),
+        )
     }
 
     @Test
@@ -42,6 +48,9 @@ class MatchCreateViewModelTest {
         viewModel.validateAndProceed { proceeded = true }
 
         assertFalse(proceeded)
-        assertTrue(viewModel.uiState.value.errors.containsKey("venues"))
+        assertTrue(
+            viewModel.uiState.value.errors
+                .containsKey("venues"),
+        )
     }
 }

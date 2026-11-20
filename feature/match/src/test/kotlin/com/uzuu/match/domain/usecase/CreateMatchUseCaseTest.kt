@@ -16,20 +16,22 @@ class CreateMatchUseCaseTest {
     private val sut = CreateMatchUseCase(matchRepository)
 
     @Test
-    fun `invoke calls repository createMatch and returns result`() = runTest {
-        val draft = MatchDraft(kind = MatchType.HAS_VENUE)
-        val expected = Result.Success(
-            MatchSummary(
-                matchId = "m_new",
-                type = MatchType.HAS_VENUE,
-                authorTeamName = "Team A",
-                venueName = "San A",
-            ),
-        )
-        coEvery { matchRepository.createMatch(draft) } returns expected
+    fun `invoke calls repository createMatch and returns result`() =
+        runTest {
+            val draft = MatchDraft(kind = MatchType.HAS_VENUE)
+            val expected =
+                Result.Success(
+                    MatchSummary(
+                        matchId = "m_new",
+                        type = MatchType.HAS_VENUE,
+                        authorTeamName = "Team A",
+                        venueName = "San A",
+                    ),
+                )
+            coEvery { matchRepository.createMatch(draft) } returns expected
 
-        val actual = sut(draft)
+            val actual = sut(draft)
 
-        assertEquals(expected, actual)
-    }
+            assertEquals(expected, actual)
+        }
 }
