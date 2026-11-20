@@ -1,24 +1,24 @@
 package com.igorwojda.showcase.feature.base.presentation.compose.theme
 
 import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaColors
+import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaTypography
 
 @Composable
 fun ShowcaseTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S,
+    darkTheme: Boolean = false,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit,
 ) {
     MaterialTheme(
         colorScheme = getColorScheme(darkTheme, dynamicColor),
+        typography = ArenaTypography,
         content = content,
     )
 }
@@ -35,11 +35,11 @@ private fun getColorScheme(
         }
 
         darkTheme -> {
-            darkColorScheme()
+            ArenaColors.Dark
         }
 
         else -> {
-            lightColorScheme()
+            ArenaColors.Light
         }
     }
 }

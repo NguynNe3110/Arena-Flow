@@ -66,7 +66,8 @@ class FeatureConventionPlugin : Plugin<Project> {
                     unitTests.isReturnDefaultValues = true
                 }
 
-                packaging { // cấu hình đóng gói
+                packaging {
+                    // cấu hình đóng gói
                     excludeLicenseAndMetaFiles()
                 }
             }
@@ -74,8 +75,12 @@ class FeatureConventionPlugin : Plugin<Project> {
             // cấu hình thư viện
             dependencies {
                 // Add feature:base dependency only for non-base feature modules
-                if (project.path != ":feature:base") { // các module con tự động thêm implementation(project(":feature:base")) k cần khai báo tay
-                    add("implementation", dependencies.project(mapOf("path" to ":feature:base")))
+                if (project.path != ":feature:base") { // các module con tự động thêm implementation(project(":feature:base"))
+                    // k cần khai báo tay
+                    add(
+                        "implementation",
+                        dependencies.project(mapOf("path" to ":feature:base")),
+                    )
                 }
 
                 implementation(libs.kotlin.reflect)

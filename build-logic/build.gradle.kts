@@ -41,7 +41,12 @@ dependencies {
     e.g. add("implementation", libs.koin)
     https://github.com/gradle/gradle/issues/15383
      */
-    implementation(files((libs as Any).javaClass.superclass.protectionDomain.codeSource.location))
+    implementation(
+        files(
+            (libs as Any)
+                .javaClass.superclass.protectionDomain.codeSource.location,
+        ),
+    )
 }
 
 tasks {
@@ -51,7 +56,8 @@ tasks {
     }
 }
 
-gradlePlugin { // đăng kí plugin tại đây
+gradlePlugin {
+    // đăng kí plugin tại đây
     plugins {
         register("applicationConvention") {
             id = "com.igorwojda.showcase.convention.application"

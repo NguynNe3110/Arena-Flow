@@ -5,12 +5,13 @@ import com.igorwojda.showcase.app.di.appModule
 import com.igorwojda.showcase.feature.album.featureAlbumModules
 import com.igorwojda.showcase.feature.favourite.featureFavouriteModules
 import com.igorwojda.showcase.feature.settings.featureSettingsModules
+import com.uzuu.match.featureMatchModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext
 import timber.log.Timber
 
-class ShowcaseApplication : Application() { // cấp app
+class ShowcaseApplication : Application() { // nơi khởi tạo đầu tiên
     override fun onCreate() {
         super.onCreate()
 
@@ -27,6 +28,7 @@ class ShowcaseApplication : Application() { // cấp app
             modules(featureFavouriteModules)
             modules(featureAlbumModules)
             modules(featureSettingsModules)
+            modules(featureMatchModules)
         }
     }
 

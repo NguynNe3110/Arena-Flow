@@ -20,11 +20,24 @@ android {
     }
 
     buildTypes {
-        getByName("release") { // cần key để kí TODO sign keystore
-            signingConfig = signingConfigs.getByName("debug") // ký tạm bằng debug
+        getByName("debug") {
+            // theem đuôi .debug -> id sẽ thnafh com....arenaflow.debug
+            applicationIdSuffix = ".debug"
+            // (option) đổi tên app thnafh ->
+            resValue("string", "app_name", "ArenaFlow DEBUG")
+        }
+
+        getByName("release") {
+            // cần key để kí TODO sign keystore
+            // id giữ nguyên gốc
+            signingConfig = signingConfigs.getByName("debug") // dòng này để kí key
             isMinifyEnabled = false
             proguardFiles("proguard-android.txt", "proguard-rules.pro")
         }
+    }
+
+    buildFeatures {
+        resValues = true // bat tinh nang resValue
     }
 }
 
@@ -37,4 +50,6 @@ dependencies {
     implementation(projects.feature.album)
     implementation(projects.feature.settings)
     implementation(projects.feature.favourite)
+
+    implementation(projects.feature.match)
 }

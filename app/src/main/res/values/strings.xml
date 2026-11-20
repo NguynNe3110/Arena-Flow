@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">ArenaFlow</string>
+    <string name="bottom_navigation_match">Tìm Kèo</string>
 
-    <string name="bottom_navigation_albums">Albums</string>
-    <string name="bottom_navigation_favorites">Favorites</string>
-    <string name="bottom_navigation_settings">Settings</string>
+    <string name="bottom_navigation_signle_match">Đá lẻ</string>
+    <string name="bottom_navigation_message">Tin nhắn</string>
+    <string name="bottom_navigation_myteam">Đội của tôi</string>
 </resources>

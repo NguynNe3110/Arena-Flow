@@ -56,6 +56,9 @@ konsist = "0.17.3"
 
 supabase = "3.8.0"
 ktor = "3.5.1"
+junit = "4.13.2"
+junit-version = "1.3.0"
+appcompat = "1.8.0"
 
 [plugins]
 # Search Gradle Plugins https://plugins.gradle.org/
@@ -140,6 +143,9 @@ supabase-realtime = { module = "io.github.jan-tennert.supabase:realtime-kt" }
 supabase-storage = { module = "io.github.jan-tennert.supabase:storage-kt" }
 supabase-functions = { module = "io.github.jan-tennert.supabase:functions-kt" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit-version" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
 [bundles]
 retrofit = [
