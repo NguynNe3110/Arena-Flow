@@ -8,6 +8,5 @@ import com.uzuu.match.domain.repository.MatchRepository
 internal class CreateMatchUseCase(
     private val matchRepository: MatchRepository,
 ) {
-    suspend operator fun invoke(draft: MatchDraft): Result<MatchSummary> =
-        matchRepository.createMatch(draft)
+    suspend operator fun invoke(draft: MatchDraft): Result<MatchSummary> = matchRepository.createMatch(draft)
 }

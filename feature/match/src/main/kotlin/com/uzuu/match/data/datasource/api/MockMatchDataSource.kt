@@ -27,18 +27,26 @@ internal class MockMatchDataSource(
             val added = addedDetails.find { it.matchId == matchId }
             if (added != null) return@withContext ApiResult.Success(MatchDetailResponse(added))
 
-            val content = context.assets.open("mock/match-details.json").bufferedReader().use { it.readText() }
+            val content =
+                context.assets
+                    .open("mock/match-details.json")
+                    .bufferedReader()
+                    .use { it.readText() }
             val match = json.decodeFromString<List<MatchDetailDto>>(content).find { it.matchId == matchId }
-            if (match == null) ApiResult.Error(404, "Không tìm thấy kèo")
-            else ApiResult.Success(MatchDetailResponse(match))
+            if (match == null) {
+                ApiResult.Error(404, "Không tìm thấy kèo")
+            } else {
+                ApiResult.Success(MatchDetailResponse(match))
+            }
         }
 
-    override suspend fun getMatches(): ApiResult<MatchListResponse> {
-        return withContext(Dispatchers.IO) {
-            val content = context.assets
-                .open("mock/matches.json")
-                .bufferedReader()
-                .use { reader -> reader.readText() }
+    override suspend fun getMatches(): ApiResult<MatchListResponse> =
+        withContext(Dispatchers.IO) {
+            val content =
+                context.assets
+                    .open("mock/matches.json")
+                    .bufferedReader()
+                    .use { reader -> reader.readText() }
 
             val response =
                 json.decodeFromString<MatchListResponse>(content)
@@ -51,7 +59,6 @@ internal class MockMatchDataSource(
                 ),
             )
         }
-    }
 
     override suspend fun createMatch(draftDto: MatchSummaryDto): ApiResult<MatchSummaryDto> =
         withContext(Dispatchers.IO) {
@@ -68,7 +75,14 @@ internal class MockMatchDataSource(
                     endsAt = draftDto.endsAt,
                     expiresAt = draftDto.expiresAt,
                     authorTeam = MatchTeamDto(draftDto.authorTeamId, draftDto.authorTeamName, draftDto.authorTeamReliabilityScore),
-                    venue = if (draftDto.venueId != null) MatchVenueDto(draftDto.venueId, draftDto.venueName ?: "", draftDto.venueAddress ?: "") else null,
+                    venue =
+                        if (draftDto.venueId !=
+                            null
+                        ) {
+                            MatchVenueDto(draftDto.venueId, draftDto.venueName ?: "", draftDto.venueAddress ?: "")
+                        } else {
+                            null
+                        },
                     costAgreement = MatchCostAgreementDto(),
                 ),
             )

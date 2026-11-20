@@ -6,8 +6,7 @@ import com.uzuu.match.domain.model.MatchPage
 
 internal sealed interface MatchListAction : BaseAction<MatchListUiState> {
     data object Loading : MatchListAction {
-        override fun reduce(state: MatchListUiState): MatchListUiState =
-            state.copy(isLoading = true, error = null)
+        override fun reduce(state: MatchListUiState): MatchListUiState = state.copy(isLoading = true, error = null)
     }
 
     data class Loaded(
@@ -28,7 +27,6 @@ internal sealed interface MatchListAction : BaseAction<MatchListUiState> {
     data class Failed(
         val error: AppError,
     ) : MatchListAction {
-        override fun reduce(state: MatchListUiState): MatchListUiState =
-            state.copy(isLoading = false, error = error)
+        override fun reduce(state: MatchListUiState): MatchListUiState = state.copy(isLoading = false, error = error)
     }
 }

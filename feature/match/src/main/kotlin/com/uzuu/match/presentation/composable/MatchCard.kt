@@ -70,7 +70,7 @@ internal fun MatchCard(
                 }
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     MatchBadge(match.skillLevels.ifEmpty { listOf("Mọi trình độ") }.joinToString(", "))
-                    match.distanceKm?.let { MatchBadge("${it} km") }
+                    match.distanceKm?.let { MatchBadge("$it km") }
                 }
                 Text(
                     "Xem chi tiết kèo",

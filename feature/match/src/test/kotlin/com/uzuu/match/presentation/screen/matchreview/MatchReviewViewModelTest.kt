@@ -26,43 +26,46 @@ class MatchReviewViewModelTest {
     private val createMatchUseCase: CreateMatchUseCase = mockk()
 
     @Test
-    fun `confirmPost succeeds and resets draft`() = runTest {
-        val holder = MatchDraftHolder()
-        holder.updateDraft(MatchDraft(hostTeamName = "My Team"))
-        val summary = MatchSummary(
-            matchId = "id-1",
-            type = MatchType.HAS_VENUE,
-            authorTeamName = "My Team",
-            venueName = "Stadium",
-        )
-        coEvery { createMatchUseCase(any()) } returns Result.Success(summary)
+    fun `confirmPost succeeds and resets draft`() =
+        runTest {
+            val holder = MatchDraftHolder()
+            holder.updateDraft(MatchDraft(hostTeamName = "My Team"))
+            val summary =
+                MatchSummary(
+                    matchId = "id-1",
+                    type = MatchType.HAS_VENUE,
+                    authorTeamName = "My Team",
+                    venueName = "Stadium",
+                )
+            coEvery { createMatchUseCase(any()) } returns Result.Success(summary)
 
-        val viewModel = MatchReviewViewModel(holder, createMatchUseCase)
-        advanceUntilIdle()
+            val viewModel = MatchReviewViewModel(holder, createMatchUseCase)
+            advanceUntilIdle()
 
-        var posted = false
-        viewModel.confirmPost { posted = true }
-        advanceUntilIdle()
+            var posted = false
+            viewModel.confirmPost { posted = true }
+            advanceUntilIdle()
 
-        assertTrue(posted)
-        assertEquals(summary, viewModel.uiState.value.postedMatch)
-        assertFalse(viewModel.uiState.value.isPosting)
-    }
+            assertTrue(posted)
+            assertEquals(summary, viewModel.uiState.value.postedMatch)
+            assertFalse(viewModel.uiState.value.isPosting)
+        }
 
     @Test
-    fun `confirmPost emits error on failure`() = runTest {
-        val holder = MatchDraftHolder()
-        coEvery { createMatchUseCase(any()) } returns Result.Failure(AppError.Network)
+    fun `confirmPost emits error on failure`() =
+        runTest {
+            val holder = MatchDraftHolder()
+            coEvery { createMatchUseCase(any()) } returns Result.Failure(AppError.Network)
 
-        val viewModel = MatchReviewViewModel(holder, createMatchUseCase)
-        advanceUntilIdle()
+            val viewModel = MatchReviewViewModel(holder, createMatchUseCase)
+            advanceUntilIdle()
 
-        var posted = false
-        viewModel.confirmPost { posted = true }
-        advanceUntilIdle()
+            var posted = false
+            viewModel.confirmPost { posted = true }
+            advanceUntilIdle()
 
-        assertFalse(posted)
-        assertEquals(AppError.Network, viewModel.uiState.value.error)
-        assertFalse(viewModel.uiState.value.isPosting)
-    }
+            assertFalse(posted)
+            assertEquals(AppError.Network, viewModel.uiState.value.error)
+            assertFalse(viewModel.uiState.value.isPosting)
+        }
 }

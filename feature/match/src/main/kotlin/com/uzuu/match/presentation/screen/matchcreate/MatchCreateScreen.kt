@@ -88,11 +88,12 @@ internal fun MatchCreateContent(
         },
     ) { padding ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .verticalScroll(rememberScrollState())
+                    .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             // Notice alert
@@ -116,7 +117,8 @@ internal fun MatchCreateContent(
                     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                         Text("Lưu ý quan trọng", style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold)
                         Text(
-                            "Không thể chỉnh sửa thông tin kèo sau khi đăng để đảm bảo tính minh bạch. Nếu cần thay đổi, bạn có thể Hủy kèo và tạo lại kèo mới.",
+                            "Không thể chỉnh sửa thông tin kèo sau khi đăng để đảm bảo tính minh bạch. " +
+                                "Nếu cần thay đổi, bạn có thể Hủy kèo và tạo lại kèo mới.",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -134,8 +136,12 @@ internal fun MatchCreateContent(
                     onClick = { onUpdateDraft { it.copy(kind = MatchType.HAS_VENUE) } },
                     shape = ControlShape,
                     modifier = Modifier.weight(1f).heightIn(min = 48.dp),
-                    colors = if (isKindA) ButtonDefaults.buttonColors()
-                    else ButtonDefaults.outlinedButtonColors(),
+                    colors =
+                        if (isKindA) {
+                            ButtonDefaults.buttonColors()
+                        } else {
+                            ButtonDefaults.outlinedButtonColors()
+                        },
                     border = if (!isKindA) BorderStroke(1.dp, MaterialTheme.colorScheme.outline) else null,
                 ) {
                     Text("ĐÃ CÓ SÂN (Luồng A)", style = MaterialTheme.typography.labelMedium)
@@ -144,8 +150,12 @@ internal fun MatchCreateContent(
                     onClick = { onUpdateDraft { it.copy(kind = MatchType.NEED_VENUE) } },
                     shape = ControlShape,
                     modifier = Modifier.weight(1f).heightIn(min = 48.dp),
-                    colors = if (!isKindA) ButtonDefaults.buttonColors()
-                    else ButtonDefaults.outlinedButtonColors(),
+                    colors =
+                        if (!isKindA) {
+                            ButtonDefaults.buttonColors()
+                        } else {
+                            ButtonDefaults.outlinedButtonColors()
+                        },
                     border = if (isKindA) BorderStroke(1.dp, MaterialTheme.colorScheme.outline) else null,
                 ) {
                     Text("CHƯA CÓ SÂN (Luồng B)", style = MaterialTheme.typography.labelMedium)
@@ -156,10 +166,11 @@ internal fun MatchCreateContent(
             MatchSection("Đội bóng của bạn", Modifier.fillMaxWidth()) {
                 uiState.availableTeams.forEach { (id, name) ->
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { onUpdateDraft { it.copy(hostTeamId = id, hostTeamName = name) } }
-                            .padding(vertical = 4.dp),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .clickable { onUpdateDraft { it.copy(hostTeamId = id, hostTeamName = name) } }
+                                .padding(vertical = 4.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
@@ -204,29 +215,51 @@ internal fun MatchCreateContent(
                     uiState.availableVenues.forEach { venue ->
                         val isSelected = draft.venueId == venue.venueId
                         Surface(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable {
-                                    onUpdateDraft {
-                                        it.copy(
-                                            venueId = venue.venueId,
-                                            venueName = venue.venueName,
-                                            venueAddress = venue.address,
-                                        )
-                                    }
-                                },
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        onUpdateDraft {
+                                            it.copy(
+                                                venueId = venue.venueId,
+                                                venueName = venue.venueName,
+                                                venueAddress = venue.address,
+                                            )
+                                        }
+                                    },
                             shape = ControlShape,
-                            color = if (isSelected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainerLow,
-                            border = BorderStroke(1.dp, if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant),
+                            color =
+                                if (isSelected) {
+                                    MaterialTheme.colorScheme.primaryContainer
+                                } else {
+                                    MaterialTheme.colorScheme.surfaceContainerLow
+                                },
+                            border =
+                                BorderStroke(
+                                    1.dp,
+                                    if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+                                ),
                         ) {
                             Column(Modifier.padding(10.dp)) {
-                                Text(venue.venueName, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-                                Text(venue.address, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text(
+                                    venue.venueName,
+                                    style = MaterialTheme.typography.titleSmall,
+                                    fontWeight = FontWeight.SemiBold,
+                                )
+                                Text(
+                                    venue.address,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                )
                             }
                         }
                     }
                     if (uiState.errors.containsKey("venue")) {
-                        Text(uiState.errors["venue"] ?: "", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
+                        Text(
+                            uiState.errors["venue"] ?: "",
+                            color = MaterialTheme.colorScheme.error,
+                            style = MaterialTheme.typography.bodySmall,
+                        )
                     }
 
                     OutlinedTextField(
@@ -254,7 +287,11 @@ internal fun MatchCreateContent(
                         )
                     }
                     if (uiState.errors.containsKey("time")) {
-                        Text(uiState.errors["time"] ?: "", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
+                        Text(
+                            uiState.errors["time"] ?: "",
+                            color = MaterialTheme.colorScheme.error,
+                            style = MaterialTheme.typography.bodySmall,
+                        )
                     }
                 }
             } else {
@@ -264,27 +301,38 @@ internal fun MatchCreateContent(
                     uiState.availableVenues.forEach { venue ->
                         val isChecked = draft.proposedVenues.any { it.venueId == venue.venueId }
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable {
-                                    val current = draft.proposedVenues.toMutableList()
-                                    if (isChecked) current.removeAll { it.venueId == venue.venueId }
-                                    else current.add(venue)
-                                    onUpdateDraft { it.copy(proposedVenues = current) }
-                                }
-                                .padding(vertical = 4.dp),
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        val current = draft.proposedVenues.toMutableList()
+                                        if (isChecked) {
+                                            current.removeAll { it.venueId == venue.venueId }
+                                        } else {
+                                            current.add(venue)
+                                        }
+                                        onUpdateDraft { it.copy(proposedVenues = current) }
+                                    }.padding(vertical = 4.dp),
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                         ) {
                             Checkbox(checked = isChecked, onCheckedChange = null)
                             Column {
                                 Text(venue.venueName, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
-                                Text(venue.address, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text(
+                                    venue.address,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                )
                             }
                         }
                     }
                     if (uiState.errors.containsKey("venues")) {
-                        Text(uiState.errors["venues"] ?: "", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
+                        Text(
+                            uiState.errors["venues"] ?: "",
+                            color = MaterialTheme.colorScheme.error,
+                            style = MaterialTheme.typography.bodySmall,
+                        )
                     }
 
                     OutlinedTextField(
@@ -299,15 +347,18 @@ internal fun MatchCreateContent(
                     uiState.availableTimeSlots.forEach { slot ->
                         val isChecked = draft.proposedTimeSlots.contains(slot)
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable {
-                                    val current = draft.proposedTimeSlots.toMutableList()
-                                    if (isChecked) current.remove(slot)
-                                    else current.add(slot)
-                                    onUpdateDraft { it.copy(proposedTimeSlots = current) }
-                                }
-                                .padding(vertical = 4.dp),
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        val current = draft.proposedTimeSlots.toMutableList()
+                                        if (isChecked) {
+                                            current.remove(slot)
+                                        } else {
+                                            current.add(slot)
+                                        }
+                                        onUpdateDraft { it.copy(proposedTimeSlots = current) }
+                                    }.padding(vertical = 4.dp),
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                         ) {
@@ -316,7 +367,11 @@ internal fun MatchCreateContent(
                         }
                     }
                     if (uiState.errors.containsKey("slots")) {
-                        Text(uiState.errors["slots"] ?: "", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
+                        Text(
+                            uiState.errors["slots"] ?: "",
+                            color = MaterialTheme.colorScheme.error,
+                            style = MaterialTheme.typography.bodySmall,
+                        )
                     }
 
                     OutlinedTextField(
@@ -348,10 +403,11 @@ internal fun MatchCreateContent(
                     "LOSER_PAYS_DRINKS" to "Đội thua trả nước",
                 ).forEach { (splitKey, label) ->
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { onUpdateDraft { it.copy(costSharing = splitKey) } }
-                            .padding(vertical = 4.dp),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .clickable { onUpdateDraft { it.copy(costSharing = splitKey) } }
+                                .padding(vertical = 4.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {

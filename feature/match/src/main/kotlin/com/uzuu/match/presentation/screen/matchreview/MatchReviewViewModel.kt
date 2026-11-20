@@ -41,18 +41,21 @@ internal class MatchReviewViewModel(
         viewModelScope.launch {
             when (val result = createMatchUseCase(mutableState.value.draft)) {
                 is Result.Success -> {
-                    mutableState.value = mutableState.value.copy(
-                        isPosting = false,
-                        postedMatch = result.value,
-                    )
+                    mutableState.value =
+                        mutableState.value.copy(
+                            isPosting = false,
+                            postedMatch = result.value,
+                        )
                     matchDraftHolder.reset()
                     onSuccess(result.value)
                 }
+
                 is Result.Failure -> {
-                    mutableState.value = mutableState.value.copy(
-                        isPosting = false,
-                        error = result.error,
-                    )
+                    mutableState.value =
+                        mutableState.value.copy(
+                            isPosting = false,
+                            error = result.error,
+                        )
                 }
             }
         }
