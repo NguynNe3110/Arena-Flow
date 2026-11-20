@@ -14,13 +14,14 @@ class ConfirmPackageUseCaseTest {
     private val sut = ConfirmPackageUseCase(matchRepository)
 
     @Test
-    fun `invoke calls repository confirmPackage`() = runTest {
-        val room = mockk<PairingRoom>()
-        val expected = Result.Success(room)
-        coEvery { matchRepository.confirmPackage("pr1") } returns expected
+    fun `invoke calls repository confirmPackage`() =
+        runTest {
+            val room = mockk<PairingRoom>()
+            val expected = Result.Success(room)
+            coEvery { matchRepository.confirmPackage("pr1") } returns expected
 
-        val actual = sut("pr1")
+            val actual = sut("pr1")
 
-        assertEquals(expected, actual)
-    }
+            assertEquals(expected, actual)
+        }
 }

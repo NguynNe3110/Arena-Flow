@@ -9,7 +9,6 @@ internal data class MatchListResponse(
     val pagination: PaginationApiDto,
 )
 
-
 @Serializable
 internal data class PaginationApiDto(
     val page: Int,

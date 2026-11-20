@@ -36,16 +36,19 @@ internal class PairingRoomViewModel(
             mutableState.value = mutableState.value.copy(isLoading = true, error = null)
             when (val result = getPairingRoomUseCase(pairingId)) {
                 is Result.Success -> {
-                    mutableState.value = PairingRoomUiState(
-                        isLoading = false,
-                        pairingRoom = result.value,
-                    )
+                    mutableState.value =
+                        PairingRoomUiState(
+                            isLoading = false,
+                            pairingRoom = result.value,
+                        )
                 }
+
                 is Result.Failure -> {
-                    mutableState.value = PairingRoomUiState(
-                        isLoading = false,
-                        error = result.error,
-                    )
+                    mutableState.value =
+                        PairingRoomUiState(
+                            isLoading = false,
+                            error = result.error,
+                        )
                 }
             }
         }
@@ -79,16 +82,19 @@ internal class PairingRoomViewModel(
         viewModelScope.launch {
             when (val result = confirmPackageUseCase(room.pairingId)) {
                 is Result.Success -> {
-                    mutableState.value = mutableState.value.copy(
-                        isConfirming = false,
-                        pairingRoom = result.value,
-                    )
+                    mutableState.value =
+                        mutableState.value.copy(
+                            isConfirming = false,
+                            pairingRoom = result.value,
+                        )
                 }
+
                 is Result.Failure -> {
-                    mutableState.value = mutableState.value.copy(
-                        isConfirming = false,
-                        error = result.error,
-                    )
+                    mutableState.value =
+                        mutableState.value.copy(
+                            isConfirming = false,
+                            error = result.error,
+                        )
                 }
             }
         }
@@ -96,16 +102,18 @@ internal class PairingRoomViewModel(
 
     fun sendChatMessage(text: String) {
         val room = mutableState.value.pairingRoom ?: return
-        val newMsg = PairingChatMessage(
-            id = UUID.randomUUID().toString(),
-            senderName = room.guestTeam.teamName,
-            message = text,
-            time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")),
-            isMe = true,
-        )
+        val newMsg =
+            PairingChatMessage(
+                id = UUID.randomUUID().toString(),
+                senderName = room.guestTeam.teamName,
+                message = text,
+                time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")),
+                isMe = true,
+            )
         val updatedMessages = room.chatMessages + newMsg
-        mutableState.value = mutableState.value.copy(
-            pairingRoom = room.copy(chatMessages = updatedMessages),
-        )
+        mutableState.value =
+            mutableState.value.copy(
+                pairingRoom = room.copy(chatMessages = updatedMessages),
+            )
     }
 }

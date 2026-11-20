@@ -7,6 +7,5 @@ import com.uzuu.match.domain.repository.MatchRepository
 internal class GetPairingRoomUseCase(
     private val matchRepository: MatchRepository,
 ) {
-    suspend operator fun invoke(pairingId: String): Result<PairingRoom> =
-        matchRepository.getPairingRoom(pairingId)
+    suspend operator fun invoke(pairingId: String): Result<PairingRoom> = matchRepository.getPairingRoom(pairingId)
 }

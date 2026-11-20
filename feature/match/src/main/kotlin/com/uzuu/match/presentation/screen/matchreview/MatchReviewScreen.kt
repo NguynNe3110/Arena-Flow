@@ -85,11 +85,12 @@ internal fun MatchReviewContent(
         },
     ) { padding ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .verticalScroll(rememberScrollState())
+                    .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             // Notice banner
@@ -117,7 +118,11 @@ internal fun MatchReviewContent(
             MatchSection("Đội đăng bài", Modifier.fillMaxWidth()) {
                 Text(draft.hostTeamName, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 Text(
-                    "Định dạng: ${when (draft.format) { "FIVE_A_SIDE" -> "Sân 5"; "ELEVEN_A_SIDE" -> "Sân 11"; else -> "Sân 7" }} · Trình độ: ${draft.skillLevel}",
+                    "Định dạng: ${when (draft.format) {
+                        "FIVE_A_SIDE" -> "Sân 5"
+                        "ELEVEN_A_SIDE" -> "Sân 11"
+                        else -> "Sân 7"
+                    }} · Trình độ: ${draft.skillLevel}",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -127,7 +132,13 @@ internal fun MatchReviewContent(
             MatchSection("Địa điểm & Thời gian thi đấu", Modifier.fillMaxWidth()) {
                 if (isKindA) {
                     MatchInfo(Icons.Outlined.LocationOn, draft.venueName ?: "Chưa chọn sân")
-                    draft.venueAddress?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                    draft.venueAddress?.let {
+                        Text(
+                            it,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
                     MatchInfo(Icons.Outlined.CalendarMonth, "${draft.matchDate} (${draft.startTime} - ${draft.endTime})")
                 } else {
                     Text("${draft.proposedVenues.size} sân đề xuất", style = MaterialTheme.typography.titleSmall)
@@ -135,7 +146,10 @@ internal fun MatchReviewContent(
                         MatchInfo(Icons.Outlined.LocationOn, venue.venueName)
                         Text(venue.address, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Text("${draft.proposedTimeSlots.size} khung giờ đề xuất (${draft.matchDate})", style = MaterialTheme.typography.titleSmall)
+                    Text(
+                        "${draft.proposedTimeSlots.size} khung giờ đề xuất (${draft.matchDate})",
+                        style = MaterialTheme.typography.titleSmall,
+                    )
                     draft.proposedTimeSlots.forEach { slot ->
                         MatchInfo(Icons.Outlined.CalendarMonth, slot)
                     }
@@ -187,7 +201,11 @@ internal fun MatchReviewContent(
 
             // Error display
             if (uiState.error != null) {
-                Text("Không thể đăng bài. Vui lòng thử lại.", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
+                Text(
+                    "Không thể đăng bài. Vui lòng thử lại.",
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall,
+                )
             }
 
             // Footer actions

@@ -6,8 +6,9 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 
-class AboutLibrariesConventionPlugin : Plugin<Project> { // tự động quét tất cả mã nguồn mở có trong app để hiển thị ở màn hình điều khoản
-    // và tự sinh giấy phép lisense để hiển thị
+// tự động quét tất cả mã nguồn mở có trong app để hiển thị ở màn hình điều khoản
+// và tự sinh giấy phép lisense để hiển thị
+class AboutLibrariesConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {

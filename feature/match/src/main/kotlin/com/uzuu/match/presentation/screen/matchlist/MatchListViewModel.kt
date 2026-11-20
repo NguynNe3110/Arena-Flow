@@ -24,12 +24,17 @@ internal class MatchListViewModel(
                 sendAction(MatchListAction.Loading)
 
                 when (val result = getMatchUseCase()) {
-                    is Result.Success -> sendAction(
-                        MatchListAction.Loaded(result.value)
-                    )
-                    is Result.Failure -> sendAction(
-                        MatchListAction.Failed(result.error)
-                    )
+                    is Result.Success -> {
+                        sendAction(
+                            MatchListAction.Loaded(result.value),
+                        )
+                    }
+
+                    is Result.Failure -> {
+                        sendAction(
+                            MatchListAction.Failed(result.error),
+                        )
+                    }
                 }
             }
     }

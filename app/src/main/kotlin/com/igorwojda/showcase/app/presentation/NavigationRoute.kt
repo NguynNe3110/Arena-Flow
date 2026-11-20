@@ -21,7 +21,9 @@ sealed interface NavigationRoute {
     data object MatchList : NavigationRoute
 
     @Serializable
-    data class MatchDetail(val matchId: String) : NavigationRoute
+    data class MatchDetail(
+        val matchId: String,
+    ) : NavigationRoute
 
     @Serializable
     data object MatchCreate : NavigationRoute
@@ -30,7 +32,9 @@ sealed interface NavigationRoute {
     data object MatchReview : NavigationRoute
 
     @Serializable
-    data class PairingRoom(val pairingId: String) : NavigationRoute
+    data class PairingRoom(
+        val pairingId: String,
+    ) : NavigationRoute
 
     // Mercenary / Single match destinations
     @Serializable

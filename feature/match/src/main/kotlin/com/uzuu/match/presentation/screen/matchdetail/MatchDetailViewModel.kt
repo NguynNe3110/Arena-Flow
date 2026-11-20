@@ -32,18 +32,25 @@ internal class MatchDetailViewModel(
 
     fun load(matchId: String) {
         loadJob?.cancel()
-        loadJob = viewModelScope.launch {
-            mutableState.value = mutableState.value.copy(isLoading = true, error = null)
-            mutableState.value = when (val result = getMatchDetailUseCase(matchId)) {
-                is Result.Success -> MatchDetailUiState(
-                    isLoading = false,
-                    match = result.value.summary,
-                    detail = result.value,
-                    requestTeam = savedStateHandle["requestTeam:$matchId"],
-                )
-                is Result.Failure -> MatchDetailUiState(isLoading = false, error = result.error)
+        loadJob =
+            viewModelScope.launch {
+                mutableState.value = mutableState.value.copy(isLoading = true, error = null)
+                mutableState.value =
+                    when (val result = getMatchDetailUseCase(matchId)) {
+                        is Result.Success -> {
+                            MatchDetailUiState(
+                                isLoading = false,
+                                match = result.value.summary,
+                                detail = result.value,
+                                requestTeam = savedStateHandle["requestTeam:$matchId"],
+                            )
+                        }
+
+                        is Result.Failure -> {
+                            MatchDetailUiState(isLoading = false, error = result.error)
+                        }
+                    }
             }
-        }
     }
 
     fun sendDemoRequest(team: String) {

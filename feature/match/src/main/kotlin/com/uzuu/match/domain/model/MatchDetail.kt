@@ -32,4 +32,7 @@ data class MatchCostAgreement(
     val customItems: List<MatchCostItem> = emptyList(),
 )
 
-data class MatchCostItem(val itemName: String, val amount: Int)
+data class MatchCostItem(
+    val itemName: String,
+    val amount: Int,
+)
