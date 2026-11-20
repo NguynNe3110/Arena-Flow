@@ -6,13 +6,16 @@ import com.igorwojda.showcase.feature.base.data.retrofit.ApiResult
 import com.igorwojda.showcase.feature.base.domain.result.Result
 import com.uzuu.match.data.datasource.api.MatchRemoteDataSource
 import com.uzuu.match.data.mapper.dtoToDomain
-import com.uzuu.match.domain.model.MatchPage
 import com.uzuu.match.domain.model.MatchDetail
 import com.uzuu.match.domain.model.MatchDraft
+import com.uzuu.match.domain.model.MatchPage
 import com.uzuu.match.domain.model.MatchSummary
 import com.uzuu.match.domain.model.MatchType
 import com.uzuu.match.domain.model.MercenaryPost
 import com.uzuu.match.domain.model.PairingRoom
+import com.uzuu.match.domain.model.TeamDetail
+import com.uzuu.match.domain.model.TeamDraft
+import com.uzuu.match.domain.model.TeamMember
 import com.uzuu.match.domain.repository.MatchRepository
 import java.time.Instant
 import java.util.UUID
@@ -134,6 +137,33 @@ internal class MatchRepositoryImpl(
     override suspend fun applyMercenary(postId: String, message: String): Result<MercenaryPost> =
         dataResult {
             when (val result = matchRemoteDataSource.applyMercenary(postId, message)) {
+                is ApiResult.Success -> Result.Success(result.data)
+                is ApiResult.Error -> Result.Failure(httpError(result.code))
+                is ApiResult.Exception -> throw result.throwable
+            }
+        }
+
+    override suspend fun getMyTeam(): Result<TeamDetail> =
+        dataResult {
+            when (val result = matchRemoteDataSource.getMyTeam()) {
+                is ApiResult.Success -> Result.Success(result.data)
+                is ApiResult.Error -> Result.Failure(httpError(result.code))
+                is ApiResult.Exception -> throw result.throwable
+            }
+        }
+
+    override suspend fun createTeam(draft: TeamDraft): Result<TeamDetail> =
+        dataResult {
+            when (val result = matchRemoteDataSource.createTeam(draft)) {
+                is ApiResult.Success -> Result.Success(result.data)
+                is ApiResult.Error -> Result.Failure(httpError(result.code))
+                is ApiResult.Exception -> throw result.throwable
+            }
+        }
+
+    override suspend fun inviteTeamMember(teamId: String, name: String, position: String): Result<TeamMember> =
+        dataResult {
+            when (val result = matchRemoteDataSource.inviteTeamMember(teamId, name, position)) {
                 is ApiResult.Success -> Result.Success(result.data)
                 is ApiResult.Error -> Result.Failure(httpError(result.code))
                 is ApiResult.Exception -> throw result.throwable

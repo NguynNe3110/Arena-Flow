@@ -15,6 +15,10 @@ import com.uzuu.match.domain.model.MercenaryPost
 import com.uzuu.match.domain.model.PairingChatMessage
 import com.uzuu.match.domain.model.PairingRoom
 import com.uzuu.match.domain.model.PairingTeam
+import com.uzuu.match.domain.model.TeamDetail
+import com.uzuu.match.domain.model.TeamDraft
+import com.uzuu.match.domain.model.TeamMatchSchedule
+import com.uzuu.match.domain.model.TeamMember
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -95,6 +99,35 @@ internal class MockMatchDataSource(
             ),
         )
     }
+
+    private var mockTeam = TeamDetail(
+        id = "team-alpha",
+        name = "Bình Minh FC",
+        shortName = "BM",
+        logoUrl = null,
+        createdAt = "Tháng 3/2024",
+        role = "Đội trưởng",
+        area = "Hải Châu, Đà Nẵng",
+        reputationScore = 100,
+        personalReputationScore = 95,
+        rating = 4.8,
+        matchCount = 25,
+        completionRate = 96,
+        status = "ACTIVE",
+        description = "Đội bóng phong trào giao lưu cuối tuần vui vẻ, văn minh, fair-play.",
+        skillLevels = listOf("Vui vẻ", "Trung bình"),
+        members = listOf(
+            TeamMember("m-1", "Lê Hoàng", "Đội trưởng", "Tiền vệ trung tâm", 95, isCurrentUser = true, isDeletedUser = false),
+            TeamMember("m-2", "Trần Minh", "Thành viên", "Hậu vệ", 88, isCurrentUser = false, isDeletedUser = false),
+            TeamMember("m-3", "Nguyễn Đức", "Thành viên", "Tiền đạo", 91, isCurrentUser = false, isDeletedUser = false),
+            TeamMember("m-4", "Cựu Cầu Thủ", "Thành viên", "Hậu vệ cánh", 70, isCurrentUser = false, isDeletedUser = true),
+        ),
+        schedules = listOf(
+            TeamMatchSchedule("sch-1", "19:30 • 21/11/2026", "Sài Gòn United", "SGU", "Sân Thảo Điền 2, Thủ Đức", "Đang thương lượng"),
+            TeamMatchSchedule("sch-2", "17:00 • 24/11/2026", "Nội bộ chiều Thứ 7", "NB", "Sân 7 người", "Đang tuyển 1 GK", isRecruitingMercenary = true, mercenaryRole = "Cần 1 Thủ Môn"),
+            TeamMatchSchedule("sch-3", "18:00 • 15/11/2026", "FC Cơn Lốc", "CL", "Sân Chuyên Việt", "Đã kết thúc"),
+        ),
+    )
 
     override suspend fun getMatch(matchId: String): ApiResult<MatchDetailResponse> =
         withContext(Dispatchers.IO) {
@@ -193,5 +226,52 @@ internal class MockMatchDataSource(
             } else {
                 ApiResult.Error(404, "Không tìm thấy tin tuyển người")
             }
+        }
+
+    override suspend fun getMyTeam(): ApiResult<TeamDetail> =
+        withContext(Dispatchers.IO) {
+            ApiResult.Success(mockTeam)
+        }
+
+    override suspend fun createTeam(draft: TeamDraft): ApiResult<TeamDetail> =
+        withContext(Dispatchers.IO) {
+            val created = TeamDetail(
+                id = "team-${System.currentTimeMillis()}",
+                name = draft.name,
+                shortName = if (draft.shortName.isNotBlank()) draft.shortName else draft.name.take(3).uppercase(),
+                logoUrl = null,
+                createdAt = "Tháng 11/2026",
+                role = "Đội trưởng",
+                area = if (draft.ward.isNotBlank()) draft.ward else "Hải Châu, Đà Nẵng",
+                reputationScore = 100,
+                personalReputationScore = 95,
+                rating = 5.0,
+                matchCount = 0,
+                completionRate = 100,
+                status = "ACTIVE",
+                description = draft.description,
+                skillLevels = if (draft.skillLevels.isNotEmpty()) draft.skillLevels else listOf("Vui vẻ"),
+                members = listOf(
+                    TeamMember("m-me", "Lê Hoàng", "Đội trưởng", "Tiền vệ trung tâm", 95, isCurrentUser = true, isDeletedUser = false),
+                ),
+                schedules = emptyList(),
+            )
+            mockTeam = created
+            ApiResult.Success(created)
+        }
+
+    override suspend fun inviteTeamMember(teamId: String, name: String, position: String): ApiResult<TeamMember> =
+        withContext(Dispatchers.IO) {
+            val newMember = TeamMember(
+                id = "m-${System.currentTimeMillis()}",
+                name = name,
+                role = "Thành viên",
+                position = position,
+                reputationScore = 90,
+                isCurrentUser = false,
+                isDeletedUser = false,
+            )
+            mockTeam = mockTeam.copy(members = mockTeam.members + newMember)
+            ApiResult.Success(newMember)
         }
 }

@@ -28,6 +28,8 @@ import com.uzuu.match.presentation.screen.matchlist.MatchListScreen
 import com.uzuu.match.presentation.screen.matchreview.MatchReviewScreen
 import com.uzuu.match.presentation.screen.mercenarylist.MercenaryListScreen
 import com.uzuu.match.presentation.screen.pairingroom.PairingRoomScreen
+import com.uzuu.match.presentation.screen.teamcreate.TeamCreateScreen
+import com.uzuu.match.presentation.screen.teamdetail.TeamDetailScreen
 
 @Composable
 fun MainShowcaseScreen(modifier: Modifier = Modifier) {
@@ -52,7 +54,7 @@ fun MainShowcaseScreen(modifier: Modifier = Modifier) {
             matchesGraph(navController)
             singleMatchGraph(navController)
             messagesGraph(navController)
-            myTeamsGraph()
+            myTeamsGraph(navController)
         }
     }
 }
@@ -142,12 +144,41 @@ private fun NavGraphBuilder.messagesGraph(navController: NavController) {
     }
 }
 
-private fun NavGraphBuilder.myTeamsGraph() {
+private fun NavGraphBuilder.myTeamsGraph(navController: NavController) {
     navigation<NavigationRoute.MyTeamsGraph>(
-        startDestination = NavigationRoute.MyTeams,
+        startDestination = NavigationRoute.TeamDetail(),
     ) {
+        composable<NavigationRoute.TeamDetail> {
+            TeamDetailScreen(
+                onCreateTeamClick = {
+                    navController.navigate(NavigationRoute.TeamCreate)
+                },
+                onBackClick = {
+                    navController.popBackStack()
+                },
+            )
+        }
+
+        composable<NavigationRoute.TeamCreate> {
+            TeamCreateScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onTeamCreated = { _ ->
+                    navController.popBackStack()
+                },
+            )
+        }
+
         composable<NavigationRoute.MyTeams> {
-            PlaceholderTabScreen(title = stringResource(R.string.bottom_navigation_myteam))
+            TeamDetailScreen(
+                onCreateTeamClick = {
+                    navController.navigate(NavigationRoute.TeamCreate)
+                },
+                onBackClick = {
+                    navController.popBackStack()
+                },
+            )
         }
     }
 }

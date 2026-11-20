@@ -36,6 +36,13 @@ sealed interface NavigationRoute {
     @Serializable
     data object MercenaryList : NavigationRoute
 
+    // Team destinations
+    @Serializable
+    data class TeamDetail(val teamId: String = "") : NavigationRoute
+
+    @Serializable
+    data object TeamCreate : NavigationRoute
+
     // Placeholder destinations for subsequent tabs
     @Serializable
     data object Messages : NavigationRoute

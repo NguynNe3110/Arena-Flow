@@ -165,6 +165,36 @@ class MatchRepositoryImplTest {
         assertEquals(3, applied.value.pendingApplicants)
     }
 
+    @Test
+    fun `getMyTeam, createTeam and inviteTeamMember work as expected`() = runBlocking {
+        val list = File(checkNotNull(System.getProperty("matchMockFixturePath"))).readText()
+        val details = File(checkNotNull(System.getProperty("matchDetailMockFixturePath"))).readText()
+        val context = mockk<Context>()
+        val assets = mockk<AssetManager>()
+        every { context.assets } returns assets
+        every { assets.open("mock/matches.json") } answers { list.byteInputStream() }
+        every { assets.open("mock/match-details.json") } answers { details.byteInputStream() }
+        val repository = MatchRepositoryImpl(MatchRemoteDataSource(MockMatchDataSource(context, Json { ignoreUnknownKeys = true })))
+
+        val teamResult = repository.getMyTeam() as Result.Success
+        assertEquals("Bình Minh FC", teamResult.value.name)
+        assertEquals(100, teamResult.value.reputationScore)
+
+        val createdResult = repository.createTeam(
+            com.uzuu.match.domain.model.TeamDraft(
+                name = "Gia Định FC",
+                shortName = "GĐFC",
+                ward = "TP. Thủ Đức",
+            )
+        ) as Result.Success
+        assertEquals("Gia Định FC", createdResult.value.name)
+        assertEquals("GĐFC", createdResult.value.shortName)
+
+        val inviteResult = repository.inviteTeamMember(createdResult.value.id, "Phạm Tuấn", "Tiền đạo") as Result.Success
+        assertEquals("Phạm Tuấn", inviteResult.value.name)
+        assertEquals("Tiền đạo", inviteResult.value.position)
+    }
+
     private fun mockApi(content: String): MatchApi {
         val context = mockk<Context>()
         val assets = mockk<AssetManager>()
