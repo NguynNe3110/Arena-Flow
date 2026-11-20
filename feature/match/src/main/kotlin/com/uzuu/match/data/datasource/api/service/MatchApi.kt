@@ -7,11 +7,11 @@ import retrofit2.http.Path
 import com.uzuu.match.data.datasource.api.response.MatchDetailResponse
 
 internal interface MatchApi {
-
     @GET("matches")
     suspend fun getMatches(): ApiResult<MatchListResponse>
 
     @GET("matches/{matchId}")
-    suspend fun getMatch(@Path("matchId") matchId: String): ApiResult<MatchDetailResponse>
-
+    suspend fun getMatch(
+        @Path("matchId") matchId: String,
+    ): ApiResult<MatchDetailResponse>
 }

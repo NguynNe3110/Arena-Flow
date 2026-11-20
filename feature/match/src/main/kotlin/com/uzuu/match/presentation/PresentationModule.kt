@@ -7,7 +7,7 @@ import org.koin.dsl.module
 
 internal val presentationModule =
     module {
-    // ViewModels
-    viewModelOf(::MatchListViewModel)
-    viewModelOf(::MatchDetailViewModel)
-}
+        // ViewModels
+        viewModelOf(::MatchListViewModel)
+        viewModelOf(::MatchDetailViewModel)
+    }

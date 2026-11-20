@@ -51,11 +51,12 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun MatchListScreen(
     onMatchClick: (String) -> Unit,
+    onCreateMatchClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val viewModel: MatchListViewModel = koinViewModel()
     val uiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
-    MatchListContent(uiState, viewModel::onRefresh, onMatchClick, modifier)
+    MatchListContent(uiState, viewModel::onRefresh, onMatchClick, onCreateMatchClick, modifier)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -64,6 +65,7 @@ internal fun MatchListContent(
     uiState: MatchListUiState,
     onRefresh: () -> Unit,
     onMatchClick: (String) -> Unit,
+    onCreateMatchClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     var tab by rememberSaveable { mutableStateOf("ALL") }
@@ -72,11 +74,12 @@ internal fun MatchListContent(
     var showFilters by rememberSaveable { mutableStateOf(false) }
     var draftFormat by rememberSaveable { mutableStateOf("ALL") }
     var draftSkill by rememberSaveable { mutableStateOf("ALL") }
-    val matches = uiState.matches.filter {
-        (tab == "ALL" || it.type.name == tab) &&
-            (format == "ALL" || it.format == format) &&
-            (skill == "ALL" || skill in it.skillLevels)
-    }
+    val matches =
+        uiState.matches.filter {
+            (tab == "ALL" || it.type.name == tab) &&
+                (format == "ALL" || it.format == format) &&
+                (skill == "ALL" || skill in it.skillLevels)
+        }
     Surface(modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column {
             Row(
@@ -86,6 +89,13 @@ internal fun MatchListContent(
                 Text("Tìm kèo giao lưu", Modifier.weight(1f), style = MaterialTheme.typography.headlineLarge)
                 IconButton(onClick = onRefresh, enabled = !uiState.isLoading) {
                     Icon(Icons.Outlined.Refresh, "Tải lại danh sách kèo")
+                }
+                Button(
+                    onClick = onCreateMatchClick,
+                    shape = ControlShape,
+                    modifier = Modifier.padding(end = 12.dp).heightIn(min = 38.dp),
+                ) {
+                    Text("+ Đăng kèo", style = MaterialTheme.typography.labelMedium)
                 }
             }
             Text(
@@ -100,12 +110,17 @@ internal fun MatchListContent(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 OutlinedButton(
-                    onClick = { draftFormat = format; draftSkill = skill; showFilters = true },
+                    onClick = {
+                        draftFormat = format
+                        draftSkill = skill
+                        showFilters = true
+                    },
                     shape = ControlShape,
                     modifier = Modifier.heightIn(min = 48.dp),
                 ) {
                     Icon(Icons.Outlined.FilterList, null)
-                    Text("Bộ lọc${if (format != "ALL" || skill != "ALL") " · Đang áp dụng" else ""}", Modifier.padding(start = 8.dp))
+                    val filterLabel = "Bộ lọc" + if (format != "ALL" || skill != "ALL") " · Đang áp dụng" else ""
+                    Text(filterLabel, Modifier.padding(start = 8.dp))
                 }
                 Text("${matches.size} kèo", style = MaterialTheme.typography.bodyMedium)
             }
@@ -113,10 +128,17 @@ internal fun MatchListContent(
                 Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                listOf("ALL" to "Tất cả kèo", "HAS_VENUE" to "Đã có sân (Luồng A)", "NEED_VENUE" to "Chưa có sân (Luồng B)").forEach { (value, label) ->
+                listOf(
+                    "ALL" to "Tất cả kèo",
+                    "HAS_VENUE" to "Đã có sân (Luồng A)",
+                    "NEED_VENUE" to "Chưa có sân (Luồng B)",
+                ).forEach { (value, label) ->
                     FilterChip(
-                        selected = tab == value, onClick = { tab = value }, label = { Text(label) },
-                        modifier = Modifier.heightIn(min = 48.dp), shape = ControlShape,
+                        selected = tab == value,
+                        onClick = { tab = value },
+                        label = { Text(label) },
+                        modifier = Modifier.heightIn(min = 48.dp),
+                        shape = ControlShape,
                     )
                 }
             }
@@ -127,23 +149,46 @@ internal fun MatchListContent(
                 }
             }
             when {
-                uiState.isLoading && uiState.matches.isEmpty() -> Box(Modifier.fillMaxSize(), Alignment.Center) { LoadingIndicator() }
-                uiState.error != null && uiState.matches.isEmpty() -> AppErrorContent(uiState.error, onRefresh)
-                matches.isEmpty() -> Box(Modifier.fillMaxSize().padding(24.dp), Alignment.Center) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Text("Chưa có kèo nào phù hợp", style = MaterialTheme.typography.titleLarge)
-                        Text("Thử thay đổi bộ lọc để tìm đội giao lưu.", style = MaterialTheme.typography.bodyMedium)
-                        OutlinedButton(onClick = { tab = "ALL"; format = "ALL"; skill = "ALL" }, shape = ControlShape) {
-                            Text("Đặt lại bộ lọc")
+                uiState.isLoading && uiState.matches.isEmpty() -> {
+                    Box(Modifier.fillMaxSize(), Alignment.Center) { LoadingIndicator() }
+                }
+
+                uiState.error != null && uiState.matches.isEmpty() -> {
+                    AppErrorContent(uiState.error, onRefresh)
+                }
+
+                matches.isEmpty() -> {
+                    Box(Modifier.fillMaxSize().padding(24.dp), Alignment.Center) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                            Text("Chưa có kèo nào phù hợp", style = MaterialTheme.typography.titleLarge)
+                            Text(
+                                "Thử thay đổi bộ lọc hoặc chủ động đăng bài tìm đối giao lưu!",
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
+                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                OutlinedButton(onClick = {
+                                    tab = "ALL"
+                                    format = "ALL"
+                                    skill = "ALL"
+                                }, shape = ControlShape) {
+                                    Text("Đặt lại bộ lọc")
+                                }
+                                Button(onClick = onCreateMatchClick, shape = ControlShape) {
+                                    Text("Đăng kèo ngay")
+                                }
+                            }
                         }
                     }
                 }
-                else -> LazyColumn(
-                    contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
-                ) {
-                    items(matches, key = { it.matchId }) { match ->
-                        MatchCard(match, onClick = { onMatchClick(match.matchId) })
+
+                else -> {
+                    LazyColumn(
+                        contentPadding = PaddingValues(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                    ) {
+                        items(matches, key = { it.matchId }) { match ->
+                            MatchCard(match, onClick = { onMatchClick(match.matchId) })
+                        }
                     }
                 }
             }
@@ -155,19 +200,47 @@ internal fun MatchListContent(
                 Text("Bộ lọc tìm kèo", style = MaterialTheme.typography.headlineMedium)
                 Text("Định dạng sân", style = MaterialTheme.typography.titleMedium)
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    listOf("ALL" to "Tất cả", "FIVE_A_SIDE" to "Sân 5", "SEVEN_A_SIDE" to "Sân 7", "ELEVEN_A_SIDE" to "Sân 11").forEach { (value, label) ->
+                    val formats =
+                        listOf(
+                            "ALL" to "Tất cả",
+                            "FIVE_A_SIDE" to "Sân 5",
+                            "SEVEN_A_SIDE" to "Sân 7",
+                            "ELEVEN_A_SIDE" to "Sân 11",
+                        )
+                    formats.forEach { (value, label) ->
                         FilterChip(draftFormat == value, { draftFormat = value }, { Text(label) }, Modifier.heightIn(min = 48.dp))
                     }
                 }
                 Text("Trình độ", style = MaterialTheme.typography.titleMedium)
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    (listOf("ALL") + uiState.matches.flatMap { it.skillLevels }.distinct()).forEach { value ->
-                        FilterChip(draftSkill == value, { draftSkill = value }, { Text(if (value == "ALL") "Mọi trình độ" else value) }, Modifier.heightIn(min = 48.dp))
+                    val skills = listOf("ALL") + uiState.matches.flatMap { it.skillLevels }.distinct()
+                    skills.forEach { value ->
+                        val chipText = if (value == "ALL") "Mọi trình độ" else value
+                        FilterChip(draftSkill == value, { draftSkill = value }, { Text(chipText) }, Modifier.heightIn(min = 48.dp))
                     }
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    OutlinedButton(onClick = { draftFormat = "ALL"; draftSkill = "ALL" }, shape = ControlShape, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text("Đặt lại") }
-                    Button(onClick = { format = draftFormat; skill = draftSkill; showFilters = false }, shape = ControlShape, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text("Áp dụng") }
+                    OutlinedButton(
+                        onClick = {
+                            draftFormat = "ALL"
+                            draftSkill = "ALL"
+                        },
+                        shape = ControlShape,
+                        modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+                    ) {
+                        Text("Đặt lại")
+                    }
+                    Button(
+                        onClick = {
+                            format = draftFormat
+                            skill = draftSkill
+                            showFilters = false
+                        },
+                        shape = ControlShape,
+                        modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+                    ) {
+                        Text("Áp dụng")
+                    }
                 }
             }
         }
@@ -179,11 +252,31 @@ internal fun MatchListContent(
 private fun MatchListContentPreview() {
     ShowcaseTheme {
         MatchListContent(
-            MatchListUiState(matches = listOf(
-                MatchSummary("preview-a", MatchType.HAS_VENUE, "Bình Minh FC", "Sân bóng An Phú", listOf("Trung bình"), startsAt = "2026-11-21T12:00:00Z", endsAt = "2026-11-21T13:30:00Z", reliabilityScore = 98),
-                MatchSummary("preview-b", MatchType.NEED_VENUE, "Sài Gòn United", null, venueOptionCount = 2, timeOptionCount = 2),
-            )),
-            onRefresh = {}, onMatchClick = {},
+            MatchListUiState(
+                matches =
+                    listOf(
+                        MatchSummary(
+                            "preview-a",
+                            MatchType.HAS_VENUE,
+                            "Bình Minh FC",
+                            "Sân bóng An Phú",
+                            listOf("Trung bình"),
+                            startsAt = "2026-11-21T12:00:00Z",
+                            endsAt = "2026-11-21T13:30:00Z",
+                            reliabilityScore = 98,
+                        ),
+                        MatchSummary(
+                            "preview-b",
+                            MatchType.NEED_VENUE,
+                            "Sài Gòn United",
+                            null,
+                            venueOptionCount = 2,
+                            timeOptionCount = 2,
+                        ),
+                    ),
+            ),
+            onRefresh = {},
+            onMatchClick = {},
         )
     }
 }

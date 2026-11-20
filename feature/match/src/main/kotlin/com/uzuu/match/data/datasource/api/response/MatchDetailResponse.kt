@@ -3,7 +3,9 @@ package com.uzuu.match.data.datasource.api.response
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class MatchDetailResponse(val data: MatchDetailDto)
+internal data class MatchDetailResponse(
+    val data: MatchDetailDto,
+)
 
 @Serializable
 internal data class MatchDetailDto(
@@ -27,7 +29,11 @@ internal data class MatchDetailDto(
 )
 
 @Serializable
-internal data class MatchTeamDto(val teamId: String, val teamName: String, val reliabilityScore: Int)
+internal data class MatchTeamDto(
+    val teamId: String,
+    val teamName: String,
+    val reliabilityScore: Int,
+)
 
 @Serializable
 internal data class MatchVenueDto(
@@ -38,7 +44,11 @@ internal data class MatchVenueDto(
 )
 
 @Serializable
-internal data class MatchTimeSlotDto(val timeOptionId: String, val startsAt: String, val endsAt: String)
+internal data class MatchTimeSlotDto(
+    val timeOptionId: String,
+    val startsAt: String,
+    val endsAt: String,
+)
 
 @Serializable
 internal data class MatchCostAgreementDto(
@@ -51,4 +61,7 @@ internal data class MatchCostAgreementDto(
 )
 
 @Serializable
-internal data class MatchCostItemDto(val itemName: String, val amount: Int)
+internal data class MatchCostItemDto(
+    val itemName: String,
+    val amount: Int,
+)

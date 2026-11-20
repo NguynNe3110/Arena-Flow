@@ -6,5 +6,6 @@ import com.uzuu.match.domain.model.MatchDetail
 
 internal interface MatchRepository {
     suspend fun getMatches(): Result<MatchPage>
+
     suspend fun getMatch(matchId: String): Result<MatchDetail>
 }

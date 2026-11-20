@@ -10,7 +10,5 @@ internal class MatchRemoteDataSource(
 ) {
     suspend fun getMatch(matchId: String): ApiResult<MatchDetailResponse> = api.getMatch(matchId)
 
-    suspend fun getMatches(): ApiResult<MatchListResponse> {
-        return api.getMatches()
-    }
+    suspend fun getMatches(): ApiResult<MatchListResponse> = api.getMatches()
 }

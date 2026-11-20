@@ -21,7 +21,9 @@ sealed interface NavigationRoute {
     data object MatchList : NavigationRoute
 
     @Serializable
-    data class MatchDetail(val matchId: String) : NavigationRoute
+    data class MatchDetail(
+        val matchId: String,
+    ) : NavigationRoute
 
     // Placeholder destinations for subsequent tabs
     @Serializable

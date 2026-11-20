@@ -27,62 +27,68 @@ class MatchListViewModelTest {
     private lateinit var sut: MatchListViewModel
 
     @Test
-    fun `init loads matches successfully`() = runTest {
-        val matches = listOf(
-            MatchSummary(
-                matchId = "m1",
-                type = MatchType.HAS_VENUE,
-                authorTeamName = "Bình Minh FC",
-                venueName = "Sân An Phú",
-            ),
-        )
-        val matchPage = MatchPage(
-            matches = matches,
-            page = 1,
-            pageSize = 20,
-            totalPages = 1,
-            totalItems = 1,
-        )
-        coEvery { getMatchUseCase() } returns Result.Success(matchPage)
+    fun `init loads matches successfully`() =
+        runTest {
+            val matches =
+                listOf(
+                    MatchSummary(
+                        matchId = "m1",
+                        type = MatchType.HAS_VENUE,
+                        authorTeamName = "Bình Minh FC",
+                        venueName = "Sân An Phú",
+                    ),
+                )
+            val matchPage =
+                MatchPage(
+                    matches = matches,
+                    page = 1,
+                    pageSize = 20,
+                    totalPages = 1,
+                    totalItems = 1,
+                )
+            coEvery { getMatchUseCase() } returns Result.Success(matchPage)
 
-        sut = MatchListViewModel(getMatchUseCase)
-        advanceUntilIdle()
+            sut = MatchListViewModel(getMatchUseCase)
+            advanceUntilIdle()
 
-        assertEquals(matches, sut.uiStateFlow.value.matches)
-        assertEquals(1, sut.uiStateFlow.value.totalItems)
-        assertFalse(sut.uiStateFlow.value.isLoading)
-        assertNull(sut.uiStateFlow.value.error)
-    }
-
-    @Test
-    fun `init emits error on failure`() = runTest {
-        coEvery { getMatchUseCase() } returns Result.Failure(AppError.Network)
-
-        sut = MatchListViewModel(getMatchUseCase)
-        advanceUntilIdle()
-
-        assertEquals(emptyList<MatchSummary>(), sut.uiStateFlow.value.matches)
-        assertEquals(AppError.Network, sut.uiStateFlow.value.error)
-        assertFalse(sut.uiStateFlow.value.isLoading)
-    }
+            assertEquals(matches, sut.uiStateFlow.value.matches)
+            assertEquals(1, sut.uiStateFlow.value.totalItems)
+            assertFalse(sut.uiStateFlow.value.isLoading)
+            assertNull(sut.uiStateFlow.value.error)
+        }
 
     @Test
-    fun `onRefresh reloads matches`() = runTest {
-        val matchPage = MatchPage(
-            matches = emptyList(),
-            page = 1,
-            pageSize = 20,
-            totalPages = 0,
-            totalItems = 0,
-        )
-        coEvery { getMatchUseCase() } returns Result.Success(matchPage)
+    fun `init emits error on failure`() =
+        runTest {
+            coEvery { getMatchUseCase() } returns Result.Failure(AppError.Network)
 
-        sut = MatchListViewModel(getMatchUseCase)
-        advanceUntilIdle()
+            sut = MatchListViewModel(getMatchUseCase)
+            advanceUntilIdle()
 
-        sut.onRefresh()
-        advanceUntilIdle()
+            assertEquals(emptyList<MatchSummary>(), sut.uiStateFlow.value.matches)
+            assertEquals(AppError.Network, sut.uiStateFlow.value.error)
+            assertFalse(sut.uiStateFlow.value.isLoading)
+        }
 
-        coVerify(exactly = 2) { getMatchUseCase() }
-    }
+    @Test
+    fun `onRefresh reloads matches`() =
+        runTest {
+            val matchPage =
+                MatchPage(
+                    matches = emptyList(),
+                    page = 1,
+                    pageSize = 20,
+                    totalPages = 0,
+                    totalItems = 0,
+                )
+            coEvery { getMatchUseCase() } returns Result.Success(matchPage)
+
+            sut = MatchListViewModel(getMatchUseCase)
+            advanceUntilIdle()
+
+            sut.onRefresh()
+            advanceUntilIdle()
+
+            coVerify(exactly = 2) { getMatchUseCase() }
+        }
 }
