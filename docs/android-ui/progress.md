@@ -20,7 +20,8 @@ The established design authority is docs/prototype/complete/design-system.md; th
 | --- | --- | --- | --- |
 | 01 | ui/01-match-list-detail | MATCH-01 list; shared MATCH-03/04 detail | Completed; commit `199aae6`; pushed to origin |
 | 02 | ui/02-match-create-review | MATCH-05 create; MATCH-06 review | Completed; commit `e4e4974`; pushed to origin |
-| 03 | ui/03-negotiation-mercenary | Screen 4: PAIR-03 room; Screen 5: MERC-01 solo | Up next |
+| 03 | ui/03-negotiation-mercenary | Screen 4: PAIR-03 room; Screen 5: MERC-01 solo | Completed; commit `cc36cb5`; pushed to origin |
+| 04 | ui/04-team-profile | Screen 6: TEAM-04 My Team; TEAM-03 Create Team | Up next |
 | Later | cumulative branches | Authentication/profile, teams, negotiation, players, venues, chat, notifications, reputation, admin from the prototype inventory | Pending |
 
 ## Batch 01 scope and limitations
