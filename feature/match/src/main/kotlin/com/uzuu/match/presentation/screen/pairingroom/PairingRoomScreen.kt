@@ -19,11 +19,8 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.ErrorOutline
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.LockClock
 import androidx.compose.material.icons.outlined.Payments
-import androidx.compose.material.icons.outlined.Schedule
-import androidx.compose.material.icons.outlined.Stadium
 import androidx.compose.material.icons.outlined.SwapHoriz
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -52,7 +49,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.igorwojda.showcase.feature.base.presentation.compose.composable.AppErrorContent
 import com.igorwojda.showcase.feature.base.presentation.compose.composable.LoadingIndicator
 import com.uzuu.match.domain.model.PairingChatMessage
-import com.uzuu.match.domain.model.PairingRoom
 import com.uzuu.match.presentation.composable.ControlShape
 import com.uzuu.match.presentation.composable.MatchShape
 import org.koin.androidx.compose.koinViewModel

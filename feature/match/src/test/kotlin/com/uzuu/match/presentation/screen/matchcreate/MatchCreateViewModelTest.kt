@@ -1,7 +1,6 @@
 package com.uzuu.match.presentation.screen.matchcreate
 
 import com.uzuu.match.domain.model.MatchType
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

@@ -58,7 +58,6 @@ import com.uzuu.match.presentation.composable.MatchSection
 import com.uzuu.match.presentation.composable.MatchStatusBadge
 import com.uzuu.match.presentation.composable.formatLabel
 import com.uzuu.match.presentation.composable.localDateTime
-import com.uzuu.match.presentation.composable.statusLabel
 import com.uzuu.match.presentation.composable.timeLabel
 import org.koin.androidx.compose.koinViewModel
 
