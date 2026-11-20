@@ -29,10 +29,14 @@ sealed interface NavigationRoute {
     @Serializable
     data object MatchReview : NavigationRoute
 
-    // Placeholder destinations for subsequent tabs
     @Serializable
-    data object SingleMatch : NavigationRoute
+    data class PairingRoom(val pairingId: String) : NavigationRoute
 
+    // Mercenary / Single match destinations
+    @Serializable
+    data object MercenaryList : NavigationRoute
+
+    // Placeholder destinations for subsequent tabs
     @Serializable
     data object Messages : NavigationRoute
 

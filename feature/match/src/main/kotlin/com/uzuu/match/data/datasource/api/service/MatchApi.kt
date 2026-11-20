@@ -17,4 +17,26 @@ internal interface MatchApi {
     @retrofit2.http.POST("matches")
     suspend fun createMatch(@retrofit2.http.Body draftDto: com.uzuu.match.data.datasource.api.model.MatchSummaryDto): ApiResult<com.uzuu.match.data.datasource.api.model.MatchSummaryDto>
 
+    @GET("pairings/{pairingId}")
+    suspend fun getPairingRoom(@Path("pairingId") pairingId: String): ApiResult<com.uzuu.match.domain.model.PairingRoom>
+
+    @retrofit2.http.POST("pairings/{pairingId}/confirm")
+    suspend fun confirmPackage(@Path("pairingId") pairingId: String): ApiResult<com.uzuu.match.domain.model.PairingRoom>
+
+    @retrofit2.http.POST("pairings/{pairingId}/options")
+    suspend fun updatePackageOption(
+        @Path("pairingId") pairingId: String,
+        @retrofit2.http.Query("venueId") venueId: String?,
+        @retrofit2.http.Query("timeSlot") timeSlot: String?,
+    ): ApiResult<com.uzuu.match.domain.model.PairingRoom>
+
+    @GET("mercenaries")
+    suspend fun getMercenaryPosts(): ApiResult<List<com.uzuu.match.domain.model.MercenaryPost>>
+
+    @retrofit2.http.POST("mercenaries/{postId}/apply")
+    suspend fun applyMercenary(
+        @Path("postId") postId: String,
+        @retrofit2.http.Query("message") message: String,
+    ): ApiResult<com.uzuu.match.domain.model.MercenaryPost>
+
 }

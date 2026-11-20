@@ -26,6 +26,8 @@ import com.uzuu.match.presentation.screen.matchcreate.MatchCreateScreen
 import com.uzuu.match.presentation.screen.matchdetail.MatchDetailScreen
 import com.uzuu.match.presentation.screen.matchlist.MatchListScreen
 import com.uzuu.match.presentation.screen.matchreview.MatchReviewScreen
+import com.uzuu.match.presentation.screen.mercenarylist.MercenaryListScreen
+import com.uzuu.match.presentation.screen.pairingroom.PairingRoomScreen
 
 @Composable
 fun MainShowcaseScreen(modifier: Modifier = Modifier) {
@@ -48,8 +50,8 @@ fun MainShowcaseScreen(modifier: Modifier = Modifier) {
                     .consumeWindowInsets(innerPadding),
         ) {
             matchesGraph(navController)
-            singleMatchGraph()
-            messagesGraph()
+            singleMatchGraph(navController)
+            messagesGraph(navController)
             myTeamsGraph()
         }
     }
@@ -99,25 +101,43 @@ private fun NavGraphBuilder.matchesGraph(navController: NavController) {
                 },
             )
         }
-    }
-}
 
-private fun NavGraphBuilder.singleMatchGraph() {
-    navigation<NavigationRoute.SingleMatchGraph>(
-        startDestination = NavigationRoute.SingleMatch,
-    ) {
-        composable<NavigationRoute.SingleMatch> {
-            PlaceholderTabScreen(title = stringResource(R.string.bottom_navigation_signle_match))
+        composable<NavigationRoute.PairingRoom> { entry ->
+            val args = entry.toRoute<NavigationRoute.PairingRoom>()
+            PairingRoomScreen(
+                pairingId = args.pairingId,
+                onBackClick = { navController.popBackStack() },
+            )
         }
     }
 }
 
-private fun NavGraphBuilder.messagesGraph() {
+private fun NavGraphBuilder.singleMatchGraph(navController: NavController) {
+    navigation<NavigationRoute.SingleMatchGraph>(
+        startDestination = NavigationRoute.MercenaryList,
+    ) {
+        composable<NavigationRoute.MercenaryList> {
+            MercenaryListScreen(
+                onPostClick = { /* post detail placeholder */ },
+            )
+        }
+    }
+}
+
+private fun NavGraphBuilder.messagesGraph(navController: NavController) {
     navigation<NavigationRoute.MessagesGraph>(
         startDestination = NavigationRoute.Messages,
     ) {
         composable<NavigationRoute.Messages> {
             PlaceholderTabScreen(title = stringResource(R.string.bottom_navigation_message))
+        }
+
+        composable<NavigationRoute.PairingRoom> { entry ->
+            val args = entry.toRoute<NavigationRoute.PairingRoom>()
+            PairingRoomScreen(
+                pairingId = args.pairingId,
+                onBackClick = { navController.popBackStack() },
+            )
         }
     }
 }

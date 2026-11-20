@@ -11,6 +11,8 @@ import com.uzuu.match.domain.model.MatchDetail
 import com.uzuu.match.domain.model.MatchDraft
 import com.uzuu.match.domain.model.MatchSummary
 import com.uzuu.match.domain.model.MatchType
+import com.uzuu.match.domain.model.MercenaryPost
+import com.uzuu.match.domain.model.PairingRoom
 import com.uzuu.match.domain.repository.MatchRepository
 import java.time.Instant
 import java.util.UUID
@@ -84,6 +86,55 @@ internal class MatchRepositoryImpl(
             )
             when (val result = matchRemoteDataSource.createMatch(dto)) {
                 is ApiResult.Success -> Result.Success(result.data.dtoToDomain())
+                is ApiResult.Error -> Result.Failure(httpError(result.code))
+                is ApiResult.Exception -> throw result.throwable
+            }
+        }
+
+    override suspend fun getPairingRoom(pairingId: String): Result<PairingRoom> =
+        dataResult {
+            when (val result = matchRemoteDataSource.getPairingRoom(pairingId)) {
+                is ApiResult.Success -> Result.Success(result.data)
+                is ApiResult.Error -> Result.Failure(httpError(result.code))
+                is ApiResult.Exception -> throw result.throwable
+            }
+        }
+
+    override suspend fun confirmPackage(pairingId: String): Result<PairingRoom> =
+        dataResult {
+            when (val result = matchRemoteDataSource.confirmPackage(pairingId)) {
+                is ApiResult.Success -> Result.Success(result.data)
+                is ApiResult.Error -> Result.Failure(httpError(result.code))
+                is ApiResult.Exception -> throw result.throwable
+            }
+        }
+
+    override suspend fun updatePackageOption(
+        pairingId: String,
+        venueId: String?,
+        timeSlot: String?,
+    ): Result<PairingRoom> =
+        dataResult {
+            when (val result = matchRemoteDataSource.updatePackageOption(pairingId, venueId, timeSlot)) {
+                is ApiResult.Success -> Result.Success(result.data)
+                is ApiResult.Error -> Result.Failure(httpError(result.code))
+                is ApiResult.Exception -> throw result.throwable
+            }
+        }
+
+    override suspend fun getMercenaryPosts(): Result<List<MercenaryPost>> =
+        dataResult {
+            when (val result = matchRemoteDataSource.getMercenaryPosts()) {
+                is ApiResult.Success -> Result.Success(result.data)
+                is ApiResult.Error -> Result.Failure(httpError(result.code))
+                is ApiResult.Exception -> throw result.throwable
+            }
+        }
+
+    override suspend fun applyMercenary(postId: String, message: String): Result<MercenaryPost> =
+        dataResult {
+            when (val result = matchRemoteDataSource.applyMercenary(postId, message)) {
+                is ApiResult.Success -> Result.Success(result.data)
                 is ApiResult.Error -> Result.Failure(httpError(result.code))
                 is ApiResult.Exception -> throw result.throwable
             }

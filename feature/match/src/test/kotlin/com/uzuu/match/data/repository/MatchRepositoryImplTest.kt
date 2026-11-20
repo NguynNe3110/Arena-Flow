@@ -126,6 +126,45 @@ class MatchRepositoryImplTest {
         assertEquals("Test FC", page.value.matches[0].authorTeamName)
     }
 
+    @Test
+    fun `getPairingRoom and confirmPackage update confirmation state`() = runBlocking {
+        val list = File(checkNotNull(System.getProperty("matchMockFixturePath"))).readText()
+        val details = File(checkNotNull(System.getProperty("matchDetailMockFixturePath"))).readText()
+        val context = mockk<Context>()
+        val assets = mockk<AssetManager>()
+        every { context.assets } returns assets
+        every { assets.open("mock/matches.json") } answers { list.byteInputStream() }
+        every { assets.open("mock/match-details.json") } answers { details.byteInputStream() }
+        val repository = MatchRepositoryImpl(MatchRemoteDataSource(MockMatchDataSource(context, Json { ignoreUnknownKeys = true })))
+
+        val room = repository.getPairingRoom("pairing-beta-alpha") as Result.Success
+        assertEquals("#SG-BM-2111", room.value.code)
+        assertEquals("Sài Gòn Utd", room.value.hostTeam.teamName)
+        assertEquals("Bình Minh FC", room.value.guestTeam.teamName)
+
+        val confirmed = repository.confirmPackage("pairing-beta-alpha") as Result.Success
+        org.junit.jupiter.api.Assertions.assertTrue(confirmed.value.guestConfirmed)
+    }
+
+    @Test
+    fun `getMercenaryPosts and applyMercenary update applicant count`() = runBlocking {
+        val list = File(checkNotNull(System.getProperty("matchMockFixturePath"))).readText()
+        val details = File(checkNotNull(System.getProperty("matchDetailMockFixturePath"))).readText()
+        val context = mockk<Context>()
+        val assets = mockk<AssetManager>()
+        every { context.assets } returns assets
+        every { assets.open("mock/matches.json") } answers { list.byteInputStream() }
+        every { assets.open("mock/match-details.json") } answers { details.byteInputStream() }
+        val repository = MatchRepositoryImpl(MatchRemoteDataSource(MockMatchDataSource(context, Json { ignoreUnknownKeys = true })))
+
+        val posts = repository.getMercenaryPosts() as Result.Success
+        org.junit.jupiter.api.Assertions.assertTrue(posts.value.isNotEmpty())
+
+        val applied = repository.applyMercenary("rec-1", "Tôi đá GK tốt") as Result.Success
+        org.junit.jupiter.api.Assertions.assertTrue(applied.value.isApplied)
+        assertEquals(3, applied.value.pendingApplicants)
+    }
+
     private fun mockApi(content: String): MatchApi {
         val context = mockk<Context>()
         val assets = mockk<AssetManager>()
