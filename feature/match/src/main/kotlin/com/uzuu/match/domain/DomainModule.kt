@@ -1,7 +1,11 @@
-package com.uzuu.diuchat.feature.template.domain
+package com.uzuu.match.domain
 
+import com.uzuu.match.domain.repository.MatchRepository
+import com.uzuu.match.domain.usecase.GetMatchUseCase
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
-val domainModule = module {
-    // Use Cases
-}
+internal val domainModule =
+    module {
+        singleOf(::GetMatchUseCase)
+    }

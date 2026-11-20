@@ -5,6 +5,7 @@ import com.igorwojda.showcase.app.di.appModule
 import com.igorwojda.showcase.feature.album.featureAlbumModules
 import com.igorwojda.showcase.feature.favourite.featureFavouriteModules
 import com.igorwojda.showcase.feature.settings.featureSettingsModules
+import com.uzuu.match.featureMatchModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext
@@ -27,6 +28,7 @@ class ShowcaseApplication : Application() { // nơi khởi tạo đầu tiên
             modules(featureFavouriteModules)
             modules(featureAlbumModules)
             modules(featureSettingsModules)
+            modules(featureMatchModules)
         }
     }
 

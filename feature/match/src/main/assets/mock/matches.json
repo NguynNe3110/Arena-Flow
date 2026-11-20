@@ -1,0 +1,53 @@
+{
+  "data": [
+    {
+      "matchId": "01933b6e-8f10-7a2c-9d41-2f6c1a7e5b01",
+      "type": "HAS_VENUE",
+      "status": "OPEN",
+      "sportId": "01930000-0000-7000-8000-000000000001",
+      "sportName": "Bóng đá",
+      "format": "SEVEN_A_SIDE",
+      "skillLevels": ["Nhiệt tình"],
+      "startsAt": "2026-11-12T11:00:00Z",
+      "endsAt": "2026-11-12T13:00:00Z",
+      "expiresAt": "2026-11-12T05:00:00Z",
+      "authorTeamId": "01932f00-1a2b-7c3d-8e4f-5a6b7c8d9e01",
+      "authorTeamName": "Team Alpha",
+      "authorTeamReliabilityScore": 80,
+      "opponentTeamId": null,
+      "opponentTeamName": null,
+      "venueId": "01933a10-4b5c-7d6e-8f70-81a2b3c4d5e1",
+      "venueName": "Sân bóng Hoa Lư",
+      "venueAddress": "2 Đinh Tiên Hoàng, Phường Đa Kao, TP.HCM",
+      "venueOptionCount": null,
+      "timeOptionCount": null,
+      "distanceKm": 1.25,
+      "createdAt": "2026-11-09T03:00:00Z"
+    },
+    {
+      "matchId": "01933b6e-8f10-7a2c-9d41-2f6c1a7e5b02",
+      "type": "NEED_VENUE",
+      "status": "OPEN",
+      "sportId": "01930000-0000-7000-8000-000000000001",
+      "sportName": "Bóng đá",
+      "format": "SEVEN_A_SIDE",
+      "skillLevels": [],
+      "startsAt": "2026-11-12T11:00:00Z",
+      "endsAt": "2026-11-12T13:00:00Z",
+      "expiresAt": "2026-11-12T05:00:00Z",
+      "authorTeamId": "01932f00-1a2b-7c3d-8e4f-5a6b7c8d9e01",
+      "authorTeamName": "Team Alpha",
+      "authorTeamReliabilityScore": 80,
+      "opponentTeamId": null,
+      "opponentTeamName": null,
+      "venueId": null,
+      "venueName": null,
+      "venueAddress": null,
+      "venueOptionCount": 2,
+      "timeOptionCount": 2,
+      "distanceKm": 1.4,
+      "createdAt": "2026-11-10T03:00:00Z"
+    }
+  ],
+  "pagination": { "page": 1, "pageSize": 20, "totalPages": 1, "totalItems": 2 }
+}

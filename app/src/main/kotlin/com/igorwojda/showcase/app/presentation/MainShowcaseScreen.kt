@@ -44,6 +44,7 @@ fun MainShowcaseScreen(modifier: Modifier = Modifier) {
                     .padding(innerPadding)
                     .consumeWindowInsets(innerPadding),
         ) {
+            matchers(navController)
             albumsGraph(navController)
             favouritesGraph()
             settingsGraph(navController)
