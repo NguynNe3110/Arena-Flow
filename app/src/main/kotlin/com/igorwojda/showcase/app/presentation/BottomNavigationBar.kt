@@ -84,26 +84,30 @@ private fun BottomNavigationBarContent(
         items.forEach { item ->
             val selected = isSelected(item)
             val contentColor =
-                if (selected) MaterialTheme.colorScheme.primary
-                else MaterialTheme.colorScheme.onSurface
+                if (selected) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.onSurface
+                }
 
             Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(horizontal = 4.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(
-                        if (selected) MaterialTheme.colorScheme.secondaryContainer
-                        else Color.Transparent,
-                    )
-                    .selectable(
-                        selected = selected,
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .padding(horizontal = 4.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(
+                            if (selected) {
+                                MaterialTheme.colorScheme.secondaryContainer
+                            } else {
+                                Color.Transparent
+                            },
+                        ).selectable(
+                            selected = selected,
 //                        role = Role.Tab,
-                        onClick = { onItemClick(item) },
-                    )
-                    .heightIn(min = 60.dp)
-                    .padding(horizontal = 4.dp, vertical = 8.dp),
-
+                            onClick = { onItemClick(item) },
+                        ).heightIn(min = 60.dp)
+                        .padding(horizontal = 4.dp, vertical = 8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
@@ -131,24 +135,24 @@ private fun BottomNavigationBarContent(
 private fun getBottomNavigationItems() =
     listOf(
         BottomNavItem(
-          R.string.bottom_navigation_match,
+            R.string.bottom_navigation_match,
             R.drawable.ic_home,
             NavigationRoute.MatchesGraph,
         ),
         BottomNavItem(
             R.string.bottom_navigation_signle_match,
             R.drawable.ic_person,
-            NavigationRoute.AlbumsGraph,
+            NavigationRoute.SingleMatchGraph,
         ),
         BottomNavItem(
             R.string.bottom_navigation_message,
             R.drawable.ic_message,
-            NavigationRoute.FavouritesGraph,
+            NavigationRoute.MessagesGraph,
         ),
         BottomNavItem(
             R.string.bottom_navigation_myteam,
             R.drawable.ic_myteam,
-            NavigationRoute.SettingsGraph,
+            NavigationRoute.MyTeamsGraph,
         ),
     )
 

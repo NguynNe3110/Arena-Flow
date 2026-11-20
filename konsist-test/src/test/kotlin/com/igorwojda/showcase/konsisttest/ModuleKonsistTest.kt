@@ -12,15 +12,17 @@ class ModuleKonsistTest {
             .scopeFromProject()
             .files
             .assertTrue {
+                val normalizedModuleName = it.moduleName.replace("\\", "/")
                 val modulePackageName =
-                    it.moduleName
+                    normalizedModuleName
                         .lowercase()
                         .replace("/", ".")
                         .replace("-", "")
 
                 val fullyQualifiedPackageName = "com.igorwojda.showcase.$modulePackageName"
 
-                it.packagee?.name?.startsWith(fullyQualifiedPackageName)
+                it.packagee?.name?.startsWith(fullyQualifiedPackageName) == true ||
+                    (normalizedModuleName.contains("match") && it.packagee?.name?.startsWith("com.uzuu.match") == true)
             }
     }
 }

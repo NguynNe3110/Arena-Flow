@@ -7,5 +7,7 @@ sealed interface AppError {
 
     data object Server : AppError
 
+    data object NotFound : AppError
+
     data object Unknown : AppError
 }

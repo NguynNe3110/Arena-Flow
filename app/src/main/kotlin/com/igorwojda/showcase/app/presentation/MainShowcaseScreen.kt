@@ -1,12 +1,17 @@
 package com.igorwojda.showcase.app.presentation
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
@@ -15,14 +20,16 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.igorwojda.showcase.app.BuildConfig
+import com.igorwojda.showcase.app.R
 import com.igorwojda.showcase.app.presentation.util.NavigationDestinationLogger
-import com.igorwojda.showcase.feature.album.presentation.screen.albumdetail.AlbumDetailScreen
-import com.igorwojda.showcase.feature.album.presentation.screen.albumlist.AlbumListScreen
-import com.igorwojda.showcase.feature.favourite.presentation.screen.favourite.FavouriteScreen
-import com.igorwojda.showcase.feature.settings.presentation.screen.aboutlibraries.AboutLibrariesScreen
-import com.igorwojda.showcase.feature.settings.presentation.screen.settings.SettingsScreen
+import com.uzuu.match.presentation.screen.matchcreate.MatchCreateScreen
 import com.uzuu.match.presentation.screen.matchdetail.MatchDetailScreen
 import com.uzuu.match.presentation.screen.matchlist.MatchListScreen
+import com.uzuu.match.presentation.screen.matchreview.MatchReviewScreen
+import com.uzuu.match.presentation.screen.mercenarylist.MercenaryListScreen
+import com.uzuu.match.presentation.screen.pairingroom.PairingRoomScreen
+import com.uzuu.match.presentation.screen.teamcreate.TeamCreateScreen
+import com.uzuu.match.presentation.screen.teamdetail.TeamDetailScreen
 
 @Composable
 fun MainShowcaseScreen(modifier: Modifier = Modifier) {
@@ -38,101 +45,158 @@ fun MainShowcaseScreen(modifier: Modifier = Modifier) {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = NavigationRoute.AlbumsGraph,
+            startDestination = NavigationRoute.MatchesGraph,
             modifier =
                 Modifier
                     .padding(innerPadding)
                     .consumeWindowInsets(innerPadding),
         ) {
-            matchers(navController)
-            albumsGraph(navController)
-            favouritesGraph()
-            settingsGraph(navController)
+            matchesGraph(navController)
+            singleMatchGraph(navController)
+            messagesGraph(navController)
+            myTeamsGraph(navController)
         }
     }
 }
 
-private fun NavGraphBuilder.albumsGraph(navController: NavController) {
-    navigation<NavigationRoute.AlbumsGraph>(startDestination = NavigationRoute.AlbumList) {
-        composable<NavigationRoute.AlbumList> {
-            AlbumListScreen(
-                onNavigateToAlbumDetail = { artistName, albumName, albumMbId ->
-                    navController.navigate(
-                        NavigationRoute.AlbumDetail(
-                            albumName = albumName,
-                            artistName = artistName,
-                            albumMbId = albumMbId,
-                        ),
-                    )
-                },
-            )
-        }
-        composable<NavigationRoute.AlbumDetail> { backStackEntry ->
-            // Retrieve typed args
-            val args = backStackEntry.toRoute<NavigationRoute.AlbumDetail>()
-
-            AlbumDetailScreen(
-                albumName = args.albumName,
-                artistName = args.artistName,
-                albumMbId = args.albumMbId,
-                onBackClick = {
-                    navController.popBackStack()
-                },
-            )
-        }
-    }
-}
-
-private fun NavGraphBuilder.favouritesGraph() {
-    navigation<NavigationRoute.FavouritesGraph>(startDestination = NavigationRoute.Favourites) {
-        composable<NavigationRoute.Favourites> {
-            FavouriteScreen()
-        }
-    }
-}
-
-private fun NavGraphBuilder.settingsGraph(navController: NavController) {
-    navigation<NavigationRoute.SettingsGraph>(startDestination = NavigationRoute.Settings) {
-        composable<NavigationRoute.Settings> {
-            SettingsScreen(
-                onNavigateToAboutLibraries = {
-                    navController.navigate(NavigationRoute.AboutLibraries)
-                },
-            )
-        }
-
-        composable<NavigationRoute.AboutLibraries> {
-            AboutLibrariesScreen(
-                onBackClick = {
-                    navController.popBackStack()
-                },
-            )
-        }
-    }
-}
-
-private fun NavGraphBuilder.matchers(navController: NavController) {
+private fun NavGraphBuilder.matchesGraph(navController: NavController) {
     navigation<NavigationRoute.MatchesGraph>(
         startDestination = NavigationRoute.MatchList,
     ) {
         composable<NavigationRoute.MatchList> {
             MatchListScreen(
-//                onMatchItemClick = { matchId ->
-//                    navController.navigate(
-//                        NavigationRoute.MatchDetail(matchId)
-//                    )
-//                },
+                onMatchClick = { matchId ->
+                    navController.navigate(NavigationRoute.MatchDetail(matchId))
+                },
+                onCreateMatchClick = {
+                    navController.navigate(NavigationRoute.MatchCreate)
+                },
             )
         }
 
         composable<NavigationRoute.MatchDetail> { entry ->
             val args = entry.toRoute<NavigationRoute.MatchDetail>()
-//
-//            MatchDetailScreen(
-//                matchId = args.matchId,
-//                onBackClick = { navController.popBackStack() },
-//            )
+            MatchDetailScreen(
+                matchId = args.matchId,
+                onBackClick = { navController.popBackStack() },
+            )
         }
+
+        composable<NavigationRoute.MatchCreate> {
+            MatchCreateScreen(
+                onNavigateToReview = {
+                    navController.navigate(NavigationRoute.MatchReview)
+                },
+                onBackClick = {
+                    navController.popBackStack()
+                },
+            )
+        }
+
+        composable<NavigationRoute.MatchReview> {
+            MatchReviewScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onPostSuccess = {
+                    navController.popBackStack(NavigationRoute.MatchList, inclusive = false)
+                },
+            )
+        }
+
+        composable<NavigationRoute.PairingRoom> { entry ->
+            val args = entry.toRoute<NavigationRoute.PairingRoom>()
+            PairingRoomScreen(
+                pairingId = args.pairingId,
+                onBackClick = { navController.popBackStack() },
+            )
+        }
+    }
+}
+
+private fun NavGraphBuilder.singleMatchGraph(navController: NavController) {
+    navigation<NavigationRoute.SingleMatchGraph>(
+        startDestination = NavigationRoute.MercenaryList,
+    ) {
+        composable<NavigationRoute.MercenaryList> {
+            MercenaryListScreen(
+                onPostClick = { /* post detail placeholder */ },
+            )
+        }
+    }
+}
+
+private fun NavGraphBuilder.messagesGraph(navController: NavController) {
+    navigation<NavigationRoute.MessagesGraph>(
+        startDestination = NavigationRoute.Messages,
+    ) {
+        composable<NavigationRoute.Messages> {
+            PlaceholderTabScreen(title = stringResource(R.string.bottom_navigation_message))
+        }
+
+        composable<NavigationRoute.PairingRoom> { entry ->
+            val args = entry.toRoute<NavigationRoute.PairingRoom>()
+            PairingRoomScreen(
+                pairingId = args.pairingId,
+                onBackClick = { navController.popBackStack() },
+            )
+        }
+    }
+}
+
+private fun NavGraphBuilder.myTeamsGraph(navController: NavController) {
+    navigation<NavigationRoute.MyTeamsGraph>(
+        startDestination = NavigationRoute.TeamDetail(),
+    ) {
+        composable<NavigationRoute.TeamDetail> {
+            TeamDetailScreen(
+                onCreateTeamClick = {
+                    navController.navigate(NavigationRoute.TeamCreate)
+                },
+                onBackClick = {
+                    navController.popBackStack()
+                },
+            )
+        }
+
+        composable<NavigationRoute.TeamCreate> {
+            TeamCreateScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onTeamCreate = { _ ->
+                    navController.popBackStack()
+                },
+            )
+        }
+
+        composable<NavigationRoute.MyTeams> {
+            TeamDetailScreen(
+                onCreateTeamClick = {
+                    navController.navigate(NavigationRoute.TeamCreate)
+                },
+                onBackClick = {
+                    navController.popBackStack()
+                },
+            )
+        }
+    }
+}
+
+@Composable
+private fun PlaceholderTabScreen(
+    title: String,
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
 

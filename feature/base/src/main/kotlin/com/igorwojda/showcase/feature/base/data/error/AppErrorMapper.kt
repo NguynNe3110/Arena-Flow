@@ -11,6 +11,7 @@ import retrofit2.HttpException
 fun httpError(code: Int): AppError =
     when (code) {
         401, 403 -> AppError.Unauthorized
+        404 -> AppError.NotFound
         in 500..599, 429 -> AppError.Server
         else -> AppError.Unknown
     }
