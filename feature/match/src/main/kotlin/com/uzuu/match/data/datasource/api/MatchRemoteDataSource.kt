@@ -10,6 +10,9 @@ internal class MatchRemoteDataSource(
 ) {
     suspend fun getMatch(matchId: String): ApiResult<MatchDetailResponse> = api.getMatch(matchId)
 
+    suspend fun createMatch(draftDto: com.uzuu.match.data.datasource.api.model.MatchSummaryDto): ApiResult<com.uzuu.match.data.datasource.api.model.MatchSummaryDto> =
+        api.createMatch(draftDto)
+
     suspend fun getMatches(): ApiResult<MatchListResponse> {
         return api.getMatches()
     }

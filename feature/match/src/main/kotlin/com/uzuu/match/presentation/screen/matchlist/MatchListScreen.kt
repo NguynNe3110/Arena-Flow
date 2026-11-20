@@ -51,11 +51,12 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun MatchListScreen(
     onMatchClick: (String) -> Unit,
+    onCreateMatchClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val viewModel: MatchListViewModel = koinViewModel()
     val uiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
-    MatchListContent(uiState, viewModel::onRefresh, onMatchClick, modifier)
+    MatchListContent(uiState, viewModel::onRefresh, onMatchClick, onCreateMatchClick, modifier)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -64,6 +65,7 @@ internal fun MatchListContent(
     uiState: MatchListUiState,
     onRefresh: () -> Unit,
     onMatchClick: (String) -> Unit,
+    onCreateMatchClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     var tab by rememberSaveable { mutableStateOf("ALL") }
@@ -86,6 +88,13 @@ internal fun MatchListContent(
                 Text("Tìm kèo giao lưu", Modifier.weight(1f), style = MaterialTheme.typography.headlineLarge)
                 IconButton(onClick = onRefresh, enabled = !uiState.isLoading) {
                     Icon(Icons.Outlined.Refresh, "Tải lại danh sách kèo")
+                }
+                Button(
+                    onClick = onCreateMatchClick,
+                    shape = ControlShape,
+                    modifier = Modifier.padding(end = 12.dp).heightIn(min = 38.dp),
+                ) {
+                    Text("+ Đăng kèo", style = MaterialTheme.typography.labelMedium)
                 }
             }
             Text(
@@ -132,9 +141,14 @@ internal fun MatchListContent(
                 matches.isEmpty() -> Box(Modifier.fillMaxSize().padding(24.dp), Alignment.Center) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Text("Chưa có kèo nào phù hợp", style = MaterialTheme.typography.titleLarge)
-                        Text("Thử thay đổi bộ lọc để tìm đội giao lưu.", style = MaterialTheme.typography.bodyMedium)
-                        OutlinedButton(onClick = { tab = "ALL"; format = "ALL"; skill = "ALL" }, shape = ControlShape) {
-                            Text("Đặt lại bộ lọc")
+                        Text("Thử thay đổi bộ lọc hoặc chủ động đăng bài tìm đối giao lưu!", style = MaterialTheme.typography.bodyMedium)
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            OutlinedButton(onClick = { tab = "ALL"; format = "ALL"; skill = "ALL" }, shape = ControlShape) {
+                                Text("Đặt lại bộ lọc")
+                            }
+                            Button(onClick = onCreateMatchClick, shape = ControlShape) {
+                                Text("Đăng kèo ngay")
+                            }
                         }
                     }
                 }

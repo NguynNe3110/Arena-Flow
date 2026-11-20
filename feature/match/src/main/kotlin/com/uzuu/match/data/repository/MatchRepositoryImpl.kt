@@ -8,7 +8,12 @@ import com.uzuu.match.data.datasource.api.MatchRemoteDataSource
 import com.uzuu.match.data.mapper.dtoToDomain
 import com.uzuu.match.domain.model.MatchPage
 import com.uzuu.match.domain.model.MatchDetail
+import com.uzuu.match.domain.model.MatchDraft
+import com.uzuu.match.domain.model.MatchSummary
+import com.uzuu.match.domain.model.MatchType
 import com.uzuu.match.domain.repository.MatchRepository
+import java.time.Instant
+import java.util.UUID
 
 internal class MatchRepositoryImpl(
     private val matchRemoteDataSource: MatchRemoteDataSource,
@@ -47,6 +52,40 @@ internal class MatchRepositoryImpl(
                 is ApiResult.Exception -> {
                     throw result.throwable
                 }
+            }
+        }
+
+    override suspend fun createMatch(draft: MatchDraft): Result<MatchSummary> =
+        dataResult {
+            val matchId = UUID.randomUUID().toString()
+            val dto = com.uzuu.match.data.datasource.api.model.MatchSummaryDto(
+                matchId = matchId,
+                type = draft.kind.name,
+                status = "OPEN",
+                sportId = "01930000-0000-7000-8000-000000000001",
+                sportName = "Bóng đá",
+                format = draft.format,
+                skillLevels = listOf(draft.skillLevel),
+                startsAt = if (draft.kind == MatchType.HAS_VENUE) "${draft.matchDate}T${draft.startTime}:00Z" else "${draft.matchDate}T18:00:00Z",
+                endsAt = if (draft.kind == MatchType.HAS_VENUE) "${draft.matchDate}T${draft.endTime}:00Z" else "${draft.matchDate}T19:30:00Z",
+                expiresAt = "${draft.matchDate}T17:00:00Z",
+                authorTeamId = draft.hostTeamId,
+                authorTeamName = draft.hostTeamName,
+                authorTeamReliabilityScore = 100,
+                opponentTeamId = null,
+                opponentTeamName = null,
+                venueId = if (draft.kind == MatchType.HAS_VENUE) draft.venueId else null,
+                venueName = if (draft.kind == MatchType.HAS_VENUE) draft.venueName else null,
+                venueAddress = if (draft.kind == MatchType.HAS_VENUE) draft.venueAddress else null,
+                venueOptionCount = if (draft.kind == MatchType.NEED_VENUE) draft.proposedVenues.size else null,
+                timeOptionCount = if (draft.kind == MatchType.NEED_VENUE) draft.proposedTimeSlots.size else null,
+                distanceKm = 1.2,
+                createdAt = Instant.now().toString(),
+            )
+            when (val result = matchRemoteDataSource.createMatch(dto)) {
+                is ApiResult.Success -> Result.Success(result.data.dtoToDomain())
+                is ApiResult.Error -> Result.Failure(httpError(result.code))
+                is ApiResult.Exception -> throw result.throwable
             }
         }
 }

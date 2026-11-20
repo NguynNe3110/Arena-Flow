@@ -101,6 +101,31 @@ class MatchRepositoryImplTest {
         assertEquals(Result.Failure(AppError.NotFound), repository.getMatch("missing"))
     }
 
+    @Test
+    fun `createMatch creates a new match and adds it to repository`() = runBlocking {
+        val list = File(checkNotNull(System.getProperty("matchMockFixturePath"))).readText()
+        val details = File(checkNotNull(System.getProperty("matchDetailMockFixturePath"))).readText()
+        val context = mockk<Context>()
+        val assets = mockk<AssetManager>()
+        every { context.assets } returns assets
+        every { assets.open("mock/matches.json") } answers { list.byteInputStream() }
+        every { assets.open("mock/match-details.json") } answers { details.byteInputStream() }
+        val repository = MatchRepositoryImpl(MatchRemoteDataSource(MockMatchDataSource(context, Json { ignoreUnknownKeys = true })))
+
+        val draft = com.uzuu.match.domain.model.MatchDraft(
+            hostTeamName = "Test FC",
+            venueName = "Test Stadium",
+        )
+        val created = repository.createMatch(draft)
+        check(created is Result.Success)
+        assertEquals("Test FC", created.value.authorTeamName)
+        assertEquals(MatchType.HAS_VENUE, created.value.type)
+
+        val page = repository.getMatches() as Result.Success
+        assertEquals(3, page.value.matches.size)
+        assertEquals("Test FC", page.value.matches[0].authorTeamName)
+    }
+
     private fun mockApi(content: String): MatchApi {
         val context = mockk<Context>()
         val assets = mockk<AssetManager>()

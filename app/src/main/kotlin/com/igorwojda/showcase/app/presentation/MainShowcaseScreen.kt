@@ -22,8 +22,10 @@ import androidx.navigation.toRoute
 import com.igorwojda.showcase.app.BuildConfig
 import com.igorwojda.showcase.app.R
 import com.igorwojda.showcase.app.presentation.util.NavigationDestinationLogger
+import com.uzuu.match.presentation.screen.matchcreate.MatchCreateScreen
 import com.uzuu.match.presentation.screen.matchdetail.MatchDetailScreen
 import com.uzuu.match.presentation.screen.matchlist.MatchListScreen
+import com.uzuu.match.presentation.screen.matchreview.MatchReviewScreen
 
 @Composable
 fun MainShowcaseScreen(modifier: Modifier = Modifier) {
@@ -62,6 +64,9 @@ private fun NavGraphBuilder.matchesGraph(navController: NavController) {
                 onMatchClick = { matchId ->
                     navController.navigate(NavigationRoute.MatchDetail(matchId))
                 },
+                onCreateMatchClick = {
+                    navController.navigate(NavigationRoute.MatchCreate)
+                },
             )
         }
 
@@ -70,6 +75,28 @@ private fun NavGraphBuilder.matchesGraph(navController: NavController) {
             MatchDetailScreen(
                 matchId = args.matchId,
                 onBackClick = { navController.popBackStack() },
+            )
+        }
+
+        composable<NavigationRoute.MatchCreate> {
+            MatchCreateScreen(
+                onNavigateToReview = {
+                    navController.navigate(NavigationRoute.MatchReview)
+                },
+                onBackClick = {
+                    navController.popBackStack()
+                },
+            )
+        }
+
+        composable<NavigationRoute.MatchReview> {
+            MatchReviewScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onPostSuccess = {
+                    navController.popBackStack(NavigationRoute.MatchList, inclusive = false)
+                },
             )
         }
     }
