@@ -131,24 +131,24 @@ private fun BottomNavigationBarContent(
 private fun getBottomNavigationItems() =
     listOf(
         BottomNavItem(
-          R.string.bottom_navigation_match,
+            R.string.bottom_navigation_match,
             R.drawable.ic_home,
             NavigationRoute.MatchesGraph,
         ),
         BottomNavItem(
             R.string.bottom_navigation_signle_match,
             R.drawable.ic_person,
-            NavigationRoute.AlbumsGraph,
+            NavigationRoute.SingleMatchGraph,
         ),
         BottomNavItem(
             R.string.bottom_navigation_message,
             R.drawable.ic_message,
-            NavigationRoute.FavouritesGraph,
+            NavigationRoute.MessagesGraph,
         ),
         BottomNavItem(
             R.string.bottom_navigation_myteam,
             R.drawable.ic_myteam,
-            NavigationRoute.SettingsGraph,
+            NavigationRoute.MyTeamsGraph,
         ),
     )
 

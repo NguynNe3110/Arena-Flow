@@ -1,4 +1,5 @@
 <resources>
     <string name="common_under_construction">Under construction</string>
     <string name="common_data_not_found">Data not found</string>
+    <string name="error_not_found">Không tìm thấy nội dung. Nội dung có thể đã bị xóa.</string>
 </resources>

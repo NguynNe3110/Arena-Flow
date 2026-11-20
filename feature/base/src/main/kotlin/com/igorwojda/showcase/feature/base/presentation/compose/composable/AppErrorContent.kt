@@ -55,5 +55,6 @@ private fun AppError.messageResource(): Int =
         AppError.Network -> R.string.error_network
         AppError.Unauthorized -> R.string.error_unauthorized
         AppError.Server -> R.string.error_server
+        AppError.NotFound -> R.string.error_not_found
         AppError.Unknown -> R.string.error_unknown
     }

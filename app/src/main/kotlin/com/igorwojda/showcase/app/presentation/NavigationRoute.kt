@@ -5,40 +5,31 @@ import kotlinx.serialization.Serializable
 sealed interface NavigationRoute {
     // Tab graphs - each bottom navigation tab has its own nested graph (and back stack)
     @Serializable
-    data object AlbumsGraph : NavigationRoute
-
-    @Serializable
-    data object FavouritesGraph : NavigationRoute
-
-    @Serializable
-    data object SettingsGraph : NavigationRoute
-
-    @Serializable
-    data object AlbumList : NavigationRoute
-
-    @Serializable
-    data class AlbumDetail(
-        val albumName: String,
-        val artistName: String,
-        val albumMbId: String?,
-    ) : NavigationRoute
-
-    @Serializable
-    data object Favourites : NavigationRoute
-
-    @Serializable
-    data object Settings : NavigationRoute
-
-    @Serializable
-    data object AboutLibraries : NavigationRoute
-
-    @Serializable
-    data object MatchList : NavigationRoute
-
-    // phải khai báo graph ở đây sau đó viết bên
-    @Serializable
     data object MatchesGraph : NavigationRoute
 
     @Serializable
-    data class  MatchDetail(val matchId: String) : NavigationRoute
+    data object SingleMatchGraph : NavigationRoute
+
+    @Serializable
+    data object MessagesGraph : NavigationRoute
+
+    @Serializable
+    data object MyTeamsGraph : NavigationRoute
+
+    // Match tab destinations
+    @Serializable
+    data object MatchList : NavigationRoute
+
+    @Serializable
+    data class MatchDetail(val matchId: String) : NavigationRoute
+
+    // Placeholder destinations for subsequent tabs
+    @Serializable
+    data object SingleMatch : NavigationRoute
+
+    @Serializable
+    data object Messages : NavigationRoute
+
+    @Serializable
+    data object MyTeams : NavigationRoute
 }

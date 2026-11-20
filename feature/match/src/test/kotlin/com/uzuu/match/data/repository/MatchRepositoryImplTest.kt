@@ -38,7 +38,7 @@ class MatchRepositoryImplTest {
         assertEquals(1, page.totalPages)
         assertEquals(2, page.totalItems)
         assertEquals(MatchType.HAS_VENUE, page.matches[0].type)
-        assertEquals("Sân bóng Hoa Lư", page.matches[0].venueName)
+        assertEquals("Sân bóng An Phú", page.matches[0].venueName)
         assertEquals(MatchType.NEED_VENUE, page.matches[1].type)
         assertNull(page.matches[1].venueName)
         assertEquals(emptyList<String>(), page.matches[1].skillLevels)
@@ -71,6 +71,34 @@ class MatchRepositoryImplTest {
         assertThrows(CancellationException::class.java) {
             runBlocking { useCaseFor(api)() }
         }
+    }
+
+    @Test
+    fun `detail fixtures contain venue options and the cost agreement without changing summaries`() = runBlocking {
+        val list = File(checkNotNull(System.getProperty("matchMockFixturePath"))).readText()
+        val details = File(checkNotNull(System.getProperty("matchDetailMockFixturePath"))).readText()
+        val context = mockk<Context>()
+        val assets = mockk<AssetManager>()
+        every { context.assets } returns assets
+        every { assets.open("mock/matches.json") } answers { list.byteInputStream() }
+        every { assets.open("mock/match-details.json") } answers { details.byteInputStream() }
+        val repository = MatchRepositoryImpl(MatchRemoteDataSource(MockMatchDataSource(context, Json { ignoreUnknownKeys = true })))
+        val page = repository.getMatches() as Result.Success
+        page.value.matches.forEach { summary ->
+            val result = repository.getMatch(summary.matchId) as Result.Success
+            assertEquals(summary.authorTeamName, result.value.summary.authorTeamName)
+            assertEquals(summary.startsAt, result.value.summary.startsAt)
+            assertEquals(summary.endsAt, result.value.summary.endsAt)
+            if (summary.type == MatchType.HAS_VENUE) {
+                assertEquals(600000, result.value.costAgreement.venueAmount)
+                assertEquals("Tiền trọng tài", result.value.costAgreement.customItems.single().itemName)
+            } else {
+                assertEquals(2, result.value.venueOptions.size)
+                assertEquals(2, result.value.timeOptions.size)
+                assertNull(result.value.costAgreement.depositAmount)
+            }
+        }
+        assertEquals(Result.Failure(AppError.NotFound), repository.getMatch("missing"))
     }
 
     private fun mockApi(content: String): MatchApi {

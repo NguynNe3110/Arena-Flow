@@ -1,1 +1,1 @@
-package com.uzuu.onboarding.data.datasource.database
+package com.uzuu.match.data.datasource.database
