@@ -26,10 +26,10 @@ import com.uzuu.match.presentation.screen.matchcreate.MatchCreateScreen
 import com.uzuu.match.presentation.screen.matchdetail.MatchDetailScreen
 import com.uzuu.match.presentation.screen.matchlist.MatchListScreen
 import com.uzuu.match.presentation.screen.matchreview.MatchReviewScreen
-import com.uzuu.match.presentation.screen.mercenarylist.MercenaryListScreen
-import com.uzuu.match.presentation.screen.pairingroom.PairingRoomScreen
-import com.uzuu.match.presentation.screen.teamcreate.TeamCreateScreen
-import com.uzuu.match.presentation.screen.teamdetail.TeamDetailScreen
+import com.uzuu.mercenary.presentation.screen.mercenarylist.MercenaryListScreen
+import com.uzuu.pairing.presentation.screen.pairingroom.PairingRoomScreen
+import com.uzuu.team.presentation.screen.teamcreate.TeamCreateScreen
+import com.uzuu.team.presentation.screen.teamdetail.TeamDetailScreen
 
 @Composable
 fun MainShowcaseScreen(modifier: Modifier = Modifier) {

@@ -35,3 +35,6 @@ dependencyResolutionManagement {
 // After: implementation(projects.featureAlbum)
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":feature:match")
+include(":feature:pairing")
+include(":feature:mercenary")
+include(":feature:team")
