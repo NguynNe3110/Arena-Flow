@@ -21,14 +21,7 @@ import com.igorwojda.showcase.feature.base.common.res.Dimen
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.ShowcaseTheme
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaShapes
 
-/**
- * Shared Card appearance matching docs/prototype/index.html:
- * - Background: #FFFFFF (White)
- * - Border: 1px solid #DCE3D8
- * - Radius: 14dp
- * - Padding: 18dp
- * - Stack spacing: 14dp
- */
+/** Shared Card appearance matching docs/prototype/index.html. */
 @Composable
 fun AppCard(
     modifier: Modifier = Modifier,
@@ -58,6 +51,7 @@ fun AppCard(
 }
 
 /** Clickable AppCard overload for interactive cards like MatchCard. */
+@Suppress("LongParameterList")
 @Composable
 fun AppCard(
     onClick: () -> Unit,

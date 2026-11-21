@@ -1,3 +1,5 @@
+@file:Suppress("MagicNumber")
+
 package com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic
 
 import androidx.compose.material3.ColorScheme
@@ -6,17 +8,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.primitive.ColorPalette
 
-/**
- * Material 3 ColorScheme and semantic tokens mapped from docs/prototype/index.html & IMPLEMENTATION_PLAN.md:
- * - Primary: #146B46, onPrimary: #FFFFFF
- * - Text Primary: #172E27, Text Muted/Secondary: #52675D
- * - Background: #FAFBF7, Card: #FFFFFF
- * - Border / Secondary button: #DCE3D8 / #E7EEE6
- * - Chip active: bg #172E27, text #FFFFFF
- * - Badge green: bg #DFEFDF, text #155B39
- * - Badge amber: bg #FFF0CE, text #6B4A08
- * - Notice / Nav active: #F1F0DF / #E5EEE1
- */
+/** Material 3 ColorScheme and semantic tokens mapped from docs/prototype/index.html & IMPLEMENTATION_PLAN.md. */
 object ArenaColors {
     val Primary = ColorPalette.Primary
     val OnPrimary = ColorPalette.OnPrimary

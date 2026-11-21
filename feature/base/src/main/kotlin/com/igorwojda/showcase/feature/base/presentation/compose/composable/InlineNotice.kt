@@ -14,14 +14,7 @@ import androidx.compose.ui.unit.sp
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaColors
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaShapes
 
-/**
- * Inline callout notice matching docs/prototype/index.html:
- * - Background: #F1F0DF
- * - Text: #172E27
- * - Radius: 12dp
- * - Padding: 14dp
- * - Line height: 1.6
- */
+/** Inline callout notice matching docs/prototype/index.html. */
 @Composable
 fun InlineNotice(
     text: String,

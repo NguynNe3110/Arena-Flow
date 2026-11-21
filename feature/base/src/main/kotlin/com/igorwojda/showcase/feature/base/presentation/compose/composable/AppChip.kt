@@ -21,14 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaColors
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaShapes
 
-/**
- * Filter chip matching docs/prototype/index.html:
- * - Active: bg #172E27, text #FFFFFF
- * - Inactive: bg #E7EEE6, text #172E27
- * - Radius: 12dp
- * - Min-height: 44dp (min touch target)
- * - Padding: 12dp vertical, 17dp horizontal
- */
+/** Filter chip matching docs/prototype/index.html. */
 @Composable
 fun AppFilterChip(
     text: String,
@@ -60,14 +53,12 @@ fun AppFilterChip(
     }
 }
 
-/**
- * Scrollable row of filter chips with 8dp gap matching docs/prototype/index.html.
- */
+/** Scrollable row of filter chips matching docs/prototype/index.html. */
 @Composable
 fun AppFilterChipRow(
     items: List<String>,
     selectedItem: String,
-    onItemSelected: (String) -> Unit,
+    onSelect: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -81,7 +72,7 @@ fun AppFilterChipRow(
             AppFilterChip(
                 text = item,
                 selected = item == selectedItem,
-                onClick = { onItemSelected(item) },
+                onClick = { onSelect(item) },
             )
         }
     }

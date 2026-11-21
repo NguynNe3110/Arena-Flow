@@ -1,3 +1,5 @@
+@file:Suppress("MaxLineLength", "TooManyFunctions")
+
 package com.uzuu.match.presentation.screen.matchdetail
 
 import androidx.compose.foundation.background
@@ -15,7 +17,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -28,7 +29,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -49,9 +49,15 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.igorwojda.showcase.feature.base.domain.error.AppError
+import com.igorwojda.showcase.feature.base.presentation.compose.composable.AppBadge
 import com.igorwojda.showcase.feature.base.presentation.compose.composable.AppErrorContent
+import com.igorwojda.showcase.feature.base.presentation.compose.composable.BadgeVariant
+import com.igorwojda.showcase.feature.base.presentation.compose.composable.InlineNotice
+import com.igorwojda.showcase.feature.base.presentation.compose.composable.KeyValueRow
 import com.igorwojda.showcase.feature.base.presentation.compose.composable.LoadingIndicator
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.ShowcaseTheme
+import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaColors
+import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaShapes
 import com.uzuu.match.domain.model.MatchCostAgreement
 import com.uzuu.match.domain.model.MatchDetail
 import com.uzuu.match.domain.model.MatchSummary
@@ -59,25 +65,35 @@ import com.uzuu.match.domain.model.MatchTimeSlot
 import com.uzuu.match.domain.model.MatchType
 import com.uzuu.match.domain.model.MatchVenue
 import com.uzuu.match.presentation.composable.ControlShape
-import com.uzuu.match.presentation.composable.formatLabel
 import com.uzuu.match.presentation.composable.localDateTime
 import java.text.NumberFormat
 import java.util.Locale
 import org.koin.androidx.compose.koinViewModel
 
-// Design tokens matching docs/prototype/index.html & IMPLEMENTATION_PLAN.md
-private val GreenPrimary = Color(0xFF146B46)
-private val TextPrimary = Color(0xFF172E27)
-private val TextMuted = Color(0xFF52675D)
-private val AppBackground = Color(0xFFFAFBF7)
-private val LineDividerColor = Color(0xFFE2E7DE)
-private val SecondaryButtonBg = Color(0xFFE7EEE6)
-private val BadgeGreenBg = Color(0xFFDFEFDF)
-private val BadgeGreenText = Color(0xFF155B39)
-private val BadgeAmberBg = Color(0xFFFFF0CE)
-private val BadgeAmberText = Color(0xFF6B4A08)
-private val NoticeBg = Color(0xFFF1F0DF)
-private val InputBorder = Color(0xFFB2C2B5)
+private const val DEFAULT_MOCK_VENUE_AMOUNT = 600_000
+private const val DEFAULT_LOCATION_FALLBACK = "Phường An Khánh, TP. Hồ Chí Minh"
+private const val DEFAULT_VENUE_FALLBACK = "Sân An Phú"
+private const val DEFAULT_TEAM_NAME = "Bình Minh FC"
+private const val DEFAULT_AUTHOR_TEAM = "Thảo Điền FC"
+private const val DEFAULT_SKILL_LEVEL = "Trung bình"
+private const val FIFTY_FIFTY_SPLIT = "FIFTY_FIFTY"
+
+internal data class MatchDetailActions(
+    val onBack: () -> Unit,
+    val onRetry: () -> Unit,
+    val onSendRequest: (String) -> Unit,
+    val onWithdraw: () -> Unit,
+    val onChatClick: () -> Unit = {},
+)
+
+internal data class MatchActionParams(
+    val isSent: Boolean,
+    val isHasVenue: Boolean,
+    val isMatchOpen: Boolean,
+    val isCancelled: Boolean,
+    val statusMessage: String,
+    val buttonLabel: String,
+)
 
 @Composable
 fun MatchDetailScreen(
@@ -90,13 +106,20 @@ fun MatchDetailScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(matchId) { viewModel.load(matchId) }
 
+    val actions =
+        remember(matchId, onBackClick, onChatClick) {
+            MatchDetailActions(
+                onBack = onBackClick,
+                onRetry = { viewModel.load(matchId) },
+                onSendRequest = viewModel::sendDemoRequest,
+                onWithdraw = viewModel::withdrawDemoRequest,
+                onChatClick = onChatClick,
+            )
+        }
+
     MatchDetailContent(
         state = state,
-        onBack = onBackClick,
-        onRetry = { viewModel.load(matchId) },
-        onSendRequest = viewModel::sendDemoRequest,
-        onWithdraw = viewModel::withdrawDemoRequest,
-        onChatClick = onChatClick,
+        actions = actions,
         modifier = modifier,
     )
 }
@@ -104,438 +127,354 @@ fun MatchDetailScreen(
 @Composable
 internal fun MatchDetailContent(
     state: MatchDetailUiState,
-    onBack: () -> Unit,
-    onRetry: () -> Unit,
-    onSendRequest: (String) -> Unit,
-    onWithdraw: () -> Unit,
+    actions: MatchDetailActions,
     modifier: Modifier = Modifier,
-    onChatClick: () -> Unit = {},
 ) {
-    var selectedTeam by rememberSaveable { mutableStateOf("Bình Minh FC") }
-    var showWithdraw by rememberSaveable { mutableStateOf(false) }
-
-    Scaffold(
-        modifier = modifier,
-        containerColor = AppBackground,
-    ) { padding ->
+    Scaffold(modifier = modifier, containerColor = ArenaColors.Background) { padding ->
+        val contentModifier = Modifier.padding(padding)
         val match = state.match
         when {
             state.isLoading -> {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(padding),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    LoadingIndicator()
-                }
+                Box(contentModifier.fillMaxSize(), Alignment.Center) { LoadingIndicator() }
             }
 
             state.error != null && state.error != AppError.NotFound -> {
-                Box(modifier = Modifier.padding(padding)) {
-                    AppErrorContent(state.error, onRetry)
-                }
+                Box(contentModifier) { AppErrorContent(state.error, actions.onRetry) }
             }
 
             match == null -> {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(padding)
-                        .padding(24.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text(
-                        text = "Không tìm thấy kèo",
-                        style = TextStyle(
-                            fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = TextPrimary,
-                        ),
-                    )
-                    Text(
-                        text = "Kèo này không tồn tại hoặc đã bị xóa.",
-                        color = TextMuted,
-                        modifier = Modifier.padding(vertical = 12.dp),
-                    )
-                    Button(
-                        onClick = onBack,
-                        shape = ControlShape,
-                        colors = ButtonDefaults.buttonColors(containerColor = GreenPrimary),
-                    ) {
-                        Text("Quay lại danh sách")
-                    }
-                }
+                MatchDetailNotFound(actions.onBack, contentModifier)
             }
 
             else -> {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(padding)
-                        .verticalScroll(rememberScrollState())
-                        .padding(horizontal = 24.dp, vertical = 16.dp),
-                ) {
-                    // Back button: ghost "← Khám phá"
-                    TextButton(
-                        onClick = onBack,
-                        contentPadding = PaddingValues(horizontal = 0.dp, vertical = 6.dp),
-                        modifier = Modifier.padding(bottom = 6.dp),
-                    ) {
-                        Text(
-                            text = "← Khám phá",
-                            style = TextStyle(
-                                fontSize = 15.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                color = TextPrimary,
-                            ),
-                        )
-                    }
-
-                    // Status badge: "Đang tìm đối"
-                    DetailStatusBadge(
-                        status = match.status,
-                        type = match.type,
-                    )
-
-                    Spacer(modifier = Modifier.height(6.dp))
-
-                    // Large team heading: e.g. "Thảo Điền FC"
-                    Text(
-                        text = match.authorTeamName,
-                        style = TextStyle(
-                            fontSize = 30.sp,
-                            fontWeight = FontWeight.Bold,
-                            letterSpacing = (-0.035).em,
-                            lineHeight = 36.sp,
-                            color = TextPrimary,
-                        ),
-                        modifier = Modifier.padding(top = 4.dp, bottom = 4.dp),
-                    )
-
-                    // Subtitle: e.g. "Bóng đá 7 người · Trung bình"
-                    val formatText = when (match.format) {
-                        "FIVE_A_SIDE" -> "Bóng đá 5 người"
-                        "ELEVEN_A_SIDE" -> "Bóng đá 11 người"
-                        else -> "Bóng đá 7 người"
-                    }
-                    val skillText = if (match.skillLevels.isNotEmpty()) {
-                        match.skillLevels.joinToString(", ")
-                    } else {
-                        "Trung bình"
-                    }
-                    Text(
-                        text = "$formatText · $skillText",
-                        style = TextStyle(
-                            fontSize = 15.sp,
-                            color = TextMuted,
-                            lineHeight = 22.sp,
-                        ),
-                        modifier = Modifier.padding(bottom = 16.dp),
-                    )
-
-                    // Key-value rows with dividers (.line)
-                    // 1. Ngày thi đấu
-                    KeyValueRow(
-                        label = "Ngày thi đấu",
-                        value = formatDate(match.startsAt),
-                    )
-
-                    // 2. Khung giờ
-                    KeyValueRow(
-                        label = "Khung giờ",
-                        value = formatTimeRange(match.startsAt, match.endsAt),
-                    )
-
-                    // 3. Sân & địa chỉ
-                    if (match.type == MatchType.HAS_VENUE || match.venueName != null) {
-                        VenueAddressRow(
-                            venueName = match.venueName ?: "Sân An Phú",
-                            address = match.venueAddress ?: "Phường An Khánh, TP. Hồ Chí Minh",
-                        )
-                    } else {
-                        // Type B multi-venue & time options
-                        TypeBVenueOptionsSection(
-                            venueOptionCount = match.venueOptionCount,
-                            venueOptions = state.detail?.venueOptions ?: emptyList(),
-                            timeOptionCount = match.timeOptionCount,
-                            timeOptions = state.detail?.timeOptions ?: emptyList(),
-                        )
-                    }
-
-                    // "Thỏa thuận chi phí" heading
-                    Text(
-                        text = "Thỏa thuận chi phí",
-                        style = TextStyle(
-                            fontSize = 19.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = TextPrimary,
-                        ),
-                        modifier = Modifier.padding(top = 24.dp, bottom = 4.dp),
-                    )
-
-                    // Cost rows: Tiền sân (600.000 ₫), Chia 50–50 (300.000 ₫ / đội), etc.
-                    CostAgreementSection(
-                        costAgreement = state.detail?.costAgreement,
-                    )
-
-                    // Notice callout
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp)
-                            .background(color = NoticeBg, shape = RoundedCornerShape(12.dp))
-                            .padding(14.dp),
-                    ) {
-                        Text(
-                            text = "Hai đội tự thanh toán bên ngoài. ArenaFlow chỉ ghi nhận thỏa thuận.",
-                            style = TextStyle(
-                                fontSize = 14.sp,
-                                lineHeight = 22.sp,
-                                color = TextPrimary,
-                            ),
-                        )
-                    }
-
-                    // Team selection dropdown ("Gửi yêu cầu với đội": "Bình Minh FC · Bạn là đội trưởng")
-                    Text(
-                        text = "Gửi yêu cầu với đội",
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = TextPrimary,
-                        ),
-                        modifier = Modifier.padding(bottom = 6.dp),
-                    )
-
-                    val isSent = state.requestTeam != null
-                    val isMatchOpen = match.status == "OPEN"
-
-                    TeamDropdownSelector(
-                        selectedTeam = state.requestTeam ?: selectedTeam,
-                        onTeamSelected = { selectedTeam = it },
-                        teams = listOf("Bình Minh FC", "Rồng Vàng FC", "Phượng Hoàng FC"),
-                        enabled = !isSent && isMatchOpen,
-                    )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    // Primary button: "Gửi yêu cầu ghép kèo" -> switches to "Đang chờ duyệt" (disabled)
-                    if (isMatchOpen) {
-                        Button(
-                            onClick = {
-                                onSendRequest(selectedTeam)
-                            },
-                            enabled = !isSent,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .heightIn(min = 48.dp),
-                            shape = RoundedCornerShape(12.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = GreenPrimary,
-                                contentColor = Color.White,
-                                disabledContainerColor = GreenPrimary.copy(alpha = 0.55f),
-                                disabledContentColor = Color.White.copy(alpha = 0.85f),
-                            ),
-                        ) {
-                            Text(
-                                text = if (isSent) {
-                                    "Đang chờ duyệt"
-                                } else {
-                                    if (match.type == MatchType.HAS_VENUE) {
-                                        "Gửi yêu cầu ghép kèo"
-                                    } else {
-                                        "Nhận kèo & thương lượng"
-                                    }
-                                },
-                                style = TextStyle(
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                ),
-                            )
-                        }
-
-                        // When sent: secondary button "Nhắn với đội trưởng"
-                        if (isSent) {
-                            Button(
-                                onClick = onChatClick,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(top = 12.dp)
-                                    .heightIn(min = 48.dp),
-                                shape = RoundedCornerShape(12.dp),
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = SecondaryButtonBg,
-                                    contentColor = TextPrimary,
-                                ),
-                            ) {
-                                Text(
-                                    text = "Nhắn với đội trưởng",
-                                    style = TextStyle(
-                                        fontSize = 16.sp,
-                                        fontWeight = FontWeight.SemiBold,
-                                        color = TextPrimary,
-                                    ),
-                                )
-                            }
-
-                            if (match.type == MatchType.HAS_VENUE) {
-                                TextButton(
-                                    onClick = { showWithdraw = true },
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(top = 6.dp),
-                                ) {
-                                    Text(
-                                        text = "Rút yêu cầu",
-                                        color = TextMuted,
-                                        style = TextStyle(fontSize = 14.sp),
-                                    )
-                                }
-                            }
-                        }
-                    } else {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 12.dp)
-                                .background(Color(0xFFF1F5EC), RoundedCornerShape(10.dp))
-                                .padding(14.dp),
-                        ) {
-                            Text(
-                                text = if (match.status == "CANCELLED") {
-                                    state.detail?.cancelReason ?: "Kèo đã bị hủy."
-                                } else {
-                                    "Kèo hiện không nhận yêu cầu mới."
-                                },
-                                color = if (match.status == "CANCELLED") MaterialTheme.colorScheme.error else TextMuted,
-                                style = MaterialTheme.typography.bodyMedium,
-                            )
-                        }
-                    }
-                }
+                MatchDetailLoadedContent(match, state.detail, state.requestTeam, actions, contentModifier)
             }
         }
     }
-
-    if (showWithdraw) {
-        AlertDialog(
-            onDismissRequest = { showWithdraw = false },
-            title = { Text("Rút yêu cầu ghép kèo?") },
-            text = { Text("Yêu cầu đang chờ duyệt. Rút lúc này không bị trừ điểm uy tín.") },
-            confirmButton = {
-                TextButton(onClick = {
-                    onWithdraw()
-                    showWithdraw = false
-                }) { Text("Rút yêu cầu", color = MaterialTheme.colorScheme.error) }
-            },
-            dismissButton = {
-                TextButton(onClick = { showWithdraw = false }) { Text("Giữ yêu cầu") }
-            },
-        )
-    }
 }
 
 @Composable
-private fun DetailStatusBadge(
-    status: String,
-    type: MatchType,
-    modifier: Modifier = Modifier,
-) {
-    val (bgColor, textColor, label) = when {
-        status == "CONFIRMED" -> Triple(BadgeGreenBg, BadgeGreenText, "Đã ghép kèo")
-        status == "CANCELLED" -> Triple(Color(0xFFFFEAEA), Color(0xFFBA1A1A), "Đã hủy")
-        type == MatchType.NEED_VENUE -> Triple(BadgeAmberBg, BadgeAmberText, "Chưa có sân · Đang tìm đối")
-        else -> Triple(BadgeGreenBg, BadgeGreenText, "Đang tìm đối")
-    }
-
-    Surface(
-        modifier = modifier,
-        shape = RoundedCornerShape(7.dp),
-        color = bgColor,
-    ) {
-        Text(
-            text = label,
-            modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp),
-            style = TextStyle(
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Bold,
-                color = textColor,
-            ),
-        )
-    }
-}
-
-@Composable
-private fun KeyValueRow(
-    label: String,
-    value: String,
-    modifier: Modifier = Modifier,
-) {
-    Column(modifier = modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 13.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = label,
-                style = TextStyle(
-                    fontSize = 15.sp,
-                    color = TextMuted,
-                ),
-            )
-            Text(
-                text = value,
-                style = TextStyle(
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = TextPrimary,
-                ),
-            )
-        }
-        HorizontalDivider(
-            color = LineDividerColor,
-            thickness = 1.dp,
-        )
-    }
-}
-
-@Composable
-private fun VenueAddressRow(
-    venueName: String,
-    address: String,
+private fun MatchDetailNotFound(
+    onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(vertical = 13.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
+        modifier = modifier.fillMaxSize().padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
     ) {
         Text(
-            text = venueName,
-            style = TextStyle(
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = TextPrimary,
-            ),
+            text = "Không tìm thấy kèo",
+            style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.Bold, color = ArenaColors.TextPrimary),
         )
-        Text(
-            text = address,
-            style = TextStyle(
-                fontSize = 14.sp,
-                color = TextMuted,
-            ),
-        )
+        Text(text = "Kèo này không tồn tại hoặc đã bị xóa.", color = ArenaColors.TextMuted, modifier = Modifier.padding(vertical = 12.dp))
+        Button(
+            onClick = onBack,
+            shape = ControlShape,
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+        ) {
+            Text("Quay lại danh sách")
+        }
     }
-    HorizontalDivider(
-        color = LineDividerColor,
-        thickness = 1.dp,
-    )
+}
+
+@Composable
+private fun DetailHeaderSection(
+    match: MatchSummary,
+    onBack: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier = modifier.fillMaxWidth()) {
+        TextButton(
+            onClick = onBack,
+            contentPadding = PaddingValues(horizontal = 0.dp, vertical = 6.dp),
+            modifier = Modifier.padding(bottom = 6.dp),
+        ) {
+            Text(
+                text = "← Khám phá",
+                style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.SemiBold, color = ArenaColors.TextPrimary),
+            )
+        }
+
+        val badgeVariant = if (match.type == MatchType.NEED_VENUE) BadgeVariant.Amber else BadgeVariant.Green
+        AppBadge(text = "Đang tìm đối", variant = badgeVariant)
+
+        Text(
+            text = match.authorTeamName,
+            style =
+                TextStyle(
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = (-0.035).em,
+                    lineHeight = 36.sp,
+                    color = ArenaColors.TextPrimary,
+                ),
+            modifier = Modifier.padding(top = 10.dp, bottom = 4.dp),
+        )
+
+        val formatText =
+            when (match.format) {
+                "FIVE_A_SIDE" -> "Bóng đá 5 người"
+                "ELEVEN_A_SIDE" -> "Bóng đá 11 người"
+                else -> "Bóng đá 7 người"
+            }
+        val skillText = if (match.skillLevels.isNotEmpty()) match.skillLevels.joinToString(", ") else DEFAULT_SKILL_LEVEL
+        Text(
+            text = "$formatText · $skillText",
+            style = TextStyle(fontSize = 15.sp, color = ArenaColors.TextMuted, lineHeight = 22.sp),
+            modifier = Modifier.padding(bottom = 16.dp),
+        )
+
+        KeyValueRow(label = "Ngày thi đấu", value = MatchDetailFormatter.formatDate(match.startsAt))
+        KeyValueRow(label = "Khung giờ", value = MatchDetailFormatter.formatTimeRange(match.startsAt, match.endsAt))
+    }
+}
+
+@Composable
+private fun DetailVenueSection(
+    match: MatchSummary,
+    detail: MatchDetail?,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier = modifier.fillMaxWidth()) {
+        if (match.type == MatchType.HAS_VENUE || match.venueName != null) {
+            Column(modifier = Modifier.fillMaxWidth().padding(vertical = 13.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(
+                    text = match.venueName ?: DEFAULT_VENUE_FALLBACK,
+                    style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold, color = ArenaColors.TextPrimary),
+                )
+                Text(
+                    text = match.venueAddress ?: DEFAULT_LOCATION_FALLBACK,
+                    style = TextStyle(fontSize = 14.sp, color = ArenaColors.TextMuted),
+                )
+            }
+            HorizontalDivider(color = ArenaColors.BorderSubtle, thickness = 1.dp)
+        } else {
+            TypeBVenueOptionsSection(
+                venueOptionCount = match.venueOptionCount,
+                venueOptions = detail?.venueOptions ?: emptyList(),
+                timeOptionCount = match.timeOptionCount,
+                timeOptions = detail?.timeOptions ?: emptyList(),
+            )
+        }
+    }
+}
+
+@Composable
+private fun DetailHeaderAndLocationSection(
+    match: MatchSummary,
+    detail: MatchDetail?,
+    onBack: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier = modifier.fillMaxWidth()) {
+        DetailHeaderSection(match, onBack)
+        DetailVenueSection(match, detail)
+    }
+}
+
+@Composable
+private fun MatchDetailLoadedContent(
+    match: MatchSummary,
+    detail: MatchDetail?,
+    requestTeam: String?,
+    actions: MatchDetailActions,
+    modifier: Modifier = Modifier,
+) {
+    var selectedTeam by rememberSaveable { mutableStateOf(DEFAULT_TEAM_NAME) }
+    var showWithdrawDialog by rememberSaveable { mutableStateOf(false) }
+    val isSent = requestTeam != null
+    val isMatchOpen = match.status == "OPEN"
+    val isCancelled = match.status == "CANCELLED"
+
+    Box(modifier = modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 24.dp, vertical = 16.dp)) {
+            DetailHeaderAndLocationSection(match, detail, actions.onBack)
+            Text(
+                text = "Thỏa thuận chi phí",
+                style = TextStyle(fontSize = 19.sp, fontWeight = FontWeight.Bold, color = ArenaColors.TextPrimary),
+                modifier = Modifier.padding(top = 24.dp, bottom = 4.dp),
+            )
+            CostAgreementSection(costAgreement = detail?.costAgreement)
+            InlineNotice(
+                text = "Hai đội tự thanh toán bên ngoài. ArenaFlow chỉ ghi nhận thỏa thuận.",
+                modifier = Modifier.padding(vertical = 16.dp),
+            )
+            Text(
+                text = "Gửi yêu cầu với đội",
+                style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = ArenaColors.TextPrimary),
+                modifier = Modifier.padding(bottom = 6.dp),
+            )
+            TeamDropdownSelector(
+                selectedTeam = requestTeam ?: selectedTeam,
+                onSelectTeam = {
+                    selectedTeam = it
+                },
+                teams = listOf(DEFAULT_TEAM_NAME, "Rồng Vàng FC", "Phượng Hoàng FC"),
+                enabled =
+                    !isSent && isMatchOpen,
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            val buttonLabel = MatchDetailFormatter.resolveButtonLabel(isSent, match.type == MatchType.HAS_VENUE)
+            val statusMessage = MatchDetailFormatter.resolveStatusMessage(isCancelled, detail?.cancelReason)
+            val actionParams =
+                MatchActionParams(isSent, match.type == MatchType.HAS_VENUE, isMatchOpen, isCancelled, statusMessage, buttonLabel)
+            OpenMatchActions(actionParams, selectedTeam, actions, onWithdrawClick = { showWithdrawDialog = true })
+        }
+
+        if (showWithdrawDialog) {
+            AlertDialog(
+                onDismissRequest = { showWithdrawDialog = false },
+                title = { Text("Rút yêu cầu ghép kèo?") },
+                text = { Text("Yêu cầu đang chờ duyệt. Rút lúc này không bị trừ điểm uy tín.") },
+                confirmButton = {
+                    TextButton(onClick = {
+                        actions.onWithdraw()
+                        showWithdrawDialog = false
+                    }) { Text("Rút yêu cầu", color = MaterialTheme.colorScheme.error) }
+                },
+                dismissButton = { TextButton(onClick = { showWithdrawDialog = false }) { Text("Giữ yêu cầu") } },
+            )
+        }
+    }
+}
+
+@Composable
+private fun SentMatchActions(
+    isHasVenue: Boolean,
+    onChatClick: () -> Unit,
+    onWithdrawClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier = modifier.fillMaxWidth()) {
+        Button(
+            onClick = onChatClick,
+            modifier = Modifier.fillMaxWidth().padding(top = 12.dp).heightIn(min = 48.dp),
+            shape = ArenaShapes.Button,
+            colors = ButtonDefaults.buttonColors(containerColor = ArenaColors.SecondaryButtonBg, contentColor = ArenaColors.TextPrimary),
+        ) {
+            Text(
+                text = "Nhắn với đội trưởng",
+                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = ArenaColors.TextPrimary),
+            )
+        }
+
+        if (isHasVenue) {
+            TextButton(onClick = onWithdrawClick, modifier = Modifier.fillMaxWidth().padding(top = 6.dp)) {
+                Text(text = "Rút yêu cầu", color = ArenaColors.TextMuted, style = TextStyle(fontSize = 14.sp))
+            }
+        }
+    }
+}
+
+@Composable
+private fun OpenMatchActions(
+    params: MatchActionParams,
+    selectedTeam: String,
+    actions: MatchDetailActions,
+    onWithdrawClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    if (!params.isMatchOpen) {
+        Box(
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .padding(
+                        vertical = 12.dp,
+                    ).background(ArenaColors.SecondaryButtonBg, ArenaShapes.Input)
+                    .padding(14.dp),
+        ) {
+            Text(
+                text = params.statusMessage,
+                color = if (params.isCancelled) MaterialTheme.colorScheme.error else ArenaColors.TextMuted,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
+        return
+    }
+
+    Column(modifier = modifier.fillMaxWidth()) {
+        Button(
+            onClick = { actions.onSendRequest(selectedTeam) },
+            enabled = !params.isSent,
+            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+            shape = ArenaShapes.Button,
+            colors =
+                ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = Color.White,
+                    disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.55f),
+                    disabledContentColor = Color.White.copy(alpha = 0.85f),
+                ),
+        ) {
+            Text(text = params.buttonLabel, style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.SemiBold))
+        }
+
+        if (params.isSent) {
+            SentMatchActions(params.isHasVenue, actions.onChatClick, onWithdrawClick)
+        }
+    }
+}
+
+@Composable
+private fun VenueOptionsList(
+    venueOptionCount: Int,
+    venueOptions: List<MatchVenue>,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier = modifier) {
+        val venueCount = if (venueOptionCount > 0) venueOptionCount else venueOptions.size.coerceAtLeast(2)
+        Text(
+            text = "$venueCount địa điểm đề xuất",
+            style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold, color = ArenaColors.TextPrimary),
+        )
+
+        if (venueOptions.isNotEmpty()) {
+            venueOptions.forEach {
+                Text(
+                    text = "• ${it.venueName} (${it.address})",
+                    style = TextStyle(fontSize = 14.sp, color = ArenaColors.TextPrimary),
+                    modifier = Modifier.padding(start = 4.dp),
+                )
+            }
+        } else {
+            Text(
+                text = "Sân An Phú · Sân Bình Trưng (thỏa thuận trong phòng)",
+                style = TextStyle(fontSize = 14.sp, color = ArenaColors.TextMuted),
+            )
+        }
+    }
+}
+
+@Composable
+private fun TimeOptionsList(
+    timeOptionCount: Int,
+    timeOptions: List<MatchTimeSlot>,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier = modifier) {
+        val timeCount = if (timeOptionCount > 0) timeOptionCount else timeOptions.size.coerceAtLeast(2)
+        Text(
+            text = "$timeCount khung giờ đề xuất",
+            style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold, color = ArenaColors.TextPrimary),
+            modifier = Modifier.padding(top = 4.dp),
+        )
+
+        if (timeOptions.isNotEmpty()) {
+            timeOptions.forEach { slot ->
+                val timeLabel = "${localDateTime(slot.startsAt, "HH:mm")}–${localDateTime(slot.endsAt, "HH:mm")}"
+                Text(
+                    text = "• $timeLabel",
+                    style = TextStyle(fontSize = 14.sp, color = ArenaColors.TextMuted),
+                    modifier = Modifier.padding(start = 4.dp),
+                )
+            }
+        } else {
+            Text(text = "18:00–19:30 · 19:30–21:00", style = TextStyle(fontSize = 14.sp, color = ArenaColors.TextMuted))
+        }
+    }
 }
 
 @Composable
@@ -546,82 +485,13 @@ private fun TypeBVenueOptionsSection(
     timeOptions: List<MatchTimeSlot>,
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(vertical = 13.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        val venueCount = if (venueOptionCount > 0) venueOptionCount else venueOptions.size.coerceAtLeast(2)
-        Text(
-            text = "$venueCount địa điểm đề xuất",
-            style = TextStyle(
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = TextPrimary,
-            ),
-        )
-
-        if (venueOptions.isNotEmpty()) {
-            venueOptions.forEach { venue ->
-                Column(modifier = Modifier.padding(start = 4.dp, bottom = 4.dp)) {
-                    Text(
-                        text = "• ${venue.venueName}",
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = TextPrimary,
-                        ),
-                    )
-                    Text(
-                        text = venue.address,
-                        style = TextStyle(
-                            fontSize = 13.sp,
-                            color = TextMuted,
-                        ),
-                        modifier = Modifier.padding(start = 12.dp),
-                    )
-                }
-            }
-        } else {
-            Text(
-                text = "Sân An Phú · Sân Bình Trưng (thỏa thuận trong phòng)",
-                style = TextStyle(fontSize = 14.sp, color = TextMuted),
-            )
+    Column(modifier = modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.fillMaxWidth().padding(vertical = 13.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            VenueOptionsList(venueOptionCount, venueOptions)
+            TimeOptionsList(timeOptionCount, timeOptions)
         }
-
-        Spacer(modifier = Modifier.height(4.dp))
-
-        val timeCount = if (timeOptionCount > 0) timeOptionCount else timeOptions.size.coerceAtLeast(2)
-        Text(
-            text = "$timeCount khung giờ đề xuất",
-            style = TextStyle(
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = TextPrimary,
-            ),
-        )
-
-        if (timeOptions.isNotEmpty()) {
-            timeOptions.forEach { slot ->
-                val slotTime = "${localDateTime(slot.startsAt, "HH:mm")}–${localDateTime(slot.endsAt, "HH:mm")}"
-                Text(
-                    text = "• $slotTime",
-                    style = TextStyle(fontSize = 14.sp, color = TextMuted),
-                    modifier = Modifier.padding(start = 4.dp),
-                )
-            }
-        } else {
-            Text(
-                text = "18:00–19:30 · 19:30–21:00",
-                style = TextStyle(fontSize = 14.sp, color = TextMuted),
-            )
-        }
+        HorizontalDivider(color = ArenaColors.BorderSubtle, thickness = 1.dp)
     }
-    HorizontalDivider(
-        color = LineDividerColor,
-        thickness = 1.dp,
-    )
 }
 
 @Composable
@@ -629,49 +499,31 @@ private fun CostAgreementSection(
     costAgreement: MatchCostAgreement?,
     modifier: Modifier = Modifier,
 ) {
-    val venueAmount = costAgreement?.venueAmount ?: 600000
-    val costSplit = costAgreement?.costSplit ?: "FIFTY_FIFTY"
+    val venueAmount = costAgreement?.venueAmount ?: DEFAULT_MOCK_VENUE_AMOUNT
+    val costSplit = costAgreement?.costSplit ?: FIFTY_FIFTY_SPLIT
 
     Column(modifier = modifier.fillMaxWidth()) {
-        KeyValueRow(
-            label = "Tiền sân",
-            value = formatCurrency(venueAmount),
-        )
-
-        val splitValue = when (costSplit) {
-            "FIFTY_FIFTY" -> "${formatCurrency(venueAmount / 2)} / đội"
-            "LOSER_PAYS_ALL" -> "Đội thua trả toàn bộ"
-            else -> "Theo thỏa thuận hai đội"
-        }
-        val splitLabel = when (costSplit) {
-            "FIFTY_FIFTY" -> "Chia 50–50"
-            else -> "Thỏa thuận chia"
-        }
-        KeyValueRow(
-            label = splitLabel,
-            value = splitValue,
-        )
+        KeyValueRow(label = "Tiền sân", value = MatchDetailFormatter.formatCurrency(venueAmount))
+        val splitValue =
+            if (costSplit ==
+                FIFTY_FIFTY_SPLIT
+            ) {
+                "${MatchDetailFormatter.formatCurrency(venueAmount / 2)} / đội"
+            } else {
+                "Theo thỏa thuận hai đội"
+            }
+        val splitLabel = if (costSplit == FIFTY_FIFTY_SPLIT) "Chia 50–50" else "Thỏa thuận chia"
+        KeyValueRow(label = splitLabel, value = splitValue)
 
         costAgreement?.drinksAmount?.let { drinks ->
-            KeyValueRow(
-                label = "Tiền nước",
-                value = formatCurrency(drinks),
-            )
+            KeyValueRow(label = "Tiền nước", value = MatchDetailFormatter.formatCurrency(drinks))
         }
-
         costAgreement?.depositAmount?.let { deposit ->
             val holder = costAgreement.depositHolder?.let { " · $it" } ?: ""
-            KeyValueRow(
-                label = "Tiền cọc$holder",
-                value = formatCurrency(deposit),
-            )
+            KeyValueRow(label = "Tiền cọc$holder", value = MatchDetailFormatter.formatCurrency(deposit))
         }
-
         costAgreement?.customItems?.forEach { item ->
-            KeyValueRow(
-                label = item.itemName,
-                value = formatCurrency(item.amount),
-            )
+            KeyValueRow(label = item.itemName, value = MatchDetailFormatter.formatCurrency(item.amount))
         }
     }
 }
@@ -679,7 +531,7 @@ private fun CostAgreementSection(
 @Composable
 private fun TeamDropdownSelector(
     selectedTeam: String,
-    onTeamSelected: (String) -> Unit,
+    onSelectTeam: (String) -> Unit,
     teams: List<String>,
     enabled: Boolean,
     modifier: Modifier = Modifier,
@@ -687,13 +539,14 @@ private fun TeamDropdownSelector(
     var expanded by remember { mutableStateOf(false) }
 
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .heightIn(min = 48.dp)
-            .border(1.dp, if (enabled) InputBorder else LineDividerColor, RoundedCornerShape(10.dp))
-            .background(Color.White, RoundedCornerShape(10.dp))
-            .clickable(enabled = enabled) { expanded = true }
-            .padding(horizontal = 14.dp, vertical = 12.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .heightIn(min = 48.dp)
+                .border(1.dp, if (enabled) ArenaColors.InputBorder else ArenaColors.BorderSubtle, ArenaShapes.Input)
+                .background(Color.White, ArenaShapes.Input)
+                .clickable(enabled = enabled) { expanded = true }
+                .padding(horizontal = 14.dp, vertical = 12.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -702,38 +555,39 @@ private fun TeamDropdownSelector(
         ) {
             Text(
                 text = "$selectedTeam · Bạn là đội trưởng",
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = if (enabled) TextPrimary else TextMuted,
-                ),
+                style =
+                    TextStyle(
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = if (enabled) ArenaColors.TextPrimary else ArenaColors.TextMuted,
+                    ),
             )
-            Icon(
-                imageVector = Icons.Default.ArrowDropDown,
-                contentDescription = "Chọn đội",
-                tint = TextMuted,
-            )
+            Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = "Chọn đội", tint = ArenaColors.TextMuted)
         }
 
-        DropdownMenu(
-            expanded = expanded && enabled,
-            onDismissRequest = { expanded = false },
-            modifier = Modifier.background(Color.White),
-        ) {
+        DropdownMenu(expanded = expanded && enabled, onDismissRequest = { expanded = false }, modifier = Modifier.background(Color.White)) {
             teams.forEach { team ->
                 DropdownMenuItem(
                     text = {
                         Text(
                             text = "$team · Bạn là đội trưởng",
-                            style = TextStyle(
-                                fontSize = 14.sp,
-                                color = TextPrimary,
-                                fontWeight = if (team == selectedTeam) FontWeight.Bold else FontWeight.Normal,
-                            ),
+                            style =
+                                TextStyle(
+                                    fontSize = 14.sp,
+                                    color = ArenaColors.TextPrimary,
+                                    fontWeight =
+                                        if (team ==
+                                            selectedTeam
+                                        ) {
+                                            FontWeight.Bold
+                                        } else {
+                                            FontWeight.Normal
+                                        },
+                                ),
                         )
                     },
                     onClick = {
-                        onTeamSelected(team)
+                        onSelectTeam(team)
                         expanded = false
                     },
                 )
@@ -742,91 +596,89 @@ private fun TeamDropdownSelector(
     }
 }
 
-private fun formatDate(startsAt: String): String {
-    if (startsAt.isBlank()) return "21/11/2026"
-    val formatted = localDateTime(startsAt, "dd/MM/yyyy")
-    return if (formatted == "Chưa xác định") "21/11/2026" else formatted
-}
+internal object MatchDetailFormatter {
+    private const val UNDEFINED = "Chưa xác định"
 
-private fun formatTimeRange(startsAt: String, endsAt: String): String {
-    if (startsAt.isBlank() || endsAt.isBlank()) return "19:00–20:30"
-    val start = localDateTime(startsAt, "HH:mm")
-    val end = localDateTime(endsAt, "HH:mm")
-    return if (start == "Chưa xác định" || end == "Chưa xác định") {
-        "19:00–20:30"
-    } else {
-        "$start–$end"
+    fun resolveButtonLabel(
+        isSent: Boolean,
+        isHasVenue: Boolean,
+    ): String =
+        when {
+            isSent -> "Đang chờ duyệt"
+            isHasVenue -> "Gửi yêu cầu ghép kèo"
+            else -> "Nhận kèo & thương lượng"
+        }
+
+    fun resolveStatusMessage(
+        isCancelled: Boolean,
+        cancelReason: String?,
+    ): String = if (isCancelled) cancelReason ?: "Kèo đã bị hủy." else "Kèo hiện không nhận yêu cầu mới."
+
+    fun formatDate(startsAt: String): String {
+        if (startsAt.isBlank()) return "21/11/2026"
+        val formatted = localDateTime(startsAt, "dd/MM/yyyy")
+        return if (formatted == UNDEFINED) "21/11/2026" else formatted
     }
-}
 
-private fun formatCurrency(amount: Int): String {
-    val formatter = NumberFormat.getIntegerInstance(Locale.forLanguageTag("vi-VN"))
-    return "${formatter.format(amount)} ₫"
-}
+    fun formatTimeRange(
+        startsAt: String,
+        endsAt: String,
+    ): String {
+        if (startsAt.isBlank() || endsAt.isBlank()) return "19:00–20:30"
+        val start = localDateTime(startsAt, "HH:mm")
+        val end = localDateTime(endsAt, "HH:mm")
+        return if (start == UNDEFINED || end == UNDEFINED) "19:00–20:30" else "$start–$end"
+    }
 
-@Preview(widthDp = 390, heightDp = 800)
-@Composable
-private fun MatchDetailTypeAPreview() {
-    ShowcaseTheme {
-        MatchDetailContent(
-            state = MatchDetailUiState(
-                isLoading = false,
-                match = MatchSummary(
-                    matchId = "preview-1",
-                    type = MatchType.HAS_VENUE,
-                    authorTeamName = "Thảo Điền FC",
-                    venueName = "Sân An Phú",
-                    skillLevels = listOf("Trung bình"),
-                    startsAt = "2026-11-21T12:00:00Z",
-                    endsAt = "2026-11-21T13:30:00Z",
-                    format = "SEVEN_A_SIDE",
-                    venueAddress = "Phường An Khánh, TP. Hồ Chí Minh",
-                ),
-                detail = MatchDetail(
-                    summary = MatchSummary(
-                        matchId = "preview-1",
-                        type = MatchType.HAS_VENUE,
-                        authorTeamName = "Thảo Điền FC",
-                        venueName = "Sân An Phú",
-                    ),
-                    costAgreement = MatchCostAgreement(
-                        venueAmount = 600000,
-                        costSplit = "FIFTY_FIFTY",
-                    ),
-                ),
-            ),
-            onBack = {},
-            onRetry = {},
-            onSendRequest = {},
-            onWithdraw = {},
-        )
+    fun formatCurrency(amount: Int): String {
+        val formatter = NumberFormat.getIntegerInstance(Locale.forLanguageTag("vi-VN"))
+        return "${formatter.format(amount)} ₫"
     }
 }
 
 @Preview(widthDp = 390, heightDp = 800)
 @Composable
-private fun MatchDetailSentPreview() {
+private fun MatchDetailPreview() {
     ShowcaseTheme {
         MatchDetailContent(
-            state = MatchDetailUiState(
-                isLoading = false,
-                requestTeam = "Bình Minh FC",
-                match = MatchSummary(
-                    matchId = "preview-2",
-                    type = MatchType.HAS_VENUE,
-                    authorTeamName = "Thảo Điền FC",
-                    venueName = "Sân An Phú",
-                    skillLevels = listOf("Trung bình"),
-                    startsAt = "2026-11-21T12:00:00Z",
-                    endsAt = "2026-11-21T13:30:00Z",
-                    format = "SEVEN_A_SIDE",
-                    venueAddress = "Phường An Khánh, TP. Hồ Chí Minh",
+            state =
+                MatchDetailUiState(
+                    isLoading = false,
+                    match =
+                        MatchSummary(
+                            matchId = "preview-1",
+                            type = MatchType.HAS_VENUE,
+                            authorTeamName = DEFAULT_AUTHOR_TEAM,
+                            venueName = DEFAULT_VENUE_FALLBACK,
+                            skillLevels = listOf(DEFAULT_SKILL_LEVEL),
+                            startsAt = "2026-11-21T12:00:00Z",
+                            endsAt = "2026-11-21T13:30:00Z",
+                            format = "SEVEN_A_SIDE",
+                            venueAddress = DEFAULT_LOCATION_FALLBACK,
+                        ),
+                    detail =
+                        MatchDetail(
+                            summary =
+                                MatchSummary(
+                                    matchId = "preview-1",
+                                    type = MatchType.HAS_VENUE,
+                                    authorTeamName = DEFAULT_AUTHOR_TEAM,
+                                    venueName = DEFAULT_VENUE_FALLBACK,
+                                ),
+                            costAgreement =
+                                MatchCostAgreement(
+                                    venueAmount = DEFAULT_MOCK_VENUE_AMOUNT,
+                                    costSplit = FIFTY_FIFTY_SPLIT,
+                                ),
+                        ),
                 ),
-            ),
-            onBack = {},
-            onRetry = {},
-            onSendRequest = {},
-            onWithdraw = {},
+            actions =
+                MatchDetailActions(
+                    onBack = {},
+                    onRetry = {},
+                    onSendRequest = {},
+                    onWithdraw = {},
+                ),
         )
     }
 }

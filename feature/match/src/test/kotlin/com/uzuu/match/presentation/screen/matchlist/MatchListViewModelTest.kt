@@ -95,27 +95,30 @@ class MatchListViewModelTest {
     @Test
     fun `onFilterChanged updates selectedFilter and filters matches`() =
         runTest {
-            val typeA = MatchSummary(
-                matchId = "m1",
-                type = MatchType.HAS_VENUE,
-                authorTeamName = "Thảo Điền FC",
-                venueName = "Sân An Phú",
-                startsAt = "2026-11-21T19:00:00Z",
-            )
-            val typeB = MatchSummary(
-                matchId = "m2",
-                type = MatchType.NEED_VENUE,
-                authorTeamName = "Sài Gòn United",
-                venueName = null,
-                startsAt = "2026-11-21T18:00:00Z",
-            )
-            val matchPage = MatchPage(
-                matches = listOf(typeA, typeB),
-                page = 1,
-                pageSize = 20,
-                totalPages = 1,
-                totalItems = 2,
-            )
+            val typeA =
+                MatchSummary(
+                    matchId = "m1",
+                    type = MatchType.HAS_VENUE,
+                    authorTeamName = "Thảo Điền FC",
+                    venueName = "Sân An Phú",
+                    startsAt = "2026-11-21T19:00:00Z",
+                )
+            val typeB =
+                MatchSummary(
+                    matchId = "m2",
+                    type = MatchType.NEED_VENUE,
+                    authorTeamName = "Sài Gòn United",
+                    venueName = null,
+                    startsAt = "2026-11-21T18:00:00Z",
+                )
+            val matchPage =
+                MatchPage(
+                    matches = listOf(typeA, typeB),
+                    page = 1,
+                    pageSize = 20,
+                    totalPages = 1,
+                    totalItems = 2,
+                )
             coEvery { getMatchUseCase() } returns Result.Success(matchPage)
 
             sut = MatchListViewModel(getMatchUseCase)
@@ -139,27 +142,30 @@ class MatchListViewModelTest {
     @Test
     fun `onDateChanged updates selectedDate and filters matches`() =
         runTest {
-            val matchToday = MatchSummary(
-                matchId = "m1",
-                type = MatchType.HAS_VENUE,
-                authorTeamName = "Thảo Điền FC",
-                venueName = "Sân An Phú",
-                startsAt = "2026-11-21T19:00:00Z",
-            )
-            val matchTomorrow = MatchSummary(
-                matchId = "m2",
-                type = MatchType.HAS_VENUE,
-                authorTeamName = "Bình Minh FC",
-                venueName = "Sân An Phú",
-                startsAt = "2026-11-22T19:00:00Z",
-            )
-            val matchPage = MatchPage(
-                matches = listOf(matchToday, matchTomorrow),
-                page = 1,
-                pageSize = 20,
-                totalPages = 1,
-                totalItems = 2,
-            )
+            val matchToday =
+                MatchSummary(
+                    matchId = "m1",
+                    type = MatchType.HAS_VENUE,
+                    authorTeamName = "Thảo Điền FC",
+                    venueName = "Sân An Phú",
+                    startsAt = "2026-11-21T19:00:00Z",
+                )
+            val matchTomorrow =
+                MatchSummary(
+                    matchId = "m2",
+                    type = MatchType.HAS_VENUE,
+                    authorTeamName = "Bình Minh FC",
+                    venueName = "Sân An Phú",
+                    startsAt = "2026-11-22T19:00:00Z",
+                )
+            val matchPage =
+                MatchPage(
+                    matches = listOf(matchToday, matchTomorrow),
+                    page = 1,
+                    pageSize = 20,
+                    totalPages = 1,
+                    totalItems = 2,
+                )
             coEvery { getMatchUseCase() } returns Result.Success(matchPage)
 
             sut = MatchListViewModel(getMatchUseCase)

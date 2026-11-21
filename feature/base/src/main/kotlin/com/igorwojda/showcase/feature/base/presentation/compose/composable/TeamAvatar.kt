@@ -16,12 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaColors
 
-/**
- * Circular team avatar matching docs/prototype/index.html:
- * - Size: 44dp
- * - Background: #203D31
- * - Text: White, 2-letter uppercase initials
- */
+/** Circular team avatar matching docs/prototype/index.html. */
 @Composable
 fun TeamAvatar(
     name: String,

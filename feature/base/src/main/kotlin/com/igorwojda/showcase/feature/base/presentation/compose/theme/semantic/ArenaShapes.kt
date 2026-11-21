@@ -5,16 +5,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.primitive.ShapeTokens
 
-/**
- * Semantic shapes aligned with docs/prototype/index.html & IMPLEMENTATION_PLAN.md:
- * - Button: 12dp
- * - Card: 14dp
- * - Input: 10dp
- * - Badge: 7dp
- * - Notice: 12dp
- * - Chip: 12dp
- * - Avatar: Circle
- */
+/** Semantic shapes aligned with prototype/index.html and IMPLEMENTATION_PLAN.md. */
 object ArenaShapes {
     val Badge = RoundedCornerShape(ShapeTokens.RadiusBadge)
     val Input = RoundedCornerShape(ShapeTokens.RadiusInput)

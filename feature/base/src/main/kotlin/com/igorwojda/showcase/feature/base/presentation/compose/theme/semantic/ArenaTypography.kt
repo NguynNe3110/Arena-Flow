@@ -4,15 +4,7 @@ import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.primitive.FontTokens
 
-/**
- * Typography roles mapped to docs/prototype/index.html:
- * - Brand: 23sp / Bold
- * - h2: 30sp / Bold
- * - h3: 19sp / Bold
- * - body: 14sp-16sp
- * - small / muted: 13sp
- * - badge: 12sp / Bold
- */
+/** Typography roles mapped to docs/prototype/index.html. */
 val ArenaTypography =
     Typography(
         displayLarge =

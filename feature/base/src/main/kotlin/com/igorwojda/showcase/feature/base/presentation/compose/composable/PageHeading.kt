@@ -14,12 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaColors
 
-/**
- * Page heading matching docs/prototype/index.html:
- * - Location / Tag line (small 13sp muted)
- * - Title h2 (30sp bold)
- * - Subtitle / description (14sp muted)
- */
+/** Page heading matching docs/prototype/index.html. */
 @Composable
 fun PageHeading(
     title: String,

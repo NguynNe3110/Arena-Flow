@@ -1,3 +1,5 @@
+@file:Suppress("MatchingDeclarationName")
+
 package com.igorwojda.showcase.feature.base.presentation.compose.composable
 
 import androidx.compose.foundation.background
@@ -8,7 +10,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaColors
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaShapes
@@ -19,15 +20,7 @@ enum class BadgeVariant {
     Neutral,
 }
 
-/**
- * Status and category badge aligned with docs/prototype/index.html:
- * - Green: bg #DFEFDF, text #155B39 (e.g. "Đã có sân", "Đang tìm đối", "Đã ghép")
- * - Amber: bg #FFF0CE, text #6B4A08 (e.g. "Chưa có sân", "Đang thương lượng")
- * - Neutral: bg #E7EEE6, text #52675D
- * - Radius: 7dp
- * - Font: 12sp Bold
- * - Padding: 5dp vertical, 9dp horizontal
- */
+/** Status and category badge aligned with docs/prototype/index.html. */
 @Composable
 fun AppBadge(
     text: String,

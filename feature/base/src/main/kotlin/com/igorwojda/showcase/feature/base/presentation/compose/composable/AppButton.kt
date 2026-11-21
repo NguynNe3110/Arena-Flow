@@ -1,3 +1,5 @@
+@file:Suppress("StringLiteralDuplication")
+
 package com.igorwojda.showcase.feature.base.presentation.compose.composable
 
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -23,7 +25,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -32,14 +33,7 @@ import com.igorwojda.showcase.feature.base.presentation.compose.theme.ShowcaseTh
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaColors
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaShapes
 
-/**
- * Primary action button:
- * - Background: #146B46 (Green)
- * - Text: White
- * - Border-radius: 12dp
- * - Min-height: 48dp
- * - Padding: 12dp vertical, 17dp horizontal
- */
+/** Primary action button. */
 @Composable
 fun AppButton(
     text: String,
@@ -70,13 +64,7 @@ fun AppButton(
     }
 }
 
-/**
- * Secondary action button:
- * - Background: #E7EEE6
- * - Text: #172E27
- * - Border-radius: 12dp
- * - Min-height: 48dp
- */
+/** Secondary action button. */
 @Composable
 fun AppSecondaryButton(
     text: String,
@@ -107,12 +95,7 @@ fun AppSecondaryButton(
     }
 }
 
-/**
- * Ghost / text action button (e.g. "← Khám phá" back button):
- * - Background: Transparent
- * - Text: OnSurface
- * - Min-height: 48dp
- */
+/** Ghost or text action button. */
 @Composable
 fun AppGhostButton(
     text: String,
@@ -142,7 +125,7 @@ fun AppGhostButton(
     }
 }
 
-/** Secondary outlined action using 12dp radius and #DCE3D8 border. */
+/** Secondary outlined action button. */
 @Composable
 fun AppOutlinedButton(
     text: String,
@@ -157,8 +140,9 @@ fun AppOutlinedButton(
         enabled = enabled && !isLoading,
         shape = ArenaShapes.Button,
         border =
-            ButtonDefaults.outlinedButtonBorder.copy(
-                brush = androidx.compose.ui.graphics.SolidColor(MaterialTheme.colorScheme.outline),
+            androidx.compose.foundation.BorderStroke(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.outline,
             ),
         colors =
             ButtonDefaults.outlinedButtonColors(

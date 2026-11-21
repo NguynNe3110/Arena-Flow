@@ -16,11 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaColors
 
-/**
- * Key-value row with bottom divider matching docs/prototype/index.html:
- * - Padding: 13dp vertical
- * - Border bottom: 1px solid #E2E7DE
- */
+/** Key-value row with bottom divider matching docs/prototype/index.html. */
 @Composable
 fun KeyValueRow(
     label: String,

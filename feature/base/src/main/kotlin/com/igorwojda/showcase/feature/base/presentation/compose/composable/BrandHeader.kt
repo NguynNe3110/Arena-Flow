@@ -25,12 +25,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaColors
 
-/**
- * Top brand header matching docs/prototype/index.html:
- * - "ArenaFlow." with "." in green #146B46
- * - Right notification bell ghost button
- * - Bottom border 1px solid #DCE3D8
- */
+/** Top brand header matching docs/prototype/index.html. */
 @Composable
 fun BrandHeader(
     onNotificationClick: () -> Unit,

@@ -2,14 +2,7 @@ package com.igorwojda.showcase.feature.base.common.res
 
 import androidx.compose.ui.unit.dp
 
-/**
- * Spacing and sizing tokens aligned with docs/prototype/index.html & IMPLEMENTATION_PLAN.md:
- * - page: 24dp
- * - card: 18dp
- * - content stack gap: 14dp
- * - chip gap: 8dp
- * - min touch target: 48dp
- */
+/** Spacing and sizing tokens aligned with docs/prototype/index.html and IMPLEMENTATION_PLAN.md. */
 object Dimen {
     val spaceXS = 4.dp
     val spaceS = 4.dp

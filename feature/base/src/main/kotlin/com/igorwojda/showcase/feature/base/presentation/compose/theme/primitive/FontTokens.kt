@@ -1,3 +1,5 @@
+@file:Suppress("MagicNumber")
+
 package com.igorwojda.showcase.feature.base.presentation.compose.theme.primitive
 
 import androidx.compose.ui.text.font.Font

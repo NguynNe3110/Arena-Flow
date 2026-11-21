@@ -1,19 +1,10 @@
+@file:Suppress("MagicNumber")
+
 package com.igorwojda.showcase.feature.base.presentation.compose.theme.primitive
 
 import androidx.compose.ui.graphics.Color
 
-/**
- * Raw design tokens from docs/prototype/index.html and docs/android-ui/IMPLEMENTATION_PLAN.md:
- * - Primary: #146B46, onPrimary: #FFFFFF
- * - Text Primary: #172E27, Text Muted/Secondary: #52675D
- * - Background: #FAFBF7, Card: #FFFFFF
- * - Border / Secondary button: #DCE3D8 / #E7EEE6
- * - Chip active: bg #172E27, text #FFFFFF
- * - Badge green: bg #DFEFDF, text #155B39
- * - Badge amber: bg #FFF0CE, text #6B4A08
- * - Notice / Nav active: #F1F0DF / #E5EEE1
- * - Radii: Button 12dp, Card 14dp, Input 10dp, Badge 7dp, Avatar Circle.
- */
+/** Raw design tokens from docs/prototype/index.html and docs/android-ui/IMPLEMENTATION_PLAN.md. */
 object ColorPalette {
     // Primary Brand
     val Primary = Color(0xFF146B46)

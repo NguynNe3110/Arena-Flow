@@ -1,7 +1,8 @@
+@file:Suppress("TooManyFunctions", "MagicNumber")
+
 package com.uzuu.match.presentation.screen.matchlist
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -69,6 +71,23 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
 
+private const val SUBTITLE_CITY = "TP. Hồ Chí Minh"
+private const val SUBTITLE_SAMPLE_DATA = "Dữ liệu mẫu"
+private const val TEXT_ALL_DAYS = "Tất cả các ngày"
+private const val BRAND_NAME = "ArenaFlow"
+private const val LEVEL_MEDIUM = "Trung bình"
+private const val DEFAULT_VENUE_NAME = "Sân An Phú"
+private const val DEFAULT_VENUE_ADDRESS = "Phường An Khánh"
+
+internal data class MatchListCallbacks(
+    val onRefresh: () -> Unit,
+    val onFilterChange: (MatchTypeFilter) -> Unit,
+    val onDateChange: (String?) -> Unit,
+    val onMatchClick: (String) -> Unit,
+    val onCreateMatchClick: () -> Unit = {},
+    val onNotificationClick: () -> Unit = {},
+)
+
 @Composable
 fun MatchListScreen(
     onMatchClick: (String) -> Unit,
@@ -81,12 +100,15 @@ fun MatchListScreen(
 
     MatchListContent(
         uiState = uiState,
-        onRefresh = viewModel::onRefresh,
-        onFilterChanged = viewModel::onFilterChanged,
-        onDateChanged = viewModel::onDateChanged,
-        onMatchClick = onMatchClick,
-        onCreateMatchClick = onCreateMatchClick,
-        onNotificationClick = onNotificationClick,
+        callbacks =
+            MatchListCallbacks(
+                onRefresh = viewModel::onRefresh,
+                onFilterChange = viewModel::onFilterChanged,
+                onDateChange = viewModel::onDateChanged,
+                onMatchClick = onMatchClick,
+                onCreateMatchClick = onCreateMatchClick,
+                onNotificationClick = onNotificationClick,
+            ),
         modifier = modifier,
     )
 }
@@ -95,12 +117,7 @@ fun MatchListScreen(
 @Composable
 internal fun MatchListContent(
     uiState: MatchListUiState,
-    onRefresh: () -> Unit,
-    onFilterChanged: (MatchTypeFilter) -> Unit,
-    onDateChanged: (String?) -> Unit,
-    onMatchClick: (String) -> Unit,
-    onCreateMatchClick: () -> Unit = {},
-    onNotificationClick: () -> Unit = {},
+    callbacks: MatchListCallbacks,
     modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
@@ -112,363 +129,425 @@ internal fun MatchListContent(
         containerColor = Color(0xFFFAFBF7),
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
-            Surface(
-                modifier = Modifier.fillMaxWidth(),
-                color = Color(0xFFFAFBF7),
-            ) {
-                Column {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 24.dp, vertical = 16.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Text(
-                            text = buildAnnotatedString {
-                                append("ArenaFlow")
-                                withStyle(SpanStyle(color = Color(0xFF146B46))) {
-                                    append(".")
-                                }
-                            },
-                            fontSize = 23.sp,
-                            fontWeight = FontWeight.ExtraBold,
-                            letterSpacing = (-0.04).sp,
-                            color = Color(0xFF172E27),
-                        )
-                        IconButton(
-                            onClick = {
-                                if (onNotificationClick != {}) {
-                                    onNotificationClick()
-                                } else {
-                                    scope.launch {
-                                        snackbarHostState.showSnackbar("Chưa có thông báo mới")
-                                    }
-                                }
-                            },
-                            modifier = Modifier.size(44.dp),
-                        ) {
-                            Icon(
-                                imageVector = Icons.Outlined.Notifications,
-                                contentDescription = "Thông báo",
-                                tint = Color(0xFF172E27),
-                                modifier = Modifier.size(24.dp),
-                            )
-                        }
-                    }
-                    HorizontalDivider(color = Color(0xFFDCE3D8), thickness = 1.dp)
-                }
-            }
+            MatchListTopBar(onNotificationClick = callbacks.onNotificationClick)
         },
     ) { innerPadding ->
         PullToRefreshBox(
             isRefreshing = uiState.isLoading,
-            onRefresh = onRefresh,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+            onRefresh = callbacks.onRefresh,
+            modifier = Modifier.fillMaxSize().padding(innerPadding),
         ) {
-            val matches = uiState.filteredMatches
-
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(bottom = 24.dp),
             ) {
-                // Progress indicator during refresh
-                if (uiState.isLoading && uiState.matches.isNotEmpty()) {
-                    item {
-                        LinearProgressIndicator(
-                            modifier = Modifier.fillMaxWidth(),
-                            color = Color(0xFF146B46),
-                        )
-                    }
-                }
-
-                // Retry notice if refresh failed while retaining existing items
-                if (uiState.error != null && uiState.matches.isNotEmpty()) {
-                    item {
-                        TextButton(
-                            onClick = onRefresh,
-                            modifier = Modifier.fillMaxWidth(),
-                        ) {
-                            Text(
-                                "Chưa tải được dữ liệu mới. Chạm để thử lại.",
-                                color = Color(0xFF6B4A08),
-                                fontSize = 13.sp,
-                            )
-                        }
-                    }
-                }
-
-                // Subtitle: "TP. Hồ Chí Minh · Dữ liệu mẫu"
+                renderMatchListStatus(uiState, callbacks.onRefresh)
+                item { MatchListHero(callbacks.onCreateMatchClick) }
                 item {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 24.dp, end = 24.dp, top = 20.dp, bottom = 6.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Text(
-                            text = "TP. Hồ Chí Minh",
-                            color = Color(0xFF52675D),
-                            fontSize = 13.sp,
-                        )
-                        Text(
-                            text = "Dữ liệu mẫu",
-                            color = Color(0xFF52675D),
-                            fontSize = 13.sp,
-                        )
-                    }
-                }
-
-                // Heading & Muted Subtitle
-                item {
-                    Text(
-                        text = "Tìm đối thủ.\nRa sân thôi.",
-                        color = Color(0xFF172E27),
-                        fontSize = 30.sp,
-                        fontWeight = FontWeight.Bold,
-                        lineHeight = 36.sp,
-                        letterSpacing = (-0.035).sp,
-                        modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 6.dp),
-                    )
-                    Text(
-                        text = "Một trận hay bắt đầu từ một kèo phù hợp.",
-                        color = Color(0xFF52675D),
-                        fontSize = 15.sp,
-                        lineHeight = 22.sp,
-                        modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 16.dp),
+                    MatchListFilterChips(
+                        selectedFilter = uiState.selectedFilter,
+                        onFilterChange = callbacks.onFilterChange,
                     )
                 }
-
-                // Full-width primary CTA button
                 item {
-                    Box(modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp)) {
-                        Button(
-                            onClick = onCreateMatchClick,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .heightIn(min = 48.dp),
-                            shape = RoundedCornerShape(12.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xFF146B46),
-                                contentColor = Color.White,
-                            ),
-                        ) {
-                            Text(
-                                text = "+ Tạo kèo cho đội",
-                                fontSize = 15.sp,
-                                fontWeight = FontWeight.SemiBold,
-                            )
-                        }
-                    }
+                    MatchListDateField(
+                        selectedDate = uiState.selectedDate,
+                        onOpenDatePicker = { showDatePicker = true },
+                        onClearDate = { callbacks.onDateChange(null) },
+                    )
                 }
-
-                // Chip row: "Tất cả", "Đã có sân", "Chưa có sân"
-                item {
-                    Row(
-                        modifier = Modifier
-                            .horizontalScroll(rememberScrollState())
-                            .padding(horizontal = 24.dp, vertical = 14.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        MatchTypeFilter.entries.forEach { filterOption ->
-                            FilterChipItem(
-                                label = filterOption.label,
-                                selected = uiState.selectedFilter == filterOption,
-                                onClick = { onFilterChanged(filterOption) },
-                            )
-                        }
-                    }
-                }
-
-                // Date picker / filter
-                item {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 24.dp, end = 24.dp, top = 2.dp, bottom = 14.dp),
-                    ) {
-                        Text(
-                            text = "Ngày thi đấu",
-                            color = Color(0xFF172E27),
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            modifier = Modifier.padding(bottom = 7.dp),
-                        )
-                        Surface(
-                            onClick = { showDatePicker = true },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .heightIn(min = 48.dp),
-                            shape = RoundedCornerShape(10.dp),
-                            color = Color.White,
-                            border = BorderStroke(1.dp, Color(0xFFB2C2B5)),
-                        ) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 14.dp, vertical = 12.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                Text(
-                                    text = formatDisplayDate(uiState.selectedDate),
-                                    color = Color(0xFF172E27),
-                                    fontSize = 15.sp,
-                                )
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(4.dp),
-                                ) {
-                                    if (!uiState.selectedDate.isNullOrBlank()) {
-                                        IconButton(
-                                            onClick = { onDateChanged(null) },
-                                            modifier = Modifier.size(24.dp),
-                                        ) {
-                                            Icon(
-                                                imageVector = Icons.Outlined.Close,
-                                                contentDescription = "Bỏ lọc ngày",
-                                                tint = Color(0xFF52675D),
-                                                modifier = Modifier.size(18.dp),
-                                            )
-                                        }
-                                    }
-                                    Icon(
-                                        imageVector = Icons.Outlined.CalendarMonth,
-                                        contentDescription = "Chọn ngày thi đấu",
-                                        tint = Color(0xFF52675D),
-                                        modifier = Modifier.size(20.dp),
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // Match items or Empty/Loading/Error states
-                when {
-                    uiState.isLoading && uiState.matches.isEmpty() -> {
-                        item {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 48.dp),
-                                contentAlignment = Alignment.Center,
-                            ) {
-                                LoadingIndicator()
-                            }
-                        }
-                    }
-
-                    uiState.error != null && uiState.matches.isEmpty() -> {
-                        item {
-                            AppErrorContent(uiState.error, onRefresh)
-                        }
-                    }
-
-                    matches.isEmpty() -> {
-                        item {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 24.dp, vertical = 32.dp),
-                                contentAlignment = Alignment.Center,
-                            ) {
-                                Column(
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.spacedBy(12.dp),
-                                ) {
-                                    Text(
-                                        text = "Chưa có kèo nào phù hợp",
-                                        color = Color(0xFF172E27),
-                                        fontSize = 18.sp,
-                                        fontWeight = FontWeight.Bold,
-                                    )
-                                    Text(
-                                        text = "Thử thay đổi bộ lọc hoặc chủ động đăng bài tìm đối giao lưu!",
-                                        color = Color(0xFF52675D),
-                                        fontSize = 14.sp,
-                                    )
-                                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                        OutlinedButton(
-                                            onClick = {
-                                                onFilterChanged(MatchTypeFilter.ALL)
-                                                onDateChanged(null)
-                                            },
-                                            shape = RoundedCornerShape(12.dp),
-                                        ) {
-                                            Text("Đặt lại bộ lọc", color = Color(0xFF172E27))
-                                        }
-                                        Button(
-                                            onClick = onCreateMatchClick,
-                                            shape = RoundedCornerShape(12.dp),
-                                            colors = ButtonDefaults.buttonColors(
-                                                containerColor = Color(0xFF146B46),
-                                                contentColor = Color.White,
-                                            ),
-                                        ) {
-                                            Text("+ Tạo kèo ngay")
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    else -> {
-                        items(matches, key = { it.matchId }) { match ->
-                            Box(modifier = Modifier.padding(horizontal = 24.dp, vertical = 7.dp)) {
-                                MatchCard(
-                                    match = match,
-                                    onClick = { onMatchClick(match.matchId) },
-                                )
-                            }
-                        }
-                    }
-                }
+                renderMatchListBody(uiState, callbacks)
             }
         }
     }
 
     if (showDatePicker) {
-        val datePickerState = rememberDatePickerState(
-            initialSelectedDateMillis = remember(uiState.selectedDate) {
-                runCatching {
-                    uiState.selectedDate?.let {
-                        LocalDate.parse(it).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
-                    }
-                }.getOrNull()
+        MatchListDatePickerDialog(
+            selectedDate = uiState.selectedDate,
+            onDateSelect = { dateStr ->
+                callbacks.onDateChange(dateStr)
+                scope.launch {
+                    snackbarHostState.showSnackbar("Đang hiển thị kèo ngày ${formatDisplayDate(dateStr)}")
+                }
             },
+            onDismiss = { showDatePicker = false },
         )
-        DatePickerDialog(
-            onDismissRequest = { showDatePicker = false },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        val millis = datePickerState.selectedDateMillis
-                        if (millis != null) {
-                            val date = Instant.ofEpochMilli(millis).atZone(ZoneOffset.UTC).toLocalDate()
-                            onDateChanged(date.toString())
-                            scope.launch {
-                                snackbarHostState.showSnackbar("Đang hiển thị kèo ngày ${formatDisplayDate(date.toString())}")
-                            }
-                        }
-                        showDatePicker = false
-                    },
-                ) {
-                    Text("Chọn", color = Color(0xFF146B46), fontWeight = FontWeight.Bold)
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showDatePicker = false }) {
-                    Text("Hủy", color = Color(0xFF52675D))
-                }
-            },
-        ) {
-            DatePicker(state = datePickerState)
+    }
+}
+
+private fun LazyListScope.renderMatchListStatus(
+    uiState: MatchListUiState,
+    onRefresh: () -> Unit,
+) {
+    if (uiState.isLoading && uiState.matches.isNotEmpty()) {
+        item {
+            LinearProgressIndicator(
+                modifier = Modifier.fillMaxWidth(),
+                color = Color(0xFF146B46),
+            )
         }
+    }
+    if (uiState.error != null && uiState.matches.isNotEmpty()) {
+        item {
+            TextButton(
+                onClick = onRefresh,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text(
+                    text = "Chưa tải được dữ liệu mới. Chạm để thử lại.",
+                    color = Color(0xFF6B4A08),
+                    fontSize = 13.sp,
+                )
+            }
+        }
+    }
+}
+
+private fun LazyListScope.renderMatchListBody(
+    uiState: MatchListUiState,
+    callbacks: MatchListCallbacks,
+) {
+    val matches = uiState.filteredMatches
+    when {
+        uiState.isLoading && uiState.matches.isEmpty() -> {
+            item {
+                Box(
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 48.dp),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    LoadingIndicator()
+                }
+            }
+        }
+
+        uiState.error != null && uiState.matches.isEmpty() -> {
+            item {
+                AppErrorContent(uiState.error, callbacks.onRefresh)
+            }
+        }
+
+        matches.isEmpty() -> {
+            item {
+                MatchListEmptyContent(
+                    onResetFilters = {
+                        callbacks.onFilterChange(MatchTypeFilter.ALL)
+                        callbacks.onDateChange(null)
+                    },
+                    onCreateMatchClick = callbacks.onCreateMatchClick,
+                )
+            }
+        }
+
+        else -> {
+            items(matches, key = { it.matchId }) { match ->
+                Box(modifier = Modifier.padding(horizontal = 24.dp, vertical = 7.dp)) {
+                    MatchCard(
+                        match = match,
+                        onClick = { callbacks.onMatchClick(match.matchId) },
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun MatchListTopBar(
+    onNotificationClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        color = Color(0xFFFAFBF7),
+    ) {
+        Column {
+            Row(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp, vertical = 16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text =
+                        buildAnnotatedString {
+                            append(BRAND_NAME)
+                            withStyle(SpanStyle(color = Color(0xFF146B46))) {
+                                append(".")
+                            }
+                        },
+                    fontSize = 23.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    letterSpacing = (-0.04).sp,
+                    color = Color(0xFF172E27),
+                )
+                IconButton(
+                    onClick = onNotificationClick,
+                    modifier = Modifier.size(44.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Notifications,
+                        contentDescription = "Thông báo",
+                        tint = Color(0xFF172E27),
+                        modifier = Modifier.size(24.dp),
+                    )
+                }
+            }
+            HorizontalDivider(color = Color(0xFFDCE3D8), thickness = 1.dp)
+        }
+    }
+}
+
+@Composable
+private fun MatchListHero(
+    onCreateMatchClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier = modifier) {
+        Row(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(start = 24.dp, end = 24.dp, top = 20.dp, bottom = 6.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(text = SUBTITLE_CITY, color = Color(0xFF52675D), fontSize = 13.sp)
+            Text(text = SUBTITLE_SAMPLE_DATA, color = Color(0xFF52675D), fontSize = 13.sp)
+        }
+        Text(
+            text = "Tìm đối thủ.\nRa sân thôi.",
+            color = Color(0xFF172E27),
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold,
+            lineHeight = 36.sp,
+            letterSpacing = (-0.035).sp,
+            modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 6.dp),
+        )
+        Text(
+            text = "Một trận hay bắt đầu từ một kèo phù hợp.",
+            color = Color(0xFF52675D),
+            fontSize = 15.sp,
+            lineHeight = 22.sp,
+            modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 16.dp),
+        )
+        Box(modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp)) {
+            Button(
+                onClick = onCreateMatchClick,
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors =
+                    ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF146B46),
+                        contentColor = Color.White,
+                    ),
+            ) {
+                Text(
+                    text = "+ Tạo kèo cho đội",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.SemiBold,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun MatchListFilterChips(
+    selectedFilter: MatchTypeFilter,
+    onFilterChange: (MatchTypeFilter) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier =
+            modifier
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 24.dp, vertical = 14.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        MatchTypeFilter.entries.forEach { filterOption ->
+            FilterChipItem(
+                label = filterOption.label,
+                selected = selectedFilter == filterOption,
+                onSelect = { onFilterChange(filterOption) },
+            )
+        }
+    }
+}
+
+@Composable
+private fun MatchListDateField(
+    selectedDate: String?,
+    onOpenDatePicker: () -> Unit,
+    onClearDate: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(start = 24.dp, end = 24.dp, top = 2.dp, bottom = 14.dp),
+    ) {
+        Text(
+            text = "Ngày thi đấu",
+            color = Color(0xFF172E27),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(bottom = 7.dp),
+        )
+        MatchListDateSurface(selectedDate, onOpenDatePicker, onClearDate)
+    }
+}
+
+@Composable
+private fun MatchListDateSurface(
+    selectedDate: String?,
+    onOpenDatePicker: () -> Unit,
+    onClearDate: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        onClick = onOpenDatePicker,
+        modifier = modifier.fillMaxWidth().heightIn(min = 48.dp),
+        shape = RoundedCornerShape(10.dp),
+        color = Color.White,
+        border = BorderStroke(1.dp, Color(0xFFB2C2B5)),
+    ) {
+        Row(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 14.dp, vertical = 12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = formatDisplayDate(selectedDate),
+                color = Color(0xFF172E27),
+                fontSize = 15.sp,
+            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+            ) {
+                if (!selectedDate.isNullOrBlank()) {
+                    IconButton(
+                        onClick = onClearDate,
+                        modifier = Modifier.size(24.dp),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Close,
+                            contentDescription = "Bỏ lọc ngày",
+                            tint = Color(0xFF52675D),
+                            modifier = Modifier.size(18.dp),
+                        )
+                    }
+                }
+                Icon(
+                    imageVector = Icons.Outlined.CalendarMonth,
+                    contentDescription = "Chọn ngày thi đấu",
+                    tint = Color(0xFF52675D),
+                    modifier = Modifier.size(20.dp),
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun MatchListEmptyContent(
+    onResetFilters: () -> Unit,
+    onCreateMatchClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        modifier = modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 32.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Text(
+                text = "Chưa có kèo nào phù hợp",
+                color = Color(0xFF172E27),
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+            )
+            Text(
+                text = "Thử thay đổi bộ lọc hoặc chủ động đăng bài tìm đối giao lưu!",
+                color = Color(0xFF52675D),
+                fontSize = 14.sp,
+            )
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedButton(
+                    onClick = onResetFilters,
+                    shape = RoundedCornerShape(12.dp),
+                ) {
+                    Text(text = "Đặt lại bộ lọc", color = Color(0xFF172E27))
+                }
+                Button(
+                    onClick = onCreateMatchClick,
+                    shape = RoundedCornerShape(12.dp),
+                    colors =
+                        ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF146B46),
+                            contentColor = Color.White,
+                        ),
+                ) {
+                    Text(text = "+ Tạo kèo ngay")
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun MatchListDatePickerDialog(
+    selectedDate: String?,
+    onDateSelect: (String) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    val datePickerState =
+        rememberDatePickerState(
+            initialSelectedDateMillis =
+                remember(selectedDate) {
+                    runCatching {
+                        selectedDate?.let {
+                            LocalDate
+                                .parse(it)
+                                .atStartOfDay(ZoneOffset.UTC)
+                                .toInstant()
+                                .toEpochMilli()
+                        }
+                    }.getOrNull()
+                },
+        )
+    DatePickerDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    val millis = datePickerState.selectedDateMillis
+                    if (millis != null) {
+                        val date = Instant.ofEpochMilli(millis).atZone(ZoneOffset.UTC).toLocalDate()
+                        onDateSelect(date.toString())
+                    }
+                    onDismiss()
+                },
+            ) {
+                Text(text = "Chọn", color = Color(0xFF146B46), fontWeight = FontWeight.Bold)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(text = "Hủy", color = Color(0xFF52675D))
+            }
+        },
+    ) {
+        DatePicker(state = datePickerState)
     }
 }
 
@@ -476,11 +555,11 @@ internal fun MatchListContent(
 private fun FilterChipItem(
     label: String,
     selected: Boolean,
-    onClick: () -> Unit,
+    onSelect: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface(
-        onClick = onClick,
+        onClick = onSelect,
         modifier = modifier.heightIn(min = 44.dp),
         shape = RoundedCornerShape(12.dp),
         color = if (selected) Color(0xFF172E27) else Color(0xFFE7EEE6),
@@ -500,7 +579,7 @@ private fun FilterChipItem(
 }
 
 internal fun formatDisplayDate(dateIso: String?): String {
-    if (dateIso.isNullOrBlank()) return "Tất cả các ngày"
+    if (dateIso.isNullOrBlank()) return TEXT_ALL_DAYS
     val parts = dateIso.split("-")
     return if (parts.size == 3) {
         "${parts[2]}/${parts[1]}/${parts[0]}"
@@ -514,36 +593,41 @@ internal fun formatDisplayDate(dateIso: String?): String {
 private fun MatchListContentPreview() {
     ShowcaseTheme {
         MatchListContent(
-            uiState = MatchListUiState(
-                matches = listOf(
-                    MatchSummary(
-                        matchId = "preview-a",
-                        type = MatchType.HAS_VENUE,
-                        authorTeamName = "Thảo Điền FC",
-                        venueName = "Sân An Phú",
-                        venueAddress = "Phường An Khánh",
-                        skillLevels = listOf("Trung bình"),
-                        startsAt = "2026-11-21T19:00:00Z",
-                        endsAt = "2026-11-21T20:30:00Z",
-                        reliabilityScore = 92,
-                    ),
-                    MatchSummary(
-                        matchId = "preview-b",
-                        type = MatchType.NEED_VENUE,
-                        authorTeamName = "Sài Gòn United",
-                        venueName = null,
-                        venueOptionCount = 2,
-                        timeOptionCount = 2,
-                        skillLevels = listOf("Trung bình"),
-                        reliabilityScore = 92,
-                        startsAt = "2026-11-21T18:00:00Z",
-                    ),
+            uiState =
+                MatchListUiState(
+                    matches =
+                        listOf(
+                            MatchSummary(
+                                matchId = "preview-a",
+                                type = MatchType.HAS_VENUE,
+                                authorTeamName = "Thảo Điền FC",
+                                venueName = DEFAULT_VENUE_NAME,
+                                venueAddress = DEFAULT_VENUE_ADDRESS,
+                                skillLevels = listOf(LEVEL_MEDIUM),
+                                startsAt = "2026-11-21T19:00:00Z",
+                                endsAt = "2026-11-21T20:30:00Z",
+                                reliabilityScore = 92,
+                            ),
+                            MatchSummary(
+                                matchId = "preview-b",
+                                type = MatchType.NEED_VENUE,
+                                authorTeamName = "Sài Gòn United",
+                                venueName = null,
+                                venueOptionCount = 2,
+                                timeOptionCount = 2,
+                                skillLevels = listOf(LEVEL_MEDIUM),
+                                reliabilityScore = 92,
+                                startsAt = "2026-11-21T18:00:00Z",
+                            ),
+                        ),
                 ),
-            ),
-            onRefresh = {},
-            onFilterChanged = {},
-            onDateChanged = {},
-            onMatchClick = {},
+            callbacks =
+                MatchListCallbacks(
+                    onRefresh = {},
+                    onFilterChange = {},
+                    onDateChange = {},
+                    onMatchClick = {},
+                ),
         )
     }
 }
