@@ -44,11 +44,11 @@ class MercenaryListViewModelTest {
             val viewModel = MercenaryListViewModel(getMercenaryPostsUseCase, applyMercenaryUseCase)
             advanceUntilIdle()
 
-            viewModel.setFilterPosition("GK")
-            assertEquals("GK", viewModel.uiState.value.filterPosition)
+            viewModel.setFilterPosition("DF")
+            assertEquals("DF", viewModel.uiState.value.filterPosition)
 
-            viewModel.setRadius(5.5f)
-            assertEquals(5.5f, viewModel.uiState.value.radiusKm)
+            viewModel.setRadius(5.0f)
+            assertEquals(5.0f, viewModel.uiState.value.radiusKm)
         }
 
     @Test
@@ -57,7 +57,7 @@ class MercenaryListViewModelTest {
             val post = samplePost("rec-1", isApplied = false)
             val applied = post.copy(isApplied = true, pendingApplicants = 3)
             coEvery { getMercenaryPostsUseCase() } returns Result.Success(listOf(post))
-            coEvery { applyMercenaryUseCase("rec-1", "msg") } returns Result.Success(applied)
+            coEvery { applyMercenaryUseCase("rec-1", any()) } returns Result.Success(applied)
 
             val viewModel = MercenaryListViewModel(getMercenaryPostsUseCase, applyMercenaryUseCase)
             advanceUntilIdle()
@@ -87,12 +87,12 @@ class MercenaryListViewModelTest {
         teamName = "Bình Minh FC",
         captainName = "Lê Hoàng",
         position = "GK",
-        positionLabel = "[CẦN 1 THỦ MÔN - GK]",
-        matchDate = "21/11/2026",
-        timeSlot = "19:00 - 20:30",
-        estimatedArea = "TP. Thủ Đức",
+        positionLabel = "Thủ môn",
+        matchDate = "21/11",
+        timeSlot = "19:00–20:30",
+        estimatedArea = "Phường An Khánh, TP. Hồ Chí Minh",
         distanceKm = 2.5,
-        costShare = "Bao sân",
+        costShare = "Chia đều tiền sân",
         requirements = "Bắt an toàn",
         isApplied = isApplied,
     )

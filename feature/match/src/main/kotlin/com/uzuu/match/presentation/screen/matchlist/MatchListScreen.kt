@@ -128,9 +128,6 @@ internal fun MatchListContent(
         modifier = modifier.fillMaxSize(),
         containerColor = Color(0xFFFAFBF7),
         snackbarHost = { SnackbarHost(snackbarHostState) },
-        topBar = {
-            MatchListTopBar(onNotificationClick = callbacks.onNotificationClick)
-        },
     ) { innerPadding ->
         PullToRefreshBox(
             isRefreshing = uiState.isLoading,
@@ -247,54 +244,6 @@ private fun LazyListScope.renderMatchListBody(
                     )
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun MatchListTopBar(
-    onNotificationClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        color = Color(0xFFFAFBF7),
-    ) {
-        Column {
-            Row(
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 24.dp, vertical = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text =
-                        buildAnnotatedString {
-                            append(BRAND_NAME)
-                            withStyle(SpanStyle(color = Color(0xFF146B46))) {
-                                append(".")
-                            }
-                        },
-                    fontSize = 23.sp,
-                    fontWeight = FontWeight.ExtraBold,
-                    letterSpacing = (-0.04).sp,
-                    color = Color(0xFF172E27),
-                )
-                IconButton(
-                    onClick = onNotificationClick,
-                    modifier = Modifier.size(44.dp),
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Notifications,
-                        contentDescription = "Thông báo",
-                        tint = Color(0xFF172E27),
-                        modifier = Modifier.size(24.dp),
-                    )
-                }
-            }
-            HorizontalDivider(color = Color(0xFFDCE3D8), thickness = 1.dp)
         }
     }
 }

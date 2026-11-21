@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions", "MagicNumber")
+
 package com.uzuu.team.presentation.screen.teamdetail
 
 import androidx.compose.foundation.BorderStroke
@@ -34,6 +36,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -59,9 +62,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.igorwojda.showcase.feature.base.presentation.compose.composable.AppBadge
 import com.igorwojda.showcase.feature.base.presentation.compose.composable.AppErrorContent
+import com.igorwojda.showcase.feature.base.presentation.compose.composable.BadgeVariant
 import com.igorwojda.showcase.feature.base.presentation.compose.composable.LoadingIndicator
+import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaColors
+import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaShapes
 import com.uzuu.team.domain.model.TeamDetail
 import com.uzuu.team.domain.model.TeamMatchSchedule
 import com.uzuu.team.domain.model.TeamMember
@@ -122,47 +130,8 @@ internal fun TeamDetailContent(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
+        containerColor = ArenaColors.Background,
         snackbarHost = { SnackbarHost(snackbarHostState) },
-        topBar = {
-            TopAppBar(
-                title = {
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Icon(
-                            imageVector = Icons.Outlined.SportsSoccer,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
-                        )
-                        Text(
-                            text = "Đội của tôi",
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                        )
-                    }
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = onBackClick,
-                        modifier = Modifier.size(48.dp),
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                            contentDescription = "Quay lại",
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(
-                        onClick = onCreateTeamClick,
-                        modifier = Modifier.size(48.dp),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Add,
-                            contentDescription = "Tạo đội mới",
-                            tint = MaterialTheme.colorScheme.primary,
-                        )
-                    }
-                },
-            )
-        },
     ) { padding ->
         Box(
             modifier =
@@ -217,22 +186,12 @@ private fun TeamDetailBody(
         modifier = Modifier.fillMaxSize(),
         contentPadding =
             androidx.compose.foundation.layout
-                .PaddingValues(16.dp),
+                .PaddingValues(start = 24.dp, end = 24.dp, top = 20.dp, bottom = 24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        // Team Identity Card
+        // Prototype Team Header
         item {
-            TeamIdentityCard(team = team)
-        }
-
-        // Reputation & Analytics Bento Grid
-        item {
-            ReputationAnalyticsCard(team = team)
-        }
-
-        // Independent Personal Reputation Box (AC-P02)
-        item {
-            PersonalReputationCard(personalScore = team.personalReputationScore)
+            TeamHeaderSection(team = team)
         }
 
         // Tabs Row
@@ -242,7 +201,7 @@ private fun TeamDetailBody(
                 modifier =
                     Modifier
                         .fillMaxWidth()
-                        .clip(ControlShape),
+                        .clip(ArenaShapes.Input),
             ) {
                 Tab(
                     selected = selectedTab == 0,
@@ -312,312 +271,128 @@ private fun TeamDetailBody(
 }
 
 @Composable
-private fun TeamIdentityCard(team: TeamDetail) {
-    Surface(
-        shape = MatchShape,
-        color = MaterialTheme.colorScheme.surfaceContainerLowest,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Box(
-                        modifier =
-                            Modifier
-                                .size(56.dp)
-                                .clip(MatchShape)
-                                .background(MaterialTheme.colorScheme.primaryContainer),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Text(
-                            text = team.shortName,
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        )
-                    }
-                    Column {
-                        Text(
-                            text = team.name,
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                            color = MaterialTheme.colorScheme.onSurface,
-                        )
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(4.dp),
-                        ) {
-                            Icon(
-                                imageVector = Icons.Outlined.CalendarMonth,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.outline,
-                                modifier = Modifier.size(14.dp),
-                            )
-                            Text(
-                                text = team.createdAt,
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                    }
-                }
-                Surface(
-                    shape = ControlShape,
-                    color = MaterialTheme.colorScheme.tertiaryContainer,
-                    modifier = Modifier.padding(2.dp),
-                ) {
-                    Row(
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(4.dp),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Star,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onTertiaryContainer,
-                            modifier = Modifier.size(14.dp),
-                        )
-                        Text(
-                            text = "[${team.role.uppercase()}]",
-                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                            color = MaterialTheme.colorScheme.onTertiaryContainer,
-                        )
-                    }
-                }
-            }
-
-            Surface(
-                shape = ControlShape,
-                color = MaterialTheme.colorScheme.surfaceContainerLow,
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Row(
-                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.LocationOn,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(16.dp),
-                    )
-                    Text(
-                        text = "Khu vực: ${team.area}",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun ReputationAnalyticsCard(team: TeamDetail) {
-    Surface(
-        shape = MatchShape,
-        color = MaterialTheme.colorScheme.surfaceContainerLowest,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.VerifiedUser,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(18.dp),
-                    )
-                    Text(
-                        text = "Chỉ số uy tín & Thống kê",
-                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
-                    )
-                }
-                Surface(
-                    shape = CircleShape,
-                    color = MaterialTheme.colorScheme.primaryContainer,
-                ) {
-                    Text(
-                        text = "Chuẩn Phủi",
-                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
-                    )
-                }
-            }
-
-            // Metric Bento Grid (3 items)
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                MetricItem(
-                    label = "Uy tín đội",
-                    value = "${team.reputationScore}/100",
-                    subtext = "Không hủy kèo",
-                    modifier = Modifier.weight(1f),
-                )
-                MetricItem(
-                    label = "Đánh giá",
-                    value = "${team.rating} ★",
-                    subtext = "${team.matchCount} trận đã đá",
-                    modifier = Modifier.weight(1f),
-                )
-                MetricItem(
-                    label = "Hoàn thành",
-                    value = "${team.completionRate}%",
-                    subtext = "Mẫu ${team.matchCount} trận",
-                    modifier = Modifier.weight(1f),
-                )
-            }
-
-            // Rule Notice Banner
-            Surface(
-                shape = ControlShape,
-                color = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.3f),
-                border = BorderStroke(1.dp, MaterialTheme.colorScheme.tertiaryContainer),
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Row(
-                    modifier = Modifier.padding(8.dp),
-                    verticalAlignment = Alignment.Top,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Info,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.tertiary,
-                        modifier = Modifier.size(16.dp),
-                    )
-                    Text(
-                        text =
-                            "Quy tắc: Với các đội dưới 5 trận, hệ thống hiển thị " +
-                                "'Mới tham gia X/5 trận' thay vì tỉ lệ hoàn thành %.",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun MetricItem(
-    label: String,
-    value: String,
-    subtext: String,
+private fun TeamHeaderSection(
+    team: TeamDetail,
     modifier: Modifier = Modifier,
 ) {
-    Surface(
-        shape = ControlShape,
-        color = MaterialTheme.colorScheme.surfaceContainerLow,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-        modifier = modifier,
+    Column(
+        modifier = modifier.fillMaxWidth(),
     ) {
-        Column(
-            modifier = Modifier.padding(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = value,
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.primary,
-            )
-            Spacer(modifier = Modifier.height(2.dp))
-            Text(
-                text = subtext,
-                style =
-                    MaterialTheme.typography.bodySmall.copy(
-                        fontSize =
-                            androidx.compose.ui.unit
-                                .TextUnit(10f, androidx.compose.ui.unit.TextUnitType.Sp),
-                    ),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center,
-            )
-        }
-    }
-}
-
-@Composable
-private fun PersonalReputationCard(personalScore: Int) {
-    Surface(
-        shape = MatchShape,
-        color = MaterialTheme.colorScheme.surfaceContainerLow,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Row(
-            modifier = Modifier.padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-            ) {
-                Box(
-                    modifier =
-                        Modifier
-                            .size(36.dp)
-                            .clip(ControlShape)
-                            .background(MaterialTheme.colorScheme.primaryContainer),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.CheckCircle,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                        modifier = Modifier.size(20.dp),
-                    )
-                }
-                Column {
-                    Text(
-                        text = "Uy tín cá nhân của bạn",
-                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-                    Text(
-                        text = "Độc lập với điểm uy tín đội (AC-P02)",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
+        val roleBadge =
+            if (team.role.equals("captain", ignoreCase = true) || team.role == "Đội trưởng") {
+                "Đội của bạn · Đội trưởng"
+            } else {
+                "Đội của bạn · Thành viên"
             }
+        AppBadge(text = roleBadge, variant = BadgeVariant.Green)
+
+        Spacer(Modifier.height(8.dp))
+
+        Text(
+            text = team.name,
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold,
+            color = ArenaColors.TextPrimary,
+            letterSpacing = (-0.035).sp,
+            lineHeight = 36.sp,
+        )
+
+        Spacer(Modifier.height(4.dp))
+
+        Text(
+            text = "Bóng đá 7 người · ${team.area}",
+            fontSize = 15.sp,
+            color = ArenaColors.TextMuted,
+            lineHeight = 22.sp,
+        )
+
+        Spacer(Modifier.height(20.dp))
+
+        Text(
+            text = "Uy tín đội",
+            fontSize = 19.sp,
+            fontWeight = FontWeight.Bold,
+            color = ArenaColors.TextPrimary,
+        )
+
+        Spacer(Modifier.height(10.dp))
+
+        // Line 1: Điểm uy tín
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             Text(
-                text = "$personalScore/100",
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.primary,
+                text = "Điểm uy tín",
+                fontSize = 15.sp,
+                color = ArenaColors.TextPrimary,
+            )
+            Row(verticalAlignment = Alignment.Bottom) {
+                Text(
+                    text = "${team.reputationScore} ",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = ArenaColors.TextPrimary,
+                )
+                Text(
+                    text = "/ 100",
+                    fontSize = 13.sp,
+                    color = ArenaColors.TextMuted,
+                    modifier = Modifier.padding(bottom = 2.dp),
+                )
+            }
+        }
+        HorizontalDivider(color = ArenaColors.BorderSubtle, thickness = 1.dp)
+
+        // Line 2: Đánh giá trung bình
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = "Đánh giá trung bình",
+                fontSize = 15.sp,
+                color = ArenaColors.TextPrimary,
+            )
+            Text(
+                text = "%.1f / 5".format(java.util.Locale.US, team.rating).replace('.', ','),
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold,
+                color = ArenaColors.TextPrimary,
             )
         }
+        HorizontalDivider(color = ArenaColors.BorderSubtle, thickness = 1.dp)
+
+        // Line 3: Tỉ lệ hoàn thành
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = "Tỉ lệ hoàn thành",
+                fontSize = 15.sp,
+                color = ArenaColors.TextPrimary,
+            )
+            Text(
+                text = "${team.completionRate}% · ${team.matchCount} trận",
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold,
+                color = ArenaColors.TextPrimary,
+            )
+        }
+        HorizontalDivider(color = ArenaColors.BorderSubtle, thickness = 1.dp)
+
+        Spacer(Modifier.height(10.dp))
+
+        Text(
+            text = "Điểm đội độc lập với uy tín cá nhân khi đá lẻ.",
+            fontSize = 13.sp,
+            color = ArenaColors.TextMuted,
+            lineHeight = 18.sp,
+        )
     }
 }
 

@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 internal data class MercenaryListUiState(
     val isLoading: Boolean = true,
     val posts: List<MercenaryPost> = emptyList(),
-    val filterPosition: String = "ALL", // ALL, GK, DF, MF, FW
+    val filterPosition: String = "GK",
     val radiusKm: Float = 3.0f,
     val selectedPostForApply: MercenaryPost? = null,
     val isApplying: Boolean = false,
@@ -69,7 +69,7 @@ internal class MercenaryListViewModel(
 
     fun applyToPost(
         postId: String,
-        message: String,
+        message: String = "",
     ) {
         if (mutableState.value.isApplying) return
         mutableState.value = mutableState.value.copy(isApplying = true)

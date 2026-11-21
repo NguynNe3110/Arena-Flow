@@ -1,67 +1,98 @@
+@file:Suppress("TooManyFunctions", "MagicNumber")
+
 package com.uzuu.mercenary.presentation.screen.mercenarylist
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.CalendarToday
-import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.outlined.HowToReg
-import androidx.compose.material.icons.outlined.LocationOn
-import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material.icons.outlined.MyLocation
-import androidx.compose.material.icons.outlined.NearMe
-import androidx.compose.material.icons.outlined.Shield
-import androidx.compose.material.icons.outlined.SportsHandball
-import androidx.compose.material.icons.outlined.SportsSoccer
-import androidx.compose.material.icons.outlined.Verified
-import androidx.compose.material.icons.outlined.WaterDrop
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Slider
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.igorwojda.showcase.feature.base.presentation.compose.composable.AppBadge
 import com.igorwojda.showcase.feature.base.presentation.compose.composable.AppErrorContent
+import com.igorwojda.showcase.feature.base.presentation.compose.composable.BadgeVariant
+import com.igorwojda.showcase.feature.base.presentation.compose.composable.BrandHeader
+import com.igorwojda.showcase.feature.base.presentation.compose.composable.InlineNotice
 import com.igorwojda.showcase.feature.base.presentation.compose.composable.LoadingIndicator
+import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaColors
+import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaShapes
 import com.uzuu.mercenary.domain.model.MercenaryPost
-import com.uzuu.mercenary.presentation.composable.ControlShape
-import com.uzuu.mercenary.presentation.composable.MatchShape
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
+
+private val PositionOptions =
+    listOf(
+        "Thủ môn" to "GK",
+        "Hậu vệ" to "DF",
+        "Tiền vệ" to "MF",
+        "Tiền đạo" to "FW",
+    )
+
+private val RadiusOptions =
+    listOf(
+        "3 km" to 3.0f,
+        "5 km" to 5.0f,
+        "10 km" to 10.0f,
+        "20 km" to 20.0f,
+    )
+
+internal data class MercenaryListCallbacks(
+    val onRefresh: () -> Unit,
+    val onFilterPosition: (String) -> Unit,
+    val onRadiusChange: (Float) -> Unit,
+    val onApply: (String) -> Unit,
+    val onNotificationClick: () -> Unit = {},
+    val onPostClick: (String) -> Unit = {},
+)
 
 @Composable
 fun MercenaryListScreen(
     onPostClick: (String) -> Unit = {},
+    onNotificationClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val viewModel: MercenaryListViewModel = koinViewModel()
@@ -69,11 +100,15 @@ fun MercenaryListScreen(
 
     MercenaryListContent(
         uiState = uiState,
-        onFilterPosition = viewModel::setFilterPosition,
-        onRadiusChange = viewModel::setRadius,
-        onSelectPostForApply = viewModel::selectPostForApply,
-        onApply = viewModel::applyToPost,
-        onRetry = viewModel::loadPosts,
+        callbacks =
+            MercenaryListCallbacks(
+                onRefresh = viewModel::loadPosts,
+                onFilterPosition = viewModel::setFilterPosition,
+                onRadiusChange = viewModel::setRadius,
+                onApply = { postId -> viewModel.applyToPost(postId) },
+                onNotificationClick = onNotificationClick,
+                onPostClick = onPostClick,
+            ),
         modifier = modifier,
     )
 }
@@ -82,14 +117,11 @@ fun MercenaryListScreen(
 @Composable
 internal fun MercenaryListContent(
     uiState: MercenaryListUiState,
-    onFilterPosition: (String) -> Unit,
-    onRadiusChange: (Float) -> Unit,
-    onSelectPostForApply: (MercenaryPost?) -> Unit,
-    onApply: (String, String) -> Unit,
-    onRetry: () -> Unit,
+    callbacks: MercenaryListCallbacks,
     modifier: Modifier = Modifier,
 ) {
-    var applyMessage by rememberSaveable { mutableStateOf("") }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
 
     val filteredPosts =
         uiState.posts.filter { post ->
@@ -97,238 +129,326 @@ internal fun MercenaryListContent(
                 post.distanceKm <= uiState.radiusKm
         }
 
-    Surface(modifier = modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-        Column(Modifier.fillMaxSize()) {
-            // Header
-            TopAppBar(
-                title = {
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Icon(Icons.Outlined.SportsSoccer, null, tint = MaterialTheme.colorScheme.primary)
-                        Text(
-                            "ArenaFlow",
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.primary,
-                        )
-                    }
-                },
-            )
-
-            // Sub-header & GPS Banner
-            Column(Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) {
-                Row(
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        containerColor = ArenaColors.Background,
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState) { data ->
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = ArenaColors.TextPrimary,
+                    contentColor = Color.White,
+                    modifier = Modifier.padding(bottom = 16.dp, start = 16.dp, end = 16.dp),
                 ) {
-                    Text("Đá lẻ - Tìm người ra sân", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
-                    Surface(shape = CircleShape, color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)) {
-                        Row(
-                            Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(4.dp),
-                        ) {
-                            Icon(Icons.Outlined.MyLocation, null, modifier = Modifier.size(14.dp), tint = MaterialTheme.colorScheme.primary)
-                            Text(
-                                "GPS Bật",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.primary,
-                                fontWeight = FontWeight.Bold,
-                            )
-                        }
-                    }
+                    Text(
+                        text = data.visuals.message,
+                        modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp),
+                        fontSize = 14.sp,
+                        color = Color.White,
+                    )
                 }
-                Text(
-                    "Ghép vị trí tức thì • Không trung gian sân bóng",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+            }
+        },
+    ) { innerPadding ->
+        PullToRefreshBox(
+            isRefreshing = uiState.isLoading,
+            onRefresh = callbacks.onRefresh,
+            modifier = Modifier.fillMaxSize().padding(innerPadding),
+        ) {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(bottom = 24.dp),
+            ) {
+                renderMercenaryStatus(uiState, callbacks.onRefresh)
+                item { MercenaryHero() }
+                item {
+                    MercenaryPositionDropdown(
+                        selectedPosition = uiState.filterPosition,
+                        onPositionSelect = callbacks.onFilterPosition,
+                    )
+                }
+                item {
+                    MercenaryRadiusDropdown(
+                        selectedRadius = uiState.radiusKm,
+                        onRadiusSelect = callbacks.onRadiusChange,
+                    )
+                }
+                renderMercenaryBody(
+                    uiState = uiState,
+                    filteredPosts = filteredPosts,
+                    onRetry = callbacks.onRefresh,
+                    onApplyClick = { postId ->
+                        callbacks.onApply(postId)
+                        scope.launch {
+                            snackbarHostState.showSnackbar("Đơn đang chờ đội trưởng duyệt")
+                        }
+                    },
                 )
             }
+        }
+    }
+}
 
-            // Filter Pills: Vị trí thi đấu
-            Row(
-                modifier =
-                    Modifier
-                        .horizontalScroll(rememberScrollState())
-                        .padding(horizontal = 16.dp, vertical = 6.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
+private fun LazyListScope.renderMercenaryStatus(
+    uiState: MercenaryListUiState,
+    onRefresh: () -> Unit,
+) {
+    if (uiState.isLoading && uiState.posts.isNotEmpty()) {
+        item {
+            LinearProgressIndicator(
+                modifier = Modifier.fillMaxWidth(),
+                color = ArenaColors.Primary,
+            )
+        }
+    }
+    if (uiState.error != null && uiState.posts.isNotEmpty()) {
+        item {
+            TextButton(
+                onClick = onRefresh,
+                modifier = Modifier.fillMaxWidth(),
             ) {
-                listOf(
-                    "ALL" to "Tất cả",
-                    "GK" to "Thủ môn (GK)",
-                    "DF" to "Hậu vệ (DF)",
-                    "MF" to "Tiền vệ (MF)",
-                    "FW" to "Tiền đạo (FW)",
-                ).forEach { (pos, label) ->
-                    FilterChip(
-                        selected = uiState.filterPosition == pos,
-                        onClick = { onFilterPosition(pos) },
-                        label = { Text(label) },
-                        shape = ControlShape,
-                        modifier = Modifier.heightIn(min = 48.dp),
-                    )
+                Text(
+                    text = "Chưa tải được dữ liệu mới. Chạm để thử lại.",
+                    color = ArenaColors.BadgeAmberText,
+                    fontSize = 13.sp,
+                )
+            }
+        }
+    }
+}
+
+private fun LazyListScope.renderMercenaryBody(
+    uiState: MercenaryListUiState,
+    filteredPosts: List<MercenaryPost>,
+    onRetry: () -> Unit,
+    onApplyClick: (String) -> Unit,
+) {
+    when {
+        uiState.isLoading && uiState.posts.isEmpty() -> {
+            item {
+                Box(
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 48.dp),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    LoadingIndicator()
                 }
             }
+        }
 
-            // GPS Radius Card
-            Surface(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp),
-                shape = MatchShape,
-                color = MaterialTheme.colorScheme.surfaceContainerLowest,
-                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),
-            ) {
-                Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Row(
-                        Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                            Icon(Icons.Outlined.NearMe, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
-                            Text("Bán kính quét: ", style = MaterialTheme.typography.bodyMedium)
-                            Text(
-                                "%.1f km".format(uiState.radiusKm),
-                                style = MaterialTheme.typography.bodyMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.primary,
-                            )
-                        }
-                        Surface(shape = ControlShape, color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                            Text(
-                                "Tối đa 20 km",
-                                Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-                                style = MaterialTheme.typography.labelSmall,
-                            )
-                        }
-                    }
-                    Slider(
-                        value = uiState.radiusKm,
-                        onValueChange = onRadiusChange,
-                        valueRange = 1f..20f,
-                        steps = 37,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                        Text("1 km", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline)
-                        Text("Mặc định: 3 km", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline)
-                        Text("20 km", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline)
-                    }
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Icon(Icons.Outlined.LocationOn, null, modifier = Modifier.size(14.dp), tint = MaterialTheme.colorScheme.primary)
-                        Text(
-                            "Định vị GPS: Phường An Khánh, TP. Thủ Đức",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                }
+        uiState.error != null && uiState.posts.isEmpty() -> {
+            item {
+                AppErrorContent(uiState.error, onRetry)
             }
+        }
 
-            // Posts count header
+        filteredPosts.isEmpty() -> {
+            item {
+                MercenaryEmptyContent()
+            }
+        }
+
+        else -> {
+            items(filteredPosts, key = { it.id }) { post ->
+                MercenaryCard(
+                    post = post,
+                    isApplying = uiState.isApplying,
+                    onApplyClick = { onApplyClick(post.id) },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun MercenaryHero(modifier: Modifier = Modifier) {
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(start = 24.dp, end = 24.dp, top = 20.dp, bottom = 10.dp),
+    ) {
+        Text(
+            text = "Dữ liệu mẫu · Cá nhân",
+            color = ArenaColors.TextMuted,
+            fontSize = 13.sp,
+            modifier = Modifier.padding(bottom = 6.dp),
+        )
+        Text(
+            text = "Ra sân cùng đội mới.",
+            color = ArenaColors.TextPrimary,
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold,
+            lineHeight = 36.sp,
+            letterSpacing = (-0.035).sp,
+            modifier = Modifier.padding(bottom = 6.dp),
+        )
+        Text(
+            text = "Tìm đội đang thiếu vị trí của bạn.",
+            color = ArenaColors.TextMuted,
+            fontSize = 15.sp,
+            lineHeight = 22.sp,
+        )
+    }
+}
+
+@Composable
+private fun MercenaryPositionDropdown(
+    selectedPosition: String,
+    onPositionSelect: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var expanded by remember { mutableStateOf(false) }
+    val displayLabel = PositionOptions.firstOrNull { it.second == selectedPosition }?.first ?: "Thủ môn"
+
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp, vertical = 7.dp),
+    ) {
+        Text(
+            text = "Vị trí",
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = ArenaColors.TextPrimary,
+            modifier = Modifier.padding(bottom = 7.dp),
+        )
+
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 48.dp)
+                    .border(1.dp, ArenaColors.InputBorder, ArenaShapes.Input)
+                    .background(Color.White, ArenaShapes.Input)
+                    .clickable { expanded = true }
+                    .padding(horizontal = 14.dp, vertical = 12.dp),
+        ) {
             Row(
-                Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text("Kèo cần người gấp", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 Text(
-                    "${filteredPosts.size} tin gần bạn",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.Bold,
+                    text = displayLabel,
+                    style =
+                        TextStyle(
+                            fontSize = 15.sp,
+                            color = ArenaColors.TextPrimary,
+                        ),
+                )
+                Icon(
+                    imageVector = Icons.Default.ArrowDropDown,
+                    contentDescription = "Chọn vị trí",
+                    tint = ArenaColors.TextMuted,
                 )
             }
 
-            // Content List
-            when {
-                uiState.isLoading && uiState.posts.isEmpty() -> {
-                    Box(Modifier.fillMaxSize(), Alignment.Center) { LoadingIndicator() }
-                }
-
-                uiState.error != null && uiState.posts.isEmpty() -> {
-                    AppErrorContent(uiState.error, onRetry)
-                }
-
-                filteredPosts.isEmpty() -> {
-                    Box(Modifier.fillMaxSize().padding(24.dp), Alignment.Center) {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text("Chưa có tin tuyển người phù hợp", style = MaterialTheme.typography.titleMedium)
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                modifier = Modifier.background(Color.White),
+            ) {
+                PositionOptions.forEach { (label, code) ->
+                    DropdownMenuItem(
+                        text = {
                             Text(
-                                "Hãy tăng bán kính quét hoặc đổi vị trí thi đấu.",
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                text = label,
+                                style =
+                                    TextStyle(
+                                        fontSize = 15.sp,
+                                        color = ArenaColors.TextPrimary,
+                                        fontWeight = if (code == selectedPosition) FontWeight.Bold else FontWeight.Normal,
+                                    ),
                             )
-                        }
-                    }
-                }
-
-                else -> {
-                    LazyColumn(
-                        contentPadding =
-                            androidx.compose.foundation.layout
-                                .PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                        verticalArrangement = Arrangement.spacedBy(14.dp),
-                    ) {
-                        items(filteredPosts, key = { it.id }) { post ->
-                            MercenaryCard(post = post, onApplyClick = { onSelectPostForApply(post) })
-                        }
-                    }
+                        },
+                        onClick = {
+                            onPositionSelect(code)
+                            expanded = false
+                        },
+                    )
                 }
             }
         }
     }
+}
 
-    // Modal Bottom Sheet: Ứng tuyển nhanh
-    uiState.selectedPostForApply?.let { post ->
-        ModalBottomSheet(onDismissRequest = { onSelectPostForApply(null) }) {
-            Column(
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(14.dp),
+@Composable
+private fun MercenaryRadiusDropdown(
+    selectedRadius: Float,
+    onRadiusSelect: (Float) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var expanded by remember { mutableStateOf(false) }
+    val displayLabel = RadiusOptions.firstOrNull { it.second == selectedRadius }?.first ?: "3 km"
+
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp, vertical = 7.dp),
+    ) {
+        Text(
+            text = "Bán kính tìm kiếm",
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = ArenaColors.TextPrimary,
+            modifier = Modifier.padding(bottom = 7.dp),
+        )
+
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 48.dp)
+                    .border(1.dp, ArenaColors.InputBorder, ArenaShapes.Input)
+                    .background(Color.White, ArenaShapes.Input)
+                    .clickable { expanded = true }
+                    .padding(horizontal = 14.dp, vertical = 12.dp),
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text("Ứng tuyển đá lẻ", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
                 Text(
-                    "Đội: ${post.teamName} · ${post.positionLabel}",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.primary,
+                    text = displayLabel,
+                    style =
+                        TextStyle(
+                            fontSize = 15.sp,
+                            color = ArenaColors.TextPrimary,
+                        ),
                 )
-                Text("Thời gian: ${post.matchDate} (${post.timeSlot})", style = MaterialTheme.typography.bodyMedium)
-
-                OutlinedTextField(
-                    value = applyMessage,
-                    onValueChange = { applyMessage = it },
-                    label = { Text("Lời nhắn tới Đội trưởng (kinh nghiệm, vị trí, liên hệ)") },
-                    placeholder = { Text("VD: Tôi đá được 3 năm, có giày và trang phục đầy đủ...") },
-                    modifier = Modifier.fillMaxWidth(),
-                    minLines = 3,
-                    shape = ControlShape,
+                Icon(
+                    imageVector = Icons.Default.ArrowDropDown,
+                    contentDescription = "Chọn bán kính",
+                    tint = ArenaColors.TextMuted,
                 )
+            }
 
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    OutlinedButton(
-                        onClick = { onSelectPostForApply(null) },
-                        modifier = Modifier.weight(1f).heightIn(min = 48.dp),
-                        shape = ControlShape,
-                    ) {
-                        Text("Hủy bỏ")
-                    }
-                    Button(
-                        onClick = {
-                            onApply(post.id, applyMessage)
-                            applyMessage = ""
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                modifier = Modifier.background(Color.White),
+            ) {
+                RadiusOptions.forEach { (label, radius) ->
+                    DropdownMenuItem(
+                        text = {
+                            Text(
+                                text = label,
+                                style =
+                                    TextStyle(
+                                        fontSize = 15.sp,
+                                        color = ArenaColors.TextPrimary,
+                                        fontWeight = if (radius == selectedRadius) FontWeight.Bold else FontWeight.Normal,
+                                    ),
+                            )
                         },
-                        enabled = !uiState.isApplying,
-                        modifier = Modifier.weight(1.5f).heightIn(min = 48.dp),
-                        shape = ControlShape,
-                    ) {
-                        if (uiState.isApplying) {
-                            CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp, color = Color.White)
-                        } else {
-                            Text("Gửi đơn ứng tuyển")
-                        }
-                    }
+                        onClick = {
+                            onRadiusSelect(radius)
+                            expanded = false
+                        },
+                    )
                 }
             }
         }
@@ -338,207 +458,132 @@ internal fun MercenaryListContent(
 @Composable
 private fun MercenaryCard(
     post: MercenaryPost,
+    isApplying: Boolean,
     onApplyClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Surface(
-        modifier = Modifier.fillMaxWidth(),
-        shape = MatchShape,
-        color = MaterialTheme.colorScheme.surfaceContainerLowest,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp, vertical = 7.dp),
+        shape = ArenaShapes.Card,
+        color = ArenaColors.CardBg,
+        border = BorderStroke(1.dp, ArenaColors.Border),
     ) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            // Top Row
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Surface(Modifier.size(40.dp), CircleShape, color = MaterialTheme.colorScheme.primaryContainer) {
-                        Box(contentAlignment = Alignment.Center) {
-                            Text(
-                                post.teamName.take(2).uppercase(),
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                            )
-                        }
-                    }
-                    Column {
-                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text(post.teamName, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-                            Icon(Icons.Outlined.Verified, null, modifier = Modifier.size(16.dp), tint = MaterialTheme.colorScheme.primary)
-                        }
-                        Text(
-                            "Đội trưởng: ${post.captainName}",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                }
-                Column(horizontalAlignment = Alignment.End) {
-                    Surface(shape = CircleShape, color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                        Row(
-                            Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(4.dp),
-                        ) {
-                            Icon(Icons.Outlined.Shield, null, modifier = Modifier.size(14.dp), tint = MaterialTheme.colorScheme.primary)
-                            Text(
-                                "Uy tín ${post.reliabilityScore}/100",
-                                style = MaterialTheme.typography.labelSmall,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.primary,
-                            )
-                        }
-                    }
-                    Text(
-                        "${post.totalMatches} trận đá phủi",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.outline,
-                    )
-                }
-            }
+        Column(
+            modifier = Modifier.padding(18.dp),
+        ) {
+            AppBadge(
+                text = "Cần ${post.openSlots} ${post.positionLabel.lowercase()}",
+                variant = BadgeVariant.Green,
+            )
 
-            // Big Position Badge (Amber color)
-            Surface(
-                shape = ControlShape,
-                color = MaterialTheme.colorScheme.tertiaryContainer,
-                border = BorderStroke(1.dp, MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f)),
-            ) {
-                Row(
-                    Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                ) {
-                    Icon(
-                        Icons.Outlined.SportsHandball,
-                        null,
-                        modifier = Modifier.size(18.dp),
-                        tint = MaterialTheme.colorScheme.onTertiaryContainer,
-                    )
-                    Text(
-                        post.positionLabel,
-                        style = MaterialTheme.typography.labelLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onTertiaryContainer,
-                    )
-                }
-            }
+            Spacer(Modifier.height(16.dp))
 
-            // Bento Grid (2 cols)
-            Surface(shape = ControlShape, color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                Row(Modifier.fillMaxWidth().padding(10.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Icon(
-                                Icons.Outlined.CalendarToday,
-                                null,
-                                modifier = Modifier.size(14.dp),
-                                tint = MaterialTheme.colorScheme.outline,
-                            )
-                            Text(
-                                "Thời gian thi đấu",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.outline,
-                            )
-                        }
-                        Text(post.matchDate, style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold)
-                        Text(
-                            post.timeSlot,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.primary,
-                            fontWeight = FontWeight.SemiBold,
-                        )
-                    }
-                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Icon(Icons.Outlined.LocationOn, null, modifier = Modifier.size(14.dp), tint = MaterialTheme.colorScheme.outline)
-                            Text(
-                                "Khu vực ước tính",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.outline,
-                            )
-                        }
-                        Text(post.estimatedArea, style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold)
-                        Text(
-                            "Cách bạn ~${post.distanceKm} km",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.primary,
-                            fontWeight = FontWeight.SemiBold,
-                        )
-                    }
-                }
-            }
+            Text(
+                text = post.teamName,
+                fontSize = 19.sp,
+                fontWeight = FontWeight.Bold,
+                color = ArenaColors.TextPrimary,
+            )
 
-            // Security Rule Notice Box (AC-P05)
-            Surface(
-                shape = ControlShape,
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
-                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),
-            ) {
-                Row(Modifier.padding(10.dp), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.Top) {
-                    Icon(Icons.Outlined.Lock, null, modifier = Modifier.size(16.dp), tint = MaterialTheme.colorScheme.outline)
-                    Text(
-                        "Nhằm bảo mật và tránh tập trung trước giờ, TÊN SÂN CỤ THỂ, ĐỊA CHỈ CHI TIẾT " +
-                            "VÀ TỌA ĐỘ BẢN ĐỒ KHÔNG HIỂN THỊ TRƯỚC KHI ĐỘI TRƯỞNG DUYỆT ĐƠN (AC-P05).",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-            }
+            Spacer(Modifier.height(8.dp))
 
-            // Requirements & Perks
-            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.Top) {
-                    Icon(Icons.Outlined.CheckCircle, null, modifier = Modifier.size(16.dp), tint = MaterialTheme.colorScheme.primary)
-                    Text("Yêu cầu: ${post.requirements}", style = MaterialTheme.typography.bodyMedium)
-                }
-                Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.Top) {
-                    Icon(Icons.Outlined.WaterDrop, null, modifier = Modifier.size(16.dp), tint = MaterialTheme.colorScheme.primary)
-                    Text("Quyền lợi: ${post.costShare}", style = MaterialTheme.typography.bodyMedium)
-                }
-            }
+            Text(
+                text = "${post.matchDate} · ${post.timeSlot}",
+                fontSize = 15.sp,
+                color = ArenaColors.TextPrimary,
+                lineHeight = 22.sp,
+            )
 
-            // Status Summary
-            Row(
-                Modifier.fillMaxWidth().padding(top = 2.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    "● Còn trống ${post.openSlots} suất",
-                    style = MaterialTheme.typography.labelMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary,
-                )
-                Text(
-                    "Đã có ${post.pendingApplicants} ứng viên chờ duyệt",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
+            Spacer(Modifier.height(8.dp))
 
-            // CTA Button (48dp height touch target)
+            Text(
+                text = "${post.estimatedArea}\nCách bạn ${formatDistance(post.distanceKm)} km · Trung bình",
+                fontSize = 14.sp,
+                color = ArenaColors.TextMuted,
+                lineHeight = 22.sp,
+            )
+
+            Spacer(Modifier.height(14.dp))
+
+            InlineNotice(
+                text = "Tên sân và địa chỉ hiển thị sau khi đơn được duyệt.",
+            )
+
+            Spacer(Modifier.height(14.dp))
+
             if (post.isApplied) {
-                OutlinedButton(
+                Button(
                     onClick = {},
                     enabled = false,
                     modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
-                    shape = ControlShape,
+                    shape = ArenaShapes.Button,
+                    colors =
+                        ButtonDefaults.buttonColors(
+                            disabledContainerColor = ArenaColors.Primary.copy(alpha = 0.55f),
+                            disabledContentColor = Color.White.copy(alpha = 0.85f),
+                        ),
                 ) {
-                    Text("✓ Đã nộp đơn (Đang chờ duyệt)", style = MaterialTheme.typography.labelLarge)
+                    Text(
+                        text = "Đã ứng tuyển · Chờ duyệt",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.SemiBold,
+                    )
                 }
             } else {
                 Button(
                     onClick = onApplyClick,
+                    enabled = !isApplying,
                     modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
-                    shape = ControlShape,
+                    shape = ArenaShapes.Button,
+                    colors =
+                        ButtonDefaults.buttonColors(
+                            containerColor = ArenaColors.Primary,
+                            contentColor = Color.White,
+                        ),
                 ) {
-                    Icon(Icons.Outlined.HowToReg, null, modifier = Modifier.size(18.dp))
                     Text(
-                        "Ứng tuyển vị trí ${post.position}",
-                        Modifier.padding(start = 6.dp),
-                        style = MaterialTheme.typography.labelLarge,
+                        text = "Ứng tuyển ${post.positionLabel.lowercase()}",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.SemiBold,
                     )
                 }
             }
         }
     }
+}
+
+@Composable
+private fun MercenaryEmptyContent(modifier: Modifier = Modifier) {
+    Box(
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(vertical = 48.dp, horizontal = 24.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                text = "Chưa có tin tuyển người phù hợp",
+                fontSize = 17.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = ArenaColors.TextPrimary,
+            )
+            Text(
+                text = "Hãy tăng bán kính tìm kiếm hoặc đổi vị trí thi đấu.",
+                fontSize = 14.sp,
+                color = ArenaColors.TextMuted,
+            )
+        }
+    }
+}
+
+private fun formatDistance(distance: Double): String {
+    val rounded = String.format(java.util.Locale.US, "%.1f", distance)
+    return rounded.replace('.', ',')
 }
