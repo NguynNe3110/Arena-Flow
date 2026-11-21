@@ -8,6 +8,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaColors
+import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaShapes
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaTypography
 
 @Composable
@@ -19,6 +20,7 @@ fun ShowcaseTheme(
     MaterialTheme(
         colorScheme = getColorScheme(darkTheme, dynamicColor),
         typography = ArenaTypography,
+        shapes = ArenaShapes.MaterialShapes,
         content = content,
     )
 }

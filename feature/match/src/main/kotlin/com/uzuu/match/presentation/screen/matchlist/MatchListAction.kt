@@ -29,4 +29,16 @@ internal sealed interface MatchListAction : BaseAction<MatchListUiState> {
     ) : MatchListAction {
         override fun reduce(state: MatchListUiState): MatchListUiState = state.copy(isLoading = false, error = error)
     }
+
+    data class SetFilter(
+        val filter: MatchTypeFilter,
+    ) : MatchListAction {
+        override fun reduce(state: MatchListUiState): MatchListUiState = state.copy(selectedFilter = filter)
+    }
+
+    data class SetDate(
+        val date: String?,
+    ) : MatchListAction {
+        override fun reduce(state: MatchListUiState): MatchListUiState = state.copy(selectedDate = date)
+    }
 }

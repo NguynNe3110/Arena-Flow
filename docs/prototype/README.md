@@ -1,18 +1,26 @@
 # ArenaFlow — Thiết kế tham khảo
 
-## Nguồn thiết kế chính hiện tại
+## Nguồn thiết kế Android đã chốt ngày 21/11/2026
 
-Dùng dự án được chia sẻ [ArenaFlow — 2789586751825382546](https://stitch.google.com/u/4/projects/2789586751825382546?pli=1) để đọc thiết kế và triển khai app Android. Chỉ đọc trên Stitch, không tạo hay chỉnh sửa giao diện nguồn.
+Theo lựa chọn mới của chủ dự án, **[index.html trong thư mục này](index.html) là chuẩn thị giác cho UI Android**. Đây là file `docs/prototype/index.html`, không phải index dưới `complete/` hoặc `stitch/`.
 
-Đã tải 32 màn (16 mobile, 16 desktop) ngày 17/11/2026. Mở [danh mục thiết kế](stitch/2789586751825382546/index.html), [hướng dẫn](stitch/2789586751825382546/README.md) hoặc [manifest](stitch/2789586751825382546/manifest.json). Bản xuất gồm HTML gốc và ảnh xem trước offline. Chưa triển khai vào app.
+Kế hoạch triển khai đầy đủ, gồm sửa UI chính và bổ sung splash/onboarding/auth/hồ sơ/các màn phụ: **[Android UI Implementation Plan](../android-ui/IMPLEMENTATION_PLAN.md)** và **[bảng truy vết 101 ID](../android-ui/screen-coverage.md)**.
 
-## Hướng dẫn hoàn thiện prototype để bàn giao UI
+Các màn chưa có trong 8 view của index.html kế thừa cùng hệ màu, chữ, field, button và khoảng cách. API chuyên biệt hiện hành quyết định field/quyền/hành vi. Không dùng stitch-preview.html, export Stitch hoặc complete/design-system.md làm theme/layout thay thế cho đợt này.
+
+Dự án Stitch nguồn [ArenaFlow — 2789586751825382546](https://stitch.google.com/u/4/projects/2789586751825382546?pli=1), [bản xuất](stitch/2789586751825382546/index.html) và manifest được giữ làm tài liệu lịch sử; không sửa thiết kế gốc.
+
+## Tài liệu bàn giao prototype trước đây
+
+Phần này là lịch sử công việc prototype. Khi triển khai Android, ưu tiên kế hoạch mới ở trên; trạng thái “hoàn thành” của HTML không đồng nghĩa Android đã có màn hoặc đã khớp index.html.
 
 Dùng [PROTOTYPE_HANDOFF.md](PROTOTYPE_HANDOFF.md) để giao AI khác xây dựng prototype đầy đủ trước khi triển khai UI Android. Tài liệu có prompt sao chép ở mục 2, danh mục màn/sheet/trạng thái, hành trình hai phía, phụ thuộc API, gói thực hiện và tiêu chí nghiệm thu. Bản làm việc mới được đề xuất đặt tại `docs/prototype/complete/`; tài liệu hướng dẫn đã tạo, prototype đầy đủ chưa được triển khai.
 
-## Tài liệu thử nghiệm cũ — không dùng làm nguồn thiết kế
+## Lịch sử thử nghiệm và các nguồn khác
 
-Các phần bên dưới, `index.html`, `STITCH_PROMPT.md`, `stitch-project.json`, `stitch-preview.html` và `stitch/original/` thuộc lần thử trước khi làm rõ yêu cầu. Dự án `16710701957767846160` được tạo riêng do hiểu nhầm; không phải dự án được bạn chia sẻ. Trạng thái timeout bên dưới là ghi nhận lịch sử, không phản ánh bản xuất nguồn hiện tại.
+`STITCH_PROMPT.md`, `stitch-project.json`, `stitch-preview.html` và `stitch/original/` thuộc lần thử trước. Dự án `16710701957767846160` được tạo riêng do hiểu nhầm; không phải dự án được bạn chia sẻ. Trạng thái timeout bên dưới là ghi nhận lịch sử.
+
+Root `index.html` vốn được tạo trong giai đoạn thử nghiệm, nhưng đã được chủ dự án chọn lại làm chuẩn thị giác Android ngày 21/11/2026. Chỉ dẫn cũ loại index.html khỏi nguồn thiết kế được thay bằng quyết định mới ở đầu tài liệu.
 
 Bản thử giao diện cục bộ dựa trên spec trước đó. Dữ liệu minh hoạ, không kết nối backend.
 

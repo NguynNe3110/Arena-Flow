@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -20,18 +19,19 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.igorwojda.showcase.feature.base.common.res.Dimen
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.ShowcaseTheme
+import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaShapes
 
-/** Shared card appearance; feature modules supply the content and outer sizing. */
+/** Shared Card appearance matching docs/prototype/index.html. */
 @Composable
 fun AppCard(
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(Dimen.spaceL),
-    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(Dimen.spaceM),
+    contentPadding: PaddingValues = PaddingValues(18.dp),
+    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(14.dp),
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(12.dp),
+        shape = ArenaShapes.Card,
         colors =
             CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
@@ -39,7 +39,41 @@ fun AppCard(
         border =
             BorderStroke(
                 width = 1.dp,
-                color = MaterialTheme.colorScheme.outlineVariant,
+                color = MaterialTheme.colorScheme.outline,
+            ),
+    ) {
+        Column(
+            modifier = Modifier.padding(contentPadding),
+            verticalArrangement = verticalArrangement,
+            content = content,
+        )
+    }
+}
+
+/** Clickable AppCard overload for interactive cards like MatchCard. */
+@Suppress("LongParameterList")
+@Composable
+fun AppCard(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    contentPadding: PaddingValues = PaddingValues(18.dp),
+    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(14.dp),
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    Card(
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        shape = ArenaShapes.Card,
+        colors =
+            CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+            ),
+        border =
+            BorderStroke(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.outline,
             ),
     ) {
         Column(
@@ -57,11 +91,11 @@ private fun AppCardPreview() {
         Surface(color = MaterialTheme.colorScheme.background) {
             AppCard(modifier = Modifier.padding(Dimen.spaceL).fillMaxWidth()) {
                 Text(
-                    text = "Tiêu đề thẻ",
+                    text = "Thảo Điền FC",
                     style = MaterialTheme.typography.titleLarge,
                 )
                 Text(
-                    text = "Nội dung được truyền từ màn hình sử dụng.",
+                    text = "Sân An Phú · Phường An Khánh",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )

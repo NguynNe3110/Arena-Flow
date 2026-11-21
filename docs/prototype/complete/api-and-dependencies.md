@@ -1,5 +1,7 @@
 # ArenaFlow Prototype — Ánh Xạ API & Quản Lý Phụ Thuộc (API & Dependencies)
 
+> **Lưu ý khi triển khai Android, 21/11/2026:** bảng dưới là tài liệu bàn giao prototype, có endpoint/field/mã lỗi không khớp spec hiện hành. Dùng [kế hoạch Android mới](../../android-ui/IMPLEMENTATION_PLAN.md) và đọc contract gốc dưới `docs/ArenaFlow-spec/api/` trước khi viết client. Ví dụ hiện hành: `/auth/send-otp`, `/auth/verify-otp`, `/profile`, `/profile/notifications`, chat qua `/conversations`. Auth backend hiện mock; không suy ra đã có OAuth/SMS thật từ bảng này.
+
 > Ngày lập: 18/11/2026 · Ngôn ngữ: Tiếng Việt · Phiên bản: 1.0-complete  
 > Tài liệu thuộc bộ bàn giao UI Prototype ArenaFlow trong `docs/prototype/complete/`.  
 > Đối chiếu toàn bộ với tài liệu đặc tả: `docs/ArenaFlow-spec/api/` và `docs/ArenaFlow-spec/business-spec/`.
