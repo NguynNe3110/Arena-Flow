@@ -5,13 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.igorwojda.showcase.feature.base.domain.error.AppError
 import com.igorwojda.showcase.feature.base.domain.result.Result
+import com.uzuu.match.domain.model.MatchDetail
 import com.uzuu.match.domain.model.MatchSummary
 import com.uzuu.match.domain.usecase.GetMatchDetailUseCase
-import com.uzuu.match.domain.model.MatchDetail
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.Job
 
 internal data class MatchDetailUiState(
     val isLoading: Boolean = true,
@@ -37,7 +37,7 @@ internal class MatchDetailViewModel(
                 mutableState.value = mutableState.value.copy(isLoading = true, error = null)
                 mutableState.value =
                     when (val result = getMatchDetailUseCase(matchId)) {
-                        is Result.Success -> {
+                        is Result.Success<MatchDetail> -> {
                             MatchDetailUiState(
                                 isLoading = false,
                                 match = result.value.summary,

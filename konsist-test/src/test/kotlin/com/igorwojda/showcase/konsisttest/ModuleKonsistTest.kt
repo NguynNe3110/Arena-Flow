@@ -22,7 +22,10 @@ class ModuleKonsistTest {
                 val fullyQualifiedPackageName = "com.igorwojda.showcase.$modulePackageName"
 
                 it.packagee?.name?.startsWith(fullyQualifiedPackageName) == true ||
-                    (normalizedModuleName.contains("match") && it.packagee?.name?.startsWith("com.uzuu.match") == true)
+                    (
+                        normalizedModuleName.startsWith("feature/") &&
+                            it.packagee?.name?.startsWith("com.uzuu.${normalizedModuleName.removePrefix("feature/")}") == true
+                    )
             }
     }
 }

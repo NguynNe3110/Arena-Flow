@@ -52,4 +52,7 @@ dependencies {
     implementation(projects.feature.favourite)
 
     implementation(projects.feature.match)
+    implementation(projects.feature.pairing)
+    implementation(projects.feature.mercenary)
+    implementation(projects.feature.team)
 }
