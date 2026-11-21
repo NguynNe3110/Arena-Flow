@@ -1,5 +1,7 @@
 # Android UI implementation
 
+> **Nguồn mới, 21/11/2026:** tiếp tục theo [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) và [screen-coverage.md](screen-coverage.md). Chuẩn thị giác đã đổi sang `docs/prototype/index.html`; gồm splash/onboarding/auth/profile và toàn bộ màn phụ. Các dòng Source/Direction/Completed bên dưới là lịch sử các đợt cũ theo complete/Stitch, không phải nghiệm thu giao diện theo nguồn mới. Mọi đợt của plan mới bắt đầu ở Pending.
+
 Source: docs/prototype/complete, with current API contracts taking precedence over prototype shortcuts.
 Base: main at 6c1601b. Branches are cumulative; each delivery contains two full-screen layouts and their associated sheets/variants.
 Existing staged prototype icons belong to the user and are excluded from UI commits.
@@ -18,7 +20,8 @@ The established design authority is docs/prototype/complete/design-system.md; th
 
 | Batch | Branch | Screens | State |
 | --- | --- | --- | --- |
-| 01 | ui/01-match-list-detail | MATCH-01 list; shared MATCH-03/04 detail | Completed; commit `199aae6`; pushed to origin |
+| 01 | `feat/modularize-features` (hoặc `ui/index-01-match-list-detail`) | MATCH-01 Tìm kèo; MATCH-03/04 Chi tiết kèo A/B | Completed (khớp chuẩn `prototype/index.html`); đã verify build & 30 tests pass |
+| 02 | `ui/index-02-launch-onboarding` | Splash / kiểm tra phiên; Onboarding | Pending |
 | 02 | ui/02-match-create-review | MATCH-05 create; MATCH-06 review | Completed; commit `e4e4974`; pushed to origin |
 | 03 | ui/03-negotiation-mercenary | Screen 4: PAIR-03 room; Screen 5: MERC-01 solo | Completed; commit `cc36cb5`; pushed to origin |
 | 04 | ui/04-team-profile | Screen 6: TEAM-04 My Team; TEAM-03 Create Team | Completed; commit `d42e46f`; pushed to origin |

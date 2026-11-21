@@ -11,24 +11,35 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.igorwojda.showcase.feature.base.common.res.Dimen
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.ShowcaseTheme
+import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaColors
+import com.igorwojda.showcase.feature.base.presentation.compose.theme.semantic.ArenaShapes
 
-/** Primary action. Loading preserves the label and prevents repeated clicks. */
+/**
+ * Primary action button:
+ * - Background: #146B46 (Green)
+ * - Text: White
+ * - Border-radius: 12dp
+ * - Min-height: 48dp
+ * - Padding: 12dp vertical, 17dp horizontal
+ */
 @Composable
 fun AppButton(
     text: String,
@@ -41,10 +52,17 @@ fun AppButton(
         onClick = onClick,
         modifier = modifier.heightIn(min = 48.dp),
         enabled = enabled && !isLoading,
-        shape = RoundedCornerShape(8.dp),
+        shape = ArenaShapes.Button,
+        colors =
+            ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.55f),
+                disabledContentColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f),
+            ),
         contentPadding =
             PaddingValues(
-                horizontal = Dimen.spaceL,
+                horizontal = 17.dp,
                 vertical = 12.dp,
             ),
     ) {
@@ -52,7 +70,79 @@ fun AppButton(
     }
 }
 
-/** Secondary action using the same sizing and loading behavior as [AppButton]. */
+/**
+ * Secondary action button:
+ * - Background: #E7EEE6
+ * - Text: #172E27
+ * - Border-radius: 12dp
+ * - Min-height: 48dp
+ */
+@Composable
+fun AppSecondaryButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    isLoading: Boolean = false,
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier.heightIn(min = 48.dp),
+        enabled = enabled && !isLoading,
+        shape = ArenaShapes.Button,
+        colors =
+            ButtonDefaults.buttonColors(
+                containerColor = ArenaColors.SecondaryButtonBg,
+                contentColor = ArenaColors.TextPrimary,
+                disabledContainerColor = ArenaColors.SecondaryButtonBg.copy(alpha = 0.55f),
+                disabledContentColor = ArenaColors.TextPrimary.copy(alpha = 0.55f),
+            ),
+        contentPadding =
+            PaddingValues(
+                horizontal = 17.dp,
+                vertical = 12.dp,
+            ),
+    ) {
+        AppButtonContent(text = text, isLoading = isLoading)
+    }
+}
+
+/**
+ * Ghost / text action button (e.g. "← Khám phá" back button):
+ * - Background: Transparent
+ * - Text: OnSurface
+ * - Min-height: 48dp
+ */
+@Composable
+fun AppGhostButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+) {
+    TextButton(
+        onClick = onClick,
+        modifier = modifier.heightIn(min = 48.dp),
+        enabled = enabled,
+        shape = ArenaShapes.Button,
+        colors =
+            ButtonDefaults.textButtonColors(
+                contentColor = MaterialTheme.colorScheme.onSurface,
+            ),
+        contentPadding =
+            PaddingValues(
+                horizontal = 8.dp,
+                vertical = 8.dp,
+            ),
+    ) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.labelLarge,
+        )
+    }
+}
+
+/** Secondary outlined action using 12dp radius and #DCE3D8 border. */
 @Composable
 fun AppOutlinedButton(
     text: String,
@@ -65,10 +155,18 @@ fun AppOutlinedButton(
         onClick = onClick,
         modifier = modifier.heightIn(min = 48.dp),
         enabled = enabled && !isLoading,
-        shape = RoundedCornerShape(8.dp),
+        shape = ArenaShapes.Button,
+        border =
+            ButtonDefaults.outlinedButtonBorder.copy(
+                brush = androidx.compose.ui.graphics.SolidColor(MaterialTheme.colorScheme.outline),
+            ),
+        colors =
+            ButtonDefaults.outlinedButtonColors(
+                contentColor = MaterialTheme.colorScheme.onSurface,
+            ),
         contentPadding =
             PaddingValues(
-                horizontal = Dimen.spaceL,
+                horizontal = 17.dp,
                 vertical = 12.dp,
             ),
     ) {
@@ -122,38 +220,23 @@ private fun AppButtonSamples() {
                 verticalArrangement = Arrangement.spacedBy(Dimen.spaceM),
             ) {
                 AppButton(
-                    text = "Áp dụng",
+                    text = "Gửi yêu cầu ghép kèo",
                     onClick = {},
                     modifier = Modifier.fillMaxWidth(),
                 )
-                AppButton(
-                    text = "Áp dụng",
+                AppSecondaryButton(
+                    text = "Nhắn với đội trưởng",
                     onClick = {},
                     modifier = Modifier.fillMaxWidth(),
-                    enabled = false,
                 )
-                AppButton(
-                    text = "Áp dụng",
+                AppGhostButton(
+                    text = "← Khám phá",
                     onClick = {},
-                    modifier = Modifier.fillMaxWidth(),
-                    isLoading = true,
                 )
                 AppOutlinedButton(
                     text = "Bộ lọc",
                     onClick = {},
                     modifier = Modifier.fillMaxWidth(),
-                )
-                AppOutlinedButton(
-                    text = "Bộ lọc",
-                    onClick = {},
-                    modifier = Modifier.fillMaxWidth(),
-                    enabled = false,
-                )
-                AppOutlinedButton(
-                    text = "Bộ lọc",
-                    onClick = {},
-                    modifier = Modifier.fillMaxWidth(),
-                    isLoading = true,
                 )
             }
         }

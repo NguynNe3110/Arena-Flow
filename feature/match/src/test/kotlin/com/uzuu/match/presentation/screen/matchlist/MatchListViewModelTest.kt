@@ -91,4 +91,90 @@ class MatchListViewModelTest {
 
             coVerify(exactly = 2) { getMatchUseCase() }
         }
+
+    @Test
+    fun `onFilterChanged updates selectedFilter and filters matches`() =
+        runTest {
+            val typeA = MatchSummary(
+                matchId = "m1",
+                type = MatchType.HAS_VENUE,
+                authorTeamName = "Thảo Điền FC",
+                venueName = "Sân An Phú",
+                startsAt = "2026-11-21T19:00:00Z",
+            )
+            val typeB = MatchSummary(
+                matchId = "m2",
+                type = MatchType.NEED_VENUE,
+                authorTeamName = "Sài Gòn United",
+                venueName = null,
+                startsAt = "2026-11-21T18:00:00Z",
+            )
+            val matchPage = MatchPage(
+                matches = listOf(typeA, typeB),
+                page = 1,
+                pageSize = 20,
+                totalPages = 1,
+                totalItems = 2,
+            )
+            coEvery { getMatchUseCase() } returns Result.Success(matchPage)
+
+            sut = MatchListViewModel(getMatchUseCase)
+            advanceUntilIdle()
+
+            assertEquals(2, sut.uiStateFlow.value.filteredMatches.size)
+
+            sut.onFilterChanged(MatchTypeFilter.HAS_VENUE)
+            advanceUntilIdle()
+
+            assertEquals(MatchTypeFilter.HAS_VENUE, sut.uiStateFlow.value.selectedFilter)
+            assertEquals(listOf(typeA), sut.uiStateFlow.value.filteredMatches)
+
+            sut.onFilterChanged(MatchTypeFilter.NEED_VENUE)
+            advanceUntilIdle()
+
+            assertEquals(MatchTypeFilter.NEED_VENUE, sut.uiStateFlow.value.selectedFilter)
+            assertEquals(listOf(typeB), sut.uiStateFlow.value.filteredMatches)
+        }
+
+    @Test
+    fun `onDateChanged updates selectedDate and filters matches`() =
+        runTest {
+            val matchToday = MatchSummary(
+                matchId = "m1",
+                type = MatchType.HAS_VENUE,
+                authorTeamName = "Thảo Điền FC",
+                venueName = "Sân An Phú",
+                startsAt = "2026-11-21T19:00:00Z",
+            )
+            val matchTomorrow = MatchSummary(
+                matchId = "m2",
+                type = MatchType.HAS_VENUE,
+                authorTeamName = "Bình Minh FC",
+                venueName = "Sân An Phú",
+                startsAt = "2026-11-22T19:00:00Z",
+            )
+            val matchPage = MatchPage(
+                matches = listOf(matchToday, matchTomorrow),
+                page = 1,
+                pageSize = 20,
+                totalPages = 1,
+                totalItems = 2,
+            )
+            coEvery { getMatchUseCase() } returns Result.Success(matchPage)
+
+            sut = MatchListViewModel(getMatchUseCase)
+            advanceUntilIdle()
+
+            sut.onDateChanged("2026-11-22")
+            advanceUntilIdle()
+
+            assertEquals("2026-11-22", sut.uiStateFlow.value.selectedDate)
+            assertEquals(listOf(matchTomorrow), sut.uiStateFlow.value.filteredMatches)
+
+            sut.onDateChanged(null)
+            advanceUntilIdle()
+
+            assertNull(sut.uiStateFlow.value.selectedDate)
+            assertEquals(2, sut.uiStateFlow.value.filteredMatches.size)
+        }
 }

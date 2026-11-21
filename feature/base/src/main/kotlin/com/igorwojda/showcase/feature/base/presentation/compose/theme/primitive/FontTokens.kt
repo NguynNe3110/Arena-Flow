@@ -7,8 +7,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.igorwojda.showcase.feature.base.R
 
-/** Bundled Be Vietnam Pro family and the source prototype's type scale. */
-internal object FontTokens {
+/** Bundled Be Vietnam Pro family and typography scale aligned with index.html. */
+object FontTokens {
     val Family =
         FontFamily(
             Font(R.font.be_vietnam_pro_thin, FontWeight.Thin),
@@ -35,13 +35,18 @@ internal object FontTokens {
     val Medium = FontWeight.Medium
     val SemiBold = FontWeight.SemiBold
     val Bold = FontWeight.Bold
+    val ExtraBold = FontWeight.ExtraBold
 
     val Size11 = 11.sp
     val Size12 = 12.sp
+    val Size13 = 13.sp
     val Size14 = 14.sp
     val Size16 = 16.sp
     val Size18 = 18.sp
+    val Size19 = 19.sp
     val Size20 = 20.sp
+    val Size22 = 22.sp
+    val Size23 = 23.sp
     val Size24 = 24.sp
     val Size26 = 26.sp
     val Size28 = 28.sp

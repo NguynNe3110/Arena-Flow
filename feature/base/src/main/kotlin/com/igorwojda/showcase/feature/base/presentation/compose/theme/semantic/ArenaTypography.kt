@@ -5,10 +5,15 @@ import androidx.compose.ui.text.TextStyle
 import com.igorwojda.showcase.feature.base.presentation.compose.theme.primitive.FontTokens
 
 /**
- * Be Vietnam Pro roles mapped from the mobile Stitch screens.
- * Web CSS pixel sizes become scalable sp; headings use bold and labels use semibold.
+ * Typography roles mapped to docs/prototype/index.html:
+ * - Brand: 23sp / Bold
+ * - h2: 30sp / Bold
+ * - h3: 19sp / Bold
+ * - body: 14sp-16sp
+ * - small / muted: 13sp
+ * - badge: 12sp / Bold
  */
-internal val ArenaTypography =
+val ArenaTypography =
     Typography(
         displayLarge =
             TextStyle(
@@ -46,7 +51,7 @@ internal val ArenaTypography =
             TextStyle(
                 fontFamily = FontTokens.Family,
                 fontWeight = FontTokens.Bold,
-                fontSize = FontTokens.Size20,
+                fontSize = FontTokens.Size23,
                 lineHeight = FontTokens.Size28,
                 letterSpacing = FontTokens.TrackingHeading,
             ),
@@ -54,8 +59,8 @@ internal val ArenaTypography =
             TextStyle(
                 fontFamily = FontTokens.Family,
                 fontWeight = FontTokens.Bold,
-                fontSize = FontTokens.Size18,
-                lineHeight = FontTokens.Size28,
+                fontSize = FontTokens.Size19,
+                lineHeight = FontTokens.Size24,
                 letterSpacing = FontTokens.TrackingHeading,
             ),
         titleLarge =
@@ -63,7 +68,7 @@ internal val ArenaTypography =
                 fontFamily = FontTokens.Family,
                 fontWeight = FontTokens.SemiBold,
                 fontSize = FontTokens.Size18,
-                lineHeight = FontTokens.Size28,
+                lineHeight = FontTokens.Size24,
                 letterSpacing = FontTokens.TrackingNone,
             ),
         titleMedium =
@@ -71,7 +76,7 @@ internal val ArenaTypography =
                 fontFamily = FontTokens.Family,
                 fontWeight = FontTokens.SemiBold,
                 fontSize = FontTokens.Size16,
-                lineHeight = FontTokens.Size24,
+                lineHeight = FontTokens.Size22,
                 letterSpacing = FontTokens.TrackingNone,
             ),
         titleSmall =
@@ -102,8 +107,8 @@ internal val ArenaTypography =
             TextStyle(
                 fontFamily = FontTokens.Family,
                 fontWeight = FontTokens.Regular,
-                fontSize = FontTokens.Size12,
-                lineHeight = FontTokens.Size16,
+                fontSize = FontTokens.Size13,
+                lineHeight = FontTokens.Size18,
                 letterSpacing = FontTokens.TrackingNone,
             ),
         labelLarge =
@@ -117,7 +122,7 @@ internal val ArenaTypography =
         labelMedium =
             TextStyle(
                 fontFamily = FontTokens.Family,
-                fontWeight = FontTokens.Medium,
+                fontWeight = FontTokens.Bold,
                 fontSize = FontTokens.Size12,
                 lineHeight = FontTokens.Size16,
                 letterSpacing = FontTokens.TrackingNone,
@@ -127,7 +132,7 @@ internal val ArenaTypography =
                 fontFamily = FontTokens.Family,
                 fontWeight = FontTokens.Medium,
                 fontSize = FontTokens.Size11,
-                lineHeight = FontTokens.Size16,
+                lineHeight = FontTokens.Size14,
                 letterSpacing = FontTokens.TrackingNone,
             ),
     )
