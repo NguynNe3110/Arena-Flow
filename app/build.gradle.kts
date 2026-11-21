@@ -19,25 +19,51 @@ android {
         buildConfigField("String", "GRADLE_SUPABASE_ANON_KEY", "\"${providers.gradleProperty("supabaseAnonKey").orElse("").get()}\"")
     }
 
+    signingConfigs {
+        create("release") {
+            val keystorePath = System.getenv("KEYSTORE_PATH")
+                ?: (project.findProperty("KEYSTORE_PATH") as? String)
+            val storePasswordProp = System.getenv("KEYSTORE_PASSWORD")
+                ?: (project.findProperty("KEYSTORE_PASSWORD") as? String)
+            val keyAliasProp = System.getenv("KEY_ALIAS")
+                ?: (project.findProperty("KEY_ALIAS") as? String)
+            val keyPasswordProp = System.getenv("KEY_PASSWORD")
+                ?: (project.findProperty("KEY_PASSWORD") as? String)
+
+            val resolvedFile = keystorePath?.let { path ->
+                val f = file(path)
+                if (f.exists()) f else rootProject.file(path)
+            }
+
+            if (resolvedFile?.exists() == true) {
+                storeFile = resolvedFile
+                storePassword = storePasswordProp
+                keyAlias = keyAliasProp
+                keyPassword = keyPasswordProp
+            } else {
+                // Fallback về debug key khi build local không có keystore release
+                initWith(getByName("debug"))
+            }
+        }
+    }
+
     buildTypes {
         getByName("debug") {
-            // theem đuôi .debug -> id sẽ thnafh com....arenaflow.debug
+            // thêm đuôi .debug -> id sẽ thành com....arenaflow.debug
             applicationIdSuffix = ".debug"
-            // (option) đổi tên app thnafh ->
+            // đổi tên app thành ArenaFlow DEBUG
             resValue("string", "app_name", "ArenaFlow DEBUG")
         }
 
         getByName("release") {
-            // cần key để kí TODO sign keystore
-            // id giữ nguyên gốc
-            signingConfig = signingConfigs.getByName("debug") // dòng này để kí key
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
             proguardFiles("proguard-android.txt", "proguard-rules.pro")
         }
     }
 
     buildFeatures {
-        resValues = true // bat tinh nang resValue
+        resValues = true // bật tính năng resValue
     }
 }
 
