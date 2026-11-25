@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = "com.uzuu.pairing"
+    namespace = "com.igorwojda.showcase.feature.pairing"
 }

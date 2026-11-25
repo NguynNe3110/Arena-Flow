@@ -1,5 +1,7 @@
 # ArenaFlow — Truy vết màn hình, sheet và trạng thái Android
 
+> **Cập nhật 25/11/2026:** Toàn bộ 11 feature modules (`auth`, `profile`, `team`, `venue`, `match`, `pairing`, `mercenary`, `chat`, `notification`, `reputation`, `admin`), `:feature:base` và `:app` đã được triển khai đầy đủ theo [progress.md](progress.md) với tách biệt `src/debug` (mock store) và `src/release` (Retrofit thật).
+
 Ngày lập: 21/11/2026. Kế hoạch cha: [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md).
 Nguồn thị giác: [prototype/index.html](../prototype/index.html).
 Nguồn danh mục: mục 6 [PROTOTYPE_HANDOFF.md](../prototype/PROTOTYPE_HANDOFF.md); nghiệp vụ phải kiểm với API chuyên biệt mới nhất.

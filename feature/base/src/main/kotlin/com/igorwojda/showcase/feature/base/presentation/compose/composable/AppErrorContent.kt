@@ -23,7 +23,12 @@ fun AppErrorContent(
     modifier: Modifier = Modifier,
 ) {
     var dialogVisible by rememberSaveable(error) { mutableStateOf(true) }
-    val message = stringResource(error.messageResource())
+    val message =
+        if (error is AppError.DomainError) {
+            error.message
+        } else {
+            stringResource(error.messageResource())
+        }
     val canRetry = error == AppError.Network || error == AppError.Server
     Column(modifier = modifier) {
         Text(message)
@@ -56,5 +61,5 @@ private fun AppError.messageResource(): Int =
         AppError.Unauthorized -> R.string.error_unauthorized
         AppError.Server -> R.string.error_server
         AppError.NotFound -> R.string.error_not_found
-        AppError.Unknown -> R.string.error_unknown
+        AppError.Unknown, is AppError.DomainError -> R.string.error_unknown
     }

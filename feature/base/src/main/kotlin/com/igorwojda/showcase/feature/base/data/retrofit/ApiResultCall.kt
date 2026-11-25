@@ -19,10 +19,20 @@ internal class ApiResultCall<T> constructor(
                 ) {
                     val body = response.body()
                     val result: ApiResult<T> =
-                        if (response.isSuccessful && body != null) {
-                            ApiResult.Success(body)
-                        } else {
-                            ApiResult.Error<T>(response.code(), response.message())
+                        when {
+                            response.isSuccessful && body != null -> {
+                                ApiResult.Success(body)
+                            }
+
+                            response.isSuccessful && (response.code() == 204 || response.code() == 205) -> {
+                                @Suppress("UNCHECKED_CAST")
+                                ApiResult.Success(Unit as T)
+                            }
+
+                            else -> {
+                                val rawError = runCatching { response.errorBody()?.string() }.getOrNull()
+                                ApiResult.Error(response.code(), response.message(), rawError)
+                            }
                         }
                     callback.onResponse(this@ApiResultCall, Response.success(result))
                 }

@@ -2,17 +2,24 @@ rootProject.name = "ArenaFlow"
 
 include(
     ":app",
-    ":feature:album",
-    ":feature:settings",
-    ":feature:favourite",
     ":feature:base",
+    ":feature:auth",
+    ":feature:profile",
+    ":feature:team",
+    ":feature:venue",
+    ":feature:match",
+    ":feature:pairing",
+    ":feature:mercenary",
+    ":feature:chat",
+    ":feature:notification",
+    ":feature:reputation",
+    ":feature:admin",
     ":library:test-utils",
+    ":konsist-test",
 )
-include(":konsist-test") // có thể chỉ viết thành 1line
 
 pluginManagement {
-    includeBuild("build-logic") // cơ chế composite build
-    // vì thế có thể đặt tên folder là gì cũng được (tìm hiểu về buildSrc root project)
+    includeBuild("build-logic")
     repositories {
         gradlePluginPortal()
         google()
@@ -24,17 +31,9 @@ pluginManagement {
 dependencyResolutionManagement {
     repositories {
         google()
-        // Added for testing local Konsist artifacts
         mavenLocal()
         mavenCentral()
     }
 }
 
-// Generate type safe accessors when referring to other projects eg.
-// Before: implementation(project(":feature_album"))
-// After: implementation(projects.featureAlbum)
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-include(":feature:match")
-include(":feature:pairing")
-include(":feature:mercenary")
-include(":feature:team")

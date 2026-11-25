@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">ArenaFlow</string>
-    <string name="bottom_navigation_match">Tìm Kèo</string>
-
-    <string name="bottom_navigation_signle_match">Đá lẻ</string>
+    <string name="bottom_navigation_match">Tìm kèo</string>
+    <string name="bottom_navigation_single_match">Đá lẻ</string>
+    <string name="bottom_navigation_myteam">Đội bóng</string>
     <string name="bottom_navigation_message">Tin nhắn</string>
-    <string name="bottom_navigation_myteam">Đội của tôi</string>
+    <string name="bottom_navigation_profile">Hồ sơ</string>
 </resources>

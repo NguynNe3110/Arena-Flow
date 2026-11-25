@@ -2,10 +2,12 @@ package com.igorwojda.showcase.app.data.retrofit
 
 import com.igorwojda.showcase.app.BuildConfig
 import com.igorwojda.showcase.app.data.retrofit.interceptor.AuthenticationInterceptor
+import com.igorwojda.showcase.app.data.retrofit.interceptor.TokenRefreshAuthenticator
 import com.igorwojda.showcase.app.data.retrofit.interceptor.UserAgentInterceptor
 import com.igorwojda.showcase.feature.base.data.retrofit.ApiResultAdapterFactory
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,34 +16,17 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import timber.log.Timber
 
-/** Provides Retrofit, OkHttp and their interceptors. */
+/** Provides Retrofit, OkHttp and their interceptors for ArenaFlow REST API (`/api/v1`). */
 val retrofitModule =
     module {
-        single { AuthenticationInterceptor(BuildConfig.GRADLE_API_TOKEN) }
-
+        singleOf(::AuthenticationInterceptor)
+        singleOf(::TokenRefreshAuthenticator)
         singleOf(::UserAgentInterceptor)
 
-        /*
-         * OkHttp logging interceptor with custom Timber logger.
-         *
-         * By default, HttpLoggingInterceptor uses the calling class name as the log tag which clutters Logcat and makes filtering harder.
-         *
-         * This custom configuration ensures:
-         * - All HTTP logs are tagged consistently as `"Network"`.
-         * - Logs are printed through Timber (instead of Android's `Log`).
-         * - Logging level is set to BODY to include headers and payloads.
-         */
         single {
             HttpLoggingInterceptor { message ->
                 Timber.tag("Network").d(message)
             }.apply {
-                /*
-                Use BODY logging only in debug builds.
-                Even if Timber.DebugTree() is planted only in debug, the interceptor still
-                reads/constructs request/response bodies when level = BODY.
-                This adds unnecessary overhead and may leak sensitive data if any logger
-                is active in production. Setting NONE in release avoids both risks.
-                 */
                 level =
                     if (BuildConfig.DEBUG) {
                         HttpLoggingInterceptor.Level.BODY
@@ -60,17 +45,17 @@ val retrofitModule =
                     }
                     addInterceptor(get<AuthenticationInterceptor>())
                     addInterceptor(get<UserAgentInterceptor>())
+                    authenticator(get<TokenRefreshAuthenticator>())
                 }.build()
         }
 
         single {
             val contentType = "application/json".toMediaType()
-
             val json =
-                kotlinx.serialization.json.Json {
-                    // By default Kotlin serialization will serialize all of the keys present in JSON object and throw an
-                    // exception if given key is not present in the Kotlin class. This flag allows to ignore JSON fields
+                Json {
                     ignoreUnknownKeys = true
+                    explicitNulls = false
+                    encodeDefaults = true
                 }
 
             @OptIn(ExperimentalSerializationApi::class)

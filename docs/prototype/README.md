@@ -1,71 +1,87 @@
-# ArenaFlow — Thiết kế tham khảo
+# ArenaFlow — Nguyên Mẫu 16 Màn Hình Chuẩn (Stitch 16710701957767846160)
 
-## Nguồn thiết kế Android đã chốt ngày 21/11/2026
+## Nguồn thiết kế UI Android đã chốt
 
-Theo lựa chọn mới của chủ dự án, **[index.html trong thư mục này](index.html) là chuẩn thị giác cho UI Android**. Đây là file `docs/prototype/index.html`, không phải index dưới `complete/` hoặc `stitch/`.
+Theo lựa chọn chính thức của chủ dự án ngày 21/11/2026:
+- **[docs/prototype/index.html](index.html) là chuẩn thị giác cho toàn bộ UI Android ArenaFlow.**
+- Nguyên mẫu tích hợp đầy đủ **16 màn hình Auth, Hồ sơ & Đội bóng** từ dự án Google Stitch **[16710701957767846160](https://stitch.google.com/u/4/projects/16710701957767846160?pli=1)**.
+- 16 màn hình này khớp hoàn toàn 1:1 với 16 ảnh thiết kế tham chiếu tại `docs/prototype/images/` và 16 file HTML nguyên bản tại `docs/prototype/stitch/16710701957767846160/screens/`.
 
-Kế hoạch triển khai đầy đủ, gồm sửa UI chính và bổ sung splash/onboarding/auth/hồ sơ/các màn phụ: **[Android UI Implementation Plan](../android-ui/IMPLEMENTATION_PLAN.md)** và **[bảng truy vết 101 ID](../android-ui/screen-coverage.md)**.
+Bảng đăng ký và ánh xạ chi tiết được lưu trữ tại **[docs/prototype/stitch/16710701957767846160/mapping_16_screens.json](stitch/16710701957767846160/mapping_16_screens.json)**.
 
-Các màn chưa có trong 8 view của index.html kế thừa cùng hệ màu, chữ, field, button và khoảng cách. API chuyên biệt hiện hành quyết định field/quyền/hành vi. Không dùng stitch-preview.html, export Stitch hoặc complete/design-system.md làm theme/layout thay thế cho đợt này.
+---
 
-Dự án Stitch nguồn [ArenaFlow — 2789586751825382546](https://stitch.google.com/u/4/projects/2789586751825382546?pli=1), [bản xuất](stitch/2789586751825382546/index.html) và manifest được giữ làm tài liệu lịch sử; không sửa thiết kế gốc.
+## Danh mục 16 Màn Hình Chuẩn Hóa
 
-## Tài liệu bàn giao prototype trước đây
+| Mã | Tên Màn Hình | Ảnh Tham Chiếu (`images/`) | File Nguồn Stitch (`screens/`) | Mô Tả & Nghiệp Vụ |
+| :--- | :--- | :--- | :--- | :--- |
+| **S1** | **Đăng nhập** | `login.png` | `9321802030056360865.html` | Hero header xanh đậm `#14532D`, logo ArenaFlow, pitch line SVG, các nút Google, Facebook, Số điện thoại |
+| **S2a** | **Đăng nhập SĐT (bước 1)** | `loginbyphone.png` | `2595995208035978610.html` | Nhập số điện thoại, chọn mã vùng, điều khoản sử dụng |
+| **S2b** | **Nhập mã OTP (bước 2)** | `nhập mã xác thực .png` | `16400415370137070312.html` | Nhập 6 chữ số OTP, đếm ngược thời gian, gửi lại mã xác thực |
+| **S3** | **Hồ sơ cá nhân** | `hồ sơ cá nhân.png` | `6529945131439634299.html` | Thông tin cầu thủ Nguyễn Văn A, vị trí sở trường, điểm uy tín cá nhân, danh sách đội, nút sửa hồ sơ & xóa TK |
+| **S4** | **Sửa hồ sơ** | `sửa hồ sơ.png` | `15248344246426653022.html` | Đổi ảnh đại diện, họ tên, số điện thoại, chọn vị trí (Thủ môn/Hậu vệ/Tiền vệ/Tiền đạo), chân thuận, tiểu sử |
+| **S5** | **Xóa tài khoản** | `xóa tài khoản.png` | `9103943821149371607.html` | Cảnh báo hệ quả không thể hoàn tác, điều kiện bàn giao quyền đội trưởng trước khi xóa, nút xác nhận xóa |
+| **S6** | **Danh sách đội** | `danh-sách đội.png` | `15751446206081935958.html` | Tìm kiếm đội bóng, lời mời gia nhập, danh sách đội tham gia (FC Sao Mai, Cầu Giấy United), nút tạo đội |
+| **S7** | **Tạo đội** | `tạo đội.png` | `4941702336417157845.html` | Nhập tên đội, slogan, avatar, khu vực hoạt động, phong cách thi đấu, tiêu chí rèn luyện |
+| **S8a** | **Chi tiết đội** | `chi tiết đội.png` | `1225597043044174334.html` | Hồ sơ FC Sao Mai, huy hiệu đội trưởng, tabs thành viên (5 người) và lịch sử đội trưởng, nút mời thành viên |
+| **S8b** | **Chi tiết đội đã giải tán** | `chi tiết đội đã giải tán.png` | `15854622351192451723.html` | Đội bóng FC Sấm Sét ở trạng thái đã giải tán, nhật ký ban cán sự và lịch sử lưu trữ chỉ đọc |
+| **S9** | **Mời thành viên (Sheet)** | `mời thành viên dạng bottom sheet.png` | `6653989197064971013.html` | Bottom sheet tìm kiếm người dùng theo SĐT/ID, sao chép liên kết mời thành viên vào FC Sao Mai |
+| **S10** | **Chuyển quyền đội trưởng** | `chuyển quyền đội trưởng.png` | `3357117809017039066.html` | Danh sách thành viên đội, chọn người kế nhiệm làm đội trưởng, cảnh báo mất quyền quản trị ngay lập tức |
+| **S11** | **Rời đội (Sheet)** | `rời đội dạng bottom sheet.png` | `5773400381173959441.html` | Bottom sheet xác nhận rời đội bóng FC Sao Mai, quy định bàn giao trước khi rời |
+| **S12** | **Giải tán đội (Sheet)** | `giải tán đội dạng bottom sheet.png` | `16418524991311438402.html` | Bottom sheet cảnh báo đỏ xác nhận giải tán vĩnh viễn FC Sao Mai, chuyển toàn bộ dữ liệu sang lưu trữ |
+| **S13** | **Đội trưởng quản lý đội** | `đội trưởng quản lý đội.png` | `10716029106654971628.html` | Màn quản trị đội bóng: danh sách đội quản lý, khoá đội, xem lịch sử thành viên, điều hướng phân quyền |
+| **S14** | **Lịch sử thành viên đội** | `đội trưởng lịch sử thành viên đội.png` | `12681439629219777266.html` | Nhật ký thành viên FC Sấm Sét: ngày tham gia, ngày rời đội, vai trò đội trưởng/thành viên |
 
-Phần này là lịch sử công việc prototype. Khi triển khai Android, ưu tiên kế hoạch mới ở trên; trạng thái “hoàn thành” của HTML không đồng nghĩa Android đã có màn hoặc đã khớp index.html.
+---
 
-Dùng [PROTOTYPE_HANDOFF.md](PROTOTYPE_HANDOFF.md) để giao AI khác xây dựng prototype đầy đủ trước khi triển khai UI Android. Tài liệu có prompt sao chép ở mục 2, danh mục màn/sheet/trạng thái, hành trình hai phía, phụ thuộc API, gói thực hiện và tiêu chí nghiệm thu. Bản làm việc mới được đề xuất đặt tại `docs/prototype/complete/`; tài liệu hướng dẫn đã tạo, prototype đầy đủ chưa được triển khai.
+## Hệ Thống Thiết Kế Chuẩn Hóa
 
-## Lịch sử thử nghiệm và các nguồn khác
+- **Typography**: Google Fonts `Be Vietnam Pro` (weights 400, 500, 600, 700).
+- **Bộ icon**: Google `Material Symbols Outlined`.
+- **Màu sắc chủ đạo**:
+  - `Header Deep Green`: `#14532D` (Xanh sân bóng đậm kết hợp họa tiết đường kẻ sân cỏ bóng đá SVG).
+  - `primary`: `#3D6943`
+  - `primary-container`: `#BDEFBF` / `#2F5B36`
+  - `surface` & `background`: `#F8FAF3`
+  - `surface-container`: `#EAF0E6`
+  - `surface-container-lowest`: `#FFFFFF`
+  - `on-surface`: `#2D342C`
+  - `outline`: `#757D73`
+  - `outline-variant`: `#ACB4A9` / `#E5E7EB`
+  - `error`: `#A73B21` / `#6E1400`
+- **Khung nhìn chuẩn di động**: Giả lập cố định 390px (Mobile Web 390px target).
+- **Họa tiết sân bóng**: SVG kẻ vạch sân thi đấu mờ (`field-lines`) đặc trưng cho nhận diện thương hiệu ArenaFlow.
 
-`STITCH_PROMPT.md`, `stitch-project.json`, `stitch-preview.html` và `stitch/original/` thuộc lần thử trước. Dự án `16710701957767846160` được tạo riêng do hiểu nhầm; không phải dự án được bạn chia sẻ. Trạng thái timeout bên dưới là ghi nhận lịch sử.
+---
 
-Root `index.html` vốn được tạo trong giai đoạn thử nghiệm, nhưng đã được chủ dự án chọn lại làm chuẩn thị giác Android ngày 21/11/2026. Chỉ dẫn cũ loại index.html khỏi nguồn thiết kế được thay bằng quyết định mới ở đầu tài liệu.
+## Trải Nghiệm Tương Tác & Điều Hướng
 
-Bản thử giao diện cục bộ dựa trên spec trước đó. Dữ liệu minh hoạ, không kết nối backend.
+Mở **[docs/prototype/index.html](index.html)** trong trình duyệt (hoặc Live Server / Open in Browser):
 
-## Nguồn
+1. **Thanh chuyển màn hình nhanh (Screen Switcher Bar)**:
+   - Cố định ở đầu trang, chứa đủ 16 nút tương ứng với 16 màn hình (`S1` đến `S14`).
+   - Màn hình đang kích hoạt được đánh dấu nổi bật bằng badge trắng viền xanh và đồng bộ hash URL (`#S1`...`#S14`).
+2. **Luồng điều hướng tự nhiên từng bước**:
+   - `S1 (Đăng nhập)` ➔ Bấm *"Tiếp tục bằng số điện thoại"* ➔ `S2a`.
+   - `S2a (Nhập SĐT)` ➔ Bấm *"Tiếp tục"* ➔ `S2b`.
+   - `S2b (Nhập OTP)` ➔ Bấm *"Xác nhận & Đăng nhập"* ➔ `S3 (Hồ sơ cá nhân)`.
+   - `S3 (Hồ sơ)` ➔ Bấm *"Sửa hồ sơ"* ➔ `S4`; hoặc bấm *"Xoá tài khoản"* ➔ `S5`; hoặc bấm Menu ➔ `S6 (Danh sách đội)`.
+   - `S6 (Danh sách đội)` ➔ Bấm *"+ Tạo đội"* ➔ `S7`; bấm vào thẻ *"FC Sao Mai"* ➔ `S8a (Chi tiết đội)`; bấm vào *"FC Sấm Sét"* ➔ `S8b (Đã giải tán)`.
+   - `S8a (Chi tiết đội)` ➔ Khối thao tác nhanh tích hợp mở trực tiếp `S9 (Mời TV)`, `S10 (Chuyển quyền)`, `S11 (Rời đội)`, `S12 (Giải tán)`, `S13 (Quản trị)`.
+   - `S13 (Quản trị)` ➔ Bấm *"Lịch sử thành viên"* ➔ `S14`.
+   - Mọi màn hình con đều có nút mũi tên quay lại (`arrow_back`) và nút "Huỷ" đưa về màn hình trước đó một cách mượt mà.
 
-- [Tổng quan hệ thống](../ArenaFlow-spec/business-spec/SYSTEM-001/Overview.md)
-- [Kèo và vòng đời](../ArenaFlow-spec/api/MATCH-001/API_Spec.md)
-- [Thương lượng hai đội](../ArenaFlow-spec/api/MATCH-002/API_Spec.md)
-- [Tuyển người lẻ](../ArenaFlow-spec/api/MERCENARY-001/API_Spec.md)
+---
 
-## Phạm vi bản thử
+## Kiểm Thử & Xác Minh Tự Động
 
-1. Khám phá kèo: lọc thời gian, khu vực, định dạng, phân biệt đã có sân / chưa có sân.
-2. Chi tiết kèo đã có sân: đội, uy tín, sân, giờ, thỏa thuận chi phí; chọn đội trước khi gửi yêu cầu; mở chat khi yêu cầu chờ duyệt.
-3. Tạo kèo: hai lựa chọn đã có sân / chưa có sân; luồng B có 1–5 địa điểm và 1–5 khung giờ.
-4. Thương lượng: chat và gói xác nhận riêng; chọn sân + giờ; sửa gói xóa xác nhận hai bên; chỉ hoàn tất khi cả hai xác nhận.
-5. Tìm người lẻ: vị trí, khoảng cách mặc định 3 km; trước khi duyệt chỉ hiện phường/tỉnh và khoảng cách, ẩn tên sân/địa chỉ.
-6. Hồ sơ đội: điểm uy tín độc lập điểm cá nhân, tỉ lệ hoàn thành chỉ khi đủ 5 trận.
+File kiểm thử `docs/prototype/verify.cjs` đã được cập nhật kiểm tra tự động toàn diện:
+```bash
+node docs/prototype/verify.cjs
+```
 
-## Hướng thiết kế dự kiến
-
-Giao diện tiếng Việt, mobile-first, nền sáng dễ đọc ngoài trời, xanh sân cỏ và chữ tối. Dùng bố cục danh sách rõ ràng, nút chạm ít nhất 48px, trạng thái có nhãn chữ. Đây là hướng thử nghiệm có thể đổi sau khi xem.
-
-## Giới hạn nghiệp vụ
-
-ArenaFlow không đặt sân hay thu/giữ/hoàn tiền. Chi phí/cọc chỉ là thỏa thuận. Không dùng chat để thay thế nút xác nhận gói. Không cho sửa kèo sau tạo; phải hủy và tạo lại. Push điện thoại chưa nằm trong bản hiện tại.
-
-## Xem bản thử
-
-Mở [index.html](index.html) bằng trình duyệt (double-click file hoặc Open in Browser trong IDE). File tự chứa CSS và JavaScript, không cần cài package hay chạy server.
-
-Có thể thử: lọc loại kèo → xem chi tiết → gửi yêu cầu → chat; tạo kèo; mở kèo chưa có sân → xác nhận một bên → mô phỏng bên kia; đổi sân/giờ trước khi hoàn tất để thấy hai xác nhận được xóa; ứng tuyển đá lẻ.
-
-## Trạng thái kiểm tra
-
-- Kiểm tra script: 8 màn render không lỗi; đổi phương án xóa xác nhận; đủ hai xác nhận mới hiển thị đã ghép.
-- Kiểm tra cơ học Impeccable: không có phát hiện.
-- Chưa kiểm tra trực quan trên trình duyệt do công cụ computer-use không kết nối được.
-- Bản này là prototype cục bộ, chưa phải bản xuất từ Stitch; chưa mô phỏng đầy đủ mọi validation, phân trang, cạnh tranh đồng thời hoặc mọi trạng thái lỗi API.
-- Ngày 17/11/2026: MCP Stitch đã kết nối. Đã kiểm tra cả `view=owned` và `view=shared`, đều trả về danh sách trống trước khi tạo dự án.
-- Dự án đã tạo: [ArenaFlow trên Stitch](https://stitch.withgoogle.com/projects/16710701957767846160), ID `16710701957767846160`. Thông tin tiếp tục: [stitch-project.json](stitch-project.json).
-- Đã gửi nguyên brief 6 màn đúng một lần. Lệnh generation trả về `Request timed out`. Sau 10 lần kiểm tra (cách khoảng 30 giây), `list_screens` vẫn trả về `{}`; chưa lấy được ID màn hình hay HTML riêng lẻ. Không gửi lại generation để tránh trùng.
-- `get_project` đã có thumbnail. Đã tải bằng MCP `download_file` và lưu ảnh PNG nhúng trong [stitch-preview.html](stitch-preview.html). Đây là ảnh màn Đá lẻ do Stitch trả về, không phải bản xuất đủ 6 màn.
-- Đã xem ảnh: có thông tin tuyển thủ môn và ẩn sân trước duyệt; còn lệch brief ở bán kính đang chọn 2,5 km (mặc định yêu cầu 3 km), chưa thấy nhãn dữ liệu mẫu và xuất hiện nội dung bổ sung chưa được brief xác nhận. Chưa xác minh tương tác, đủ 6 màn, hoặc toàn bộ quy tắc nghiệp vụ.
-- Khi tiếp tục: dùng lại project ID này, kiểm tra `list_screens` và `get_project` trước; khi có màn thì tải HTML/ảnh và sửa các điểm lệch brief. Chưa thể tuyên bố prototype Stitch hoàn tất.
-- Prompt để tiếp tục trên Stitch: [STITCH_PROMPT.md](STITCH_PROMPT.md).
-
-`verify.cjs` là kiểm tra trên bản script chụp tại thời điểm tạo, không thay thế kiểm thử trình duyệt; cần cập nhật khi sửa index.html.
+Kết quả:
+- **16/16 màn hình** render thành công với đầy đủ mã đánh dấu và nội dung từ Stitch.
+- Liên kết font **Be Vietnam Pro**, màu **#14532D**, **Tailwind CSS**, và **Material Symbols Outlined** được kiểm tra nguyên vẹn.
+- Thanh chọn 16 màn hình (`btn-tab-S1` đến `btn-tab-S14`) hoạt động trơn tru.
+- Toàn bộ luồng chuyển màn hình từng bước được mô phỏng và xác nhận hợp lệ.

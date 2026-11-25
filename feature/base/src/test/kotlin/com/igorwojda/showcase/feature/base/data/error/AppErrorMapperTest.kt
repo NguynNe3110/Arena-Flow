@@ -1,8 +1,10 @@
+@file:Suppress("StringShouldBeRawString")
+
 package com.igorwojda.showcase.feature.base.data.error
 
+import com.igorwojda.showcase.feature.base.data.supabase.supabaseResult
 import com.igorwojda.showcase.feature.base.domain.error.AppError
 import com.igorwojda.showcase.feature.base.domain.result.Result
-import com.igorwojda.showcase.feature.base.data.supabase.supabaseResult
 import io.github.jan.supabase.exceptions.RestException
 import io.mockk.every
 import io.mockk.mockk
@@ -11,6 +13,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class AppErrorMapperTest {
@@ -32,6 +35,25 @@ class AppErrorMapperTest {
         assertEquals(AppError.Server, httpError(429))
         assertEquals(AppError.Unknown, httpError(400))
         assertEquals(AppError.Network, IOException().toAppError())
+    }
+
+    @Test
+    fun `apiErrorToAppError parses ArenaFlow error envelope`() {
+        val rawJson =
+            "{" +
+                "\"error\":{" +
+                "\"code\":\"USER_003\"," +
+                "\"message\":\"Bạn phải chuyển quyền đội trưởng hoặc giải tán đội trước khi xóa tài khoản\"," +
+                "\"validationErrors\":[{\"field\":\"phone\",\"message\":\"Số điện thoại không hợp lệ\"}]" +
+                "}" +
+                "}"
+
+        val actual = apiErrorToAppError(422, rawJson)
+        assertTrue(actual is AppError.DomainError)
+        val domainError = actual as AppError.DomainError
+        assertEquals("USER_003", domainError.code)
+        assertEquals(422, domainError.httpStatus)
+        assertEquals("Số điện thoại không hợp lệ", domainError.fieldErrors["phone"])
     }
 
     @Test

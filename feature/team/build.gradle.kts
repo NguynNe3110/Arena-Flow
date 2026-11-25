@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = "com.uzuu.team"
+    namespace = "com.igorwojda.showcase.feature.team"
 }

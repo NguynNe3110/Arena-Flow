@@ -3,6 +3,7 @@ package com.igorwojda.showcase.feature.base.data.retrofit
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
+import java.io.IOException
 import kotlinx.coroutines.CancellationException
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -12,7 +13,6 @@ import org.junit.jupiter.api.Test
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.IOException
 
 class ApiResultCallTest {
     private val delegate = mockk<Call<String>>()
@@ -22,7 +22,7 @@ class ApiResultCallTest {
     private var failure: Throwable? = null
 
     private fun enqueue() {
-        every { delegate.enqueue(capture(delegateCallback)) } answers { Unit }
+        every { delegate.enqueue(capture(delegateCallback)) } answers { /* no-op */ }
         every { delegate.isCanceled } returns false
         sut.enqueue(
             object : Callback<ApiResult<String>> {
@@ -52,6 +52,36 @@ class ApiResultCallTest {
             assertTrue(result is ApiResult.Error)
             assertEquals(code, (result as ApiResult.Error).code)
         }
+    }
+
+    @Test
+    fun `204 No Content succeeds with Unit`() {
+        val unitDelegate = mockk<Call<Unit>>()
+        val unitCallback = slot<Callback<Unit>>()
+        val unitSut = ApiResultCall(unitDelegate)
+        var unitResult: ApiResult<Unit>? = null
+        every { unitDelegate.enqueue(capture(unitCallback)) } answers { /* no-op */ }
+        every { unitDelegate.isCanceled } returns false
+
+        unitSut.enqueue(
+            object : Callback<ApiResult<Unit>> {
+                override fun onResponse(
+                    call: Call<ApiResult<Unit>>,
+                    response: Response<ApiResult<Unit>>,
+                ) {
+                    unitResult = response.body()
+                }
+
+                override fun onFailure(
+                    call: Call<ApiResult<Unit>>,
+                    throwable: Throwable,
+                ) = Unit
+            },
+        )
+
+        val emptyUnit: Unit? = null
+        unitCallback.captured.onResponse(unitDelegate, Response.success(204, emptyUnit))
+        assertTrue(unitResult is ApiResult.Success)
     }
 
     @Test

@@ -14,6 +14,7 @@ sealed interface ApiResult<T> {
     data class Error<T>(
         val code: Int,
         val message: String?,
+        val errorBody: String? = null,
     ) : ApiResult<T>
 
     /**

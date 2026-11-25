@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = "com.uzuu.mercenary"
+    namespace = "com.igorwojda.showcase.feature.mercenary"
 }

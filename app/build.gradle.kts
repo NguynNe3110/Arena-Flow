@@ -19,21 +19,28 @@ android {
         buildConfigField("String", "GRADLE_SUPABASE_ANON_KEY", "\"${providers.gradleProperty("supabaseAnonKey").orElse("").get()}\"")
     }
 
-    signingConfigs {
-        create("release") {
-            val keystorePath = System.getenv("KEYSTORE_PATH")
-                ?: (project.findProperty("KEYSTORE_PATH") as? String)
-            val storePasswordProp = System.getenv("KEYSTORE_PASSWORD")
-                ?: (project.findProperty("KEYSTORE_PASSWORD") as? String)
-            val keyAliasProp = System.getenv("KEY_ALIAS")
-                ?: (project.findProperty("KEY_ALIAS") as? String)
-            val keyPasswordProp = System.getenv("KEY_PASSWORD")
-                ?: (project.findProperty("KEY_PASSWORD") as? String)
+    val releaseName = "release"
 
-            val resolvedFile = keystorePath?.let { path ->
-                val f = file(path)
-                if (f.exists()) f else rootProject.file(path)
-            }
+    signingConfigs {
+        create(releaseName) {
+            val keystorePath =
+                System.getenv("KEYSTORE_PATH")
+                    ?: (project.findProperty("KEYSTORE_PATH") as? String)
+            val storePasswordProp =
+                System.getenv("KEYSTORE_PASSWORD")
+                    ?: (project.findProperty("KEYSTORE_PASSWORD") as? String)
+            val keyAliasProp =
+                System.getenv("KEY_ALIAS")
+                    ?: (project.findProperty("KEY_ALIAS") as? String)
+            val keyPasswordProp =
+                System.getenv("KEY_PASSWORD")
+                    ?: (project.findProperty("KEY_PASSWORD") as? String)
+
+            val resolvedFile =
+                keystorePath?.let { path ->
+                    val f = file(path)
+                    if (f.exists()) f else rootProject.file(path)
+                }
 
             if (resolvedFile?.exists() == true) {
                 storeFile = resolvedFile
@@ -55,8 +62,8 @@ android {
             resValue("string", "app_name", "ArenaFlow DEBUG")
         }
 
-        getByName("release") {
-            signingConfig = signingConfigs.getByName("release")
+        getByName(releaseName) {
+            signingConfig = signingConfigs.getByName(releaseName)
             isMinifyEnabled = false
             proguardFiles("proguard-android.txt", "proguard-rules.pro")
         }
@@ -73,12 +80,15 @@ dependencies {
     implementation(libs.ktor.client.okhttp)
     // "projects." Syntax utilizes Gradle TYPESAFE_PROJECT_ACCESSORS feature
     implementation(projects.feature.base)
-    implementation(projects.feature.album)
-    implementation(projects.feature.settings)
-    implementation(projects.feature.favourite)
-
+    implementation(projects.feature.auth)
+    implementation(projects.feature.profile)
+    implementation(projects.feature.team)
+    implementation(projects.feature.venue)
     implementation(projects.feature.match)
     implementation(projects.feature.pairing)
     implementation(projects.feature.mercenary)
-    implementation(projects.feature.team)
+    implementation(projects.feature.chat)
+    implementation(projects.feature.notification)
+    implementation(projects.feature.reputation)
+    implementation(projects.feature.admin)
 }
